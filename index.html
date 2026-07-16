@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>My Astronomy Website</title>
+        <link rel="stylesheet" href="Astronomy.css" />
+        <style>
+            #Index-Background {
+                background: linear-gradient(135deg, #02030a, #0b0f1f);
+            }
+
+            .Index-Hero {
+                text-align: center;
+                color: #a6b0d6;
+                font-family: "Bruno Ace SC", system-ui, sans-serif;
+                padding: 3rem 2rem 1rem;
+            }
+
+            .Index-Hero h1 {
+                margin: 0 0 1rem;
+                font-size: clamp(2rem, 5vw, 3rem);
+            }
+
+            .Index-Hero p {
+                margin: 0 auto;
+                max-width: 720px;
+                font-size: 1.1rem;
+                line-height: 1.6;
+            }
+
+            .Page-Cards {
+                max-width: 980px;
+                margin: 2rem auto 4rem;
+                padding: 0 1.5rem;
+                display: grid;
+                gap: 2rem;
+            }
+
+            .Page-Card {
+                background: linear-gradient(135deg, #01030a, #05081a);
+                border: 2px solid rgba(255, 255, 255, 0.25);
+                border-radius: 16px;
+                padding: 1.5rem 2rem 2rem;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+            }
+
+            .Page-Card h2 {
+                margin: 0 0 0.5rem;
+                color: #cbd5ff;
+                font-family: "Keania One", system-ui, sans-serif;
+                font-size: 1.75rem;
+            }
+
+            .Page-Card .Page-Link {
+                display: inline-block;
+                margin-bottom: 1rem;
+                color: #4da3ff;
+                font-weight: bold;
+                text-decoration: none;
+            }
+
+            .Page-Card .Page-Link:hover {
+                color: #8fa9ff;
+            }
+
+            .Page-Card .Summary {
+                color: #a6b0d6;
+                font-family: "Bruno Ace SC", system-ui, sans-serif;
+                line-height: 1.6;
+                margin: 0 0 1rem;
+            }
+
+            .Page-Card h3 {
+                color: #8fa9ff;
+                font-size: 1rem;
+                margin: 1.25rem 0 0.5rem;
+                font-family: "Finger Paint", system-ui, sans-serif;
+            }
+
+            .Page-Card ul {
+                margin: 0;
+                padding-left: 1.25rem;
+                color: #cbd5ff;
+                line-height: 1.7;
+            }
+
+            .Index-Footer {
+                text-align: center;
+                color: #7f8bb3;
+                padding: 0 1rem 3rem;
+                font-family: "Macondo", serif;
+                font-size: 1.25rem;
+            }
+        </style>
+    </head>
+    <body id="Index-Background">
+        <nav>
+            <p>Astronomy</p>
+            <ul>
+                <li><a href="index.html">Index</a></li>
+                <li><a href="Home.html">Home</a></li>
+                <li><a href="Solar-System.html">Solar System</a></li>
+                <li><a href="Messier-Objects.html">Messier Objects</a></li>
+                <li><a href="Tools.html">Tools</a></li>
+            </ul>
+        </nav>
+
+        <header class="Index-Hero">
+            <h1>My Astronomy Website</h1>
+            <p>
+                Welcome to your guide to the cosmos. Browse every section below, then open any page to explore planets,
+                deep-sky objects, and stargazing tools in detail.
+            </p>
+        </header>
+
+        <main class="Page-Cards">
+            <article class="Page-Card">
+                <h2>Home</h2>
+                <a class="Page-Link" href="Home.html">Open Home.html →</a>
+                <p class="Summary">
+                    The main introduction to the site. Explains the purpose of the project, previews each major section,
+                    and shares why this website is a helpful starting point for learning astronomy.
+                </p>
+                <h3>What's inside</h3>
+                <ul>
+                    <li>Hero section: “Explore the Universe Beyond Earth”</li>
+                    <li>Introduction to the website and its goals</li>
+                    <li>Featured previews of Solar System, Messier Objects, and Telescope Tools</li>
+                    <li>Why This Website — simple explanations, visual learning, organized topics</li>
+                    <li>Carl Sagan quote: “Across the sea of space, the stars are other suns.”</li>
+                    <li>Link to NASA via the main homepage image</li>
+                </ul>
+            </article>
+
+            <article class="Page-Card">
+                <h2>Solar System</h2>
+                <a class="Page-Link" href="Solar-System.html">Open Solar-System.html →</a>
+                <p class="Summary">
+                    A tour of our cosmic neighborhood — the Sun, eight planets, and how each world is unique. Covers
+                    rocky inner planets, gas giants, and ice giants with images and short descriptions.
+                </p>
+                <h3>What's inside</h3>
+                <ul>
+                    <li>Overview of the Solar System and how it formed</li>
+                    <li>Mercury — closest to the Sun, extreme temperatures</li>
+                    <li>Venus — thick clouds, hottest planet</li>
+                    <li>Earth — our home, the only known planet with life</li>
+                    <li>Mars — the Red Planet, signs of ancient water</li>
+                    <li>Jupiter — largest planet, Great Red Spot</li>
+                    <li>Saturn — famous ring system</li>
+                    <li>Uranus — ice giant that rotates on its side</li>
+                    <li>Neptune — farthest planet, strongest winds</li>
+                    <li>Embedded YouTube video about the Solar System</li>
+                </ul>
+            </article>
+
+            <article class="Page-Card">
+                <h2>Messier Objects</h2>
+                <a class="Page-Link" href="Messier-Objects.html">Open Messier-Objects.html →</a>
+                <p class="Summary">
+                    Deep-space wonders from Charles Messier's famous catalog of 110 objects — nebulae, galaxies, and star
+                    clusters photographed and described with type, distance, constellation, and difficulty.
+                </p>
+                <h3>What's inside</h3>
+                <ul>
+                    <li>M1 – Crab Nebula (supernova remnant, Taurus)</li>
+                    <li>M8 – Lagoon Nebula (emission nebula, Sagittarius)</li>
+                    <li>M13 – Hercules Globular Cluster</li>
+                    <li>M16 – Eagle Nebula (Pillars of Creation)</li>
+                    <li>M17 – Omega / Swan Nebula</li>
+                    <li>M20 – Trifid Nebula</li>
+                    <li>M42 – Orion Nebula</li>
+                    <li>M45 – Pleiades (Seven Sisters)</li>
+                    <li>M51 – Whirlpool Galaxy</li>
+                    <li>M92 – Globular Cluster</li>
+                    <li>M101 – Pinwheel Galaxy</li>
+                    <li>M104 – Sombrero Galaxy</li>
+                </ul>
+            </article>
+
+            <article class="Page-Card">
+                <h2>Tools</h2>
+                <a class="Page-Link" href="Tools.html">Open Tools.html →</a>
+                <p class="Summary">
+                    A guide to telescopes for exploring the night sky — how they work, what to look for, and reviews of
+                    beginner-friendly models for viewing the Moon, planets, and deep-sky objects.
+                </p>
+                <h3>What's inside</h3>
+                <ul>
+                    <li>Introduction to telescopes and how they magnify light</li>
+                    <li>Celestron 114 LCM Computerized Telescope</li>
+                    <li>Celestron AstroMaster 130EQ-MD</li>
+                    <li>Sky-Watcher Heritage 130 Tabletop Dobsonian</li>
+                    <li>Celestron Travel Scope 70 DX</li>
+                    <li>Celestron StarSense Explorer Tabletop Dobsonian</li>
+                    <li>Celestron PowerSeeker 114EQ</li>
+                    <li>Link to a beginner telescope buying guide on Space.com</li>
+                </ul>
+            </article>
+        </main>
+
+        <footer class="Index-Footer">
+            <p>Choose a page above to start exploring the universe.</p>
+        </footer>
+    </body>
+</html>
