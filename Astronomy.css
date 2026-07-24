@@ -351,6 +351,48 @@ body {
   background: linear-gradient(135deg, #020412, #0b0f2a);
 }
 
+.M-Quick-Nav {
+  background: linear-gradient(#0a0f2c, #020412);
+  border-bottom: 4px solid #6495ed;
+  padding: 15px 20px 25px;
+}
+
+.M-Quick-Nav-Title {
+  color: #cbd5ff;
+  font-family: "Passero One", sans-serif;
+  font-size: 150%;
+  text-align: center;
+  margin: 0 0 10px;
+}
+
+.M-Quick-Nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 12px;
+  margin: 0;
+  padding: 0;
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.M-Quick-Nav a {
+  text-decoration: none;
+  color: #8fa9ff;
+  font-size: 110%;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #4a5a8a;
+}
+
+.M-Quick-Nav a:hover {
+  color: #4da3ff;
+  background: rgba(100, 149, 237, 0.15);
+  font-weight: bold;
+}
+
 .M-Head {
   padding-left: 150px;
   padding-right: 150px;
