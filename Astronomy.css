@@ -517,6 +517,237 @@ body {
   margin: 20px 0 0;
 }
 
+/* Messier gallery — AstroPixels-style 8-column grid, site theme */
+.M-Gallery-Section {
+  max-width: 1100px;
+  margin: 0 auto 80px;
+  padding: 32px 16px 40px;
+  background: radial-gradient(ellipse at 50% 0%, #1a2550 0%, #0a0f2c 45%, #020412 100%);
+  border-top: 4px solid #6495ed;
+  border-bottom: 4px solid #6495ed;
+  position: relative;
+  overflow: hidden;
+}
+
+.M-Gallery-Section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(1px 1px at 20% 30%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 60% 70%, rgba(255, 255, 255, 0.35), transparent),
+    radial-gradient(1px 1px at 80% 20%, rgba(255, 255, 255, 0.4), transparent);
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.M-Gallery-Header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.M-Gallery-Title {
+  color: #cbd5ff;
+  font-family: "Passero One", sans-serif;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  margin: 0 0 10px;
+  text-shadow: 0 0 20px rgba(100, 149, 237, 0.45);
+}
+
+.M-Gallery-Subtitle {
+  color: #8fa9ff;
+  font-family: "Keania One", sans-serif;
+  font-size: 115%;
+  margin: 0 0 18px;
+}
+
+.M-Gallery-Search-Wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 440px;
+  width: 100%;
+  background: rgba(2, 4, 18, 0.85);
+  border: 2px solid #4a5a8a;
+  border-radius: 999px;
+  padding: 8px 18px;
+  box-shadow: 0 0 24px rgba(100, 149, 237, 0.2);
+}
+
+.M-Gallery-Search-Icon {
+  font-size: 130%;
+}
+
+.M-Gallery-Search {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #cbd5ff;
+  font-size: 110%;
+  font-family: "Bruno Ace SC", system-ui, sans-serif;
+  min-width: 0;
+}
+
+.M-Gallery-Search::placeholder {
+  color: #6b7aa8;
+}
+
+.M-Gallery-Grid {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.M-Gallery-Row {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 6px;
+  border-top: 1px solid rgba(100, 149, 237, 0.2);
+  padding-top: 6px;
+}
+
+.M-Gallery-Row:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.M-Gallery-Row-hidden {
+  display: none;
+}
+
+.M-Gallery-Cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  padding: 8px 4px 12px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(10, 15, 44, 0.55), rgba(5, 8, 26, 0.35));
+  border: 1px solid rgba(100, 149, 237, 0.18);
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+
+.M-Gallery-Cell:hover {
+  transform: translateY(-2px);
+  border-color: rgba(141, 180, 255, 0.55);
+  box-shadow: 0 0 18px rgba(100, 149, 237, 0.35);
+}
+
+.M-Gallery-Cell-hidden {
+  display: none;
+}
+
+.M-Gallery-Thumb-Wrap {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 6px;
+  border: 2px solid rgba(100, 149, 237, 0.35);
+  background: #020412;
+  margin-bottom: 8px;
+}
+
+.M-Gallery-Thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.M-Gallery-Label {
+  color: #cbd5ff;
+  font-family: "Keania One", sans-serif;
+  font-size: 0.78rem;
+  line-height: 1.25;
+  margin-bottom: 2px;
+}
+
+.M-Gallery-Label strong {
+  color: #6495ed;
+  font-family: "Passero One", sans-serif;
+  font-weight: normal;
+}
+
+.M-Gallery-Type {
+  color: #6b7aa8;
+  font-family: "Macondo", serif;
+  font-size: 0.72rem;
+  line-height: 1.2;
+}
+
+.M-Gallery-Hint {
+  position: relative;
+  text-align: center;
+  color: #6b7aa8;
+  font-family: "Macondo", serif;
+  font-size: 120%;
+  margin: 24px 0 0;
+}
+
+.M-Back-Link {
+  max-width: 980px;
+  margin: 24px auto 0;
+  padding: 0 20px;
+  font-family: "Keania One", sans-serif;
+  font-size: 120%;
+}
+
+.M-Back-Link a {
+  color: #6495ed;
+  text-decoration: none;
+}
+
+.M-Back-Link a:hover {
+  color: #4da3ff;
+  text-decoration: underline;
+}
+
+.M-divs-detail {
+  margin: 40px auto 80px;
+  scroll-margin-top: 80px;
+}
+
+body .M-divs {
+  scroll-margin-top: 80px;
+}
+
+@media (max-width: 960px) {
+  .M-Gallery-Row {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .M-Gallery-Row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .M-Head {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .M-divs,
+  .M-divs-detail {
+    width: calc(100% - 24px);
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+
+  .Img-M {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .Image-M {
+    width: 220px;
+    height: 220px;
+  }
+}
+
 .M-Head {
   padding-left: 150px;
   padding-right: 150px;
