@@ -188,11 +188,7 @@ body {
   position: relative;
   overflow: hidden;
   height: 951px;
-  background:
-    radial-gradient(ellipse at 50% 38%, rgba(80, 100, 180, 0.22) 0%, transparent 55%),
-    radial-gradient(ellipse at 20% 60%, rgba(90, 50, 140, 0.12) 0%, transparent 45%),
-    radial-gradient(ellipse at 80% 55%, rgba(40, 80, 160, 0.1) 0%, transparent 40%),
-    radial-gradient(ellipse at 50% 42%, #1a2550 0%, #101830 38%, #080c20 68%, #040610 100%);
+  background: #060a18;
   border-bottom: 4px solid #6495ed;
 }
 

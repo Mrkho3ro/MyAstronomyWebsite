@@ -165,7 +165,7 @@ function createNebulaCanvasTexture() {
         [70, 60, 170],
     ];
 
-    for (let i = 0; i < 10; i += 1) {
+    for (let i = 0; i < 14; i += 1) {
         const x = 200 + Math.random() * 1648;
         const y = 120 + Math.random() * 784;
         const radius = 180 + Math.random() * 420;
@@ -187,31 +187,29 @@ function createNebulaCanvasTexture() {
 function createSkyBackground() {
     const group = new THREE.Group();
 
-    const nebulaSphere = new THREE.Mesh(
-        new THREE.SphereGeometry(190, 64, 32),
-        new THREE.MeshBasicMaterial({
-            map: createNebulaCanvasTexture(),
-            side: THREE.BackSide,
-            depthWrite: false,
-        }),
-    );
+    const nebulaMaterial = new THREE.MeshBasicMaterial({
+        map: createNebulaCanvasTexture(),
+        side: THREE.BackSide,
+        depthWrite: false,
+        transparent: true,
+        opacity: 0.92,
+    });
+    const nebulaSphere = new THREE.Mesh(new THREE.SphereGeometry(190, 64, 32), nebulaMaterial);
     group.add(nebulaSphere);
 
     const starFieldTexture = loadTexture(`${TEXTURE_BASE}2k_stars_milky_way.jpg`);
     starFieldTexture.mapping = THREE.EquirectangularReflectionMapping;
-    const starFieldSphere = new THREE.Mesh(
-        new THREE.SphereGeometry(185, 64, 32),
-        new THREE.MeshBasicMaterial({
-            map: starFieldTexture,
-            side: THREE.BackSide,
-            depthWrite: false,
-            transparent: true,
-            opacity: 0.38,
-        }),
-    );
+    const milkyWayMaterial = new THREE.MeshBasicMaterial({
+        map: starFieldTexture,
+        side: THREE.BackSide,
+        depthWrite: false,
+        transparent: true,
+        opacity: 0.48,
+    });
+    const starFieldSphere = new THREE.Mesh(new THREE.SphereGeometry(185, 64, 32), milkyWayMaterial);
     group.add(starFieldSphere);
 
-    return group;
+    return { group, nebulaMaterial, milkyWayMaterial };
 }
 
 function createAsteroidBelt() {
@@ -357,7 +355,8 @@ function createMoonsForPlanet(planetMesh, planetName) {
     });
 }
 
-scene.add(createSkyBackground());
+const skyBackground = createSkyBackground();
+scene.add(skyBackground.group);
 
 const shootingStars = createShootingStars();
 
@@ -367,7 +366,7 @@ scene.add(ambient);
 const hemisphere = new THREE.HemisphereLight(0x6688bb, 0x111122, 0.48);
 scene.add(hemisphere);
 
-const sunLight = new THREE.PointLight(0xfff2cc, 7.5, 280, 1.15);
+const sunLight = new THREE.PointLight(0xfff2cc, 9.5, 320, 1.1);
 scene.add(sunLight);
 
 const fillLight = new THREE.DirectionalLight(0x7799dd, 0.48);
@@ -388,38 +387,40 @@ const sunMaterial = new THREE.MeshStandardMaterial({
     map: sunTexture,
     emissive: 0xffaa44,
     emissiveMap: sunTexture,
-    emissiveIntensity: 2.4,
+    emissiveIntensity: 3.1,
     roughness: 1,
     metalness: 0,
 });
 const sun = new THREE.Mesh(sunGeometry, sunMaterial);
 scene.add(sun);
 
-const sunCoreLight = new THREE.PointLight(0xffcc66, 3.8, 45, 2);
+const sunCoreLight = new THREE.PointLight(0xffcc66, 5.2, 55, 1.8);
 sun.add(sunCoreLight);
 
-function createGlowSprite(color, opacity, scale) {
-    const sprite = new THREE.Sprite(
-        new THREE.SpriteMaterial({
+function createSunCorona(radius, color, opacity) {
+    return new THREE.Mesh(
+        new THREE.SphereGeometry(radius, 48, 48),
+        new THREE.MeshBasicMaterial({
             color,
             transparent: true,
             opacity,
-            blending: THREE.AdditiveBlending,
+            side: THREE.BackSide,
             depthWrite: false,
+            blending: THREE.AdditiveBlending,
         }),
     );
-    sprite.scale.set(scale, scale, 1);
-    return sprite;
 }
 
-sun.add(createGlowSprite(0xffcc66, 0.55, 16));
-sun.add(createGlowSprite(0xff7722, 0.28, 26));
-sun.add(createGlowSprite(0x6644ff, 0.08, 42));
+sun.add(createSunCorona(5.2, 0xffcc66, 0.14));
+sun.add(createSunCorona(7.5, 0xff8833, 0.06));
 
 const starCount = 4200;
 const starGeometry = new THREE.BufferGeometry();
 const starPositions = new Float32Array(starCount * 3);
 const starColors = new Float32Array(starCount * 3);
+const starBaseColors = new Float32Array(starCount * 3);
+const starTwinklePhases = new Float32Array(starCount);
+const starTwinkleSpeeds = new Float32Array(starCount);
 
 for (let i = 0; i < starCount; i += 1) {
     const radius = 70 + Math.random() * 120;
@@ -430,9 +431,14 @@ for (let i = 0; i < starCount; i += 1) {
     starPositions[i * 3 + 2] = radius * Math.cos(phi);
 
     const tint = 0.82 + Math.random() * 0.18;
-    starColors[i * 3] = 0.85 * tint;
-    starColors[i * 3 + 1] = 0.9 * tint;
-    starColors[i * 3 + 2] = 1.0 * tint;
+    starBaseColors[i * 3] = 0.85 * tint;
+    starBaseColors[i * 3 + 1] = 0.9 * tint;
+    starBaseColors[i * 3 + 2] = 1.0 * tint;
+    starColors[i * 3] = starBaseColors[i * 3];
+    starColors[i * 3 + 1] = starBaseColors[i * 3 + 1];
+    starColors[i * 3 + 2] = starBaseColors[i * 3 + 2];
+    starTwinklePhases[i] = Math.random() * Math.PI * 2;
+    starTwinkleSpeeds[i] = 0.4 + Math.random() * 1.6;
 }
 
 starGeometry.setAttribute("position", new THREE.BufferAttribute(starPositions, 3));
@@ -444,7 +450,7 @@ const stars = new THREE.Points(
         size: 0.65,
         vertexColors: true,
         transparent: true,
-        opacity: 0.72,
+        opacity: 0.78,
         sizeAttenuation: true,
         depthWrite: false,
     }),
@@ -699,6 +705,7 @@ window.addEventListener("resize", resizeRenderer);
 resizeRenderer();
 
 let lastFrameTime = performance.now();
+let skyTime = 0;
 
 function asteroidBeltOrbit(beltGroup) {
     beltGroup.children.forEach((asteroid) => {
@@ -717,6 +724,20 @@ function animate() {
     const now = performance.now();
     const delta = Math.min((now - lastFrameTime) / 1000, 0.05);
     lastFrameTime = now;
+    skyTime += delta;
+
+    skyBackground.group.rotation.y += delta * 0.004;
+    skyBackground.group.rotation.x = Math.sin(skyTime * 0.03) * 0.012;
+    skyBackground.nebulaMaterial.opacity = 0.88 + Math.sin(skyTime * 0.18) * 0.04;
+    skyBackground.milkyWayMaterial.opacity = 0.44 + Math.sin(skyTime * 0.11 + 1.2) * 0.05;
+
+    for (let i = 0; i < starCount; i += 1) {
+        const twinkle = 0.55 + 0.45 * Math.sin(skyTime * starTwinkleSpeeds[i] + starTwinklePhases[i]);
+        starColors[i * 3] = starBaseColors[i * 3] * twinkle;
+        starColors[i * 3 + 1] = starBaseColors[i * 3 + 1] * twinkle;
+        starColors[i * 3 + 2] = starBaseColors[i * 3 + 2] * twinkle;
+    }
+    starGeometry.attributes.color.needsUpdate = true;
 
     sun.rotation.y += 0.0006;
     orbitGroup.rotation.y += 0.00008;
