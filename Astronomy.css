@@ -131,14 +131,18 @@ body {
 }
 
 .Background-Solar-System {
-  background: linear-gradient(135deg, #02030a, #0b0f1f);
+  background: linear-gradient(135deg, #060818, #121830);
 }
 
 .Solar-System-Main-Picture {
   position: relative;
   overflow: hidden;
   height: 951px;
-  background: radial-gradient(ellipse at 50% 40%, #1a2550 0%, #0a0f2c 45%, #020412 100%);
+  background:
+    radial-gradient(ellipse at 50% 38%, rgba(80, 100, 180, 0.35) 0%, transparent 55%),
+    radial-gradient(ellipse at 20% 60%, rgba(90, 50, 140, 0.2) 0%, transparent 45%),
+    radial-gradient(ellipse at 80% 55%, rgba(40, 80, 160, 0.18) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 42%, #243066 0%, #141e45 38%, #0a1230 68%, #050818 100%);
   border-bottom: 4px solid #6495ed;
 }
 
