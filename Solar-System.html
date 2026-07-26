@@ -17,13 +17,22 @@
             </ul>
         </nav>
         <section class="Solar-System-Main-Picture">
-            <h1>Lets Explore Our</h1>
-            <h2>Solar System</h2>
-            <section class="Title">
-                <p>08 Plantes</p>
-                <p>05 Dwarfs</p>
-            </section>
+            <canvas id="solar-system-canvas" aria-label="Interactive 3D solar system"></canvas>
+            <div class="Solar-Hero-Overlay">
+                <h1>Lets Explore Our</h1>
+                <h2>Solar System</h2>
+                <section class="Title">
+                    <p>08 Plantes</p>
+                    <p>05 Dwarfs</p>
+                </section>
+                <p class="Solar-Hero-Hint">Hover a planet for details · Click to explore</p>
+            </div>
+            <div id="planet-tooltip" class="Planet-Hover-Tooltip" hidden>
+                <h2 id="planet-tooltip-title"></h2>
+                <p id="planet-tooltip-text"></p>
+            </div>
         </section>
+        <script type="module" src="solar-system-hero.js"></script>
         <section class="S-Head">
             <p class="S-P1">🌍 The Solar System</p>
             <p class="S-P2">
