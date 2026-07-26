@@ -134,15 +134,65 @@ body {
   background: linear-gradient(135deg, #060818, #121830);
 }
 
+.Solar-Hero-Banner {
+  background: linear-gradient(180deg, #0a0f2c 0%, #121830 55%, #0a1230 100%);
+  border-bottom: 3px solid rgba(100, 149, 237, 0.45);
+  padding: 28px 40px 32px;
+  text-align: center;
+}
+
+.Solar-Hero-Banner .Solar-Hero-Overlay {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.Solar-Hero-Banner h1,
+.Solar-Hero-Banner h2 {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  color: white;
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  text-shadow: 0 0 24px rgba(100, 149, 237, 0.45);
+  line-height: 1.05;
+}
+
+.Solar-Hero-Banner h2 {
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.Solar-Hero-Banner .Title {
+  font-family: "Tourney", sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  color: lawngreen;
+  font-size: clamp(1.1rem, 2.5vw, 2rem);
+  display: flex;
+  gap: clamp(24px, 6vw, 60px);
+  justify-content: center;
+}
+
+.Solar-Hero-Banner .Solar-Hero-Hint {
+  margin: 18px 0 0;
+  padding: 0;
+  color: #8fa9ff;
+  font-family: "Keania One", sans-serif;
+  font-size: clamp(0.95rem, 2vw, 1.3rem);
+  opacity: 0.85;
+  text-align: center;
+}
+
 .Solar-System-Main-Picture {
   position: relative;
   overflow: hidden;
   height: 951px;
   background:
-    radial-gradient(ellipse at 50% 38%, rgba(80, 100, 180, 0.35) 0%, transparent 55%),
-    radial-gradient(ellipse at 20% 60%, rgba(90, 50, 140, 0.2) 0%, transparent 45%),
-    radial-gradient(ellipse at 80% 55%, rgba(40, 80, 160, 0.18) 0%, transparent 40%),
-    radial-gradient(ellipse at 50% 42%, #243066 0%, #141e45 38%, #0a1230 68%, #050818 100%);
+    radial-gradient(ellipse at 50% 38%, rgba(80, 100, 180, 0.22) 0%, transparent 55%),
+    radial-gradient(ellipse at 20% 60%, rgba(90, 50, 140, 0.12) 0%, transparent 45%),
+    radial-gradient(ellipse at 80% 55%, rgba(40, 80, 160, 0.1) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 42%, #1a2550 0%, #101830 38%, #080c20 68%, #040610 100%);
   border-bottom: 4px solid #6495ed;
 }
 
@@ -155,39 +205,7 @@ body {
 }
 
 .Solar-Hero-Overlay {
-  position: relative;
-  z-index: 2;
   pointer-events: none;
-}
-
-.Solar-System-Main-Picture h1 {
-  margin: 0;
-  padding-left: 130px;
-  padding-top: 80px;
-  text-align: left;
-  color: white;
-  font-size: 500%;
-  text-shadow: 0 0 24px rgba(100, 149, 237, 0.45);
-}
-
-.Solar-System-Main-Picture h2 {
-  margin: 0;
-  padding-left: 130px;
-  text-align: left;
-  color: white;
-  font-size: 500%;
-  font-weight: bold;
-  text-shadow: 0 0 24px rgba(100, 149, 237, 0.45);
-}
-
-.Solar-Hero-Hint {
-  margin: 0;
-  padding-left: 170px;
-  padding-top: 24px;
-  color: #8fa9ff;
-  font-family: "Keania One", sans-serif;
-  font-size: 130%;
-  opacity: 0.85;
 }
 
 .Planet-Hover-Tooltip {
@@ -230,15 +248,7 @@ body {
 }
 
 .Title {
-  font-family: "Tourney";
-  margin: 0;
-  padding-left: 170px;
-  padding-top: 50px;
-  text-align: left;
-  color: lawngreen;
-  font-size: 200%;
-  display: flex;
-  gap: 60px;
+  font-family: "Tourney", sans-serif;
 }
 
 .S-Head {
@@ -938,25 +948,12 @@ body .M-divs {
 }
 
 @media (max-width: 960px) {
+  .Solar-Hero-Banner {
+    padding: 20px 16px 24px;
+  }
+
   .Solar-System-Main-Picture {
     height: 620px;
-  }
-
-  .Solar-System-Main-Picture h1,
-  .Solar-System-Main-Picture h2 {
-    padding-left: 24px;
-    font-size: 220%;
-  }
-
-  .Title {
-    padding-left: 24px;
-    font-size: 120%;
-    gap: 24px;
-  }
-
-  .Solar-Hero-Hint {
-    padding-left: 24px;
-    font-size: 100%;
   }
 
   .Planet-Hover-Tooltip {

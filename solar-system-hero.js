@@ -4,6 +4,29 @@ const TEXTURE_BASE = "https://cdn.jsdelivr.net/gh/elymas/solar-simulator@main/pu
 const THREEJS_TEXTURE_BASE = "https://threejs.org/examples/textures/planets/";
 const ORBIT_SPEED_FACTOR = 0.22;
 const SPHERE_SEGMENTS = 64;
+const ASTEROID_BELT_INNER = 16.2;
+const ASTEROID_BELT_OUTER = 19.8;
+const ASTEROID_COUNT = 420;
+
+const MOONS_BY_PLANET = {
+    Earth: [{ name: "Moon", radius: 0.14, orbit: 1.35, speed: 0.09, color: 0xb8b8b8 }],
+    Mars: [
+        { name: "Phobos", radius: 0.045, orbit: 0.62, speed: 0.16, color: 0x8a7560 },
+        { name: "Deimos", radius: 0.035, orbit: 0.82, speed: 0.12, color: 0x7a6550 },
+    ],
+    Jupiter: [
+        { name: "Io", radius: 0.11, orbit: 2.35, speed: 0.065, color: 0xddb044 },
+        { name: "Europa", radius: 0.1, orbit: 2.75, speed: 0.055, color: 0xc8dae8 },
+        { name: "Ganymede", radius: 0.13, orbit: 3.15, speed: 0.048, color: 0x998877 },
+        { name: "Callisto", radius: 0.12, orbit: 3.65, speed: 0.042, color: 0x665544 },
+    ],
+    Saturn: [
+        { name: "Titan", radius: 0.12, orbit: 2.5, speed: 0.046, color: 0xcc9944 },
+        { name: "Enceladus", radius: 0.055, orbit: 1.85, speed: 0.058, color: 0xeeeeee },
+    ],
+    Uranus: [{ name: "Titania", radius: 0.075, orbit: 1.55, speed: 0.052, color: 0x99aabb }],
+    Neptune: [{ name: "Triton", radius: 0.095, orbit: 1.65, speed: 0.05, color: 0xbbccdd }],
+};
 
 const PLANET_DATA = [
     {
@@ -109,7 +132,7 @@ const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.45;
+renderer.toneMappingExposure = 1.65;
 
 const textureLoader = new THREE.TextureLoader();
 textureLoader.crossOrigin = "anonymous";
@@ -148,8 +171,8 @@ function createNebulaCanvasTexture() {
         const radius = 180 + Math.random() * 420;
         const [r, g, b] = nebulaColors[i % nebulaColors.length];
         const patch = ctx.createRadialGradient(x, y, 0, x, y, radius);
-        patch.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0.32)`);
-        patch.addColorStop(0.45, `rgba(${r}, ${g}, ${b}, 0.12)`);
+        patch.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0.22)`);
+        patch.addColorStop(0.45, `rgba(${r}, ${g}, ${b}, 0.08)`);
         patch.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
         ctx.fillStyle = patch;
         ctx.fillRect(0, 0, 2048, 1024);
@@ -183,7 +206,7 @@ function createSkyBackground() {
             side: THREE.BackSide,
             depthWrite: false,
             transparent: true,
-            opacity: 0.55,
+            opacity: 0.38,
         }),
     );
     group.add(starFieldSphere);
@@ -191,22 +214,171 @@ function createSkyBackground() {
     return group;
 }
 
+function createAsteroidBelt() {
+    const group = new THREE.Group();
+    const asteroidGeometry = new THREE.IcosahedronGeometry(0.06, 0);
+    const asteroidMaterial = new THREE.MeshStandardMaterial({
+        color: 0x887766,
+        roughness: 0.95,
+        metalness: 0.08,
+        emissive: 0x221100,
+        emissiveIntensity: 0.15,
+    });
+
+    for (let i = 0; i < ASTEROID_COUNT; i += 1) {
+        const radius = ASTEROID_BELT_INNER + Math.random() * (ASTEROID_BELT_OUTER - ASTEROID_BELT_INNER);
+        const angle = Math.random() * Math.PI * 2;
+        const scale = 0.45 + Math.random() * 1.1;
+        const asteroid = new THREE.Mesh(asteroidGeometry, asteroidMaterial);
+        asteroid.position.set(Math.cos(angle) * radius, (Math.random() - 0.5) * 0.35, Math.sin(angle) * radius);
+        asteroid.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+        asteroid.scale.setScalar(scale);
+        asteroid.userData.beltAngle = angle;
+        asteroid.userData.beltRadius = radius;
+        asteroid.userData.beltSpeed = 0.004 + Math.random() * 0.006;
+        group.add(asteroid);
+    }
+
+    return group;
+}
+
+function createShootingStars() {
+    const count = 6;
+    const streaks = [];
+
+    for (let i = 0; i < count; i += 1) {
+        const geometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(6);
+        geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+        const material = new THREE.LineBasicMaterial({
+            color: 0xddeeff,
+            transparent: true,
+            opacity: 0,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+        });
+        const line = new THREE.Line(geometry, material);
+        line.frustumCulled = false;
+        scene.add(line);
+
+        streaks.push({
+            line,
+            positions,
+            active: false,
+            progress: 0,
+            duration: 0.55 + Math.random() * 0.35,
+            wait: 2 + Math.random() * 8 + i * 1.5,
+            origin: new THREE.Vector3(),
+            direction: new THREE.Vector3(),
+            length: 0,
+        });
+    }
+
+    return streaks;
+}
+
+function spawnShootingStar(streak) {
+    const theta = Math.random() * Math.PI * 2;
+    const phi = 0.15 + Math.random() * 0.55;
+    const skyRadius = 155 + Math.random() * 20;
+    streak.origin.set(
+        skyRadius * Math.sin(phi) * Math.cos(theta),
+        20 + Math.random() * 50,
+        skyRadius * Math.sin(phi) * Math.sin(theta),
+    );
+    streak.direction.set(-0.4 - Math.random() * 0.5, -0.15 - Math.random() * 0.25, -0.3 - Math.random() * 0.4).normalize();
+    streak.length = 8 + Math.random() * 14;
+    streak.progress = 0;
+    streak.duration = 0.45 + Math.random() * 0.4;
+    streak.active = true;
+    streak.line.material.opacity = 0;
+}
+
+function updateShootingStars(streaks, delta) {
+    streaks.forEach((streak) => {
+        if (!streak.active) {
+            streak.wait -= delta;
+            if (streak.wait <= 0) {
+                spawnShootingStar(streak);
+                streak.wait = 4 + Math.random() * 10;
+            }
+            return;
+        }
+
+        streak.progress += delta / streak.duration;
+        const t = streak.progress;
+        if (t >= 1) {
+            streak.active = false;
+            streak.line.material.opacity = 0;
+            return;
+        }
+
+        const head = streak.origin.clone().addScaledVector(streak.direction, streak.length * t);
+        const tail = streak.origin.clone().addScaledVector(streak.direction, streak.length * (t - 0.35));
+        streak.positions[0] = tail.x;
+        streak.positions[1] = tail.y;
+        streak.positions[2] = tail.z;
+        streak.positions[3] = head.x;
+        streak.positions[4] = head.y;
+        streak.positions[5] = head.z;
+        streak.line.geometry.attributes.position.needsUpdate = true;
+
+        const fade = t < 0.15 ? t / 0.15 : t > 0.75 ? (1 - t) / 0.25 : 1;
+        streak.line.material.opacity = fade * 0.55;
+    });
+}
+
+function createMoonsForPlanet(planetMesh, planetName) {
+    const moonDefs = MOONS_BY_PLANET[planetName];
+    if (!moonDefs) return [];
+
+    return moonDefs.map((moonData) => {
+        const pivot = new THREE.Object3D();
+        planetMesh.add(pivot);
+
+        const moonMaterial = new THREE.MeshStandardMaterial({
+            color: moonData.color,
+            roughness: 0.92,
+            metalness: 0.02,
+            emissive: moonData.color,
+            emissiveIntensity: 0.12,
+        });
+        const moon = new THREE.Mesh(new THREE.SphereGeometry(moonData.radius, 24, 24), moonMaterial);
+        moon.position.x = moonData.orbit;
+        pivot.add(moon);
+
+        return {
+            pivot,
+            moon,
+            speed: moonData.speed,
+            angle: Math.random() * Math.PI * 2,
+            name: moonData.name,
+        };
+    });
+}
+
 scene.add(createSkyBackground());
 
-const ambient = new THREE.AmbientLight(0x334466, 0.42);
+const shootingStars = createShootingStars();
+
+const ambient = new THREE.AmbientLight(0x445577, 0.55);
 scene.add(ambient);
 
-const hemisphere = new THREE.HemisphereLight(0x5577bb, 0x111122, 0.38);
+const hemisphere = new THREE.HemisphereLight(0x6688bb, 0x111122, 0.48);
 scene.add(hemisphere);
 
-const sunLight = new THREE.PointLight(0xfff2cc, 5.5, 260, 1.2);
+const sunLight = new THREE.PointLight(0xfff2cc, 7.5, 280, 1.15);
 scene.add(sunLight);
 
-const fillLight = new THREE.DirectionalLight(0x6688cc, 0.32);
+const fillLight = new THREE.DirectionalLight(0x7799dd, 0.48);
 fillLight.position.set(-35, 25, -45);
 scene.add(fillLight);
 
-const rimLight = new THREE.DirectionalLight(0x8866cc, 0.15);
+const keyLight = new THREE.DirectionalLight(0xaabbee, 0.35);
+keyLight.position.set(25, 45, 20);
+scene.add(keyLight);
+
+const rimLight = new THREE.DirectionalLight(0x8866cc, 0.22);
 rimLight.position.set(40, -10, 30);
 scene.add(rimLight);
 
@@ -216,14 +388,14 @@ const sunMaterial = new THREE.MeshStandardMaterial({
     map: sunTexture,
     emissive: 0xffaa44,
     emissiveMap: sunTexture,
-    emissiveIntensity: 1.6,
+    emissiveIntensity: 2.4,
     roughness: 1,
     metalness: 0,
 });
 const sun = new THREE.Mesh(sunGeometry, sunMaterial);
 scene.add(sun);
 
-const sunCoreLight = new THREE.PointLight(0xffcc66, 2.5, 40, 2);
+const sunCoreLight = new THREE.PointLight(0xffcc66, 3.8, 45, 2);
 sun.add(sunCoreLight);
 
 function createGlowSprite(color, opacity, scale) {
@@ -272,7 +444,7 @@ const stars = new THREE.Points(
         size: 0.65,
         vertexColors: true,
         transparent: true,
-        opacity: 0.98,
+        opacity: 0.72,
         sizeAttenuation: true,
         depthWrite: false,
     }),
@@ -280,8 +452,12 @@ const stars = new THREE.Points(
 scene.add(stars);
 
 const planetMeshes = [];
+const moonEntries = [];
 const orbitGroup = new THREE.Group();
 scene.add(orbitGroup);
+
+const asteroidBeltGroup = createAsteroidBelt();
+orbitGroup.add(asteroidBeltGroup);
 
 function createOrbitPath(radius) {
     const points = [];
@@ -334,9 +510,11 @@ PLANET_DATA.forEach((data) => {
 
     const planetMaterial = new THREE.MeshStandardMaterial({
         color: 0xffffff,
-        roughness: 0.88,
-        metalness: 0.04,
+        roughness: 0.78,
+        metalness: 0.06,
         map: loadTexture(`${TEXTURE_BASE}${data.texture}`),
+        emissive: 0x111122,
+        emissiveIntensity: 0.08,
     });
 
     if (data.normalMap) {
@@ -367,6 +545,9 @@ PLANET_DATA.forEach((data) => {
         ring.rotation.x = Math.PI / 2.35;
         planet.add(ring);
     }
+
+    const moons = createMoonsForPlanet(planet, data.name);
+    moonEntries.push(...moons);
 
     planetMeshes.push({
         mesh: planet,
@@ -517,11 +698,30 @@ canvas.addEventListener("click", handleClick);
 window.addEventListener("resize", resizeRenderer);
 resizeRenderer();
 
+let lastFrameTime = performance.now();
+
+function asteroidBeltOrbit(beltGroup) {
+    beltGroup.children.forEach((asteroid) => {
+        asteroid.userData.beltAngle += asteroid.userData.beltSpeed * ORBIT_SPEED_FACTOR;
+        const angle = asteroid.userData.beltAngle;
+        const radius = asteroid.userData.beltRadius;
+        asteroid.position.x = Math.cos(angle) * radius;
+        asteroid.position.z = Math.sin(angle) * radius;
+        asteroid.rotation.y += 0.004;
+    });
+}
+
 function animate() {
     requestAnimationFrame(animate);
 
+    const now = performance.now();
+    const delta = Math.min((now - lastFrameTime) / 1000, 0.05);
+    lastFrameTime = now;
+
     sun.rotation.y += 0.0006;
     orbitGroup.rotation.y += 0.00008;
+
+    asteroidBeltOrbit(asteroidBeltGroup);
 
     planetMeshes.forEach((entry) => {
         entry.angle += entry.data.speed * ORBIT_SPEED_FACTOR;
@@ -530,6 +730,13 @@ function animate() {
         const targetScale = entry.hoverScale;
         entry.mesh.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.12);
     });
+
+    moonEntries.forEach((moon) => {
+        moon.angle += moon.speed * ORBIT_SPEED_FACTOR;
+        moon.pivot.rotation.y = moon.angle;
+    });
+
+    updateShootingStars(shootingStars, delta);
 
     if (pointerInside.active) {
         updateHoverFromPointer();
