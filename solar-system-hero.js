@@ -133,6 +133,7 @@ const PLANET_DATA = [
 ];
 
 const canvas = document.getElementById("solar-system-canvas");
+const errorBanner = document.getElementById("solar-system-error");
 const tooltip = document.getElementById("planet-tooltip");
 const tooltipPreview = document.getElementById("planet-tooltip-preview");
 const tooltipContent = document.getElementById("planet-tooltip-content");
@@ -150,6 +151,10 @@ camera.position.set(0, 78, 1.5);
 camera.lookAt(0, 0, 0);
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: "high-performance" });
+if (!renderer.getContext()) {
+    if (errorBanner) errorBanner.hidden = false;
+    throw new Error("WebGL is not available");
+}
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
