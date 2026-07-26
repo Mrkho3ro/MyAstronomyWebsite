@@ -29,9 +29,16 @@
         </section>
         <section class="Solar-System-Main-Picture">
             <canvas id="solar-system-canvas" aria-label="Interactive 3D solar system"></canvas>
-            <div id="planet-tooltip" class="Planet-Hover-Tooltip" hidden>
-                <h2 id="planet-tooltip-title"></h2>
-                <p id="planet-tooltip-text"></p>
+            <div id="planet-tooltip" class="Planet-Hover-Tooltip" aria-hidden="true">
+                <div class="Planet-Tooltip-Body">
+                    <div id="planet-tooltip-preview" class="Planet-Tooltip-Preview">
+                        <canvas id="planet-tooltip-canvas" aria-hidden="true"></canvas>
+                    </div>
+                    <div id="planet-tooltip-content" class="Planet-Tooltip-Content">
+                        <h2 id="planet-tooltip-title"></h2>
+                        <p id="planet-tooltip-text"></p>
+                    </div>
+                </div>
             </div>
         </section>
         <script type="module" src="solar-system-hero.js"></script>
