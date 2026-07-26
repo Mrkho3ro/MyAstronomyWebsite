@@ -1,4 +1,11 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
+import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/controls/OrbitControls.js";
+
+// "Close Encounter" — near enough to inspect a planet/moon, outside the Sun's corona
+const MIN_ZOOM = 8.5;
+// "Cosmic Overview" — full solar system through Neptune with constellation backdrop
+const MAX_ZOOM = 102;
+const CONSTELLATION_SKY_RADIUS = 182;
 
 const TEXTURE_BASE = "https://cdn.jsdelivr.net/gh/elymas/solar-simulator@main/public/textures/";
 const THREEJS_TEXTURE_BASE = "https://threejs.org/examples/textures/planets/";
@@ -148,6 +155,27 @@ renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.65;
 
+const controls = new OrbitControls(camera, canvas);
+controls.target.set(0, 0, 0);
+controls.enableDamping = true;
+controls.dampingFactor = 0.06;
+controls.enablePan = false;
+controls.minDistance = MIN_ZOOM;
+controls.maxDistance = MAX_ZOOM;
+controls.zoomSpeed = 0.85;
+controls.rotateSpeed = 0.65;
+controls.enableZoom = true;
+controls.mouseButtons = {
+    LEFT: THREE.MOUSE.ROTATE,
+    MIDDLE: THREE.MOUSE.DOLLY,
+    RIGHT: THREE.MOUSE.ROTATE,
+};
+controls.touches = {
+    ONE: THREE.TOUCH.ROTATE,
+    TWO: THREE.TOUCH.DOLLY_ROTATE,
+};
+controls.update();
+
 const textureLoader = new THREE.TextureLoader();
 textureLoader.crossOrigin = "anonymous";
 
@@ -198,6 +226,181 @@ function createNebulaCanvasTexture() {
     return texture;
 }
 
+function raDecToSkyPosition(raHours, decDeg, radius) {
+    const ra = (raHours / 24) * Math.PI * 2;
+    const dec = THREE.MathUtils.degToRad(decDeg);
+    const cosDec = Math.cos(dec);
+    return new THREE.Vector3(radius * cosDec * Math.cos(ra), radius * Math.sin(dec), radius * cosDec * Math.sin(ra));
+}
+
+const CONSTELLATION_DEFS = [
+    {
+        name: "Orion",
+        stars: [
+            { id: "betelgeuse", ra: 5.92, dec: 7.41, size: 1.35 },
+            { id: "bellatrix", ra: 5.45, dec: 6.35, size: 1.05 },
+            { id: "alnitak", ra: 5.68, dec: -1.94, size: 1.1 },
+            { id: "alnilam", ra: 5.6, dec: -1.2, size: 1.15 },
+            { id: "mintaka", ra: 5.53, dec: -0.3, size: 1.05 },
+            { id: "rigel", ra: 5.24, dec: -8.2, size: 1.3 },
+            { id: "saiph", ra: 5.8, dec: -9.67, size: 1.0 },
+        ],
+        lines: [
+            ["betelgeuse", "bellatrix"],
+            ["bellatrix", "mintaka"],
+            ["betelgeuse", "alnitak"],
+            ["alnitak", "alnilam"],
+            ["alnilam", "mintaka"],
+            ["mintaka", "rigel"],
+            ["alnilam", "rigel"],
+            ["bellatrix", "saiph"],
+            ["saiph", "rigel"],
+        ],
+    },
+    {
+        name: "Ursa Major",
+        stars: [
+            { id: "dubhe", ra: 11.06, dec: 61.75, size: 1.2 },
+            { id: "merak", ra: 11.03, dec: 56.38, size: 1.0 },
+            { id: "phecda", ra: 11.9, dec: 53.69, size: 1.0 },
+            { id: "megrez", ra: 12.26, dec: 57.03, size: 0.95 },
+            { id: "alioth", ra: 12.9, dec: 55.96, size: 1.1 },
+            { id: "mizar", ra: 13.4, dec: 54.93, size: 1.05 },
+            { id: "alkaid", ra: 13.79, dec: 49.31, size: 1.0 },
+        ],
+        lines: [
+            ["dubhe", "merak"],
+            ["merak", "phecda"],
+            ["phecda", "megrez"],
+            ["megrez", "alioth"],
+            ["alioth", "mizar"],
+            ["mizar", "alkaid"],
+            ["megrez", "dubhe"],
+        ],
+    },
+    {
+        name: "Cassiopeia",
+        stars: [
+            { id: "caph", ra: 0.15, dec: 59.15, size: 1.05 },
+            { id: "schedar", ra: 0.68, dec: 56.54, size: 1.15 },
+            { id: "gammaCas", ra: 0.95, dec: 60.72, size: 1.1 },
+            { id: "ruchbah", ra: 1.43, dec: 60.24, size: 0.95 },
+            { id: "segin", ra: 1.91, dec: 63.67, size: 0.9 },
+        ],
+        lines: [
+            ["caph", "schedar"],
+            ["schedar", "gammaCas"],
+            ["gammaCas", "ruchbah"],
+            ["ruchbah", "segin"],
+        ],
+    },
+    {
+        name: "Scorpius",
+        stars: [
+            { id: "antares", ra: 16.49, dec: -26.43, size: 1.35 },
+            { id: "graffias", ra: 16.09, dec: -19.8, size: 0.95 },
+            { id: "dschubba", ra: 16.0, dec: -22.62, size: 1.0 },
+            { id: "sargas", ra: 17.62, dec: -42.99, size: 1.0 },
+            { id: "shaula", ra: 17.56, dec: -37.1, size: 1.1 },
+            { id: "lesath", ra: 17.53, dec: -37.3, size: 0.85 },
+        ],
+        lines: [
+            ["graffias", "dschubba"],
+            ["dschubba", "antares"],
+            ["antares", "shaula"],
+            ["shaula", "lesath"],
+            ["shaula", "sargas"],
+        ],
+    },
+    {
+        name: "Cygnus",
+        stars: [
+            { id: "deneb", ra: 20.69, dec: 45.28, size: 1.25 },
+            { id: "sadr", ra: 20.37, dec: 40.26, size: 1.1 },
+            { id: "gienah", ra: 20.18, dec: 33.97, size: 1.0 },
+            { id: "deltaCyg", ra: 19.86, dec: 45.13, size: 0.95 },
+            { id: "albireo", ra: 19.51, dec: 27.96, size: 1.05 },
+        ],
+        lines: [
+            ["deneb", "sadr"],
+            ["sadr", "albireo"],
+            ["sadr", "gienah"],
+            ["deneb", "deltaCyg"],
+            ["deltaCyg", "sadr"],
+        ],
+    },
+    {
+        name: "Leo",
+        stars: [
+            { id: "regulus", ra: 10.14, dec: 11.97, size: 1.2 },
+            { id: "algieba", ra: 10.33, dec: 19.84, size: 1.0 },
+            { id: "zosma", ra: 11.24, dec: 20.52, size: 0.95 },
+            { id: "denebola", ra: 11.86, dec: 14.57, size: 1.1 },
+            { id: "chertan", ra: 11.42, dec: 15.43, size: 0.9 },
+        ],
+        lines: [
+            ["regulus", "chertan"],
+            ["chertan", "denebola"],
+            ["regulus", "algieba"],
+            ["algieba", "zosma"],
+            ["zosma", "denebola"],
+        ],
+    },
+];
+
+function createConstellations() {
+    const group = new THREE.Group();
+    const lineMaterial = new THREE.LineBasicMaterial({
+        color: 0x8eb4e8,
+        transparent: true,
+        opacity: 0.22,
+        depthWrite: false,
+    });
+    const brightPositions = [];
+    const brightColors = [];
+
+    CONSTELLATION_DEFS.forEach((constellation) => {
+        const starMap = new Map();
+        constellation.stars.forEach((star) => {
+            const position = raDecToSkyPosition(star.ra, star.dec, CONSTELLATION_SKY_RADIUS);
+            starMap.set(star.id, position);
+            brightPositions.push(position.x, position.y, position.z);
+            brightColors.push(0.92, 0.95, 1.0);
+        });
+
+        constellation.lines.forEach(([fromId, toId]) => {
+            const from = starMap.get(fromId);
+            const to = starMap.get(toId);
+            if (!from || !to) return;
+            const geometry = new THREE.BufferGeometry().setFromPoints([from, to]);
+            const line = new THREE.Line(geometry, lineMaterial);
+            line.raycast = () => {};
+            group.add(line);
+        });
+    });
+
+    const brightGeometry = new THREE.BufferGeometry();
+    brightGeometry.setAttribute("position", new THREE.Float32BufferAttribute(brightPositions, 3));
+    brightGeometry.setAttribute("color", new THREE.Float32BufferAttribute(brightColors, 3));
+
+    const brightStars = new THREE.Points(
+        brightGeometry,
+        new THREE.PointsMaterial({
+            size: 1.1,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.72,
+            sizeAttenuation: true,
+            depthWrite: false,
+            blending: THREE.AdditiveBlending,
+        }),
+    );
+    brightStars.raycast = () => {};
+    group.add(brightStars);
+
+    return group;
+}
+
 function createSkyBackground() {
     const group = new THREE.Group();
 
@@ -222,6 +425,8 @@ function createSkyBackground() {
     });
     const starFieldSphere = new THREE.Mesh(new THREE.SphereGeometry(185, 64, 32), milkyWayMaterial);
     group.add(starFieldSphere);
+
+    group.add(createConstellations());
 
     return { group, nebulaMaterial, milkyWayMaterial };
 }
@@ -596,6 +801,22 @@ const pointer = new THREE.Vector2();
 const pointerInside = { active: false, clientX: 0, clientY: 0 };
 const clickableMeshes = [sun];
 let hoveredBody = null;
+let isOrbiting = false;
+let orbitDragMoved = false;
+
+controls.addEventListener("start", () => {
+    isOrbiting = true;
+    orbitDragMoved = false;
+    clearHoverState();
+});
+
+controls.addEventListener("change", () => {
+    if (isOrbiting) orbitDragMoved = true;
+});
+
+controls.addEventListener("end", () => {
+    isOrbiting = false;
+});
 
 planetMeshes.forEach((entry) => {
     entry.mesh.traverse((child) => {
@@ -891,7 +1112,7 @@ function hideTooltip() {
 }
 
 function updateHoverFromPointer() {
-    if (!pointerInside.active) {
+    if (!pointerInside.active || isOrbiting) {
         clearHoverState();
         return;
     }
@@ -928,6 +1149,11 @@ function onPointerLeave() {
 }
 
 function handleClick(event) {
+    if (orbitDragMoved) {
+        orbitDragMoved = false;
+        return;
+    }
+
     setPointerFromClient(event.clientX, event.clientY);
     raycaster.setFromCamera(pointer, camera);
     const intersects = raycaster.intersectObjects(clickableMeshes, false);
@@ -1012,7 +1238,9 @@ function animate() {
 
     updateShootingStars(shootingStars, delta);
 
-    if (pointerInside.active) {
+    controls.update();
+
+    if (pointerInside.active && !isOrbiting) {
         updateHoverFromPointer();
     }
 
