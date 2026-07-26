@@ -335,6 +335,181 @@ body {
   text-align: left;
 }
 
+.Planet-Tooltip-Facts {
+  margin: 0 0 8px !important;
+  font-family: "Keania One", sans-serif !important;
+  font-size: 78% !important;
+  color: #8fa9ff !important;
+  line-height: 1.4 !important;
+}
+
+.Solar-Controls {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 6;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+  max-width: calc(100% - 28px);
+}
+
+.Solar-Control-Btn {
+  font-family: "Keania One", sans-serif;
+  font-size: 0.85rem;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(100, 149, 237, 0.45);
+  background: rgba(6, 10, 24, 0.82);
+  color: #c8d8ff;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.Solar-Control-Btn:hover {
+  border-color: rgba(141, 180, 255, 0.75);
+  color: #fff;
+  background: rgba(20, 30, 60, 0.92);
+}
+
+.Solar-Control-Btn[aria-pressed="true"] {
+  border-color: #6495ed;
+  background: rgba(40, 60, 120, 0.92);
+  color: #fff;
+}
+
+.Solar-Scale-Note {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  margin: 0;
+  padding: 6px 14px;
+  font-family: "Keania One", sans-serif;
+  font-size: 0.82rem;
+  color: #8fa9ff;
+  background: rgba(6, 10, 24, 0.72);
+  border-radius: 999px;
+  border: 1px solid rgba(100, 149, 237, 0.25);
+  pointer-events: none;
+}
+
+.Planet-Hover-Label {
+  position: absolute;
+  z-index: 4;
+  transform: translate(-50%, -100%);
+  padding: 4px 10px;
+  font-family: "Keania One", sans-serif;
+  font-size: 0.82rem;
+  color: #e8eeff;
+  background: rgba(6, 10, 24, 0.78);
+  border: 1px solid rgba(100, 149, 237, 0.4);
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.18s ease;
+  white-space: nowrap;
+}
+
+.Planet-Hover-Label.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+body.solar-light-mode.Background-Solar-System {
+  background: linear-gradient(135deg, #e8eef8, #c8d8ef);
+}
+
+body.solar-light-mode .Solar-Hero-Banner {
+  background: linear-gradient(180deg, #d0dcf0 0%, #e8eef8 55%, #c8d8ef 100%);
+  border-bottom-color: rgba(80, 120, 180, 0.35);
+}
+
+body.solar-light-mode .Solar-Hero-Banner h1,
+body.solar-light-mode .Solar-Hero-Banner h2 {
+  color: #1a2a4a;
+  text-shadow: none;
+}
+
+body.solar-light-mode .Solar-Hero-Banner .Title {
+  color: #2a6040;
+}
+
+body.solar-light-mode .Solar-Hero-Banner .Solar-Hero-Hint {
+  color: #3a5080;
+}
+
+body.solar-light-mode .Solar-System-Main-Picture {
+  background: #d8e4f8;
+  border-bottom-color: rgba(80, 120, 180, 0.45);
+}
+
+body.solar-light-mode .Solar-Control-Btn {
+  background: rgba(255, 255, 255, 0.88);
+  color: #2a4060;
+  border-color: rgba(80, 120, 180, 0.35);
+}
+
+body.solar-light-mode .Solar-Control-Btn:hover {
+  background: #fff;
+  color: #1a3050;
+}
+
+body.solar-light-mode .Planet-Hover-Label {
+  background: rgba(255, 255, 255, 0.92);
+  color: #1a3050;
+  border-color: rgba(80, 120, 180, 0.4);
+}
+
+body.solar-light-mode .Planet-Hover-Tooltip {
+  background-color: rgba(255, 255, 255, 0.96);
+  color: #2a4060;
+  border-color: rgba(80, 120, 180, 0.5);
+  box-shadow: 8px 8px 24px rgba(60, 90, 140, 0.2);
+}
+
+body.solar-light-mode .Planet-Hover-Tooltip h2 {
+  color: #1a3050;
+}
+
+body.solar-light-mode .Planet-Tooltip-Facts {
+  color: #3a5080 !important;
+}
+
+body.solar-light-mode .S-P1,
+body.solar-light-mode .S-P2,
+body.solar-light-mode .S-P3,
+body.solar-light-mode .S-P4 {
+  color: #2a4060;
+}
+
+body.solar-light-mode .Planets {
+  background-color: rgba(255, 255, 255, 0.92);
+  color: #2a4060;
+  border-color: rgba(80, 120, 180, 0.45);
+  box-shadow: 8px 8px 24px rgba(60, 90, 140, 0.15);
+}
+
+body.solar-light-mode nav {
+  background: linear-gradient(#d0dcf0, #b8c8e8);
+}
+
+body.solar-light-mode nav p {
+  color: #1a3050;
+  border-bottom-color: rgba(60, 90, 140, 0.35);
+}
+
+body.solar-light-mode nav a {
+  color: #2a5080;
+}
+
+body.solar-light-mode nav a:hover {
+  color: #1a4070;
+}
+
 .Title {
   font-family: "Tourney", sans-serif;
 }

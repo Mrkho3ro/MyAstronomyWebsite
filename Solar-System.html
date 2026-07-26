@@ -29,6 +29,19 @@
         </section>
         <section class="Solar-System-Main-Picture">
             <canvas id="solar-system-canvas" aria-label="Interactive 3D solar system"></canvas>
+            <div class="Solar-Controls" role="toolbar" aria-label="Solar system display options">
+                <button type="button" id="scale-toggle-btn" class="Solar-Control-Btn" aria-pressed="false">
+                    Real Size
+                </button>
+                <button type="button" id="theme-toggle-btn" class="Solar-Control-Btn" aria-pressed="false">
+                    Light Mode
+                </button>
+                <button type="button" id="sound-toggle-btn" class="Solar-Control-Btn" aria-pressed="false">
+                    Sound Off
+                </button>
+            </div>
+            <p id="scale-note" class="Solar-Scale-Note" hidden></p>
+            <div id="planet-hover-label" class="Planet-Hover-Label" aria-hidden="true"></div>
             <p id="solar-system-error" class="Solar-System-Error" hidden aria-live="polite">
                 Unable to load the 3D solar system. Please refresh the page or use a modern browser with WebGL enabled.
             </p>
@@ -39,6 +52,7 @@
                     </div>
                     <div id="planet-tooltip-content" class="Planet-Tooltip-Content">
                         <h2 id="planet-tooltip-title"></h2>
+                        <p id="planet-tooltip-facts" class="Planet-Tooltip-Facts"></p>
                         <p id="planet-tooltip-text"></p>
                     </div>
                 </div>
