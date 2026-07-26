@@ -193,12 +193,19 @@ body {
   padding: 12px 10px 16px;
   font-family: "Black Ops One", sans-serif;
   color: lightsteelblue;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.92);
   border-radius: 10px;
   text-align: center;
   border: double 10px indigo;
   box-shadow: 10px 10px 35px rgba(128, 0, 255, 0.4);
   pointer-events: none;
+  transition: opacity 0.12s ease;
+}
+
+.Planet-Hover-Tooltip[hidden] {
+  display: none !important;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .Planet-Hover-Tooltip h2 {
