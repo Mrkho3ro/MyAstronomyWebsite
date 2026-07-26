@@ -30,6 +30,15 @@ const MOONS_BY_PLANET = {
     Neptune: [{ name: "Triton", radius: 0.095, orbit: 1.65, speed: 0.05, color: 0xbbccdd }],
 };
 
+const SUN_DATA = {
+    name: "The Sun",
+    slug: "Sun",
+    texture: "2k_sun.jpg",
+    intro:
+        "The Sun is the star at the center of our Solar System—a G-type main-sequence star that provides the light and heat that make life on Earth possible.",
+    isSun: true,
+};
+
 const PLANET_DATA = [
     {
         name: "Mercury",
@@ -129,8 +138,8 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0a1230);
 scene.fog = new THREE.FogExp2(0x0c1538, 0.0018);
 
-const camera = new THREE.PerspectiveCamera(48, 1, 0.1, 500);
-camera.position.set(0, 24, 46);
+const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 500);
+camera.position.set(0, 78, 1.5);
 camera.lookAt(0, 0, 0);
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: "high-performance" });
@@ -397,13 +406,21 @@ const sunMaterial = new THREE.MeshStandardMaterial({
     metalness: 0,
 });
 const sun = new THREE.Mesh(sunGeometry, sunMaterial);
+const sunEntry = {
+    mesh: sun,
+    data: SUN_DATA,
+    baseScale: 1,
+    hoverScale: 1,
+    isSun: true,
+};
+sun.userData.bodyEntry = sunEntry;
 scene.add(sun);
 
 const sunCoreLight = new THREE.PointLight(0xffcc66, 5.2, 55, 1.8);
 sun.add(sunCoreLight);
 
 function createSunCorona(radius, color, opacity) {
-    return new THREE.Mesh(
+    const corona = new THREE.Mesh(
         new THREE.SphereGeometry(radius, 48, 48),
         new THREE.MeshBasicMaterial({
             color,
@@ -414,6 +431,8 @@ function createSunCorona(radius, color, opacity) {
             blending: THREE.AdditiveBlending,
         }),
     );
+    corona.raycast = () => {};
+    return corona;
 }
 
 sun.add(createSunCorona(5.2 * BODY_SCALE, 0xffcc66, 0.14));
@@ -465,7 +484,7 @@ scene.add(stars);
 const planetMeshes = [];
 const moonEntries = [];
 const orbitGroup = new THREE.Group();
-orbitGroup.rotation.x = 0.14;
+orbitGroup.rotation.x = 0;
 scene.add(orbitGroup);
 
 const asteroidBeltGroup = createAsteroidBelt();
@@ -554,7 +573,7 @@ PLANET_DATA.forEach((data) => {
 
     if (data.rings) {
         const ring = createSaturnRing(data.radius, loadTexture(`${TEXTURE_BASE}2k_saturn_ring_alpha.png`));
-        ring.rotation.x = Math.PI / 2.35;
+        ring.rotation.x = Math.PI / 2;
         planet.add(ring);
     }
 
@@ -568,30 +587,32 @@ PLANET_DATA.forEach((data) => {
         baseScale: 1,
         hoverScale: 1,
         angle: Math.random() * Math.PI * 2,
+        isSun: false,
     });
 });
 
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
 const pointerInside = { active: false, clientX: 0, clientY: 0 };
-const clickableMeshes = [];
-let hoveredPlanet = null;
+const clickableMeshes = [sun];
+let hoveredBody = null;
 
 planetMeshes.forEach((entry) => {
     entry.mesh.traverse((child) => {
         if (child.isMesh) {
-            child.userData.planetEntry = entry;
+            child.userData.bodyEntry = entry;
             clickableMeshes.push(child);
         }
     });
 });
 
-function findPlanetFromObject(object) {
+function findBodyFromObject(object) {
     let current = object;
     while (current) {
-        if (current.userData?.planetEntry) return current.userData.planetEntry;
+        if (current.userData?.bodyEntry) return current.userData.bodyEntry;
         const match = planetMeshes.find((entry) => entry.mesh === current);
         if (match) return match;
+        if (current === sun) return sunEntry;
         current = current.parent;
     }
     return null;
@@ -642,7 +663,7 @@ previewPlanetGroup.add(previewPlanetMesh);
 let previewClouds = null;
 let previewRing = null;
 let previewActive = false;
-let previewPlanetEntry = null;
+let previewBodyEntry = null;
 let tooltipVisible = false;
 let tooltipHideTimer = null;
 let tooltipSwitchTimer = null;
@@ -664,8 +685,35 @@ function clearPreviewExtras() {
     }
 }
 
-function setPreviewPlanet(planetEntry) {
-    const { data } = planetEntry;
+function resetPreviewPlanetMaterial() {
+    const material = previewPlanetMesh.material;
+    material.emissive = new THREE.Color(0x111122);
+    material.emissiveMap = null;
+    material.emissiveIntensity = 0.08;
+    material.needsUpdate = true;
+}
+
+function setPreviewSun() {
+    resetPreviewPlanetMaterial();
+    clearPreviewExtras();
+
+    const material = previewPlanetMesh.material;
+    const sunPreviewTexture = loadTexture(`${TEXTURE_BASE}${SUN_DATA.texture}`);
+    material.map = sunPreviewTexture;
+    material.emissive = new THREE.Color(0xffaa44);
+    material.emissiveMap = sunPreviewTexture;
+    material.emissiveIntensity = 2.8;
+    material.normalMap = null;
+    material.needsUpdate = true;
+
+    previewPlanetGroup.rotation.set(0, 0, 0);
+    previewBodyEntry = sunEntry;
+    previewActive = true;
+}
+
+function setPreviewPlanet(bodyEntry) {
+    const { data } = bodyEntry;
+    resetPreviewPlanetMaterial();
     const material = previewPlanetMesh.material;
     material.map = loadTexture(`${TEXTURE_BASE}${data.texture}`);
     material.needsUpdate = true;
@@ -694,13 +742,21 @@ function setPreviewPlanet(planetEntry) {
 
     if (data.rings) {
         previewRing = createSaturnRing(1, loadTexture(`${TEXTURE_BASE}2k_saturn_ring_alpha.png`));
-        previewRing.rotation.x = Math.PI / 2.35;
+        previewRing.rotation.x = Math.PI / 2;
         previewPlanetMesh.add(previewRing);
     }
 
     previewPlanetGroup.rotation.set(0.18, 0, 0.08);
-    previewPlanetEntry = planetEntry;
+    previewBodyEntry = bodyEntry;
     previewActive = true;
+}
+
+function setPreviewBody(bodyEntry) {
+    if (bodyEntry.isSun) {
+        setPreviewSun();
+        return;
+    }
+    setPreviewPlanet(bodyEntry);
 }
 
 function renderPreview() {
@@ -725,9 +781,9 @@ function setPointerFromClient(clientX, clientY) {
 }
 
 function clearHoverState() {
-    if (hoveredPlanet) {
-        hoveredPlanet.hoverScale = 1;
-        hoveredPlanet = null;
+    if (hoveredBody) {
+        hoveredBody.hoverScale = 1;
+        hoveredBody = null;
     }
     canvas.style.cursor = "default";
     hideTooltip();
@@ -755,47 +811,48 @@ function positionTooltip(clientX, clientY) {
     });
 }
 
-function updateTooltipContent(planetEntry) {
-    tooltipTitle.textContent = planetEntry.data.name;
-    tooltipText.textContent = planetEntry.data.intro;
-    setPreviewPlanet(planetEntry);
+function updateTooltipContent(bodyEntry) {
+    tooltipTitle.textContent = bodyEntry.data.name;
+    tooltipText.textContent = bodyEntry.data.intro;
+    setPreviewBody(bodyEntry);
+    tooltipPreview.classList.toggle("is-sun", Boolean(bodyEntry.isSun));
     tooltipPreview.classList.add("is-active");
 }
 
-function switchTooltipPlanet(planetEntry, clientX, clientY) {
+function switchTooltipBody(bodyEntry, clientX, clientY) {
     tooltipContent.classList.add("is-switching");
     tooltipPreview.classList.remove("is-active");
     tooltipPreview.classList.add("is-switching");
 
     if (tooltipSwitchTimer) clearTimeout(tooltipSwitchTimer);
     tooltipSwitchTimer = setTimeout(() => {
-        updateTooltipContent(planetEntry);
+        updateTooltipContent(bodyEntry);
         tooltipPreview.classList.remove("is-switching");
         tooltipContent.classList.remove("is-switching");
         positionTooltip(clientX, clientY);
     }, TOOLTIP_SWITCH_MS);
 }
 
-function showTooltip(planetEntry, clientX, clientY) {
+function showTooltip(bodyEntry, clientX, clientY) {
     if (tooltipHideTimer) {
         clearTimeout(tooltipHideTimer);
         tooltipHideTimer = null;
     }
 
-    const isSwitch = tooltipVisible && previewPlanetEntry && previewPlanetEntry !== planetEntry;
+    const isSwitch = tooltipVisible && previewBodyEntry && previewBodyEntry !== bodyEntry;
 
     if (isSwitch) {
-        switchTooltipPlanet(planetEntry, clientX, clientY);
+        switchTooltipBody(bodyEntry, clientX, clientY);
         positionTooltip(clientX, clientY);
         return;
     }
 
-    if (tooltipVisible && previewPlanetEntry === planetEntry) {
+    if (tooltipVisible && previewBodyEntry === bodyEntry) {
         positionTooltip(clientX, clientY);
         return;
     }
 
-    updateTooltipContent(planetEntry);
+    updateTooltipContent(bodyEntry);
     tooltip.classList.remove("is-hiding");
     tooltip.classList.add("is-visible");
     tooltip.setAttribute("aria-hidden", "false");
@@ -815,8 +872,8 @@ function hideTooltip() {
     tooltip.setAttribute("aria-hidden", "true");
     tooltipVisible = false;
     previewActive = false;
-    previewPlanetEntry = null;
-    tooltipPreview.classList.remove("is-active", "is-switching");
+    previewBodyEntry = null;
+    tooltipPreview.classList.remove("is-active", "is-switching", "is-sun");
     tooltipContent.classList.remove("is-switching");
 
     if (tooltipSwitchTimer) {
@@ -843,13 +900,13 @@ function updateHoverFromPointer() {
     raycaster.setFromCamera(pointer, camera);
     const intersects = raycaster.intersectObjects(clickableMeshes, false);
 
-    const hit = intersects.length > 0 ? findPlanetFromObject(intersects[0].object) : null;
+    const hit = intersects.length > 0 ? findBodyFromObject(intersects[0].object) : null;
 
     if (hit) {
-        if (hit !== hoveredPlanet) {
-            if (hoveredPlanet) hoveredPlanet.hoverScale = 1;
-            hoveredPlanet = hit;
-            hoveredPlanet.hoverScale = 1.35;
+        if (hit !== hoveredBody) {
+            if (hoveredBody) hoveredBody.hoverScale = 1;
+            hoveredBody = hit;
+            hoveredBody.hoverScale = hit.isSun ? 1.12 : 1.35;
         }
         canvas.style.cursor = "pointer";
         showTooltip(hit, pointerInside.clientX, pointerInside.clientY);
@@ -876,7 +933,7 @@ function handleClick(event) {
     const intersects = raycaster.intersectObjects(clickableMeshes, false);
     if (intersects.length === 0) return;
 
-    const hit = findPlanetFromObject(intersects[0].object);
+    const hit = findBodyFromObject(intersects[0].object);
     if (hit) {
         window.open(`planets/${hit.data.slug}.html`, "_blank", "noopener,noreferrer");
     }
@@ -928,10 +985,17 @@ function animate() {
 
     sun.rotation.y += 0.0006;
     orbitGroup.rotation.y += delta * 0.011;
-    orbitGroup.rotation.x = 0.14 + Math.sin(skyTime * 0.07) * 0.055;
-    orbitGroup.rotation.z = Math.sin(skyTime * 0.05 + 0.6) * 0.018;
+    orbitGroup.rotation.x = Math.sin(skyTime * 0.07) * 0.012;
+    orbitGroup.rotation.z = Math.sin(skyTime * 0.05 + 0.6) * 0.006;
 
     asteroidBeltOrbit(asteroidBeltGroup);
+
+    if (hoveredBody === sunEntry) {
+        const targetScale = sunEntry.hoverScale;
+        sun.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.12);
+    } else if (sun.scale.x !== 1) {
+        sun.scale.lerp(new THREE.Vector3(1, 1, 1), 0.12);
+    }
 
     planetMeshes.forEach((entry) => {
         entry.angle += entry.data.speed * ORBIT_SPEED_FACTOR;
