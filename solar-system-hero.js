@@ -4,16 +4,15 @@ import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.160.0/exampl
 // "Close Encounter" — near enough to inspect a planet/moon, outside the Sun's corona
 const MIN_ZOOM = 8.5;
 // "Cosmic Overview" — full solar system through Neptune with constellation backdrop
-const MAX_ZOOM = 118;
-const INITIAL_OVERVIEW_FACTOR = 0.93;
+const MAX_ZOOM = 102;
 const CONSTELLATION_SKY_RADIUS = 182;
 
 const TEXTURE_BASE = "https://cdn.jsdelivr.net/gh/elymas/solar-simulator@main/public/textures/";
 const THREEJS_TEXTURE_BASE = "https://threejs.org/examples/textures/planets/";
 const ORBIT_SPEED_FACTOR = 0.22;
 const SPHERE_SEGMENTS = 64;
-const ORBIT_SCALE = 0.1;
-const BODY_SCALE = 1.3;
+const ORBIT_SCALE = 0.78;
+const BODY_SCALE = 1.38;
 const ASTEROID_COUNT = 420;
 const KUIPER_BELT_COUNT = 280;
 
@@ -61,20 +60,10 @@ const ORBIT_AU = {
 };
 
 let activeScalePreset = SCALE_PRESETS.educational;
-let asteroidBeltInner;
-let asteroidBeltOuter;
-let kuiperBeltInner;
-let kuiperBeltOuter;
-
-function updateBeltRadii(preset) {
-    const orbitScale = preset.key === "educational" ? ORBIT_SCALE : preset.earthOrbit / ORBIT_AU.Earth;
-    asteroidBeltInner = 16.2 * orbitScale;
-    asteroidBeltOuter = 19.8 * orbitScale;
-    kuiperBeltInner = preset.earthOrbit * ORBIT_AU.Neptune * 1.08;
-    kuiperBeltOuter = preset.earthOrbit * ORBIT_AU.Neptune * 1.22;
-}
-
-updateBeltRadii(activeScalePreset);
+let asteroidBeltInner = 16.2 * ORBIT_SCALE;
+let asteroidBeltOuter = 19.8 * ORBIT_SCALE;
+let kuiperBeltInner = 42 * ORBIT_SCALE;
+let kuiperBeltOuter = 48 * ORBIT_SCALE;
 
 const MOONS_BY_PLANET = {
     Earth: [{ name: "Moon", radius: 0.14, orbit: 1.35, speed: 0.09, color: 0xb8b8b8 }],
@@ -244,14 +233,8 @@ scene.background = new THREE.Color(0x0a1230);
 scene.fog = new THREE.FogExp2(0x0c1538, 0.0018);
 
 const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 500);
-
-function setOverviewCamera() {
-    const distance = activeScalePreset.maxZoom * INITIAL_OVERVIEW_FACTOR;
-    camera.position.set(0, distance * 0.985, distance * 0.12);
-    camera.lookAt(0, 0, 0);
-    controls.target.set(0, 0, 0);
-    controls.update();
-}
+camera.position.set(0, 78, 1.5);
+camera.lookAt(0, 0, 0);
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: "high-performance" });
 if (!renderer.getContext()) {
@@ -282,7 +265,7 @@ controls.touches = {
     ONE: THREE.TOUCH.ROTATE,
     TWO: THREE.TOUCH.DOLLY_ROTATE,
 };
-setOverviewCamera();
+controls.update();
 
 const textureLoader = new THREE.TextureLoader();
 textureLoader.crossOrigin = "anonymous";
@@ -561,166 +544,6 @@ const CONSTELLATION_DEFS = [
             ["regulus", "algieba"],
             ["algieba", "zosma"],
             ["zosma", "denebola"],
-        ],
-    },
-    {
-        name: "Canis Major",
-        stars: [
-            { id: "sirius", ra: 6.75, dec: -16.72, size: 1.4 },
-            { id: "mirzam", ra: 6.38, dec: -17.96, size: 1.0 },
-            { id: "wezen", ra: 7.14, dec: -26.39, size: 1.05 },
-            { id: "adhara", ra: 6.98, dec: -28.97, size: 1.1 },
-            { id: "aludra", ra: 7.4, dec: -29.3, size: 0.95 },
-        ],
-        lines: [
-            ["mirzam", "sirius"],
-            ["sirius", "adhara"],
-            ["adhara", "wezen"],
-            ["wezen", "aludra"],
-        ],
-    },
-    {
-        name: "Gemini",
-        stars: [
-            { id: "castor", ra: 7.58, dec: 31.89, size: 1.1 },
-            { id: "pollux", ra: 7.76, dec: 28.03, size: 1.25 },
-            { id: "alhena", ra: 6.63, dec: 16.4, size: 1.0 },
-            { id: "mebsuta", ra: 6.73, dec: 25.13, size: 0.95 },
-            { id: "tejat", ra: 6.38, dec: 22.51, size: 0.9 },
-        ],
-        lines: [
-            ["castor", "pollux"],
-            ["castor", "mebsuta"],
-            ["pollux", "alhena"],
-            ["mebsuta", "tejat"],
-            ["tejat", "alhena"],
-        ],
-    },
-    {
-        name: "Taurus",
-        stars: [
-            { id: "aldebaran", ra: 4.6, dec: 16.51, size: 1.25 },
-            { id: "elnath", ra: 5.44, dec: 28.61, size: 1.05 },
-            { id: "alcyone", ra: 3.79, dec: 24.11, size: 1.0 },
-            { id: "zetaTau", ra: 5.63, dec: 21.14, size: 0.95 },
-            { id: "lambdaTau", ra: 4.0, dec: 12.54, size: 0.9 },
-        ],
-        lines: [
-            ["alcyone", "elnath"],
-            ["elnath", "zetaTau"],
-            ["zetaTau", "aldebaran"],
-            ["aldebaran", "lambdaTau"],
-        ],
-    },
-    {
-        name: "Aquila",
-        stars: [
-            { id: "altair", ra: 19.85, dec: 8.87, size: 1.25 },
-            { id: "tarazed", ra: 19.77, dec: 10.61, size: 1.0 },
-            { id: "alshain", ra: 19.92, dec: 6.41, size: 0.95 },
-            { id: "deltaAql", ra: 19.78, dec: 3.11, size: 0.9 },
-        ],
-        lines: [
-            ["alshain", "altair"],
-            ["altair", "tarazed"],
-            ["altair", "deltaAql"],
-        ],
-    },
-    {
-        name: "Lyra",
-        stars: [
-            { id: "vega", ra: 18.62, dec: 38.78, size: 1.25 },
-            { id: "sheliak", ra: 18.83, dec: 33.36, size: 1.0 },
-            { id: "sulafat", ra: 18.98, dec: 32.69, size: 0.95 },
-            { id: "deltaLyr", ra: 18.91, dec: 36.9, size: 0.9 },
-        ],
-        lines: [
-            ["vega", "deltaLyr"],
-            ["deltaLyr", "sheliak"],
-            ["sheliak", "sulafat"],
-            ["deltaLyr", "sulafat"],
-        ],
-    },
-    {
-        name: "Pegasus",
-        stars: [
-            { id: "markab", ra: 23.08, dec: 15.21, size: 1.05 },
-            { id: "scheat", ra: 23.06, dec: 28.08, size: 1.1 },
-            { id: "algenib", ra: 0.22, dec: 15.18, size: 1.0 },
-            { id: "enif", ra: 21.74, dec: 9.88, size: 1.05 },
-            { id: "alpheratz", ra: 0.14, dec: 29.09, size: 1.1 },
-        ],
-        lines: [
-            ["markab", "algenib"],
-            ["algenib", "scheat"],
-            ["scheat", "alpheratz"],
-            ["alpheratz", "markab"],
-            ["markab", "enif"],
-        ],
-    },
-    {
-        name: "Draco",
-        stars: [
-            { id: "eltanin", ra: 17.94, dec: 51.49, size: 1.1 },
-            { id: "rastaban", ra: 17.53, dec: 52.3, size: 1.0 },
-            { id: "altais", ra: 19.22, dec: 67.66, size: 0.95 },
-            { id: "edasich", ra: 15.07, dec: 58.97, size: 0.9 },
-            { id: "giausar", ra: 11.52, dec: 69.33, size: 0.9 },
-        ],
-        lines: [
-            ["giausar", "edasich"],
-            ["edasich", "rastaban"],
-            ["rastaban", "eltanin"],
-            ["eltanin", "altais"],
-        ],
-    },
-    {
-        name: "Perseus",
-        stars: [
-            { id: "mirfak", ra: 3.4, dec: 49.86, size: 1.15 },
-            { id: "algol", ra: 3.14, dec: 40.96, size: 1.1 },
-            { id: "atik", ra: 3.72, dec: 32.28, size: 0.95 },
-            { id: "gammaPer", ra: 3.71, dec: 42.58, size: 0.9 },
-            { id: "deltaPer", ra: 3.72, dec: 47.79, size: 0.9 },
-        ],
-        lines: [
-            ["mirfak", "deltaPer"],
-            ["deltaPer", "gammaPer"],
-            ["gammaPer", "algol"],
-            ["algol", "atik"],
-        ],
-    },
-    {
-        name: "Auriga",
-        stars: [
-            { id: "capella", ra: 5.28, dec: 45.98, size: 1.2 },
-            { id: "menkalinan", ra: 5.99, dec: 44.95, size: 1.0 },
-            { id: "mahasim", ra: 5.78, dec: 37.21, size: 0.95 },
-            { id: "hassaleh", ra: 4.95, dec: 33.17, size: 0.9 },
-            { id: "almaaz", ra: 5.03, dec: 43.23, size: 0.9 },
-        ],
-        lines: [
-            ["capella", "menkalinan"],
-            ["menkalinan", "mahasim"],
-            ["mahasim", "hassaleh"],
-            ["capella", "almaaz"],
-            ["almaaz", "menkalinan"],
-        ],
-    },
-    {
-        name: "Bootes",
-        stars: [
-            { id: "arcturus", ra: 14.26, dec: 19.18, size: 1.25 },
-            { id: "izar", ra: 14.75, dec: 27.07, size: 1.0 },
-            { id: "muphrid", ra: 13.91, dec: 18.4, size: 0.95 },
-            { id: "seginus", ra: 14.53, dec: 38.31, size: 0.9 },
-            { id: "nekkar", ra: 15.03, dec: 40.39, size: 0.9 },
-        ],
-        lines: [
-            ["muphrid", "arcturus"],
-            ["arcturus", "izar"],
-            ["izar", "seginus"],
-            ["seginus", "nekkar"],
         ],
     },
 ];
@@ -1611,6 +1434,14 @@ function updateOrbitLineGeometry(line, radius) {
     }
     line.geometry.dispose();
     line.geometry = new THREE.BufferGeometry().setFromPoints(points);
+}
+
+function updateBeltRadii(preset) {
+    const orbitScale = preset.key === "educational" ? ORBIT_SCALE : preset.earthOrbit / ORBIT_AU.Earth;
+    asteroidBeltInner = 16.2 * orbitScale;
+    asteroidBeltOuter = 19.8 * orbitScale;
+    kuiperBeltInner = preset.earthOrbit * ORBIT_AU.Neptune * 1.08;
+    kuiperBeltOuter = preset.earthOrbit * ORBIT_AU.Neptune * 1.22;
 }
 
 function rebuildBeltGroup(oldGroup, createFn) {
