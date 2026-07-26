@@ -137,7 +137,7 @@ body {
 .Solar-Hero-Banner {
   background: linear-gradient(180deg, #0a0f2c 0%, #121830 55%, #0a1230 100%);
   border-bottom: 3px solid rgba(100, 149, 237, 0.45);
-  padding: 28px 40px 32px;
+  padding: 18px 32px 20px;
   text-align: center;
 }
 
@@ -187,7 +187,9 @@ body {
 .Solar-System-Main-Picture {
   position: relative;
   overflow: hidden;
-  height: 951px;
+  height: 720px;
+  max-width: 1180px;
+  margin: 0 auto;
   background: #060a18;
   border-bottom: 4px solid #6495ed;
 }
@@ -1216,7 +1218,7 @@ body .M-divs {
   }
 
   .Solar-System-Main-Picture {
-    height: 620px;
+    height: 500px;
   }
 
   .Planet-Hover-Tooltip {
