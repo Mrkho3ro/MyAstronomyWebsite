@@ -15,8 +15,6 @@ const constellationGeoJson = await fetch("./constellations.lines.json").then((re
 
 // "Close Encounter" — near enough to inspect a planet/moon, outside the Sun's corona
 const MIN_ZOOM = 8.5;
-// "Cosmic Overview" — full solar system through Neptune with constellation backdrop
-const MAX_ZOOM = 102;
 
 const TEXTURE_BASE = "https://cdn.jsdelivr.net/gh/elymas/solar-simulator@main/public/textures/";
 const THREEJS_TEXTURE_BASE = "https://threejs.org/examples/textures/planets/";
@@ -57,7 +55,6 @@ const SCALE_PRESETS = {
         earthOrbit: 12.5 * ORBIT_SCALE,
         earthRadius: 0.68 * BODY_SCALE,
         sunRadius: 3.8 * BODY_SCALE,
-        maxZoom: MAX_ZOOM,
         note: null,
     },
     real: {
@@ -66,7 +63,6 @@ const SCALE_PRESETS = {
         earthOrbit: 20,
         earthRadius: 0.075,
         sunRadius: 8.2,
-        maxZoom: 320,
         note: "True scale — distant planets appear very small.",
     },
 };
@@ -120,8 +116,12 @@ const MAX_ORBIT_EXTENT = Math.max(
 );
 const CONSTELLATION_SKY_RADIUS = MAX_ORBIT_EXTENT * SKY_SPHERE_MARGIN;
 const SKY_SCALE = CONSTELLATION_SKY_RADIUS / LEGACY_SKY_RADIUS;
-// Sky dome sits outside max zoom; keep the full sphere inside the camera far plane.
-const CAMERA_FAR = CONSTELLATION_SKY_RADIUS * 2 + SCALE_PRESETS.real.maxZoom;
+// "Cosmic Horizon" — pull back until the constellation sky dome edge fits in view
+const MAX_ZOOM = CONSTELLATION_SKY_RADIUS * 2;
+SCALE_PRESETS.educational.maxZoom = MAX_ZOOM;
+SCALE_PRESETS.real.maxZoom = MAX_ZOOM;
+// Keep the full sky sphere inside the far plane at max zoom-out
+const CAMERA_FAR = MAX_ZOOM + CONSTELLATION_SKY_RADIUS * 1.5;
 
 function scaleSky(value) {
     return value * SKY_SCALE;
