@@ -475,15 +475,25 @@ function lonLatToSkyPosition(lonDeg, latDeg, radius) {
 function createConstellations(geoJson) {
     const group = new THREE.Group();
     const lineMaterial = new THREE.LineBasicMaterial({
-        color: 0x8eb4e8,
+        color: 0xb8d4ff,
         transparent: true,
-        opacity: 0.18,
+        opacity: 0.55,
         depthWrite: false,
     });
+
+    const vertexKeys = new Set();
+    const vertexPositions = [];
 
     geoJson.features.forEach((feature) => {
         if (feature.geometry?.type !== "MultiLineString") return;
         feature.geometry.coordinates.forEach((lineString) => {
+            lineString.forEach(([lon, lat]) => {
+                const key = `${lon.toFixed(3)},${lat.toFixed(3)}`;
+                if (vertexKeys.has(key)) return;
+                vertexKeys.add(key);
+                vertexPositions.push(lonLatToSkyPosition(lon, lat, CONSTELLATION_SKY_RADIUS));
+            });
+
             const points = lineString.map(([lon, lat]) => lonLatToSkyPosition(lon, lat, CONSTELLATION_SKY_RADIUS));
             if (points.length < 2) return;
             const geometry = new THREE.BufferGeometry().setFromPoints(points);
@@ -492,6 +502,39 @@ function createConstellations(geoJson) {
             group.add(line);
         });
     });
+
+    if (vertexPositions.length > 0) {
+        const starGeometry = new THREE.BufferGeometry().setFromPoints(vertexPositions);
+
+        const glowStars = new THREE.Points(
+            starGeometry,
+            new THREE.PointsMaterial({
+                color: 0xcbd5ff,
+                size: 2.6,
+                transparent: true,
+                opacity: 0.38,
+                sizeAttenuation: true,
+                depthWrite: false,
+                blending: THREE.AdditiveBlending,
+            }),
+        );
+        glowStars.raycast = () => {};
+        group.add(glowStars);
+
+        const coreStars = new THREE.Points(
+            starGeometry.clone(),
+            new THREE.PointsMaterial({
+                color: 0xeaf2ff,
+                size: 1.35,
+                transparent: true,
+                opacity: 0.95,
+                sizeAttenuation: true,
+                depthWrite: false,
+            }),
+        );
+        coreStars.raycast = () => {};
+        group.add(coreStars);
+    }
 
     return group;
 }
