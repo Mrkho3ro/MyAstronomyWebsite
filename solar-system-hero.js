@@ -80,6 +80,29 @@ const ORBIT_AU = {
     Neptune: 30.05,
 };
 
+// Orbital inclination & ascending node (approximate, relative to ecliptic)
+const ORBIT_INCLINATION_DEG = {
+    Mercury: 7.0,
+    Venus: 3.4,
+    Earth: 0.0,
+    Mars: 1.85,
+    Jupiter: 1.3,
+    Saturn: 2.5,
+    Uranus: 0.77,
+    Neptune: 1.77,
+};
+
+const ORBIT_ASCENDING_NODE_DEG = {
+    Mercury: 48.3,
+    Venus: 76.7,
+    Earth: 0.0,
+    Mars: 49.6,
+    Jupiter: 100.5,
+    Saturn: 113.7,
+    Uranus: 74.0,
+    Neptune: 131.8,
+};
+
 let activeScalePreset = SCALE_PRESETS.educational;
 let asteroidBeltInner = 16.2 * ORBIT_SCALE;
 let asteroidBeltOuter = 19.8 * ORBIT_SCALE;
@@ -87,7 +110,7 @@ let kuiperBeltInner = 42 * ORBIT_SCALE;
 let kuiperBeltOuter = 48 * ORBIT_SCALE;
 
 const MOONS_BY_PLANET = {
-    Earth: [{ name: "Moon", radius: 0.14, orbit: 1.35, speed: 0.09, color: 0xb8b8b8 }],
+    Earth: [{ name: "Moon", radius: 0.14, orbit: 1.35, speed: 0.09, color: 0xb8b8b8, texture: "2k_moon.jpg" }],
     Mars: [
         { name: "Phobos", radius: 0.045, orbit: 0.62, speed: 0.16, color: 0x8a7560 },
         { name: "Deimos", radius: 0.035, orbit: 0.82, speed: 0.12, color: 0x7a6550 },
@@ -99,10 +122,13 @@ const MOONS_BY_PLANET = {
         { name: "Callisto", radius: 0.12, orbit: 3.65, speed: 0.042, color: 0x665544 },
     ],
     Saturn: [
-        { name: "Titan", radius: 0.12, orbit: 2.5, speed: 0.046, color: 0xcc9944 },
+        { name: "Mimas", radius: 0.04, orbit: 1.55, speed: 0.072, color: 0xcccccc },
         { name: "Enceladus", radius: 0.055, orbit: 1.85, speed: 0.058, color: 0xeeeeee },
+        { name: "Titan", radius: 0.12, orbit: 2.5, speed: 0.046, color: 0xcc9944 },
+        { name: "Rhea", radius: 0.065, orbit: 2.15, speed: 0.052, color: 0xaaa899 },
     ],
     Uranus: [
+        { name: "Miranda", radius: 0.045, orbit: 1.25, speed: 0.062, color: 0x8899aa },
         { name: "Titania", radius: 0.075, orbit: 1.55, speed: 0.052, color: 0x99aabb },
         { name: "Oberon", radius: 0.07, orbit: 1.95, speed: 0.044, color: 0x8899aa },
     ],
@@ -820,6 +846,21 @@ function updateShootingStars(streaks, delta) {
     streak.line.material.opacity = fade * 0.35;
 }
 
+function createMoonMaterial(moonData) {
+    const material = new THREE.MeshStandardMaterial({
+        color: moonData.color,
+        roughness: 0.92,
+        metalness: 0.02,
+        emissive: moonData.color,
+        emissiveIntensity: 0.12,
+    });
+    if (moonData.texture) {
+        material.map = loadTexture(`${TEXTURE_BASE}${moonData.texture}`);
+        material.emissiveIntensity = 0.06;
+    }
+    return material;
+}
+
 function createMoonsForPlanet(planetMesh, planetName) {
     const moonDefs = MOONS_BY_PLANET[planetName];
     if (!moonDefs) return [];
@@ -828,14 +869,10 @@ function createMoonsForPlanet(planetMesh, planetName) {
         const pivot = new THREE.Object3D();
         planetMesh.add(pivot);
 
-        const moonMaterial = new THREE.MeshStandardMaterial({
-            color: moonData.color,
-            roughness: 0.92,
-            metalness: 0.02,
-            emissive: moonData.color,
-            emissiveIntensity: 0.12,
-        });
-        const moon = new THREE.Mesh(new THREE.SphereGeometry(moonData.radius, 24, 24), moonMaterial);
+        const moon = new THREE.Mesh(
+            new THREE.SphereGeometry(moonData.radius, 24, 24),
+            createMoonMaterial(moonData),
+        );
         moon.position.x = moonData.orbit;
         pivot.add(moon);
 
@@ -932,7 +969,7 @@ orbitGroup.add(asteroidBeltGroup);
 let kuiperBeltGroup = createKuiperBelt();
 orbitGroup.add(kuiperBeltGroup);
 
-function createOrbitPath(radius) {
+function createOrbitPath(radius, parent) {
     const points = [];
     const segments = 128;
     for (let i = 0; i <= segments; i += 1) {
@@ -946,8 +983,14 @@ function createOrbitPath(radius) {
         opacity: 0.52,
     });
     const line = new THREE.LineLoop(geometry, material);
-    orbitGroup.add(line);
+    parent.add(line);
     return line;
+}
+
+function applyOrbitPlaneTilt(wrapper, planetName) {
+    wrapper.rotation.order = "YXZ";
+    wrapper.rotation.y = THREE.MathUtils.degToRad(ORBIT_ASCENDING_NODE_DEG[planetName] || 0);
+    wrapper.rotation.x = THREE.MathUtils.degToRad(ORBIT_INCLINATION_DEG[planetName] || 0);
 }
 
 function createSaturnRing(planetRadius, ringTexture) {
@@ -977,11 +1020,15 @@ function createSaturnRing(planetRadius, ringTexture) {
 }
 
 PLANET_DATA.forEach((data) => {
-    const pivot = new THREE.Object3D();
-    orbitGroup.add(pivot);
+    const orbitWrapper = new THREE.Object3D();
+    applyOrbitPlaneTilt(orbitWrapper, data.name);
+    orbitGroup.add(orbitWrapper);
 
-    const orbitLine = createOrbitPath(data.orbit);
-    orbitLines.push({ line: orbitLine, planetName: data.name });
+    const pivot = new THREE.Object3D();
+    orbitWrapper.add(pivot);
+
+    const orbitLine = createOrbitPath(data.orbit, orbitWrapper);
+    orbitLines.push({ line: orbitLine, planetName: data.name, orbitWrapper });
 
     const planetMaterial = new THREE.MeshStandardMaterial({
         color: 0xffffff,
@@ -1029,6 +1076,7 @@ PLANET_DATA.forEach((data) => {
     planetMeshes.push({
         mesh: planet,
         pivot,
+        orbitWrapper,
         data,
         cloudMesh: cloudMesh || null,
         baseScale: 1,

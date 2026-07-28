@@ -27,39 +27,50 @@
                 <p class="Solar-Hero-Hint">Drag to orbit · Scroll to zoom · Hover planets for details · Click to explore</p>
             </div>
         </section>
-        <div class="Solar-System-Hero-Wrapper">
-        <section class="Solar-System-Main-Picture">
-            <canvas id="solar-system-canvas" aria-label="Interactive 3D solar system"></canvas>
-            <div class="Solar-Controls" role="toolbar" aria-label="Solar system display options">
-                <button type="button" id="scale-toggle-btn" class="Solar-Control-Btn" aria-pressed="false">
-                    Real Size
-                </button>
-                <button type="button" id="theme-toggle-btn" class="Solar-Control-Btn" aria-pressed="false">
-                    Light Mode
-                </button>
-                <button type="button" id="sound-toggle-btn" class="Solar-Control-Btn" aria-pressed="false">
-                    Sound Off
-                </button>
-            </div>
-            <p id="scale-note" class="Solar-Scale-Note" hidden></p>
-            <div id="planet-hover-label" class="Planet-Hover-Label" aria-hidden="true"></div>
-            <p id="solar-system-error" class="Solar-System-Error" hidden aria-live="polite">
-                Unable to load the 3D solar system. Please refresh the page or use a modern browser with WebGL enabled.
-            </p>
-            <div id="planet-tooltip" class="Planet-Hover-Tooltip" aria-hidden="true">
-                <div class="Planet-Tooltip-Body">
-                    <div id="planet-tooltip-preview" class="Planet-Tooltip-Preview">
-                        <canvas id="planet-tooltip-canvas" aria-hidden="true"></canvas>
-                    </div>
-                    <div id="planet-tooltip-content" class="Planet-Tooltip-Content">
-                        <h2 id="planet-tooltip-title"></h2>
-                        <p id="planet-tooltip-facts" class="Planet-Tooltip-Facts"></p>
-                        <p id="planet-tooltip-text"></p>
-                    </div>
-                </div>
-            </div>
-        </section>
+
+        <div class="Solar-3D-Divider" aria-hidden="true">
+            <span class="Solar-3D-Divider-Label">Interactive 3D Explorer</span>
         </div>
+
+        <section class="Solar-3D-Section" aria-label="Interactive 3D solar system">
+        <div class="Solar-System-Hero-Wrapper">
+            <div class="Solar-System-Hero-Row">
+                <aside class="Solar-Controls-Column Solar-Controls-Column--left" role="toolbar" aria-label="Scale options">
+                    <button type="button" id="scale-toggle-btn" class="Solar-Control-Btn" aria-pressed="false">
+                        Real Size
+                    </button>
+                </aside>
+                <section class="Solar-System-Main-Picture">
+                    <canvas id="solar-system-canvas" aria-label="Interactive 3D solar system"></canvas>
+                    <p id="scale-note" class="Solar-Scale-Note" hidden></p>
+                    <div id="planet-hover-label" class="Planet-Hover-Label" aria-hidden="true"></div>
+                    <p id="solar-system-error" class="Solar-System-Error" hidden aria-live="polite">
+                        Unable to load the 3D solar system. Please refresh the page or use a modern browser with WebGL enabled.
+                    </p>
+                    <div id="planet-tooltip" class="Planet-Hover-Tooltip" aria-hidden="true">
+                        <div class="Planet-Tooltip-Body">
+                            <div id="planet-tooltip-preview" class="Planet-Tooltip-Preview">
+                                <canvas id="planet-tooltip-canvas" aria-hidden="true"></canvas>
+                            </div>
+                            <div id="planet-tooltip-content" class="Planet-Tooltip-Content">
+                                <h2 id="planet-tooltip-title"></h2>
+                                <p id="planet-tooltip-facts" class="Planet-Tooltip-Facts"></p>
+                                <p id="planet-tooltip-text"></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <aside class="Solar-Controls-Column Solar-Controls-Column--right" role="toolbar" aria-label="Display options">
+                    <button type="button" id="theme-toggle-btn" class="Solar-Control-Btn" aria-pressed="false">
+                        Light Mode
+                    </button>
+                    <button type="button" id="sound-toggle-btn" class="Solar-Control-Btn" aria-pressed="false">
+                        Sound Off
+                    </button>
+                </aside>
+            </div>
+        </div>
+        </section>
         <script type="importmap">
             {
                 "imports": {

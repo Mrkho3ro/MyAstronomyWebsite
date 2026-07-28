@@ -136,9 +136,77 @@ body {
 
 .Solar-Hero-Banner {
   background: linear-gradient(180deg, #0a0f2c 0%, #121830 55%, #0a1230 100%);
-  border-bottom: 3px solid rgba(100, 149, 237, 0.45);
+  border-bottom: none;
   padding: 28px 40px 32px;
   text-align: center;
+}
+
+.Solar-3D-Divider {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 28px clamp(16px, 4vw, 40px) 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.Solar-3D-Divider::before,
+.Solar-3D-Divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(100, 149, 237, 0.55), transparent);
+}
+
+.Solar-3D-Divider-Label {
+  font-family: "Bruno Ace SC", system-ui, sans-serif;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #7a9fd4;
+  white-space: nowrap;
+  padding: 6px 14px;
+  border: 1px solid rgba(100, 149, 237, 0.35);
+  border-radius: 999px;
+  background: rgba(6, 10, 24, 0.65);
+}
+
+.Solar-3D-Section {
+  background: linear-gradient(180deg, #050810 0%, #0a1020 40%, #060818 100%);
+  padding: 24px 0 48px;
+  margin-top: 8px;
+  border-top: 1px solid rgba(100, 149, 237, 0.12);
+  border-bottom: 1px solid rgba(100, 149, 237, 0.18);
+}
+
+.Solar-System-Hero-Wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(12px, 3vw, 24px);
+}
+
+.Solar-System-Hero-Row {
+  display: flex;
+  align-items: stretch;
+  gap: clamp(8px, 1.5vw, 16px);
+}
+
+.Solar-Controls-Column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  flex-shrink: 0;
+  width: clamp(88px, 11vw, 118px);
+  padding: 12px 0;
+}
+
+.Solar-Controls-Column--left {
+  align-items: flex-end;
+}
+
+.Solar-Controls-Column--right {
+  align-items: flex-start;
 }
 
 .Solar-Hero-Banner .Solar-Hero-Overlay {
@@ -184,22 +252,19 @@ body {
   text-align: center;
 }
 
-.Solar-System-Hero-Wrapper {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 0 clamp(16px, 4vw, 40px);
-}
-
 .Solar-System-Main-Picture {
   position: relative;
   overflow: hidden;
-  width: 100%;
+  flex: 1;
+  min-width: 0;
   aspect-ratio: 16 / 10;
   max-height: 600px;
   background: #060a18;
-  border-bottom: 4px solid #6495ed;
-  border-radius: 0 0 14px 14px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(100, 149, 237, 0.35);
+  border-radius: 14px;
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.55),
+    inset 0 0 60px rgba(100, 149, 237, 0.04);
 }
 
 #solar-system-canvas {
@@ -353,28 +418,19 @@ body {
   line-height: 1.4 !important;
 }
 
-.Solar-Controls {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  z-index: 6;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: flex-end;
-  max-width: calc(100% - 28px);
-}
-
 .Solar-Control-Btn {
   font-family: "Keania One", sans-serif;
-  font-size: 0.85rem;
-  padding: 8px 14px;
-  border-radius: 999px;
+  font-size: 0.82rem;
+  padding: 10px 12px;
+  border-radius: 10px;
   border: 1px solid rgba(100, 149, 237, 0.45);
-  background: rgba(6, 10, 24, 0.82);
+  background: rgba(6, 10, 24, 0.88);
   color: #c8d8ff;
   cursor: pointer;
   transition: background 0.2s, border-color 0.2s, color 0.2s;
+  width: 100%;
+  text-align: center;
+  line-height: 1.25;
 }
 
 .Solar-Control-Btn:hover {
@@ -452,9 +508,21 @@ body.solar-light-mode .Solar-Hero-Banner .Solar-Hero-Hint {
   color: #3a5080;
 }
 
+body.solar-light-mode .Solar-3D-Section {
+  background: linear-gradient(180deg, #d0dcef 0%, #e8eef8 50%, #c8d8ef 100%);
+  border-top-color: rgba(80, 120, 180, 0.2);
+  border-bottom-color: rgba(80, 120, 180, 0.25);
+}
+
+body.solar-light-mode .Solar-3D-Divider-Label {
+  color: #3a5080;
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(80, 120, 180, 0.35);
+}
+
 body.solar-light-mode .Solar-System-Main-Picture {
   background: #d8e4f8;
-  border-bottom-color: rgba(80, 120, 180, 0.45);
+  border-color: rgba(80, 120, 180, 0.45);
 }
 
 body.solar-light-mode .Solar-Control-Btn {
@@ -1480,6 +1548,251 @@ body .M-divs {
   line-height: 1.5;
 }
 
+.Planet-Detail-Moon-System {
+  margin-top: 8px;
+}
+
+.Planet-Detail-Moon-System-Summary {
+  margin: 0 0 16px;
+  font-family: "Keania One", sans-serif;
+  font-size: 0.92rem;
+  color: #98a8c8;
+  line-height: 1.55;
+}
+
+.Planet-Detail-Moon-Table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Keania One", sans-serif;
+  font-size: 0.85rem;
+  margin-top: 8px;
+}
+
+.Planet-Detail-Moon-Table th,
+.Planet-Detail-Moon-Table td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid rgba(100, 149, 237, 0.15);
+}
+
+.Planet-Detail-Moon-Table th {
+  font-family: "Bruno Ace SC", system-ui, sans-serif;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #7a9fd4;
+}
+
+.Planet-Detail-Moon-Table td {
+  color: #a8b8d8;
+}
+
+.Planet-Detail-Moon-Table tr:hover td {
+  background: rgba(100, 149, 237, 0.06);
+}
+
+/* ── Per-planet accent theming ── */
+.Planet-Detail-Page--sun {
+  --pd-accent: #e07020;
+  --pd-accent-soft: #c45a00;
+  --pd-accent-muted: #8a5020;
+  --pd-bg-tint: #120804;
+  --pd-surface: rgba(40, 18, 4, 0.85);
+  --pd-border: rgba(224, 112, 32, 0.28);
+  --pd-heading: #ffb060;
+  --pd-link: #e09040;
+  --pd-link-hover: #ffc080;
+}
+
+.Planet-Detail-Page--mercury {
+  --pd-accent: #8a7560;
+  --pd-accent-soft: #6b5d4a;
+  --pd-accent-muted: #5a5040;
+  --pd-bg-tint: #0a0806;
+  --pd-surface: rgba(26, 21, 16, 0.88);
+  --pd-border: rgba(138, 117, 96, 0.3);
+  --pd-heading: #c8b8a0;
+  --pd-link: #a89880;
+  --pd-link-hover: #dcc8b0;
+}
+
+.Planet-Detail-Page--venus {
+  --pd-accent: #c87840;
+  --pd-accent-soft: #a06030;
+  --pd-accent-muted: #804828;
+  --pd-bg-tint: #100804;
+  --pd-surface: rgba(42, 26, 8, 0.88);
+  --pd-border: rgba(200, 120, 64, 0.3);
+  --pd-heading: #e8a060;
+  --pd-link: #d09050;
+  --pd-link-hover: #f0c080;
+}
+
+.Planet-Detail-Page--earth {
+  --pd-accent: #3a90c0;
+  --pd-accent-soft: #2a6090;
+  --pd-accent-muted: #1a4060;
+  --pd-bg-tint: #060e18;
+  --pd-surface: rgba(10, 26, 46, 0.88);
+  --pd-border: rgba(58, 144, 192, 0.32);
+  --pd-heading: #70c8e8;
+  --pd-link: #50a8d0;
+  --pd-link-hover: #90d8f8;
+}
+
+.Planet-Detail-Page--mars {
+  --pd-accent: #c05040;
+  --pd-accent-soft: #8a3535;
+  --pd-accent-muted: #5a2020;
+  --pd-bg-tint: #0c0404;
+  --pd-surface: rgba(26, 8, 8, 0.88);
+  --pd-border: rgba(192, 80, 64, 0.32);
+  --pd-heading: #e88070;
+  --pd-link: #d06050;
+  --pd-link-hover: #f0a090;
+}
+
+.Planet-Detail-Page--jupiter {
+  --pd-accent: #c89050;
+  --pd-accent-soft: #8a6030;
+  --pd-accent-muted: #5a4020;
+  --pd-bg-tint: #0c0804;
+  --pd-surface: rgba(26, 18, 8, 0.88);
+  --pd-border: rgba(200, 144, 80, 0.32);
+  --pd-heading: #e8b870;
+  --pd-link: #d0a050;
+  --pd-link-hover: #f0d090;
+}
+
+.Planet-Detail-Page--saturn {
+  --pd-accent: #c8b060;
+  --pd-accent-soft: #9a8850;
+  --pd-accent-muted: #6a6040;
+  --pd-bg-tint: #0a0a06;
+  --pd-surface: rgba(26, 24, 16, 0.88);
+  --pd-border: rgba(200, 176, 96, 0.32);
+  --pd-heading: #e8d890;
+  --pd-link: #c8b060;
+  --pd-link-hover: #f0e8b0;
+}
+
+.Planet-Detail-Page--uranus {
+  --pd-accent: #50a8c0;
+  --pd-accent-soft: #2a6070;
+  --pd-accent-muted: #1a4050;
+  --pd-bg-tint: #040c10;
+  --pd-surface: rgba(8, 24, 32, 0.88);
+  --pd-border: rgba(80, 168, 192, 0.32);
+  --pd-heading: #80d0e8;
+  --pd-link: #60b0d0;
+  --pd-link-hover: #a0e8f8;
+}
+
+.Planet-Detail-Page--neptune {
+  --pd-accent: #4060d0;
+  --pd-accent-soft: #2030a0;
+  --pd-accent-muted: #1a2060;
+  --pd-bg-tint: #040610;
+  --pd-surface: rgba(8, 8, 24, 0.88);
+  --pd-border: rgba(64, 96, 208, 0.32);
+  --pd-heading: #7090f0;
+  --pd-link: #5080e0;
+  --pd-link-hover: #90b0ff;
+}
+
+[class*="Planet-Detail-Page--"] {
+  background: var(--pd-bg-tint, #04060f);
+}
+
+[class*="Planet-Detail-Page--"] .Planet-Detail-Back a {
+  color: var(--pd-link, #7a9fd4);
+}
+
+[class*="Planet-Detail-Page--"] .Planet-Detail-Back a:hover {
+  color: var(--pd-link-hover, #a8c8ff);
+}
+
+[class*="Planet-Detail-Page--"] .Planet-Detail-Hero {
+  background: radial-gradient(ellipse at 50% 60%, color-mix(in srgb, var(--pd-accent) 12%, #0a1020) 0%, #020408 100%);
+  border-left-color: var(--pd-border);
+  border-right-color: var(--pd-border);
+}
+
+[class*="Planet-Detail-Page--"] .Planet-Detail-Hero-Hint {
+  color: color-mix(in srgb, var(--pd-heading) 70%, #fff);
+  border-color: var(--pd-border);
+  background: color-mix(in srgb, var(--pd-bg-tint) 80%, transparent);
+}
+
+[class*="Planet-Detail-Page--"] .Planet-Detail-Layout {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--pd-surface) 60%, #0a0e1a) 0%, var(--pd-bg-tint) 100%);
+  border-color: var(--pd-border);
+}
+
+[class*="Planet-Detail-Page--"] .Planet-Detail-Stats {
+  background: var(--pd-surface);
+  border-right-color: var(--pd-border);
+}
+
+[class*="Planet-Detail-Page--"] .Planet-Detail-Stats h2 {
+  color: var(--pd-heading);
+}
+
+[class*="Planet-Detail-Page--"] .Planet-Detail-Stat-Label {
+  color: color-mix(in srgb, var(--pd-accent-muted) 80%, #888);
+}
+
+[class*="Planet-Detail-Page--"] .Planet-Detail-Stat-Value {
+  color: color-mix(in srgb, var(--pd-heading) 40%, #d8e4ff);
+}
+
+[class*="Planet-Detail-Page--"] .Planet-Detail-Intro {
+  color: color-mix(in srgb, var(--pd-heading) 35%, #b8c8e8);
+}
+
+[class*="Planet-Detail-Page--"] .Planet-Detail-Section h2 {
+  color: var(--pd-heading);
+  border-bottom-color: var(--pd-border);
+}
+
+[class*="Planet-Detail-Page--"] .Planet-Detail-Facts li {
+  color: color-mix(in srgb, var(--pd-heading) 25%, #a8b8d8);
+}
+
+[class*="Planet-Detail-Page--"] .Planet-Detail-Moon {
+  background: color-mix(in srgb, var(--pd-surface) 70%, rgba(8, 14, 32, 0.65));
+  border-color: var(--pd-border);
+}
+
+[class*="Planet-Detail-Page--"] .Planet-Detail-Moon h3 {
+  color: color-mix(in srgb, var(--pd-heading) 50%, #c8d8ff);
+}
+
+[class*="Planet-Detail-Page--"] .Planet-Detail-Moon-Stats {
+  color: var(--pd-link);
+}
+
+[class*="Planet-Detail-Page--"] .Planet-Detail-Moon-Facts li {
+  color: color-mix(in srgb, var(--pd-heading) 20%, #98a8c8);
+}
+
+[class*="Planet-Detail-Page--"] .Planet-Detail-Moon-Table th {
+  color: var(--pd-link);
+}
+
+[class*="Planet-Detail-Page--"] .Planet-Detail-Moon-Table td {
+  color: color-mix(in srgb, var(--pd-heading) 20%, #a8b8d8);
+}
+
+[class*="Planet-Detail-Page--"] .Planet-Detail-Moon-Table th,
+[class*="Planet-Detail-Page--"] .Planet-Detail-Moon-Table td {
+  border-bottom-color: var(--pd-border);
+}
+
+[class*="Planet-Detail-Page--"] .Planet-Detail-Moon-Table tr:hover td {
+  background: color-mix(in srgb, var(--pd-accent) 8%, transparent);
+}
+
 @media (max-width: 860px) {
   .Planet-Detail-Layout {
     grid-template-columns: 1fr;
@@ -1537,6 +1850,28 @@ body .M-divs {
 @media (max-width: 960px) {
   .Solar-Hero-Banner {
     padding: 20px 16px 24px;
+  }
+
+  .Solar-System-Hero-Row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .Solar-Controls-Column {
+    flex-direction: row;
+    width: 100%;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .Solar-Controls-Column--left,
+  .Solar-Controls-Column--right {
+    align-items: stretch;
+  }
+
+  .Solar-Control-Btn {
+    flex: 1;
+    max-width: 160px;
   }
 
   .Solar-System-Main-Picture {

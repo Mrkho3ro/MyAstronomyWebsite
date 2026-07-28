@@ -54,7 +54,7 @@ const PLANET_CONFIGS = {
         clouds: "2k_earth_clouds.jpg",
         radius: 0.75,
         cameraZ: 3.4,
-        moons: [{ name: "Moon", radius: 0.18, orbit: 1.55, speed: 0.55, color: 0xb8b8b8 }],
+        moons: [{ name: "Moon", radius: 0.18, orbit: 1.55, speed: 0.55, color: 0xb8b8b8, texture: "2k_moon.jpg" }],
     },
     Mars: {
         name: "Mars",
@@ -76,6 +76,8 @@ const PLANET_CONFIGS = {
             { name: "Europa", radius: 0.12, orbit: 2.45, speed: 0.58, color: 0xc8dae8 },
             { name: "Ganymede", radius: 0.16, orbit: 2.85, speed: 0.48, color: 0x998877 },
             { name: "Callisto", radius: 0.14, orbit: 3.35, speed: 0.4, color: 0x665544 },
+            { name: "Amalthea", radius: 0.05, orbit: 1.55, speed: 0.95, color: 0xaa5533 },
+            { name: "Himalia", radius: 0.04, orbit: 3.85, speed: 0.22, color: 0x887766 },
         ],
     },
     Saturn: {
@@ -86,8 +88,15 @@ const PLANET_CONFIGS = {
         cameraZ: 5.8,
         tilt: 0.42,
         moons: [
+            { name: "Mimas", radius: 0.045, orbit: 1.45, speed: 0.82, color: 0xcccccc },
             { name: "Enceladus", radius: 0.07, orbit: 1.75, speed: 0.65, color: 0xeeeeee },
-            { name: "Titan", radius: 0.15, orbit: 2.35, speed: 0.42, color: 0xcc9944 },
+            { name: "Tethys", radius: 0.065, orbit: 1.95, speed: 0.58, color: 0xbbbbbb },
+            { name: "Dione", radius: 0.07, orbit: 2.15, speed: 0.52, color: 0xaaaacc },
+            { name: "Rhea", radius: 0.085, orbit: 2.45, speed: 0.44, color: 0xaaa899 },
+            { name: "Titan", radius: 0.15, orbit: 2.85, speed: 0.42, color: 0xcc9944 },
+            { name: "Iapetus", radius: 0.075, orbit: 3.25, speed: 0.32, color: 0x887755 },
+            { name: "Hyperion", radius: 0.04, orbit: 3.55, speed: 0.28, color: 0x998877 },
+            { name: "Phoebe", radius: 0.035, orbit: 3.95, speed: 0.18, color: 0x554433 },
         ],
     },
     Uranus: {
@@ -97,8 +106,11 @@ const PLANET_CONFIGS = {
         cameraZ: 4.2,
         tilt: 1.55,
         moons: [
-            { name: "Titania", radius: 0.09, orbit: 1.65, speed: 0.52, color: 0x99aabb },
-            { name: "Oberon", radius: 0.085, orbit: 2.05, speed: 0.44, color: 0x8899aa },
+            { name: "Miranda", radius: 0.055, orbit: 1.35, speed: 0.62, color: 0x8899aa },
+            { name: "Ariel", radius: 0.065, orbit: 1.5, speed: 0.56, color: 0x99aabb },
+            { name: "Umbriel", radius: 0.065, orbit: 1.65, speed: 0.52, color: 0x667788 },
+            { name: "Titania", radius: 0.09, orbit: 1.85, speed: 0.48, color: 0x99aabb },
+            { name: "Oberon", radius: 0.085, orbit: 2.15, speed: 0.42, color: 0x8899aa },
         ],
     },
     Neptune: {
@@ -106,7 +118,11 @@ const PLANET_CONFIGS = {
         texture: "2k_neptune.jpg",
         radius: 0.92,
         cameraZ: 4.0,
-        moons: [{ name: "Triton", radius: 0.11, orbit: 1.7, speed: 0.38, color: 0xbbccdd }],
+        moons: [
+            { name: "Proteus", radius: 0.055, orbit: 1.35, speed: 0.55, color: 0x777788 },
+            { name: "Triton", radius: 0.11, orbit: 1.7, speed: 0.38, color: 0xbbccdd, retrograde: true },
+            { name: "Nereid", radius: 0.035, orbit: 2.45, speed: 0.15, color: 0x889999 },
+        ],
     },
 };
 
@@ -143,23 +159,37 @@ function createSaturnRing(planetRadius, ringTexture) {
     );
 }
 
+function createMoonMaterial(moonData) {
+    const material = new THREE.MeshStandardMaterial({
+        color: moonData.color,
+        roughness: 0.9,
+        metalness: 0.02,
+        emissive: moonData.color,
+        emissiveIntensity: 0.1,
+    });
+    if (moonData.texture) {
+        material.map = loadTexture(`${TEXTURE_BASE}${moonData.texture}`);
+        material.emissiveIntensity = 0.05;
+    }
+    return material;
+}
+
 function createMoons(planetMesh, moonDefs) {
     return moonDefs.map((moonData) => {
         const pivot = new THREE.Object3D();
         planetMesh.add(pivot);
         const moon = new THREE.Mesh(
             new THREE.SphereGeometry(moonData.radius, 32, 32),
-            new THREE.MeshStandardMaterial({
-                color: moonData.color,
-                roughness: 0.9,
-                metalness: 0.02,
-                emissive: moonData.color,
-                emissiveIntensity: 0.1,
-            }),
+            createMoonMaterial(moonData),
         );
         moon.position.x = moonData.orbit;
         pivot.add(moon);
-        return { pivot, speed: moonData.speed, angle: Math.random() * Math.PI * 2 };
+        return {
+            pivot,
+            speed: moonData.speed,
+            angle: Math.random() * Math.PI * 2,
+            retrograde: Boolean(moonData.retrograde),
+        };
     });
 }
 
@@ -300,7 +330,8 @@ function initPlanetDetailViewer(canvas) {
         if (cloudMesh) cloudMesh.rotation.y += spin * 1.08;
 
         moonEntries.forEach((moon) => {
-            moon.angle += moon.speed * delta;
+            const direction = moon.retrograde ? -1 : 1;
+            moon.angle += moon.speed * delta * direction;
             moon.pivot.rotation.y = moon.angle;
         });
 
