@@ -104,12 +104,34 @@ function getEclipticGridExtent(_preset) {
     return CONSTELLATION_SKY_RADIUS * 0.95;
 }
 
+function getEclipticGridDivisions(preset) {
+    const extent = getEclipticGridExtent(preset);
+    return Math.round((extent * 2) / preset.earthOrbit);
+}
+
+function buildEclipticGridLinePositions(extent, cellSize) {
+    const half = extent;
+    const linePositions = [];
+    const minIndex = Math.ceil(-half / cellSize);
+    const maxIndex = Math.floor(half / cellSize);
+
+    for (let i = minIndex; i <= maxIndex; i += 1) {
+        const z = i * cellSize;
+        linePositions.push(-half, 0, z, half, 0, z);
+    }
+    for (let i = minIndex; i <= maxIndex; i += 1) {
+        const x = i * cellSize;
+        linePositions.push(x, 0, -half, x, 0, half);
+    }
+
+    return linePositions;
+}
+
 const ECLIPTIC_GRID = {
     lineColor: 0x6495ed,
     fillColor: 0x4a5a8a,
     lineOpacity: { dark: 0.22, light: 0.18 },
     fillOpacity: { dark: 0.045, light: 0.035 },
-    divisions: 28,
 };
 
 const MAX_ORBIT_EXTENT = Math.max(
@@ -1392,19 +1414,8 @@ orbitGroup.add(kuiperBeltGroup);
 
 function createEclipticGrid(preset) {
     const extent = getEclipticGridExtent(preset);
-    const half = extent;
-    const divisions = ECLIPTIC_GRID.divisions;
-    const step = (extent * 2) / divisions;
-    const linePositions = [];
-
-    for (let i = 0; i <= divisions; i += 1) {
-        const z = -half + i * step;
-        linePositions.push(-half, 0, z, half, 0, z);
-    }
-    for (let i = 0; i <= divisions; i += 1) {
-        const x = -half + i * step;
-        linePositions.push(x, 0, -half, x, 0, half);
-    }
+    const cellSize = preset.earthOrbit;
+    const linePositions = buildEclipticGridLinePositions(extent, cellSize);
 
     const lineGeometry = new THREE.BufferGeometry();
     lineGeometry.setAttribute("position", new THREE.Float32BufferAttribute(linePositions, 3));
@@ -1436,27 +1447,17 @@ function createEclipticGrid(preset) {
     group.add(fill);
     group.add(gridLines);
 
-    return { group, gridLines, fill, lineMaterial, fillMaterial, extent };
+    return { group, gridLines, fill, lineMaterial, fillMaterial, extent, cellSize };
 }
 
 function updateEclipticGrid(eclipticGrid, preset) {
     const extent = getEclipticGridExtent(preset);
-    if (extent === eclipticGrid.extent) return;
+    const cellSize = preset.earthOrbit;
+    if (extent === eclipticGrid.extent && cellSize === eclipticGrid.cellSize) return;
 
     eclipticGrid.extent = extent;
-    const half = extent;
-    const divisions = ECLIPTIC_GRID.divisions;
-    const step = (extent * 2) / divisions;
-    const linePositions = [];
-
-    for (let i = 0; i <= divisions; i += 1) {
-        const z = -half + i * step;
-        linePositions.push(-half, 0, z, half, 0, z);
-    }
-    for (let i = 0; i <= divisions; i += 1) {
-        const x = -half + i * step;
-        linePositions.push(x, 0, -half, x, 0, half);
-    }
+    eclipticGrid.cellSize = cellSize;
+    const linePositions = buildEclipticGridLinePositions(extent, cellSize);
 
     eclipticGrid.gridLines.geometry.dispose();
     const lineGeometry = new THREE.BufferGeometry();
