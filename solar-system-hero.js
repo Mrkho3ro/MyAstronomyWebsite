@@ -102,6 +102,18 @@ function getMaxOrbitExtent(preset) {
     return Math.max(neptuneOrbit, kuiperOuter);
 }
 
+function getEclipticGridExtent(preset) {
+    return preset.earthOrbit * ORBIT_AU.Neptune * 1.08;
+}
+
+const ECLIPTIC_GRID = {
+    lineColor: 0x6495ed,
+    fillColor: 0x4a5a8a,
+    lineOpacity: { dark: 0.22, light: 0.18 },
+    fillOpacity: { dark: 0.045, light: 0.035 },
+    divisions: 28,
+};
+
 const MAX_ORBIT_EXTENT = Math.max(
     getMaxOrbitExtent(SCALE_PRESETS.educational),
     getMaxOrbitExtent(SCALE_PRESETS.real),
@@ -857,11 +869,91 @@ const orbitGroup = new THREE.Group();
 orbitGroup.rotation.x = 0;
 scene.add(orbitGroup);
 
+const eclipticGrid = createEclipticGrid(activeScalePreset);
+orbitGroup.add(eclipticGrid.group);
+
 let asteroidBeltGroup = createAsteroidBelt();
 orbitGroup.add(asteroidBeltGroup);
 
 let kuiperBeltGroup = createKuiperBelt();
 orbitGroup.add(kuiperBeltGroup);
+
+function createEclipticGrid(preset) {
+    const extent = getEclipticGridExtent(preset);
+    const half = extent;
+    const divisions = ECLIPTIC_GRID.divisions;
+    const step = (extent * 2) / divisions;
+    const linePositions = [];
+
+    for (let i = 0; i <= divisions; i += 1) {
+        const z = -half + i * step;
+        linePositions.push(-half, 0, z, half, 0, z);
+    }
+    for (let i = 0; i <= divisions; i += 1) {
+        const x = -half + i * step;
+        linePositions.push(x, 0, -half, x, 0, half);
+    }
+
+    const lineGeometry = new THREE.BufferGeometry();
+    lineGeometry.setAttribute("position", new THREE.Float32BufferAttribute(linePositions, 3));
+
+    const lineMaterial = new THREE.LineBasicMaterial({
+        color: ECLIPTIC_GRID.lineColor,
+        transparent: true,
+        opacity: ECLIPTIC_GRID.lineOpacity.dark,
+        depthWrite: false,
+    });
+
+    const gridLines = new THREE.LineSegments(lineGeometry, lineMaterial);
+    gridLines.renderOrder = -2;
+    gridLines.raycast = () => {};
+
+    const fillMaterial = new THREE.MeshBasicMaterial({
+        color: ECLIPTIC_GRID.fillColor,
+        transparent: true,
+        opacity: ECLIPTIC_GRID.fillOpacity.dark,
+        side: THREE.DoubleSide,
+        depthWrite: false,
+    });
+    const fill = new THREE.Mesh(new THREE.PlaneGeometry(extent * 2, extent * 2), fillMaterial);
+    fill.rotation.x = -Math.PI / 2;
+    fill.renderOrder = -3;
+    fill.raycast = () => {};
+
+    const group = new THREE.Group();
+    group.add(fill);
+    group.add(gridLines);
+
+    return { group, gridLines, fill, lineMaterial, fillMaterial, extent };
+}
+
+function updateEclipticGrid(eclipticGrid, preset) {
+    const extent = getEclipticGridExtent(preset);
+    if (extent === eclipticGrid.extent) return;
+
+    eclipticGrid.extent = extent;
+    const half = extent;
+    const divisions = ECLIPTIC_GRID.divisions;
+    const step = (extent * 2) / divisions;
+    const linePositions = [];
+
+    for (let i = 0; i <= divisions; i += 1) {
+        const z = -half + i * step;
+        linePositions.push(-half, 0, z, half, 0, z);
+    }
+    for (let i = 0; i <= divisions; i += 1) {
+        const x = -half + i * step;
+        linePositions.push(x, 0, -half, x, 0, half);
+    }
+
+    eclipticGrid.gridLines.geometry.dispose();
+    const lineGeometry = new THREE.BufferGeometry();
+    lineGeometry.setAttribute("position", new THREE.Float32BufferAttribute(linePositions, 3));
+    eclipticGrid.gridLines.geometry = lineGeometry;
+
+    eclipticGrid.fill.geometry.dispose();
+    eclipticGrid.fill.geometry = new THREE.PlaneGeometry(extent * 2, extent * 2);
+}
 
 function createOrbitPath(radius, parent) {
     const points = [];
@@ -1519,6 +1611,8 @@ function applyScalePreset(presetKey) {
     kuiperBeltGroup = rebuildBeltGroup(kuiperBeltGroup, createKuiperBelt);
     orbitGroup.add(kuiperBeltGroup);
 
+    updateEclipticGrid(eclipticGrid, activeScalePreset);
+
     controls.maxDistance = activeScalePreset.maxZoom;
     if (camera.position.length() > controls.maxDistance) {
         camera.position.setLength(controls.maxDistance * 0.85);
@@ -1540,6 +1634,8 @@ function applyTheme(theme) {
     scene.background = new THREE.Color(colors.bg);
     scene.fog = new THREE.FogExp2(colors.fog, colors.fogDensity);
     renderer.toneMappingExposure = colors.exposure;
+    eclipticGrid.lineMaterial.opacity = ECLIPTIC_GRID.lineOpacity[theme];
+    eclipticGrid.fillMaterial.opacity = ECLIPTIC_GRID.fillOpacity[theme];
     document.body.classList.toggle("solar-light-mode", theme === "light");
     if (themeToggleBtn) {
         themeToggleBtn.textContent = theme === "dark" ? "Light Mode" : "Dark Mode";
