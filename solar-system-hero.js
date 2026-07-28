@@ -45,8 +45,13 @@ function getAxialRotationSpeed(bodyName) {
 }
 const ORBIT_SCALE = 0.78;
 const BODY_SCALE = 1.38;
-const ASTEROID_COUNT = 420;
-const KUIPER_BELT_COUNT = 280;
+const ASTEROID_COUNT = 700;
+const KUIPER_BELT_COUNT = 380;
+const ASTEROID_BELT_AU = { inner: 2.15, outer: 3.28 };
+const ASTEROID_BELT_VERTICAL_HALF_AU = 0.5;
+const KUIPER_BELT_VERTICAL_HALF_AU = 5.0;
+const KUIPER_BELT_INNER_FACTOR = 1.05;
+const KUIPER_BELT_OUTER_FACTOR = 1.28;
 
 const SCALE_PRESETS = {
     educational: {
@@ -96,7 +101,7 @@ const LEGACY_SKY_RADIUS = 182;
 
 function getMaxOrbitExtent(preset) {
     const neptuneOrbit = preset.earthOrbit * ORBIT_AU.Neptune;
-    const kuiperOuter = preset.earthOrbit * ORBIT_AU.Neptune * 1.22;
+    const kuiperOuter = preset.earthOrbit * ORBIT_AU.Neptune * KUIPER_BELT_OUTER_FACTOR;
     return Math.max(neptuneOrbit, kuiperOuter);
 }
 
@@ -137,10 +142,12 @@ const ORBIT_ASCENDING_NODE_DEG = {
 };
 
 let activeScalePreset = SCALE_PRESETS.educational;
-let asteroidBeltInner = 16.2 * ORBIT_SCALE;
-let asteroidBeltOuter = 19.8 * ORBIT_SCALE;
-let kuiperBeltInner = 42 * ORBIT_SCALE;
-let kuiperBeltOuter = 48 * ORBIT_SCALE;
+let asteroidBeltInner = SCALE_PRESETS.educational.earthOrbit * ASTEROID_BELT_AU.inner;
+let asteroidBeltOuter = SCALE_PRESETS.educational.earthOrbit * ASTEROID_BELT_AU.outer;
+let kuiperBeltInner = SCALE_PRESETS.educational.earthOrbit * ORBIT_AU.Neptune * KUIPER_BELT_INNER_FACTOR;
+let kuiperBeltOuter = SCALE_PRESETS.educational.earthOrbit * ORBIT_AU.Neptune * KUIPER_BELT_OUTER_FACTOR;
+let asteroidBeltVerticalHalf = SCALE_PRESETS.educational.earthOrbit * ASTEROID_BELT_VERTICAL_HALF_AU;
+let kuiperBeltVerticalHalf = SCALE_PRESETS.educational.earthOrbit * KUIPER_BELT_VERTICAL_HALF_AU;
 
 const SUN_DATA = {
     name: "The Sun",
@@ -642,25 +649,76 @@ function createSkyBackground() {
     return { group, nebulaMaterial, milkyWayMaterial, parallaxStars, milkyWayBand, constellationGroup };
 }
 
-function createBeltGroup(count, inner, outer, materialOptions, verticalSpread = 0.35) {
+function gaussianRandom() {
+    let u = 0;
+    let v = 0;
+    while (u === 0) u = Math.random();
+    while (v === 0) v = Math.random();
+    return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+}
+
+function sampleBeltRadius(inner, outer, edgeFalloff = 0.52) {
+    const mid = (inner + outer) * 0.5;
+    const halfWidth = (outer - inner) * 0.5;
+    const radius = mid + gaussianRandom() * halfWidth * edgeFalloff;
+    return Math.min(outer, Math.max(inner, radius));
+}
+
+function sampleAsteroidScale(sizeRange, mediumChance = 0.28) {
+    const [smallMin, smallMax, mediumMin, mediumMax] = sizeRange;
+    if (Math.random() < mediumChance) {
+        return mediumMin + Math.random() * (mediumMax - mediumMin);
+    }
+    return smallMin + Math.random() * (smallMax - smallMin);
+}
+
+function createBeltGroup(count, inner, outer, materialOptions, beltOptions = {}) {
+    const {
+        verticalHalfSpread = 0.175,
+        radialEdgeFalloff = 0.52,
+        sizeRange = [0.18, 0.48, 0.5, 1.25],
+        mediumChance = 0.28,
+    } = beltOptions;
+
     const group = new THREE.Group();
-    const asteroidGeometry = new THREE.IcosahedronGeometry(0.06, 0);
-    const asteroidMaterial = new THREE.MeshStandardMaterial(materialOptions);
+    const geometry = new THREE.IcosahedronGeometry(0.06, 0);
+    const material = new THREE.MeshStandardMaterial(materialOptions);
+    const instancedMesh = new THREE.InstancedMesh(geometry, material, count);
+    instancedMesh.frustumCulled = false;
+
+    const states = [];
+    const dummy = new THREE.Object3D();
 
     for (let i = 0; i < count; i += 1) {
-        const radius = inner + Math.random() * (outer - inner);
+        const radius = sampleBeltRadius(inner, outer, radialEdgeFalloff);
         const angle = Math.random() * Math.PI * 2;
-        const scale = 0.45 + Math.random() * 1.1;
-        const asteroid = new THREE.Mesh(asteroidGeometry, asteroidMaterial);
-        asteroid.position.set(Math.cos(angle) * radius, (Math.random() - 0.5) * verticalSpread, Math.sin(angle) * radius);
-        asteroid.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
-        asteroid.scale.setScalar(scale);
-        asteroid.userData.beltAngle = angle;
-        asteroid.userData.beltRadius = radius;
-        asteroid.userData.beltSpeed = 0.004 + Math.random() * 0.006;
-        group.add(asteroid);
+        const y = gaussianRandom() * verticalHalfSpread;
+        const scale = sampleAsteroidScale(sizeRange, mediumChance);
+        const rotX = Math.random() * Math.PI;
+        const rotY = Math.random() * Math.PI;
+        const rotZ = Math.random() * Math.PI;
+
+        dummy.position.set(Math.cos(angle) * radius, y, Math.sin(angle) * radius);
+        dummy.rotation.set(rotX, rotY, rotZ);
+        dummy.scale.setScalar(scale);
+        dummy.updateMatrix();
+        instancedMesh.setMatrixAt(i, dummy.matrix);
+
+        states.push({
+            angle,
+            radius,
+            y,
+            scale,
+            rotX,
+            rotY,
+            rotZ,
+            speed: 0.004 + Math.random() * 0.006,
+        });
     }
 
+    instancedMesh.instanceMatrix.needsUpdate = true;
+    group.add(instancedMesh);
+    group.userData = { instancedMesh, states, dummy: new THREE.Object3D() };
     return group;
 }
 
@@ -671,6 +729,11 @@ function createAsteroidBelt() {
         metalness: 0.08,
         emissive: 0x221100,
         emissiveIntensity: 0.15,
+    }, {
+        verticalHalfSpread: asteroidBeltVerticalHalf,
+        radialEdgeFalloff: 0.5,
+        sizeRange: [0.15, 0.42, 0.45, 1.35],
+        mediumChance: 0.32,
     });
 }
 
@@ -681,7 +744,12 @@ function createKuiperBelt() {
         metalness: 0.04,
         emissive: 0x112233,
         emissiveIntensity: 0.08,
-    }, 0.55);
+    }, {
+        verticalHalfSpread: kuiperBeltVerticalHalf,
+        radialEdgeFalloff: 0.48,
+        sizeRange: [0.12, 0.38, 0.4, 1.1],
+        mediumChance: 0.22,
+    });
 }
 
 function createShootingStars() {
@@ -1405,22 +1473,19 @@ function updateOrbitLineGeometry(line, radius) {
 }
 
 function updateBeltRadii(preset) {
-    const orbitScale = preset.key === "educational" ? ORBIT_SCALE : preset.earthOrbit / ORBIT_AU.Earth;
-    asteroidBeltInner = 16.2 * orbitScale;
-    asteroidBeltOuter = 19.8 * orbitScale;
-    kuiperBeltInner = preset.earthOrbit * ORBIT_AU.Neptune * 1.08;
-    kuiperBeltOuter = preset.earthOrbit * ORBIT_AU.Neptune * 1.22;
+    asteroidBeltInner = preset.earthOrbit * ASTEROID_BELT_AU.inner;
+    asteroidBeltOuter = preset.earthOrbit * ASTEROID_BELT_AU.outer;
+    kuiperBeltInner = preset.earthOrbit * ORBIT_AU.Neptune * KUIPER_BELT_INNER_FACTOR;
+    kuiperBeltOuter = preset.earthOrbit * ORBIT_AU.Neptune * KUIPER_BELT_OUTER_FACTOR;
+    asteroidBeltVerticalHalf = preset.earthOrbit * ASTEROID_BELT_VERTICAL_HALF_AU;
+    kuiperBeltVerticalHalf = preset.earthOrbit * KUIPER_BELT_VERTICAL_HALF_AU;
 }
 
 function rebuildBeltGroup(oldGroup, createFn) {
     orbitGroup.remove(oldGroup);
-    oldGroup.traverse((child) => {
-        if (child.geometry && child.geometry !== oldGroup.children[0]?.geometry) {
-            // shared geometry — disposed once below
-        }
-    });
-    if (oldGroup.children[0]?.geometry) oldGroup.children[0].geometry.dispose();
-    if (oldGroup.children[0]?.material) oldGroup.children[0].material.dispose();
+    const instancedMesh = oldGroup.userData?.instancedMesh ?? oldGroup.children[0];
+    if (instancedMesh?.geometry) instancedMesh.geometry.dispose();
+    if (instancedMesh?.material) instancedMesh.material.dispose();
     return createFn();
 }
 
@@ -1614,14 +1679,23 @@ let lastFrameTime = performance.now();
 let skyTime = 0;
 
 function asteroidBeltOrbit(beltGroup) {
-    beltGroup.children.forEach((asteroid) => {
-        asteroid.userData.beltAngle += asteroid.userData.beltSpeed * ORBIT_SPEED_FACTOR;
-        const angle = asteroid.userData.beltAngle;
-        const radius = asteroid.userData.beltRadius;
-        asteroid.position.x = Math.cos(angle) * radius;
-        asteroid.position.z = Math.sin(angle) * radius;
-        asteroid.rotation.y += 0.004;
+    const { instancedMesh, states, dummy } = beltGroup.userData;
+    if (!instancedMesh || !states) return;
+
+    states.forEach((state, index) => {
+        state.angle += state.speed * ORBIT_SPEED_FACTOR;
+        state.rotY += 0.004;
+        dummy.position.set(
+            Math.cos(state.angle) * state.radius,
+            state.y,
+            Math.sin(state.angle) * state.radius,
+        );
+        dummy.rotation.set(state.rotX, state.rotY, state.rotZ);
+        dummy.scale.setScalar(state.scale);
+        dummy.updateMatrix();
+        instancedMesh.setMatrixAt(index, dummy.matrix);
     });
+    instancedMesh.instanceMatrix.needsUpdate = true;
 }
 
 function animate() {
