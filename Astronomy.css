@@ -500,6 +500,66 @@ body {
   visibility: visible;
 }
 
+.Distance-Measure-Readout {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: min(320px, calc(100% - 24px));
+  padding: 10px 14px;
+  font-family: "Keania One", sans-serif;
+  color: #e8eeff;
+  background: rgba(6, 10, 24, 0.88);
+  border: 1px solid rgba(0, 255, 170, 0.45);
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 255, 170, 0.12);
+  pointer-events: none;
+}
+
+.Distance-Measure-Readout[hidden] {
+  display: none;
+}
+
+.Distance-Measure-Label {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #00ffaa;
+}
+
+.Distance-Measure-Value {
+  font-size: 0.95rem;
+  line-height: 1.35;
+  color: #fff;
+}
+
+.Distance-Measure-Hint {
+  font-size: 0.68rem;
+  color: #8fa9ff;
+  opacity: 0.9;
+}
+
+body.solar-light-mode .Distance-Measure-Readout {
+  background: rgba(240, 246, 255, 0.94);
+  border-color: rgba(0, 180, 130, 0.5);
+  color: #1a2a4a;
+}
+
+body.solar-light-mode .Distance-Measure-Label {
+  color: #008866;
+}
+
+body.solar-light-mode .Distance-Measure-Value {
+  color: #0a1830;
+}
+
+body.solar-light-mode .Distance-Measure-Hint {
+  color: #4a6080;
+}
+
 .Planet-Zoom-Label {
   position: absolute;
   transform: translate(-50%, -100%);

@@ -15,6 +15,8 @@ const constellationGeoJson = await fetch("./constellations.lines.json").then((re
 
 // "Close Encounter" — near enough to inspect a planet/moon, outside the Sun's corona
 const MIN_ZOOM = 8.5;
+const LABEL_CLOSEUP_MARGIN = 2.8;
+const AU_IN_KM = 149597870.7;
 
 const TEXTURE_BASE = "https://cdn.jsdelivr.net/gh/elymas/solar-simulator@main/public/textures/";
 const THREEJS_TEXTURE_BASE = "https://threejs.org/examples/textures/planets/";
@@ -284,6 +286,10 @@ const planetHoverLabel = document.getElementById("planet-hover-label");
 const zoomLabelsContainer = document.getElementById("planet-zoom-labels");
 const scaleToggleBtn = document.getElementById("scale-toggle-btn");
 const themeToggleBtn = document.getElementById("theme-toggle-btn");
+const eclipticGridToggleBtn = document.getElementById("ecliptic-grid-toggle-btn");
+const measureDistanceBtn = document.getElementById("measure-distance-btn");
+const measureReadoutEl = document.getElementById("distance-measure-readout");
+const measureValueEl = document.getElementById("distance-measure-value");
 const scaleNoteEl = document.getElementById("scale-note");
 const previewCanvas = document.getElementById("planet-tooltip-canvas");
 const heroSection = document.querySelector(".Solar-System-Main-Picture");
@@ -872,6 +878,183 @@ scene.add(orbitGroup);
 const eclipticGrid = createEclipticGrid(activeScalePreset);
 orbitGroup.add(eclipticGrid.group);
 
+const measureEclipticPlane = new THREE.Mesh(
+    new THREE.PlaneGeometry(getEclipticGridExtent(activeScalePreset) * 2, getEclipticGridExtent(activeScalePreset) * 2),
+    new THREE.MeshBasicMaterial({ visible: false }),
+);
+measureEclipticPlane.rotation.x = -Math.PI / 2;
+measureEclipticPlane.userData.isMeasurePlane = true;
+orbitGroup.add(measureEclipticPlane);
+
+const measureLineGeometry = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]);
+const measureLine = new THREE.Line(
+    measureLineGeometry,
+    new THREE.LineBasicMaterial({
+        color: 0x00ffaa,
+        transparent: true,
+        opacity: 0.95,
+        depthTest: false,
+        depthWrite: false,
+    }),
+);
+measureLine.frustumCulled = false;
+measureLine.renderOrder = 12;
+measureLine.visible = false;
+scene.add(measureLine);
+
+const measurePointA = new THREE.Vector3();
+const measurePointB = new THREE.Vector3();
+
+function updateMeasureEclipticPlane(preset) {
+    const extent = getEclipticGridExtent(preset);
+    measureEclipticPlane.geometry.dispose();
+    measureEclipticPlane.geometry = new THREE.PlaneGeometry(extent * 2, extent * 2);
+}
+
+function sceneUnitsToAu(units) {
+    return units / activeScalePreset.earthOrbit;
+}
+
+function formatMeasureDistance(units) {
+    const au = sceneUnitsToAu(units);
+    const km = au * AU_IN_KM;
+    if (au < 0.001) {
+        return `${Math.round(km).toLocaleString()} km (${au.toExponential(2)} AU)`;
+    }
+    if (au < 1) {
+        return `${au.toFixed(3)} AU · ${Math.round(km).toLocaleString()} km`;
+    }
+    return `${au.toFixed(2)} AU · ${(km / 1e6).toFixed(2)}M km`;
+}
+
+let eclipticGridVisible = true;
+
+function applyEclipticGridVisibility(visible) {
+    eclipticGridVisible = visible;
+    eclipticGrid.group.visible = visible;
+    if (eclipticGridToggleBtn) {
+        eclipticGridToggleBtn.textContent = visible ? "Ecliptic Grid" : "Grid Off";
+        eclipticGridToggleBtn.setAttribute("aria-pressed", visible ? "true" : "false");
+    }
+}
+
+function initEclipticGridToggle() {
+    if (!eclipticGridToggleBtn) return;
+    eclipticGridToggleBtn.addEventListener("click", () => {
+        applyEclipticGridVisibility(!eclipticGridVisible);
+    });
+    applyEclipticGridVisibility(eclipticGridVisible);
+}
+
+const measureState = {
+    active: false,
+    points: [null, null],
+};
+
+function getMeasurePointWorldPosition(point, target) {
+    if (point.bodyEntry) {
+        return point.bodyEntry.mesh.getWorldPosition(target);
+    }
+    return target.copy(point.fixedPosition);
+}
+
+function clearMeasureSelection() {
+    measureState.points = [null, null];
+    measureLine.visible = false;
+    if (measureValueEl) measureValueEl.textContent = "—";
+}
+
+function setMeasureControls(active) {
+    controls.enableRotate = !active;
+    controls.touches = active
+        ? { ONE: THREE.TOUCH.DOLLY, TWO: THREE.TOUCH.DOLLY_PAN }
+        : { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_ROTATE };
+    canvas.style.cursor = active ? "crosshair" : "default";
+    if (measureReadoutEl) measureReadoutEl.hidden = !active;
+    if (active) clearHoverState();
+    if (!active) clearMeasureSelection();
+}
+
+function applyMeasureMode(active) {
+    measureState.active = active;
+    setMeasureControls(active);
+    if (measureDistanceBtn) {
+        measureDistanceBtn.textContent = active ? "Measuring…" : "Measure Distance";
+        measureDistanceBtn.setAttribute("aria-pressed", active ? "true" : "false");
+    }
+}
+
+function initMeasureDistanceToggle() {
+    if (!measureDistanceBtn) return;
+    measureDistanceBtn.addEventListener("click", () => {
+        applyMeasureMode(!measureState.active);
+    });
+    applyMeasureMode(false);
+}
+
+function pickMeasurePoint(intersects) {
+    for (const hit of intersects) {
+        const body = findBodyFromObject(hit.object);
+        if (body) {
+            return { bodyEntry: body, fixedPosition: null };
+        }
+        if (hit.object.userData.isMeasurePlane) {
+            return { bodyEntry: null, fixedPosition: hit.point.clone() };
+        }
+    }
+    return null;
+}
+
+function handleMeasureClick(event) {
+    if (orbitDragMoved) {
+        orbitDragMoved = false;
+        return;
+    }
+
+    setPointerFromClient(event.clientX, event.clientY);
+    raycaster.setFromCamera(pointer, camera);
+    const targets = [...clickableMeshes, measureEclipticPlane];
+    const intersects = raycaster.intersectObjects(targets, false);
+    const picked = pickMeasurePoint(intersects);
+    if (!picked) return;
+
+    if (measureState.points[0] && measureState.points[1]) {
+        measureState.points = [picked, null];
+        measureLine.visible = false;
+        if (measureValueEl) measureValueEl.textContent = "—";
+        return;
+    }
+
+    if (!measureState.points[0]) {
+        measureState.points[0] = picked;
+        return;
+    }
+
+    measureState.points[1] = picked;
+    updateMeasureLineAndDistance();
+}
+
+function updateMeasureLineAndDistance() {
+    const [a, b] = measureState.points;
+    if (!a || !b) return;
+
+    getMeasurePointWorldPosition(a, measurePointA);
+    getMeasurePointWorldPosition(b, measurePointB);
+    const positions = measureLine.geometry.attributes.position;
+    positions.setXYZ(0, measurePointA.x, measurePointA.y, measurePointA.z);
+    positions.setXYZ(1, measurePointB.x, measurePointB.y, measurePointB.z);
+    positions.needsUpdate = true;
+    measureLine.visible = true;
+
+    const distance = measurePointA.distanceTo(measurePointB);
+    if (measureValueEl) measureValueEl.textContent = formatMeasureDistance(distance);
+}
+
+function updateMeasureLine() {
+    if (!measureState.active || !measureState.points[0] || !measureState.points[1]) return;
+    updateMeasureLineAndDistance();
+}
+
 let asteroidBeltGroup = createAsteroidBelt();
 orbitGroup.add(asteroidBeltGroup);
 
@@ -1432,6 +1615,11 @@ function hideTooltip() {
 }
 
 function updateHoverFromPointer() {
+    if (measureState.active) {
+        clearHoverState();
+        return;
+    }
+
     if (!pointerInside.active || isOrbiting) {
         clearHoverState();
         return;
@@ -1471,6 +1659,11 @@ function onPointerLeave() {
 }
 
 function handleClick(event) {
+    if (measureState.active) {
+        handleMeasureClick(event);
+        return;
+    }
+
     if (orbitDragMoved) {
         orbitDragMoved = false;
         return;
@@ -1522,6 +1715,11 @@ function getZoomLabelThreshold() {
     return controls.minDistance + (controls.maxDistance - controls.minDistance) * 0.6;
 }
 
+function getBodyLabelCloseThreshold(entry) {
+    const bodyRadius = entry.isSun ? sunRadius : entry.data.radius;
+    return MIN_ZOOM + bodyRadius * LABEL_CLOSEUP_MARGIN;
+}
+
 function initZoomLabels() {
     if (!zoomLabelsContainer) return;
     const bodies = [
@@ -1537,27 +1735,51 @@ function initZoomLabels() {
     });
 }
 
+function positionZoomLabel(entry, el, rect) {
+    entry.mesh.getWorldPosition(labelProjectVector);
+    labelProjectVector.project(camera);
+    if (labelProjectVector.z > 1) {
+        el.style.opacity = "0";
+        return;
+    }
+    const x = ((labelProjectVector.x + 1) / 2) * rect.width;
+    const y = ((-labelProjectVector.y + 1) / 2) * rect.height;
+    el.style.left = `${x}px`;
+    el.style.top = `${y - 10}px`;
+    el.style.opacity = "1";
+}
+
 function updateZoomLabels() {
     if (!zoomLabelsContainer || zoomLabelEntries.length === 0) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const isRealSize = activeScalePreset.key === "real";
+
+    if (isRealSize) {
+        zoomLabelsContainer.classList.add("is-visible");
+        zoomLabelsContainer.setAttribute("aria-hidden", "false");
+
+        zoomLabelEntries.forEach(({ entry, el }) => {
+            entry.mesh.getWorldPosition(labelProjectVector);
+            const distToCamera = camera.position.distanceTo(labelProjectVector);
+            const tooClose = distToCamera < getBodyLabelCloseThreshold(entry);
+            if (tooClose) {
+                el.style.opacity = "0";
+                return;
+            }
+            positionZoomLabel(entry, el, rect);
+        });
+        return;
+    }
+
     const cameraDistance = camera.position.distanceTo(controls.target);
     const show = cameraDistance > getZoomLabelThreshold();
     zoomLabelsContainer.classList.toggle("is-visible", show);
     zoomLabelsContainer.setAttribute("aria-hidden", show ? "false" : "true");
     if (!show) return;
 
-    const rect = canvas.getBoundingClientRect();
     zoomLabelEntries.forEach(({ entry, el }) => {
-        entry.mesh.getWorldPosition(labelProjectVector);
-        labelProjectVector.project(camera);
-        if (labelProjectVector.z > 1) {
-            el.style.opacity = "0";
-            return;
-        }
-        const x = ((labelProjectVector.x + 1) / 2) * rect.width;
-        const y = ((-labelProjectVector.y + 1) / 2) * rect.height;
-        el.style.left = `${x}px`;
-        el.style.top = `${y - 10}px`;
-        el.style.opacity = "1";
+        positionZoomLabel(entry, el, rect);
     });
 }
 
@@ -1612,6 +1834,7 @@ function applyScalePreset(presetKey) {
     orbitGroup.add(kuiperBeltGroup);
 
     updateEclipticGrid(eclipticGrid, activeScalePreset);
+    updateMeasureEclipticPlane(activeScalePreset);
 
     controls.maxDistance = activeScalePreset.maxZoom;
     if (camera.position.length() > controls.maxDistance) {
@@ -1693,6 +1916,8 @@ if (themeToggleBtn) {
 }
 
 initConstellationToggle();
+initEclipticGridToggle();
+initMeasureDistanceToggle();
 
 window.addEventListener("scroll", updateScrollParallax, { passive: true });
 updateScrollParallax();
@@ -1789,8 +2014,9 @@ function animate() {
 
     controls.update();
     updateZoomLabels();
+    updateMeasureLine();
 
-    if (pointerInside.active && !isOrbiting) {
+    if (pointerInside.active && !isOrbiting && !measureState.active) {
         updateHoverFromPointer();
     }
 
