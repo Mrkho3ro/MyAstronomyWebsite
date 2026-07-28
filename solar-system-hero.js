@@ -268,6 +268,7 @@ const planetHoverLabel = document.getElementById("planet-hover-label");
 const zoomLabelsContainer = document.getElementById("planet-zoom-labels");
 const scaleToggleBtn = document.getElementById("scale-toggle-btn");
 const themeToggleBtn = document.getElementById("theme-toggle-btn");
+const constellationToggleBtn = document.getElementById("constellation-toggle-btn");
 const scaleNoteEl = document.getElementById("scale-note");
 const previewCanvas = document.getElementById("planet-tooltip-canvas");
 const heroSection = document.querySelector(".Solar-System-Main-Picture");
@@ -623,9 +624,10 @@ function createSkyBackground() {
     const parallaxStars = createParallaxStarLayers();
     group.add(parallaxStars.group);
 
-    group.add(createConstellations(constellationGeoJson));
+    const constellationGroup = createConstellations(constellationGeoJson);
+    group.add(constellationGroup);
 
-    return { group, nebulaMaterial, milkyWayMaterial, parallaxStars, milkyWayBand };
+    return { group, nebulaMaterial, milkyWayMaterial, parallaxStars, milkyWayBand, constellationGroup };
 }
 
 function createBeltGroup(count, inner, outer, materialOptions, verticalSpread = 0.35) {
@@ -1531,6 +1533,19 @@ function applyTheme(theme) {
     }
 }
 
+let constellationsVisible = true;
+
+function applyConstellationVisibility(visible) {
+    constellationsVisible = visible;
+    if (skyBackground.constellationGroup) {
+        skyBackground.constellationGroup.visible = visible;
+    }
+    if (constellationToggleBtn) {
+        constellationToggleBtn.textContent = visible ? "★ Constellations" : "Constellations Off";
+        constellationToggleBtn.setAttribute("aria-pressed", visible ? "true" : "false");
+    }
+}
+
 function updateScrollParallax() {
     if (!heroSection) return;
     const rect = heroSection.getBoundingClientRect();
@@ -1553,9 +1568,16 @@ if (themeToggleBtn) {
     });
 }
 
+if (constellationToggleBtn) {
+    constellationToggleBtn.addEventListener("click", () => {
+        applyConstellationVisibility(!constellationsVisible);
+    });
+}
+
 window.addEventListener("scroll", updateScrollParallax, { passive: true });
 updateScrollParallax();
 applyTheme("dark");
+applyConstellationVisibility(true);
 if (scaleNoteEl) scaleNoteEl.hidden = true;
 initZoomLabels();
 canvas.addEventListener("pointerenter", onPointerMove);
