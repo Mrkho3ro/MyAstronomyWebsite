@@ -1,5 +1,17 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
 import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/controls/OrbitControls.js";
+import {
+    HERO_NAMED_MOONS,
+    HERO_BULK_ZONES,
+    createNamedMoons,
+    createBulkMoonSwarms,
+    animateBulkMoonSwarms,
+} from "./moon-system.js";
+
+const constellationGeoJson = await fetch("./constellations.lines.json").then((response) => {
+    if (!response.ok) throw new Error("Failed to load constellation data");
+    return response.json();
+});
 
 // "Close Encounter" — near enough to inspect a planet/moon, outside the Sun's corona
 const MIN_ZOOM = 8.5;
@@ -108,32 +120,6 @@ let asteroidBeltInner = 16.2 * ORBIT_SCALE;
 let asteroidBeltOuter = 19.8 * ORBIT_SCALE;
 let kuiperBeltInner = 42 * ORBIT_SCALE;
 let kuiperBeltOuter = 48 * ORBIT_SCALE;
-
-const MOONS_BY_PLANET = {
-    Earth: [{ name: "Moon", radius: 0.14, orbit: 1.35, speed: 0.09, color: 0xb8b8b8, texture: "2k_moon.jpg" }],
-    Mars: [
-        { name: "Phobos", radius: 0.045, orbit: 0.62, speed: 0.16, color: 0x8a7560 },
-        { name: "Deimos", radius: 0.035, orbit: 0.82, speed: 0.12, color: 0x7a6550 },
-    ],
-    Jupiter: [
-        { name: "Io", radius: 0.11, orbit: 2.35, speed: 0.065, color: 0xddb044 },
-        { name: "Europa", radius: 0.1, orbit: 2.75, speed: 0.055, color: 0xc8dae8 },
-        { name: "Ganymede", radius: 0.13, orbit: 3.15, speed: 0.048, color: 0x998877 },
-        { name: "Callisto", radius: 0.12, orbit: 3.65, speed: 0.042, color: 0x665544 },
-    ],
-    Saturn: [
-        { name: "Mimas", radius: 0.04, orbit: 1.55, speed: 0.072, color: 0xcccccc },
-        { name: "Enceladus", radius: 0.055, orbit: 1.85, speed: 0.058, color: 0xeeeeee },
-        { name: "Titan", radius: 0.12, orbit: 2.5, speed: 0.046, color: 0xcc9944 },
-        { name: "Rhea", radius: 0.065, orbit: 2.15, speed: 0.052, color: 0xaaa899 },
-    ],
-    Uranus: [
-        { name: "Miranda", radius: 0.045, orbit: 1.25, speed: 0.062, color: 0x8899aa },
-        { name: "Titania", radius: 0.075, orbit: 1.55, speed: 0.052, color: 0x99aabb },
-        { name: "Oberon", radius: 0.07, orbit: 1.95, speed: 0.044, color: 0x8899aa },
-    ],
-    Neptune: [{ name: "Triton", radius: 0.095, orbit: 1.65, speed: 0.05, color: 0xbbccdd }],
-};
 
 const SUN_DATA = {
     name: "The Sun",
@@ -260,9 +246,9 @@ const tooltipTitle = document.getElementById("planet-tooltip-title");
 const tooltipText = document.getElementById("planet-tooltip-text");
 const tooltipFacts = document.getElementById("planet-tooltip-facts");
 const planetHoverLabel = document.getElementById("planet-hover-label");
+const zoomLabelsContainer = document.getElementById("planet-zoom-labels");
 const scaleToggleBtn = document.getElementById("scale-toggle-btn");
 const themeToggleBtn = document.getElementById("theme-toggle-btn");
-const soundToggleBtn = document.getElementById("sound-toggle-btn");
 const scaleNoteEl = document.getElementById("scale-note");
 const previewCanvas = document.getElementById("planet-tooltip-canvas");
 const heroSection = document.querySelector(".Solar-System-Main-Picture");
@@ -273,10 +259,8 @@ const THEME_COLORS = {
 };
 
 let currentTheme = "dark";
-let ambientSoundEnabled = false;
-let ambientAudioContext = null;
-let ambientGainNode = null;
 let scrollParallax = 0;
+const zoomLabelEntries = [];
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0a1230);
@@ -483,170 +467,31 @@ function raDecToSkyPosition(raHours, decDeg, radius) {
     return new THREE.Vector3(radius * cosDec * Math.cos(ra), radius * Math.sin(dec), radius * cosDec * Math.sin(ra));
 }
 
-const CONSTELLATION_DEFS = [
-    {
-        name: "Orion",
-        stars: [
-            { id: "betelgeuse", ra: 5.92, dec: 7.41, size: 1.35 },
-            { id: "bellatrix", ra: 5.45, dec: 6.35, size: 1.05 },
-            { id: "alnitak", ra: 5.68, dec: -1.94, size: 1.1 },
-            { id: "alnilam", ra: 5.6, dec: -1.2, size: 1.15 },
-            { id: "mintaka", ra: 5.53, dec: -0.3, size: 1.05 },
-            { id: "rigel", ra: 5.24, dec: -8.2, size: 1.3 },
-            { id: "saiph", ra: 5.8, dec: -9.67, size: 1.0 },
-        ],
-        lines: [
-            ["betelgeuse", "bellatrix"],
-            ["bellatrix", "mintaka"],
-            ["betelgeuse", "alnitak"],
-            ["alnitak", "alnilam"],
-            ["alnilam", "mintaka"],
-            ["mintaka", "rigel"],
-            ["alnilam", "rigel"],
-            ["bellatrix", "saiph"],
-            ["saiph", "rigel"],
-        ],
-    },
-    {
-        name: "Ursa Major",
-        stars: [
-            { id: "dubhe", ra: 11.06, dec: 61.75, size: 1.2 },
-            { id: "merak", ra: 11.03, dec: 56.38, size: 1.0 },
-            { id: "phecda", ra: 11.9, dec: 53.69, size: 1.0 },
-            { id: "megrez", ra: 12.26, dec: 57.03, size: 0.95 },
-            { id: "alioth", ra: 12.9, dec: 55.96, size: 1.1 },
-            { id: "mizar", ra: 13.4, dec: 54.93, size: 1.05 },
-            { id: "alkaid", ra: 13.79, dec: 49.31, size: 1.0 },
-        ],
-        lines: [
-            ["dubhe", "merak"],
-            ["merak", "phecda"],
-            ["phecda", "megrez"],
-            ["megrez", "alioth"],
-            ["alioth", "mizar"],
-            ["mizar", "alkaid"],
-            ["megrez", "dubhe"],
-        ],
-    },
-    {
-        name: "Cassiopeia",
-        stars: [
-            { id: "caph", ra: 0.15, dec: 59.15, size: 1.05 },
-            { id: "schedar", ra: 0.68, dec: 56.54, size: 1.15 },
-            { id: "gammaCas", ra: 0.95, dec: 60.72, size: 1.1 },
-            { id: "ruchbah", ra: 1.43, dec: 60.24, size: 0.95 },
-            { id: "segin", ra: 1.91, dec: 63.67, size: 0.9 },
-        ],
-        lines: [
-            ["caph", "schedar"],
-            ["schedar", "gammaCas"],
-            ["gammaCas", "ruchbah"],
-            ["ruchbah", "segin"],
-        ],
-    },
-    {
-        name: "Scorpius",
-        stars: [
-            { id: "antares", ra: 16.49, dec: -26.43, size: 1.35 },
-            { id: "graffias", ra: 16.09, dec: -19.8, size: 0.95 },
-            { id: "dschubba", ra: 16.0, dec: -22.62, size: 1.0 },
-            { id: "sargas", ra: 17.62, dec: -42.99, size: 1.0 },
-            { id: "shaula", ra: 17.56, dec: -37.1, size: 1.1 },
-            { id: "lesath", ra: 17.53, dec: -37.3, size: 0.85 },
-        ],
-        lines: [
-            ["graffias", "dschubba"],
-            ["dschubba", "antares"],
-            ["antares", "shaula"],
-            ["shaula", "lesath"],
-            ["shaula", "sargas"],
-        ],
-    },
-    {
-        name: "Cygnus",
-        stars: [
-            { id: "deneb", ra: 20.69, dec: 45.28, size: 1.25 },
-            { id: "sadr", ra: 20.37, dec: 40.26, size: 1.1 },
-            { id: "gienah", ra: 20.18, dec: 33.97, size: 1.0 },
-            { id: "deltaCyg", ra: 19.86, dec: 45.13, size: 0.95 },
-            { id: "albireo", ra: 19.51, dec: 27.96, size: 1.05 },
-        ],
-        lines: [
-            ["deneb", "sadr"],
-            ["sadr", "albireo"],
-            ["sadr", "gienah"],
-            ["deneb", "deltaCyg"],
-            ["deltaCyg", "sadr"],
-        ],
-    },
-    {
-        name: "Leo",
-        stars: [
-            { id: "regulus", ra: 10.14, dec: 11.97, size: 1.2 },
-            { id: "algieba", ra: 10.33, dec: 19.84, size: 1.0 },
-            { id: "zosma", ra: 11.24, dec: 20.52, size: 0.95 },
-            { id: "denebola", ra: 11.86, dec: 14.57, size: 1.1 },
-            { id: "chertan", ra: 11.42, dec: 15.43, size: 0.9 },
-        ],
-        lines: [
-            ["regulus", "chertan"],
-            ["chertan", "denebola"],
-            ["regulus", "algieba"],
-            ["algieba", "zosma"],
-            ["zosma", "denebola"],
-        ],
-    },
-];
+function lonLatToSkyPosition(lonDeg, latDeg, radius) {
+    const raHours = (((lonDeg % 360) + 360) % 360) / 15;
+    return raDecToSkyPosition(raHours, latDeg, radius);
+}
 
-function createConstellations() {
+function createConstellations(geoJson) {
     const group = new THREE.Group();
     const lineMaterial = new THREE.LineBasicMaterial({
         color: 0x8eb4e8,
         transparent: true,
-        opacity: 0.22,
+        opacity: 0.18,
         depthWrite: false,
     });
-    const brightPositions = [];
-    const brightColors = [];
 
-    CONSTELLATION_DEFS.forEach((constellation) => {
-        const starMap = new Map();
-        constellation.stars.forEach((star) => {
-            const position = raDecToSkyPosition(star.ra, star.dec, CONSTELLATION_SKY_RADIUS);
-            starMap.set(star.id, position);
-            brightPositions.push(position.x, position.y, position.z);
-            brightColors.push(0.92, 0.95, 1.0);
-        });
-
-        constellation.lines.forEach(([fromId, toId]) => {
-            const from = starMap.get(fromId);
-            const to = starMap.get(toId);
-            if (!from || !to) return;
-            const geometry = new THREE.BufferGeometry().setFromPoints([from, to]);
+    geoJson.features.forEach((feature) => {
+        if (feature.geometry?.type !== "MultiLineString") return;
+        feature.geometry.coordinates.forEach((lineString) => {
+            const points = lineString.map(([lon, lat]) => lonLatToSkyPosition(lon, lat, CONSTELLATION_SKY_RADIUS));
+            if (points.length < 2) return;
+            const geometry = new THREE.BufferGeometry().setFromPoints(points);
             const line = new THREE.Line(geometry, lineMaterial);
             line.raycast = () => {};
             group.add(line);
         });
     });
-
-    const brightGeometry = new THREE.BufferGeometry();
-    brightGeometry.setAttribute("position", new THREE.Float32BufferAttribute(brightPositions, 3));
-    brightGeometry.setAttribute("color", new THREE.Float32BufferAttribute(brightColors, 3));
-
-    const brightStars = new THREE.Points(
-        brightGeometry,
-        new THREE.PointsMaterial({
-            size: 1.1,
-            vertexColors: true,
-            transparent: true,
-            opacity: 0.72,
-            sizeAttenuation: true,
-            depthWrite: false,
-            blending: THREE.AdditiveBlending,
-        }),
-    );
-    brightStars.raycast = () => {};
-    group.add(brightStars);
 
     return group;
 }
@@ -716,7 +561,7 @@ function createSkyBackground() {
     const parallaxStars = createParallaxStarLayers();
     group.add(parallaxStars.group);
 
-    group.add(createConstellations());
+    group.add(createConstellations(constellationGeoJson));
 
     return { group, nebulaMaterial, milkyWayMaterial, parallaxStars, milkyWayBand };
 }
@@ -846,44 +691,14 @@ function updateShootingStars(streaks, delta) {
     streak.line.material.opacity = fade * 0.35;
 }
 
-function createMoonMaterial(moonData) {
-    const material = new THREE.MeshStandardMaterial({
-        color: moonData.color,
-        roughness: 0.92,
-        metalness: 0.02,
-        emissive: moonData.color,
-        emissiveIntensity: 0.12,
-    });
-    if (moonData.texture) {
-        material.map = loadTexture(`${TEXTURE_BASE}${moonData.texture}`);
-        material.emissiveIntensity = 0.06;
-    }
-    return material;
-}
-
 function createMoonsForPlanet(planetMesh, planetName) {
-    const moonDefs = MOONS_BY_PLANET[planetName];
-    if (!moonDefs) return [];
-
-    return moonDefs.map((moonData) => {
-        const pivot = new THREE.Object3D();
-        planetMesh.add(pivot);
-
-        const moon = new THREE.Mesh(
-            new THREE.SphereGeometry(moonData.radius, 24, 24),
-            createMoonMaterial(moonData),
-        );
-        moon.position.x = moonData.orbit;
-        pivot.add(moon);
-
-        return {
-            pivot,
-            moon,
-            speed: moonData.speed,
-            angle: Math.random() * Math.PI * 2,
-            name: moonData.name,
-        };
-    });
+    const namedDefs = HERO_NAMED_MOONS[planetName];
+    const named = namedDefs
+        ? createNamedMoons(planetMesh, namedDefs, THREE, loadTexture, TEXTURE_BASE)
+        : [];
+    const bulkZones = HERO_BULK_ZONES[planetName];
+    const bulkSwarms = bulkZones ? createBulkMoonSwarms(planetMesh, bulkZones, THREE) : [];
+    return { named, bulkSwarms };
 }
 
 const skyBackground = createSkyBackground();
@@ -958,6 +773,7 @@ sun.add(createSunCorona(sunRadius * 1.97, 0xff8833, 0.04));
 
 const planetMeshes = [];
 const moonEntries = [];
+const bulkMoonSwarms = [];
 const orbitLines = [];
 const orbitGroup = new THREE.Group();
 orbitGroup.rotation.x = 0;
@@ -1068,8 +884,9 @@ PLANET_DATA.forEach((data) => {
         planet.add(ring);
     }
 
-    const moons = createMoonsForPlanet(planet, data.name);
+    const { named: moons, bulkSwarms } = createMoonsForPlanet(planet, data.name);
     moonEntries.push(...moons);
+    bulkMoonSwarms.push(...bulkSwarms);
 
     const cloudMesh = planet.children.find((c) => c.isMesh && c.material?.transparent && !c.geometry?.type?.includes("Ring"));
 
@@ -1496,7 +1313,7 @@ function handleClick(event) {
 
     const hit = findBodyFromObject(intersects[0].object);
     if (hit) {
-        window.open(`planets/${hit.data.slug}.html`, "_blank", "noopener,noreferrer");
+        window.location.href = `planets/${hit.data.slug}.html`;
     }
 }
 
@@ -1529,6 +1346,49 @@ function rebuildBeltGroup(oldGroup, createFn) {
     if (oldGroup.children[0]?.geometry) oldGroup.children[0].geometry.dispose();
     if (oldGroup.children[0]?.material) oldGroup.children[0].material.dispose();
     return createFn();
+}
+
+function getZoomLabelThreshold() {
+    return controls.minDistance + (controls.maxDistance - controls.minDistance) * 0.6;
+}
+
+function initZoomLabels() {
+    if (!zoomLabelsContainer) return;
+    const bodies = [
+        { entry: sunEntry, name: "The Sun" },
+        ...planetMeshes.map((entry) => ({ entry, name: entry.data.name })),
+    ];
+    bodies.forEach(({ entry, name }) => {
+        const el = document.createElement("span");
+        el.className = "Planet-Zoom-Label";
+        el.textContent = name;
+        zoomLabelsContainer.appendChild(el);
+        zoomLabelEntries.push({ entry, el });
+    });
+}
+
+function updateZoomLabels() {
+    if (!zoomLabelsContainer || zoomLabelEntries.length === 0) return;
+    const cameraDistance = camera.position.distanceTo(controls.target);
+    const show = cameraDistance > getZoomLabelThreshold();
+    zoomLabelsContainer.classList.toggle("is-visible", show);
+    zoomLabelsContainer.setAttribute("aria-hidden", show ? "false" : "true");
+    if (!show) return;
+
+    const rect = canvas.getBoundingClientRect();
+    zoomLabelEntries.forEach(({ entry, el }) => {
+        entry.mesh.getWorldPosition(labelProjectVector);
+        labelProjectVector.project(camera);
+        if (labelProjectVector.z > 1) {
+            el.style.opacity = "0";
+            return;
+        }
+        const x = ((labelProjectVector.x + 1) / 2) * rect.width;
+        const y = ((-labelProjectVector.y + 1) / 2) * rect.height;
+        el.style.left = `${x}px`;
+        el.style.top = `${y - 10}px`;
+        el.style.opacity = "1";
+    });
 }
 
 function applyScalePreset(presetKey) {
@@ -1609,58 +1469,6 @@ function applyTheme(theme) {
     }
 }
 
-function startAmbientSound() {
-    if (ambientAudioContext) return;
-    ambientAudioContext = new AudioContext();
-    const bufferSize = 2 * ambientAudioContext.sampleRate;
-    const noiseBuffer = ambientAudioContext.createBuffer(1, bufferSize, ambientAudioContext.sampleRate);
-    const output = noiseBuffer.getChannelData(0);
-    let lastOut = 0;
-    for (let i = 0; i < bufferSize; i += 1) {
-        const white = Math.random() * 2 - 1;
-        lastOut = (lastOut + 0.02 * white) / 1.02;
-        output[i] = lastOut * 3.5;
-    }
-    const noise = ambientAudioContext.createBufferSource();
-    noise.buffer = noiseBuffer;
-    noise.loop = true;
-    const filter = ambientAudioContext.createBiquadFilter();
-    filter.type = "lowpass";
-    filter.frequency.value = 180;
-    ambientGainNode = ambientAudioContext.createGain();
-    ambientGainNode.gain.value = 0.025;
-    noise.connect(filter);
-    filter.connect(ambientGainNode);
-    ambientGainNode.connect(ambientAudioContext.destination);
-    noise.start();
-}
-
-function stopAmbientSound() {
-    if (ambientGainNode) {
-        ambientGainNode.gain.value = 0;
-        ambientGainNode.disconnect();
-        ambientGainNode = null;
-    }
-    if (ambientAudioContext) {
-        ambientAudioContext.close();
-        ambientAudioContext = null;
-    }
-}
-
-function setAmbientSound(enabled) {
-    ambientSoundEnabled = enabled;
-    if (enabled) {
-        startAmbientSound();
-        if (ambientAudioContext?.state === "suspended") ambientAudioContext.resume();
-    } else {
-        stopAmbientSound();
-    }
-    if (soundToggleBtn) {
-        soundToggleBtn.textContent = enabled ? "Sound On" : "Sound Off";
-        soundToggleBtn.setAttribute("aria-pressed", enabled ? "true" : "false");
-    }
-}
-
 function updateScrollParallax() {
     if (!heroSection) return;
     const rect = heroSection.getBoundingClientRect();
@@ -1683,16 +1491,11 @@ if (themeToggleBtn) {
     });
 }
 
-if (soundToggleBtn) {
-    soundToggleBtn.addEventListener("click", () => {
-        setAmbientSound(!ambientSoundEnabled);
-    });
-}
-
 window.addEventListener("scroll", updateScrollParallax, { passive: true });
 updateScrollParallax();
 applyTheme("dark");
 if (scaleNoteEl) scaleNoteEl.hidden = true;
+initZoomLabels();
 canvas.addEventListener("pointerenter", onPointerMove);
 canvas.addEventListener("pointermove", onPointerMove);
 canvas.addEventListener("pointerleave", onPointerLeave);
@@ -1772,13 +1575,17 @@ function animate() {
     });
 
     moonEntries.forEach((moon) => {
-        moon.angle += moon.speed * ORBIT_SPEED_FACTOR;
+        const dir = moon.retrograde ? -1 : 1;
+        moon.angle += moon.speed * ORBIT_SPEED_FACTOR * dir;
         moon.pivot.rotation.y = moon.angle;
     });
+
+    animateBulkMoonSwarms(bulkMoonSwarms, delta, THREE, ORBIT_SPEED_FACTOR);
 
     updateShootingStars(shootingStars, delta);
 
     controls.update();
+    updateZoomLabels();
 
     if (pointerInside.active && !isOrbiting) {
         updateHoverFromPointer();
