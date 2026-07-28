@@ -495,7 +495,7 @@ function lonLatToSkyPosition(lonDeg, latDeg, radius) {
 
 function createConstellations(geoJson) {
     const group = new THREE.Group();
-    group.visible = true;
+    group.visible = false;
 
     // Legacy brightness (1c51283) assumed radius 182; compensate for enlarged sky dome.
     const coreStarSize = 1.35 * SKY_SCALE;
@@ -1545,7 +1545,7 @@ function applyTheme(theme) {
     }
 }
 
-let constellationsVisible = true;
+let constellationsVisible = false;
 
 function applyConstellationVisibility(visible) {
     constellationsVisible = visible;
