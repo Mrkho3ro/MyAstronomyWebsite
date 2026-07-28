@@ -840,6 +840,7 @@ const sunEntry = {
     data: SUN_DATA,
     baseScale: 1,
     hoverScale: 1,
+    measurePreviewScale: 1,
     isSun: true,
 };
 sun.userData.bodyEntry = sunEntry;
@@ -912,6 +913,9 @@ const MEASURE_COLOR_B = 0xff66cc;
 const MAGNETIC_SNAP_PX = 52;
 const HIT_COLLIDER_BASE = 2.4;
 const HIT_COLLIDER_MAX = 4.2;
+const MEASURE_SNAP_ZOOM_FRACTION = 0.75;
+const MEASURE_SNAP_MIN_DISTANCE = 800;
+const MEASURE_PREVIEW_SCALE = 1.2;
 
 function createMeasureLabelSprite(label, colorHex) {
     const size = 128;
@@ -1023,10 +1027,35 @@ function getBodyVisualRadius(entry) {
     return entry.isSun ? sunRadius : entry.data.radius;
 }
 
+function getCameraDistance() {
+    return camera.position.distanceTo(controls.target);
+}
+
+function isExtremelyZoomedOut() {
+    const dist = getCameraDistance();
+    const range = controls.maxDistance - controls.minDistance;
+    const fractionThreshold = controls.minDistance + range * MEASURE_SNAP_ZOOM_FRACTION;
+    return dist >= Math.max(fractionThreshold, MEASURE_SNAP_MIN_DISTANCE);
+}
+
+function shouldUseMeasureAssist() {
+    return measureState.active && isExtremelyZoomedOut();
+}
+
+function getMeasureSnapZoomThreshold() {
+    const range = controls.maxDistance - controls.minDistance;
+    return controls.minDistance + range * MEASURE_SNAP_ZOOM_FRACTION;
+}
+
 function updateHitColliderScales() {
     const bodies = [sunEntry, ...planetMeshes];
+    const assistActive = shouldUseMeasureAssist();
     bodies.forEach((entry) => {
         if (!entry.hitCollider) return;
+        if (!assistActive) {
+            entry.hitCollider.scale.setScalar(0.001);
+            return;
+        }
         entry.mesh.getWorldPosition(magneticSnapVector);
         const dist = camera.position.distanceTo(magneticSnapVector);
         const bodyRadius = getBodyVisualRadius(entry);
@@ -1055,6 +1084,7 @@ function updateBodySelectionRings() {
 
 function setupBodyInteractionHelpers() {
     clickableMeshes.length = 0;
+    bodyMeshTargets.length = 0;
     [sunEntry, ...planetMeshes].forEach((entry) => {
         if (!entry.hitCollider) {
             entry.hitCollider = createHitCollider(entry);
@@ -1065,6 +1095,7 @@ function setupBodyInteractionHelpers() {
             entry.mesh.add(entry.selectionRing);
         }
         clickableMeshes.push(entry.hitCollider);
+        bodyMeshTargets.push(entry.mesh);
     });
 }
 
@@ -1091,32 +1122,50 @@ function findMagneticSnapBody(clientX, clientY, maxPx = MAGNETIC_SNAP_PX) {
     return nearest;
 }
 
-function raycastMeasureTarget(clientX, clientY) {
+function getMeasureRaycastTarget(clientX, clientY) {
     setPointerFromClient(clientX, clientY);
     raycaster.setFromCamera(pointer, camera);
-    const targets = [...clickableMeshes, measureEclipticPlane];
+    const useAssist = shouldUseMeasureAssist();
+    const bodyTargets = useAssist ? clickableMeshes : bodyMeshTargets;
+    const targets = [...bodyTargets, measureEclipticPlane];
     const intersects = raycaster.intersectObjects(targets, false);
     const picked = pickMeasurePoint(intersects);
     if (picked) return picked;
 
-    const snapBody = findMagneticSnapBody(clientX, clientY);
-    if (snapBody) {
-        return { bodyEntry: snapBody, fixedPosition: null };
+    if (useAssist) {
+        const snapBody = findMagneticSnapBody(clientX, clientY);
+        if (snapBody) {
+            return { bodyEntry: snapBody, fixedPosition: null };
+        }
     }
     return null;
 }
 
-function raycastInteractiveBody(clientX, clientY) {
+function getHoverRaycastTarget(clientX, clientY) {
     setPointerFromClient(clientX, clientY);
     raycaster.setFromCamera(pointer, camera);
-    const intersects = raycaster.intersectObjects(clickableMeshes, false);
+    const intersects = raycaster.intersectObjects(bodyMeshTargets, false);
     if (intersects.length > 0) {
         return findBodyFromObject(intersects[0].object);
     }
-    return findMagneticSnapBody(clientX, clientY);
+    return null;
 }
 
 let measurePreviewHoverBody = null;
+
+function setMeasurePreviewHoverBody(bodyEntry) {
+    if (measurePreviewHoverBody === bodyEntry) return;
+    if (measurePreviewHoverBody) measurePreviewHoverBody.measurePreviewScale = 1;
+    measurePreviewHoverBody = bodyEntry;
+    if (measurePreviewHoverBody) measurePreviewHoverBody.measurePreviewScale = MEASURE_PREVIEW_SCALE;
+}
+
+function clearMeasurePreviewHoverBody() {
+    if (measurePreviewHoverBody) {
+        measurePreviewHoverBody.measurePreviewScale = 1;
+        measurePreviewHoverBody = null;
+    }
+}
 
 function updateMeasureEclipticPlane(preset) {
     const extent = getEclipticGridExtent(preset);
@@ -1175,7 +1224,7 @@ function getMeasurePointWorldPosition(point, target) {
 function clearMeasureSelection() {
     measureState.points = [null, null];
     measureState.previewPoint = null;
-    measurePreviewHoverBody = null;
+    clearMeasurePreviewHoverBody();
     measureLine.visible = false;
     measureMarkerA.visible = false;
     measureMarkerB.visible = false;
@@ -1245,13 +1294,13 @@ function handleMeasureClick(event) {
         return;
     }
 
-    const picked = raycastMeasureTarget(event.clientX, event.clientY);
+    const picked = getMeasureRaycastTarget(event.clientX, event.clientY);
     if (!picked) return;
 
     if (measureState.points[0] && measureState.points[1]) {
         measureState.points = [picked, null];
         measureState.previewPoint = null;
-        measurePreviewHoverBody = null;
+        clearMeasurePreviewHoverBody();
         measureLine.visible = false;
         measureMarkerA.visible = true;
         measureMarkerB.visible = false;
@@ -1274,7 +1323,7 @@ function handleMeasureClick(event) {
 
     measureState.points[1] = picked;
     measureState.previewPoint = null;
-    measurePreviewHoverBody = null;
+    clearMeasurePreviewHoverBody();
     updateMeasureLineAndDistance();
 }
 
@@ -1290,7 +1339,7 @@ function updateMeasureLineAndDistance() {
 
 function updateMeasurePreview() {
     if (!measureState.active) {
-        measurePreviewHoverBody = null;
+        clearMeasurePreviewHoverBody();
         return;
     }
 
@@ -1299,20 +1348,20 @@ function updateMeasurePreview() {
 
     if (!measureState.points[0] || measureState.points[1]) {
         measureState.previewPoint = null;
-        measurePreviewHoverBody = null;
+        clearMeasurePreviewHoverBody();
         updateBodySelectionRings();
         return;
     }
 
     if (!pointerInside.active) {
-        measurePreviewHoverBody = null;
+        clearMeasurePreviewHoverBody();
         updateBodySelectionRings();
         return;
     }
 
-    const preview = raycastMeasureTarget(pointerInside.clientX, pointerInside.clientY);
+    const preview = getMeasureRaycastTarget(pointerInside.clientX, pointerInside.clientY);
     measureState.previewPoint = preview;
-    measurePreviewHoverBody = preview?.bodyEntry ?? null;
+    setMeasurePreviewHoverBody(preview?.bodyEntry ?? null);
 
     if (preview) {
         setMeasureLineEndpoints(measureState.points[0], preview, true);
@@ -1531,6 +1580,7 @@ PLANET_DATA.forEach((data) => {
         cloudMesh: cloudMesh || null,
         baseScale: 1,
         hoverScale: 1,
+        measurePreviewScale: 1,
         angle: Math.random() * Math.PI * 2,
         isSun: false,
     });
@@ -1540,6 +1590,7 @@ const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
 const pointerInside = { active: false, clientX: 0, clientY: 0 };
 const clickableMeshes = [];
+const bodyMeshTargets = [];
 let hoveredBody = null;
 let isOrbiting = false;
 let orbitDragMoved = false;
@@ -1898,7 +1949,7 @@ function updateHoverFromPointer() {
         return;
     }
 
-    const hit = raycastInteractiveBody(pointerInside.clientX, pointerInside.clientY);
+    const hit = getHoverRaycastTarget(pointerInside.clientX, pointerInside.clientY);
 
     if (hit) {
         if (hit !== hoveredBody) {
@@ -1929,7 +1980,7 @@ function onPointerMove(event) {
 function onPointerLeave() {
     pointerInside.active = false;
     if (measureState.active) {
-        measurePreviewHoverBody = null;
+        clearMeasurePreviewHoverBody();
         measureState.previewPoint = null;
         if (measureState.points[0] && !measureState.points[1]) {
             measureLine.visible = false;
@@ -1952,7 +2003,7 @@ function handleClick(event) {
         return;
     }
 
-    const hit = raycastInteractiveBody(event.clientX, event.clientY);
+    const hit = getHoverRaycastTarget(event.clientX, event.clientY);
     if (hit) {
         window.location.href = `planets/${hit.data.slug}.html`;
     }
@@ -2263,9 +2314,9 @@ function animate() {
     asteroidBeltOrbit(asteroidBeltGroup);
     asteroidBeltOrbit(kuiperBeltGroup);
 
-    if (hoveredBody === sunEntry) {
-        const targetScale = sunEntry.hoverScale;
-        sun.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.12);
+    const sunTargetScale = sunEntry.hoverScale * sunEntry.measurePreviewScale;
+    if (hoveredBody === sunEntry || sunEntry.measurePreviewScale !== 1) {
+        sun.scale.lerp(new THREE.Vector3(sunTargetScale, sunTargetScale, sunTargetScale), 0.12);
     } else if (sun.scale.x !== 1) {
         sun.scale.lerp(new THREE.Vector3(1, 1, 1), 0.12);
     }
@@ -2276,7 +2327,7 @@ function animate() {
         const spin = getAxialRotationSpeed(entry.data.name) * delta;
         entry.mesh.rotation.y += spin;
         if (entry.cloudMesh) entry.cloudMesh.rotation.y += spin * 1.08;
-        const targetScale = entry.hoverScale;
+        const targetScale = entry.hoverScale * entry.measurePreviewScale;
         entry.mesh.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.12);
     });
 
