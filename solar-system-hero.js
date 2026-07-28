@@ -496,9 +496,9 @@ function lonLatToSkyPosition(lonDeg, latDeg, radius) {
 function createConstellations(geoJson) {
     const group = new THREE.Group();
     const lineMaterial = new THREE.LineBasicMaterial({
-        color: 0xb8d4ff,
+        color: 0xe8f0ff,
         transparent: true,
-        opacity: 0.55,
+        opacity: 0.72,
         depthWrite: false,
     });
 
@@ -530,10 +530,10 @@ function createConstellations(geoJson) {
         const glowStars = new THREE.Points(
             starGeometry,
             new THREE.PointsMaterial({
-                color: 0xcbd5ff,
-                size: 2.6,
+                color: 0xd4e4ff,
+                size: 4.0,
                 transparent: true,
-                opacity: 0.38,
+                opacity: 0.55,
                 sizeAttenuation: true,
                 depthWrite: false,
                 blending: THREE.AdditiveBlending,
@@ -545,10 +545,10 @@ function createConstellations(geoJson) {
         const coreStars = new THREE.Points(
             starGeometry.clone(),
             new THREE.PointsMaterial({
-                color: 0xeaf2ff,
-                size: 1.35,
+                color: 0xf4f8ff,
+                size: 2.0,
                 transparent: true,
-                opacity: 0.95,
+                opacity: 0.98,
                 sizeAttenuation: true,
                 depthWrite: false,
             }),
