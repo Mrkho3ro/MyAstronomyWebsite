@@ -17,7 +17,6 @@ const constellationGeoJson = await fetch("./constellations.lines.json").then((re
 const MIN_ZOOM = 8.5;
 // "Cosmic Overview" — full solar system through Neptune with constellation backdrop
 const MAX_ZOOM = 102;
-const CONSTELLATION_SKY_RADIUS = 182;
 
 const TEXTURE_BASE = "https://cdn.jsdelivr.net/gh/elymas/solar-simulator@main/public/textures/";
 const THREEJS_TEXTURE_BASE = "https://threejs.org/examples/textures/planets/";
@@ -91,6 +90,26 @@ const ORBIT_AU = {
     Uranus: 19.2,
     Neptune: 30.05,
 };
+
+const SKY_SPHERE_MARGIN = 1.4;
+const LEGACY_SKY_RADIUS = 182;
+
+function getMaxOrbitExtent(preset) {
+    const neptuneOrbit = preset.earthOrbit * ORBIT_AU.Neptune;
+    const kuiperOuter = preset.earthOrbit * ORBIT_AU.Neptune * 1.22;
+    return Math.max(neptuneOrbit, kuiperOuter);
+}
+
+const MAX_ORBIT_EXTENT = Math.max(
+    getMaxOrbitExtent(SCALE_PRESETS.educational),
+    getMaxOrbitExtent(SCALE_PRESETS.real),
+);
+const CONSTELLATION_SKY_RADIUS = MAX_ORBIT_EXTENT * SKY_SPHERE_MARGIN;
+const SKY_SCALE = CONSTELLATION_SKY_RADIUS / LEGACY_SKY_RADIUS;
+
+function scaleSky(value) {
+    return value * SKY_SCALE;
+}
 
 // Orbital inclination & ascending node (approximate, relative to ecliptic)
 const ORBIT_INCLINATION_DEG = {
@@ -451,9 +470,9 @@ function createStarLayer(count, innerRadius, outerRadius, size, opacity, brightC
 
 function createParallaxStarLayers() {
     const group = new THREE.Group();
-    const bgLayer = createStarLayer(3200, 175, 198, 0.42, 0.42, 6);
-    const midLayer = createStarLayer(1800, 145, 175, 0.52, 0.55, 8);
-    const fgLayer = createStarLayer(650, 95, 135, 0.62, 0.62, 5);
+    const bgLayer = createStarLayer(3200, scaleSky(175), scaleSky(198), 0.42, 0.42, 6);
+    const midLayer = createStarLayer(1800, scaleSky(145), scaleSky(175), 0.52, 0.55, 8);
+    const fgLayer = createStarLayer(650, scaleSky(95), scaleSky(135), 0.62, 0.62, 5);
     group.add(bgLayer.points);
     group.add(midLayer.points);
     group.add(fgLayer.points);
@@ -549,7 +568,7 @@ function createSkyBackground() {
         transparent: true,
         opacity: 0.16,
     });
-    const nebulaSphere = new THREE.Mesh(new THREE.SphereGeometry(190, 64, 32), nebulaMaterial);
+    const nebulaSphere = new THREE.Mesh(new THREE.SphereGeometry(scaleSky(190), 64, 32), nebulaMaterial);
     group.add(nebulaSphere);
 
     const starFieldTexture = loadTexture(`${TEXTURE_BASE}2k_stars_milky_way.jpg`);
@@ -561,11 +580,11 @@ function createSkyBackground() {
         transparent: true,
         opacity: 0.1,
     });
-    const starFieldSphere = new THREE.Mesh(new THREE.SphereGeometry(185, 64, 32), milkyWayMaterial);
+    const starFieldSphere = new THREE.Mesh(new THREE.SphereGeometry(scaleSky(185), 64, 32), milkyWayMaterial);
     group.add(starFieldSphere);
 
     const milkyWayBand = new THREE.Mesh(
-        new THREE.PlaneGeometry(360, 90),
+        new THREE.PlaneGeometry(scaleSky(360), scaleSky(90)),
         new THREE.MeshBasicMaterial({
             map: createMilkyWayBandTexture(),
             transparent: true,
@@ -575,7 +594,7 @@ function createSkyBackground() {
             blending: THREE.AdditiveBlending,
         }),
     );
-    milkyWayBand.position.set(-20, 35, -175);
+    milkyWayBand.position.set(scaleSky(-20), scaleSky(35), scaleSky(-175));
     milkyWayBand.rotation.set(-0.35, 0.55, 0.25);
     group.add(milkyWayBand);
 
@@ -586,7 +605,7 @@ function createSkyBackground() {
     ];
     galaxyPositions.forEach(({ pos, rot, seed }) => {
         const galaxy = new THREE.Mesh(
-            new THREE.PlaneGeometry(14, 14),
+            new THREE.PlaneGeometry(scaleSky(14), scaleSky(14)),
             new THREE.MeshBasicMaterial({
                 map: createGalaxyTexture(seed),
                 transparent: true,
@@ -595,7 +614,7 @@ function createSkyBackground() {
                 blending: THREE.AdditiveBlending,
             }),
         );
-        galaxy.position.set(...pos);
+        galaxy.position.set(scaleSky(pos[0]), scaleSky(pos[1]), scaleSky(pos[2]));
         galaxy.rotation.z = rot;
         galaxy.raycast = () => {};
         group.add(galaxy);
@@ -685,10 +704,10 @@ function createShootingStars() {
 function spawnShootingStar(streak) {
     const theta = Math.random() * Math.PI * 2;
     const phi = 0.15 + Math.random() * 0.55;
-    const skyRadius = 155 + Math.random() * 20;
+    const skyRadius = scaleSky(155 + Math.random() * 20);
     streak.origin.set(
         skyRadius * Math.sin(phi) * Math.cos(theta),
-        20 + Math.random() * 50,
+        scaleSky(20 + Math.random() * 50),
         skyRadius * Math.sin(phi) * Math.sin(theta),
     );
     streak.direction.set(-0.4 - Math.random() * 0.5, -0.15 - Math.random() * 0.25, -0.3 - Math.random() * 0.4).normalize();
