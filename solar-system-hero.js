@@ -47,6 +47,8 @@ const ORBIT_SCALE = 0.78;
 const BODY_SCALE = 1.38;
 const ASTEROID_COUNT = 420;
 const KUIPER_BELT_COUNT = 280;
+const ASTEROID_BELT_VERTICAL_SPREAD = 1.05;
+const KUIPER_BELT_VERTICAL_SPREAD = 1.65;
 
 const SCALE_PRESETS = {
     educational: {
@@ -671,7 +673,7 @@ function createAsteroidBelt() {
         metalness: 0.08,
         emissive: 0x221100,
         emissiveIntensity: 0.15,
-    });
+    }, ASTEROID_BELT_VERTICAL_SPREAD);
 }
 
 function createKuiperBelt() {
@@ -681,7 +683,7 @@ function createKuiperBelt() {
         metalness: 0.04,
         emissive: 0x112233,
         emissiveIntensity: 0.08,
-    }, 0.55);
+    }, KUIPER_BELT_VERTICAL_SPREAD);
 }
 
 function createShootingStars() {
