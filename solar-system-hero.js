@@ -100,8 +100,8 @@ function getMaxOrbitExtent(preset) {
     return Math.max(neptuneOrbit, kuiperOuter);
 }
 
-function getEclipticGridExtent(preset) {
-    return preset.earthOrbit * ORBIT_AU.Neptune * 1.08;
+function getEclipticGridExtent(_preset) {
+    return CONSTELLATION_SKY_RADIUS * 0.95;
 }
 
 const ECLIPTIC_GRID = {
@@ -904,6 +904,219 @@ scene.add(measureLine);
 
 const measurePointA = new THREE.Vector3();
 const measurePointB = new THREE.Vector3();
+const measureMarkerWorldPos = new THREE.Vector3();
+const magneticSnapVector = new THREE.Vector3();
+
+const MEASURE_COLOR = 0x00ffaa;
+const MEASURE_COLOR_B = 0xff66cc;
+const MAGNETIC_SNAP_PX = 52;
+const HIT_COLLIDER_BASE = 2.4;
+const HIT_COLLIDER_MAX = 4.2;
+
+function createMeasureLabelSprite(label, colorHex) {
+    const size = 128;
+    const canvas = document.createElement("canvas");
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = colorHex;
+    ctx.font = "bold 72px Keania One, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(label, size / 2, size / 2);
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    return new THREE.Sprite(
+        new THREE.SpriteMaterial({
+            map: texture,
+            transparent: true,
+            depthTest: false,
+            depthWrite: false,
+        }),
+    );
+}
+
+function createMeasureMarker(label, color, labelColor) {
+    const group = new THREE.Group();
+    group.frustumCulled = false;
+    group.renderOrder = 14;
+
+    const sphere = new THREE.Mesh(
+        new THREE.SphereGeometry(0.42, 20, 20),
+        new THREE.MeshBasicMaterial({
+            color,
+            transparent: true,
+            opacity: 0.92,
+            depthTest: false,
+            depthWrite: false,
+        }),
+    );
+    group.add(sphere);
+
+    const sprite = createMeasureLabelSprite(label, labelColor);
+    sprite.position.y = 0.75;
+    sprite.renderOrder = 15;
+    group.add(sprite);
+
+    const ring = new THREE.Mesh(
+        new THREE.TorusGeometry(0.55, 0.06, 10, 36),
+        new THREE.MeshBasicMaterial({
+            color,
+            transparent: true,
+            opacity: 0.55,
+            depthTest: false,
+            depthWrite: false,
+        }),
+    );
+    ring.rotation.x = Math.PI / 2;
+    group.add(ring);
+
+    group.visible = false;
+    return group;
+}
+
+const measureMarkerA = createMeasureMarker("A", MEASURE_COLOR, "#00ffaa");
+const measureMarkerB = createMeasureMarker("B", MEASURE_COLOR_B, "#ff88cc");
+scene.add(measureMarkerA, measureMarkerB);
+
+function updateMeasureMarker(marker, point) {
+    if (!point) {
+        marker.visible = false;
+        return;
+    }
+    getMeasurePointWorldPosition(point, measureMarkerWorldPos);
+    marker.position.copy(measureMarkerWorldPos);
+    const dist = camera.position.distanceTo(measureMarkerWorldPos);
+    const scale = THREE.MathUtils.clamp(dist * 0.011, 0.45, 10);
+    marker.scale.setScalar(scale);
+    marker.visible = true;
+}
+
+function createBodySelectionRing(color) {
+    const ring = new THREE.Mesh(
+        new THREE.TorusGeometry(1, 0.045, 10, 48),
+        new THREE.MeshBasicMaterial({
+            color,
+            transparent: true,
+            opacity: 0.82,
+            depthWrite: false,
+            side: THREE.DoubleSide,
+        }),
+    );
+    ring.rotation.x = Math.PI / 2;
+    ring.visible = false;
+    ring.renderOrder = 11;
+    return ring;
+}
+
+function createHitCollider(bodyEntry) {
+    const collider = new THREE.Mesh(
+        new THREE.SphereGeometry(1, 12, 12),
+        new THREE.MeshBasicMaterial({ visible: false }),
+    );
+    collider.userData.bodyEntry = bodyEntry;
+    collider.userData.isHitCollider = true;
+    return collider;
+}
+
+function getBodyVisualRadius(entry) {
+    return entry.isSun ? sunRadius : entry.data.radius;
+}
+
+function updateHitColliderScales() {
+    const bodies = [sunEntry, ...planetMeshes];
+    bodies.forEach((entry) => {
+        if (!entry.hitCollider) return;
+        entry.mesh.getWorldPosition(magneticSnapVector);
+        const dist = camera.position.distanceTo(magneticSnapVector);
+        const bodyRadius = getBodyVisualRadius(entry);
+        const zoomBoost = THREE.MathUtils.clamp(dist / 90, 0, 2.5);
+        const multiplier = THREE.MathUtils.clamp(HIT_COLLIDER_BASE + zoomBoost * 0.85, HIT_COLLIDER_BASE, HIT_COLLIDER_MAX);
+        entry.hitCollider.scale.setScalar(bodyRadius * multiplier);
+    });
+}
+
+function updateBodySelectionRings() {
+    const bodies = [sunEntry, ...planetMeshes];
+    const pointA = measureState.points[0]?.bodyEntry ?? null;
+    const pointB = measureState.points[1]?.bodyEntry ?? null;
+    const previewBody = measurePreviewHoverBody;
+
+    bodies.forEach((entry) => {
+        if (!entry.selectionRing) return;
+        const bodyRadius = getBodyVisualRadius(entry);
+        entry.selectionRing.scale.set(bodyRadius * 1.55, bodyRadius * 1.55, 1);
+        const highlighted =
+            measureState.active &&
+            (entry === pointA || entry === pointB || entry === previewBody);
+        entry.selectionRing.visible = highlighted;
+    });
+}
+
+function setupBodyInteractionHelpers() {
+    clickableMeshes.length = 0;
+    [sunEntry, ...planetMeshes].forEach((entry) => {
+        if (!entry.hitCollider) {
+            entry.hitCollider = createHitCollider(entry);
+            entry.mesh.add(entry.hitCollider);
+        }
+        if (!entry.selectionRing) {
+            entry.selectionRing = createBodySelectionRing(MEASURE_COLOR);
+            entry.mesh.add(entry.selectionRing);
+        }
+        clickableMeshes.push(entry.hitCollider);
+    });
+}
+
+function findMagneticSnapBody(clientX, clientY, maxPx = MAGNETIC_SNAP_PX) {
+    const rect = canvas.getBoundingClientRect();
+    let nearest = null;
+    let nearestDist = maxPx;
+    const bodies = [sunEntry, ...planetMeshes];
+
+    bodies.forEach((body) => {
+        body.mesh.getWorldPosition(magneticSnapVector);
+        magneticSnapVector.project(camera);
+        if (magneticSnapVector.z > 1) return;
+
+        const sx = ((magneticSnapVector.x + 1) / 2) * rect.width + rect.left;
+        const sy = ((-magneticSnapVector.y + 1) / 2) * rect.height + rect.top;
+        const dist = Math.hypot(clientX - sx, clientY - sy);
+        if (dist < nearestDist) {
+            nearestDist = dist;
+            nearest = body;
+        }
+    });
+
+    return nearest;
+}
+
+function raycastMeasureTarget(clientX, clientY) {
+    setPointerFromClient(clientX, clientY);
+    raycaster.setFromCamera(pointer, camera);
+    const targets = [...clickableMeshes, measureEclipticPlane];
+    const intersects = raycaster.intersectObjects(targets, false);
+    const picked = pickMeasurePoint(intersects);
+    if (picked) return picked;
+
+    const snapBody = findMagneticSnapBody(clientX, clientY);
+    if (snapBody) {
+        return { bodyEntry: snapBody, fixedPosition: null };
+    }
+    return null;
+}
+
+function raycastInteractiveBody(clientX, clientY) {
+    setPointerFromClient(clientX, clientY);
+    raycaster.setFromCamera(pointer, camera);
+    const intersects = raycaster.intersectObjects(clickableMeshes, false);
+    if (intersects.length > 0) {
+        return findBodyFromObject(intersects[0].object);
+    }
+    return findMagneticSnapBody(clientX, clientY);
+}
+
+let measurePreviewHoverBody = null;
 
 function updateMeasureEclipticPlane(preset) {
     const extent = getEclipticGridExtent(preset);
@@ -927,13 +1140,13 @@ function formatMeasureDistance(units) {
     return `${au.toFixed(2)} AU · ${(km / 1e6).toFixed(2)}M km`;
 }
 
-let eclipticGridVisible = true;
+let eclipticGridVisible = false;
 
 function applyEclipticGridVisibility(visible) {
     eclipticGridVisible = visible;
     eclipticGrid.group.visible = visible;
     if (eclipticGridToggleBtn) {
-        eclipticGridToggleBtn.textContent = visible ? "Ecliptic Grid" : "Grid Off";
+        eclipticGridToggleBtn.textContent = visible ? "⊞ Ecliptic Grid" : "Ecliptic Grid Off";
         eclipticGridToggleBtn.setAttribute("aria-pressed", visible ? "true" : "false");
     }
 }
@@ -949,6 +1162,7 @@ function initEclipticGridToggle() {
 const measureState = {
     active: false,
     points: [null, null],
+    previewPoint: null,
 };
 
 function getMeasurePointWorldPosition(point, target) {
@@ -960,8 +1174,28 @@ function getMeasurePointWorldPosition(point, target) {
 
 function clearMeasureSelection() {
     measureState.points = [null, null];
+    measureState.previewPoint = null;
+    measurePreviewHoverBody = null;
     measureLine.visible = false;
+    measureMarkerA.visible = false;
+    measureMarkerB.visible = false;
     if (measureValueEl) measureValueEl.textContent = "—";
+    updateBodySelectionRings();
+}
+
+function setMeasureLineEndpoints(fromPoint, toPoint, showDistance) {
+    getMeasurePointWorldPosition(fromPoint, measurePointA);
+    getMeasurePointWorldPosition(toPoint, measurePointB);
+    const positions = measureLine.geometry.attributes.position;
+    positions.setXYZ(0, measurePointA.x, measurePointA.y, measurePointA.z);
+    positions.setXYZ(1, measurePointB.x, measurePointB.y, measurePointB.z);
+    positions.needsUpdate = true;
+    measureLine.visible = true;
+
+    if (showDistance && measureValueEl) {
+        const distance = measurePointA.distanceTo(measurePointB);
+        measureValueEl.textContent = formatMeasureDistance(distance);
+    }
 }
 
 function setMeasureControls(active) {
@@ -1011,26 +1245,36 @@ function handleMeasureClick(event) {
         return;
     }
 
-    setPointerFromClient(event.clientX, event.clientY);
-    raycaster.setFromCamera(pointer, camera);
-    const targets = [...clickableMeshes, measureEclipticPlane];
-    const intersects = raycaster.intersectObjects(targets, false);
-    const picked = pickMeasurePoint(intersects);
+    const picked = raycastMeasureTarget(event.clientX, event.clientY);
     if (!picked) return;
 
     if (measureState.points[0] && measureState.points[1]) {
         measureState.points = [picked, null];
+        measureState.previewPoint = null;
+        measurePreviewHoverBody = null;
         measureLine.visible = false;
+        measureMarkerA.visible = true;
+        measureMarkerB.visible = false;
+        updateMeasureMarker(measureMarkerA, picked);
         if (measureValueEl) measureValueEl.textContent = "—";
+        updateBodySelectionRings();
         return;
     }
 
     if (!measureState.points[0]) {
         measureState.points[0] = picked;
+        measureState.previewPoint = null;
+        updateMeasureMarker(measureMarkerA, picked);
+        measureMarkerB.visible = false;
+        measureLine.visible = false;
+        if (measureValueEl) measureValueEl.textContent = "—";
+        updateBodySelectionRings();
         return;
     }
 
     measureState.points[1] = picked;
+    measureState.previewPoint = null;
+    measurePreviewHoverBody = null;
     updateMeasureLineAndDistance();
 }
 
@@ -1038,21 +1282,57 @@ function updateMeasureLineAndDistance() {
     const [a, b] = measureState.points;
     if (!a || !b) return;
 
-    getMeasurePointWorldPosition(a, measurePointA);
-    getMeasurePointWorldPosition(b, measurePointB);
-    const positions = measureLine.geometry.attributes.position;
-    positions.setXYZ(0, measurePointA.x, measurePointA.y, measurePointA.z);
-    positions.setXYZ(1, measurePointB.x, measurePointB.y, measurePointB.z);
-    positions.needsUpdate = true;
-    measureLine.visible = true;
+    setMeasureLineEndpoints(a, b, true);
+    updateMeasureMarker(measureMarkerA, a);
+    updateMeasureMarker(measureMarkerB, b);
+    updateBodySelectionRings();
+}
 
-    const distance = measurePointA.distanceTo(measurePointB);
-    if (measureValueEl) measureValueEl.textContent = formatMeasureDistance(distance);
+function updateMeasurePreview() {
+    if (!measureState.active) {
+        measurePreviewHoverBody = null;
+        return;
+    }
+
+    updateMeasureMarker(measureMarkerA, measureState.points[0]);
+    updateMeasureMarker(measureMarkerB, measureState.points[1]);
+
+    if (!measureState.points[0] || measureState.points[1]) {
+        measureState.previewPoint = null;
+        measurePreviewHoverBody = null;
+        updateBodySelectionRings();
+        return;
+    }
+
+    if (!pointerInside.active) {
+        measurePreviewHoverBody = null;
+        updateBodySelectionRings();
+        return;
+    }
+
+    const preview = raycastMeasureTarget(pointerInside.clientX, pointerInside.clientY);
+    measureState.previewPoint = preview;
+    measurePreviewHoverBody = preview?.bodyEntry ?? null;
+
+    if (preview) {
+        setMeasureLineEndpoints(measureState.points[0], preview, true);
+    } else {
+        measureLine.visible = false;
+        if (measureValueEl) measureValueEl.textContent = "—";
+    }
+
+    updateBodySelectionRings();
 }
 
 function updateMeasureLine() {
-    if (!measureState.active || !measureState.points[0] || !measureState.points[1]) return;
-    updateMeasureLineAndDistance();
+    if (!measureState.active) return;
+
+    if (measureState.points[0] && measureState.points[1]) {
+        updateMeasureLineAndDistance();
+        return;
+    }
+
+    updateMeasurePreview();
 }
 
 let asteroidBeltGroup = createAsteroidBelt();
@@ -1259,7 +1539,7 @@ PLANET_DATA.forEach((data) => {
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
 const pointerInside = { active: false, clientX: 0, clientY: 0 };
-const clickableMeshes = [sun];
+const clickableMeshes = [];
 let hoveredBody = null;
 let isOrbiting = false;
 let orbitDragMoved = false;
@@ -1278,14 +1558,7 @@ controls.addEventListener("end", () => {
     isOrbiting = false;
 });
 
-planetMeshes.forEach((entry) => {
-    entry.mesh.traverse((child) => {
-        if (child.isMesh) {
-            child.userData.bodyEntry = entry;
-            clickableMeshes.push(child);
-        }
-    });
-});
+setupBodyInteractionHelpers();
 
 function findBodyFromObject(object) {
     let current = object;
@@ -1625,11 +1898,7 @@ function updateHoverFromPointer() {
         return;
     }
 
-    setPointerFromClient(pointerInside.clientX, pointerInside.clientY);
-    raycaster.setFromCamera(pointer, camera);
-    const intersects = raycaster.intersectObjects(clickableMeshes, false);
-
-    const hit = intersects.length > 0 ? findBodyFromObject(intersects[0].object) : null;
+    const hit = raycastInteractiveBody(pointerInside.clientX, pointerInside.clientY);
 
     if (hit) {
         if (hit !== hoveredBody) {
@@ -1650,11 +1919,25 @@ function onPointerMove(event) {
     pointerInside.active = true;
     pointerInside.clientX = event.clientX;
     pointerInside.clientY = event.clientY;
-    updateHoverFromPointer();
+    if (measureState.active) {
+        updateMeasurePreview();
+    } else {
+        updateHoverFromPointer();
+    }
 }
 
 function onPointerLeave() {
     pointerInside.active = false;
+    if (measureState.active) {
+        measurePreviewHoverBody = null;
+        measureState.previewPoint = null;
+        if (measureState.points[0] && !measureState.points[1]) {
+            measureLine.visible = false;
+            if (measureValueEl) measureValueEl.textContent = "—";
+        }
+        updateBodySelectionRings();
+        return;
+    }
     clearHoverState();
 }
 
@@ -1669,12 +1952,7 @@ function handleClick(event) {
         return;
     }
 
-    setPointerFromClient(event.clientX, event.clientY);
-    raycaster.setFromCamera(pointer, camera);
-    const intersects = raycaster.intersectObjects(clickableMeshes, false);
-    if (intersects.length === 0) return;
-
-    const hit = findBodyFromObject(intersects[0].object);
+    const hit = raycastInteractiveBody(event.clientX, event.clientY);
     if (hit) {
         window.location.href = `planets/${hit.data.slug}.html`;
     }
@@ -2013,6 +2291,7 @@ function animate() {
     updateShootingStars(shootingStars, delta);
 
     controls.update();
+    updateHitColliderScales();
     updateZoomLabels();
     updateMeasureLine();
 
