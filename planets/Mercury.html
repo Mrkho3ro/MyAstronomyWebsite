@@ -5,7 +5,7 @@
         <title>Mercury – Solar System</title>
         <link rel="stylesheet" href="../Astronomy.css" />
     </head>
-    <body class="Background-Solar-System">
+    <body class="Planet-Detail-Page">
         <nav>
             <p>Astronomy</p>
             <ul>
@@ -16,36 +16,70 @@
             </ul>
         </nav>
 
-        <p class="M-Back-Link"><a href="../Solar-System.html">← Back to Solar System</a></p>
+        <p class="Planet-Detail-Back"><a href="../Solar-System.html">← Back to Solar System</a></p>
 
-        <div class="M-divs M-divs-detail Planet-detail">
-            <div class="h1-M"><h1>Mercury</h1></div>
-            <div class="Planet-detail-image">
-                <img src="../Mercury.webp" alt="Mercury" />
+        <header class="Planet-Detail-Header Planet-Detail-Header--mercury">
+            <div class="Planet-Detail-Header-Inner">
+                <div>
+                    <h1 class="Planet-Detail-Title">Mercury</h1>
+                    <p class="Planet-Detail-Tagline">The swift, scorched inner world — closest planet to the Sun.</p>
+                </div>
+                <span class="Planet-Detail-Type-Badge">Terrestrial planet</span>
             </div>
-            <p class="Planet-detail-intro">
-                The closest planet to the Sun, Mercury is a small, rocky world with extreme temperatures, ranging from
-                scorching hot days to freezing cold nights.
-            </p>
-            <footer class="Ul-M">
-                <ul>
-                    <li><a>Type: Terrestrial (rocky)</a></li>
-                    <li><a>Distance from Sun: ~58 million km</a></li>
-                    <li><a>Orbital period: 88 Earth days</a></li>
-                    <li><a>Day length: 59 Earth days</a></li>
-                    <li><a>Moons: 0</a></li>
-                </ul>
-            </footer>
-            <section class="Planet-facts">
-                <h2>Interesting Facts</h2>
-                <ul>
-                    <li>Mercury has almost no atmosphere, so heat escapes quickly at night.</li>
-                    <li>Its surface is covered in craters, similar to Earth's Moon.</li>
-                    <li>Despite being closest to the Sun, Venus is hotter overall.</li>
-                    <li>Mercury's iron core makes up about 75% of its radius.</li>
-                    <li>NASA's MESSENGER and Mariner missions mapped most of its surface.</li>
-                </ul>
+        </header>
+
+        <main class="Planet-Detail-Main">
+            <section class="Planet-Detail-Hero" aria-label="3D model of Mercury">
+                <canvas id="planet-detail-canvas" data-planet="Mercury" aria-label="Rotating 3D Mercury"></canvas>
+                <p class="Planet-Detail-Hero-Hint">Drag to rotate · Scroll to zoom</p>
             </section>
-        </div>
+
+            <div class="Planet-Detail-Layout">
+                <aside class="Planet-Detail-Stats">
+                    <h2>At a Glance</h2>
+                    <ul class="Planet-Detail-Stat-List">
+                        <li><span class="Planet-Detail-Stat-Label">Diameter</span><span class="Planet-Detail-Stat-Value">4,879 km</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Mass</span><span class="Planet-Detail-Stat-Value">3.30 × 10²³ kg</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Surface gravity</span><span class="Planet-Detail-Stat-Value">3.7 m/s² (0.38× Earth)</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Day length</span><span class="Planet-Detail-Stat-Value">59 Earth days (sidereal)</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Year length</span><span class="Planet-Detail-Stat-Value">88 Earth days</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Atmosphere</span><span class="Planet-Detail-Stat-Value">Exosphere only (trace Na, K, O)</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Avg. temperature</span><span class="Planet-Detail-Stat-Value">−180 °C to 430 °C</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Moons</span><span class="Planet-Detail-Stat-Value">0</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Discovered</span><span class="Planet-Detail-Stat-Value">Known since antiquity</span></li>
+                    </ul>
+                </aside>
+
+                <article class="Planet-Detail-Content">
+                    <p class="Planet-Detail-Intro">
+                        Mercury is the smallest planet in the Solar System and the closest to the Sun. Its heavily cratered
+                        surface resembles Earth's Moon, but extreme temperature swings make it one of the most hostile worlds
+                        we know. With almost no atmosphere to retain heat, Mercury's nights are bitterly cold while its days
+                        are hot enough to melt lead.
+                    </p>
+
+                    <section class="Planet-Detail-Section">
+                        <h2>Key Facts</h2>
+                        <ul class="Planet-Detail-Facts">
+                            <li>Mercury has the most eccentric orbit of any planet, ranging from 46 to 70 million km from the Sun.</li>
+                            <li>Despite being closest to the Sun, Venus is hotter because Mercury lacks a thick greenhouse atmosphere.</li>
+                            <li>Its iron core makes up about 75% of the planet's radius — one of the largest core-to-body ratios.</li>
+                            <li>A 3:2 spin-orbit resonance means Mercury rotates three times for every two orbits around the Sun.</li>
+                            <li>Surface features include the Caloris Basin, one of the largest impact basins in the Solar System.</li>
+                            <li>Permanent shadowed craters at the poles may harbor water ice despite scorching equatorial heat.</li>
+                            <li>Mercury has a weak magnetic field, suggesting at least a partially molten core.</li>
+                            <li>It is the second densest planet after Earth, packed with metal and rock.</li>
+                            <li>NASA's MESSENGER orbiter (2011–2015) mapped the entire surface in unprecedented detail.</li>
+                            <li>From Earth, Mercury is always seen near the horizon at dawn or dusk — never high in a dark sky.</li>
+                        </ul>
+                    </section>
+                </article>
+            </div>
+        </main>
+
+        <script type="importmap">
+            { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+        </script>
+        <script type="module" src="../planet-detail-3d.js"></script>
     </body>
 </html>

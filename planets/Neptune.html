@@ -5,7 +5,7 @@
         <title>Neptune – Solar System</title>
         <link rel="stylesheet" href="../Astronomy.css" />
     </head>
-    <body class="Background-Solar-System">
+    <body class="Planet-Detail-Page">
         <nav>
             <p>Astronomy</p>
             <ul>
@@ -16,36 +16,88 @@
             </ul>
         </nav>
 
-        <p class="M-Back-Link"><a href="../Solar-System.html">← Back to Solar System</a></p>
+        <p class="Planet-Detail-Back"><a href="../Solar-System.html">← Back to Solar System</a></p>
 
-        <div class="M-divs M-divs-detail Planet-detail">
-            <div class="h1-M"><h1>Neptune</h1></div>
-            <div class="Planet-detail-image">
-                <img src="../Neptune.webp" alt="Neptune" />
+        <header class="Planet-Detail-Header Planet-Detail-Header--neptune">
+            <div class="Planet-Detail-Header-Inner">
+                <div>
+                    <h1 class="Planet-Detail-Title">Neptune</h1>
+                    <p class="Planet-Detail-Tagline">The farthest planet — deep blue, windswept, and crowned by Triton.</p>
+                </div>
+                <span class="Planet-Detail-Type-Badge">Ice giant</span>
             </div>
-            <p class="Planet-detail-intro">
-                Neptune is the farthest planet from the Sun and is known for its deep blue color and extremely strong
-                winds—the fastest in the Solar System.
-            </p>
-            <footer class="Ul-M">
-                <ul>
-                    <li><a>Type: Ice giant</a></li>
-                    <li><a>Distance from Sun: ~4.5 billion km</a></li>
-                    <li><a>Orbital period: ~165 Earth years</a></li>
-                    <li><a>Known moons: 16 (including Triton)</a></li>
-                    <li><a>Wind speeds: Up to 2,100 km/h (1,300 mph)</a></li>
-                </ul>
-            </footer>
-            <section class="Planet-facts">
-                <h2>Interesting Facts</h2>
-                <ul>
-                    <li>Neptune was predicted mathematically before it was seen through a telescope (1846).</li>
-                    <li>Its moon Triton orbits backward and is likely a captured Kuiper Belt object.</li>
-                    <li>Neptune radiates more heat than it receives from the Sun—its interior is still cooling.</li>
-                    <li>The Great Dark Spot was a storm similar to Jupiter's Great Red Spot, observed by Voyager 2.</li>
-                    <li>One Neptunian year lasts so long that it has not completed a full orbit since its discovery.</li>
-                </ul>
+        </header>
+
+        <main class="Planet-Detail-Main">
+            <section class="Planet-Detail-Hero" aria-label="3D model of Neptune and Triton">
+                <canvas id="planet-detail-canvas" data-planet="Neptune" aria-label="Rotating 3D Neptune with Triton"></canvas>
+                <p class="Planet-Detail-Hero-Hint">Drag to rotate · Scroll to zoom</p>
             </section>
-        </div>
+
+            <div class="Planet-Detail-Layout">
+                <aside class="Planet-Detail-Stats">
+                    <h2>At a Glance</h2>
+                    <ul class="Planet-Detail-Stat-List">
+                        <li><span class="Planet-Detail-Stat-Label">Diameter</span><span class="Planet-Detail-Stat-Value">49,244 km (equator)</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Mass</span><span class="Planet-Detail-Stat-Value">1.02 × 10²⁶ kg (17× Earth)</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Surface gravity</span><span class="Planet-Detail-Stat-Value">11.15 m/s² (1.14× Earth)*</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Day length</span><span class="Planet-Detail-Stat-Value">16 h 6 min</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Year length</span><span class="Planet-Detail-Stat-Value">165 Earth years</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Atmosphere</span><span class="Planet-Detail-Stat-Value">80% H₂, 19% He, 1.5% CH₄</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Avg. cloud temp.</span><span class="Planet-Detail-Stat-Value">~−200 °C</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Known moons</span><span class="Planet-Detail-Stat-Value">16 confirmed</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Discovered</span><span class="Planet-Detail-Stat-Value">1846 (predicted mathematically)</span></li>
+                    </ul>
+                </aside>
+
+                <article class="Planet-Detail-Content">
+                    <p class="Planet-Detail-Intro">
+                        Neptune is the eighth and farthest known planet from the Sun. This deep-blue ice giant was the first
+                        planet located through mathematical prediction rather than direct observation — astronomers calculated
+                        where it must be to explain Uranus's orbital wobble. Neptune has the strongest sustained winds in the
+                        Solar System and a complex system of rings and moons, dominated by the captured world Triton.
+                    </p>
+
+                    <section class="Planet-Detail-Section">
+                        <h2>Key Facts</h2>
+                        <ul class="Planet-Detail-Facts">
+                            <li>Neptune was predicted by Urbain Le Verrier and John Couch Adams, then found by Johann Galle in 1846.</li>
+                            <li>Winds on Neptune reach up to 2,100 km/h (1,300 mph) — the fastest in the Solar System.</li>
+                            <li>The Great Dark Spot, a storm similar to Jupiter's Red Spot, was observed by Voyager 2 in 1989.</li>
+                            <li>Neptune radiates 2.6 times more energy than it receives from the Sun — its interior is still cooling.</li>
+                            <li>It has completed less than one full orbit since its discovery in 1846 (one year = 165 Earth years).</li>
+                            <li>Neptune's deep blue color comes from methane absorbing red light in the upper atmosphere.</li>
+                            <li>It has faint rings discovered in 1984, made of dust and ice particles darkened by radiation.</li>
+                            <li>Voyager 2 is the only spacecraft to visit Neptune, flying by on August 25, 1989.</li>
+                            <li>Neptune's magnetic field is tilted 47° from its rotation axis and offset from the planet's center.</li>
+                            <li>At 30 AU from the Sun, Neptune receives about 1/900 the sunlight that Earth does.</li>
+                        </ul>
+                    </section>
+
+                    <section class="Planet-Detail-Section">
+                        <h2>Major Moon</h2>
+                        <div class="Planet-Detail-Moon">
+                            <h3>Triton</h3>
+                            <div class="Planet-Detail-Moon-Stats">
+                                <span>Diameter: 2,706 km</span>
+                                <span>Orbit period: 5.88 days (retrograde)</span>
+                            </div>
+                            <ul class="Planet-Detail-Moon-Facts">
+                                <li>Triton is Neptune's largest moon and the only large moon in the Solar System that orbits backward (retrograde).</li>
+                                <li>It is almost certainly a captured Kuiper Belt object, snared by Neptune's gravity billions of years ago.</li>
+                                <li>Triton's surface is one of the coldest in the Solar System (−235 °C), covered in frozen nitrogen and water ice.</li>
+                                <li>Geysers of nitrogen gas erupt from its surface, despite being far from the Sun.</li>
+                                <li>Triton is slowly spiraling inward and will eventually be torn apart by Neptune's gravity or crash into the planet.</li>
+                            </ul>
+                        </div>
+                    </section>
+                </article>
+            </div>
+        </main>
+
+        <script type="importmap">
+            { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+        </script>
+        <script type="module" src="../planet-detail-3d.js"></script>
     </body>
 </html>

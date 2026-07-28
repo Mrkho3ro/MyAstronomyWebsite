@@ -5,7 +5,7 @@
         <title>Uranus – Solar System</title>
         <link rel="stylesheet" href="../Astronomy.css" />
     </head>
-    <body class="Background-Solar-System">
+    <body class="Planet-Detail-Page">
         <nav>
             <p>Astronomy</p>
             <ul>
@@ -16,36 +16,100 @@
             </ul>
         </nav>
 
-        <p class="M-Back-Link"><a href="../Solar-System.html">← Back to Solar System</a></p>
+        <p class="Planet-Detail-Back"><a href="../Solar-System.html">← Back to Solar System</a></p>
 
-        <div class="M-divs M-divs-detail Planet-detail">
-            <div class="h1-M"><h1>Uranus</h1></div>
-            <div class="Planet-detail-image">
-                <img src="../Uranus.webp" alt="Uranus" />
+        <header class="Planet-Detail-Header Planet-Detail-Header--uranus">
+            <div class="Planet-Detail-Header-Inner">
+                <div>
+                    <h1 class="Planet-Detail-Title">Uranus</h1>
+                    <p class="Planet-Detail-Tagline">The sideways ice giant — pale blue, cold, and full of surprises.</p>
+                </div>
+                <span class="Planet-Detail-Type-Badge">Ice giant</span>
             </div>
-            <p class="Planet-detail-intro">
-                Uranus is an ice giant that rotates on its side, making it unique. It has a pale blue color due to
-                methane in its atmosphere.
-            </p>
-            <footer class="Ul-M">
-                <ul>
-                    <li><a>Type: Ice giant</a></li>
-                    <li><a>Distance from Sun: ~2.9 billion km</a></li>
-                    <li><a>Orbital period: ~84 Earth years</a></li>
-                    <li><a>Known moons: 27 (including Miranda and Titania)</a></li>
-                    <li><a>Axial tilt: ~98°—it rolls around the Sun on its side</a></li>
-                </ul>
-            </footer>
-            <section class="Planet-facts">
-                <h2>Interesting Facts</h2>
-                <ul>
-                    <li>Uranus was the first planet discovered with a telescope (William Herschel, 1781).</li>
-                    <li>Its extreme tilt may result from a massive collision early in its history.</li>
-                    <li>Uranus has faint, dark rings discovered in 1977.</li>
-                    <li>It is the coldest planetary atmosphere in the Solar System, down to −224 °C.</li>
-                    <li>Uranus and Neptune are often grouped as "ice giants" distinct from Jupiter and Saturn.</li>
-                </ul>
+        </header>
+
+        <main class="Planet-Detail-Main">
+            <section class="Planet-Detail-Hero" aria-label="3D model of Uranus and moons">
+                <canvas id="planet-detail-canvas" data-planet="Uranus" aria-label="Rotating 3D Uranus with moons"></canvas>
+                <p class="Planet-Detail-Hero-Hint">Drag to rotate · Scroll to zoom</p>
             </section>
-        </div>
+
+            <div class="Planet-Detail-Layout">
+                <aside class="Planet-Detail-Stats">
+                    <h2>At a Glance</h2>
+                    <ul class="Planet-Detail-Stat-List">
+                        <li><span class="Planet-Detail-Stat-Label">Diameter</span><span class="Planet-Detail-Stat-Value">50,724 km (equator)</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Mass</span><span class="Planet-Detail-Stat-Value">8.68 × 10²⁵ kg (14.5× Earth)</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Surface gravity</span><span class="Planet-Detail-Stat-Value">8.87 m/s² (0.91× Earth)*</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Day length</span><span class="Planet-Detail-Stat-Value">17 h 14 min (retrograde)</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Year length</span><span class="Planet-Detail-Stat-Value">84 Earth years</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Atmosphere</span><span class="Planet-Detail-Stat-Value">83% H₂, 15% He, 2% CH₄</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Avg. cloud temp.</span><span class="Planet-Detail-Stat-Value">~−195 °C</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Known moons</span><span class="Planet-Detail-Stat-Value">28 confirmed</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Discovered</span><span class="Planet-Detail-Stat-Value">1781 by William Herschel</span></li>
+                    </ul>
+                </aside>
+
+                <article class="Planet-Detail-Content">
+                    <p class="Planet-Detail-Intro">
+                        Uranus is the seventh planet from the Sun and the first discovered with a telescope. This ice giant rotates
+                        on its side — its axis is tilted 98° — so it essentially rolls around the Sun. Methane in its upper
+                        atmosphere absorbs red light and gives Uranus its distinctive cyan-blue color. It has a faint ring system
+                        and a family of icy moons named after characters from Shakespeare and Alexander Pope.
+                    </p>
+
+                    <section class="Planet-Detail-Section">
+                        <h2>Key Facts</h2>
+                        <ul class="Planet-Detail-Facts">
+                            <li>Uranus was the first planet discovered in modern times — William Herschel found it in 1781.</li>
+                            <li>Its extreme 98° axial tilt may result from a massive collision with an Earth-sized protoplanet.</li>
+                            <li>Each pole experiences 42 years of continuous sunlight followed by 42 years of darkness.</li>
+                            <li>Uranus has the coldest planetary atmosphere in the Solar System, reaching −224 °C.</li>
+                            <li>Unlike Jupiter and Saturn, Uranus emits very little internal heat — its origin is a mystery.</li>
+                            <li>It has 13 faint, dark rings discovered in 1977 when they blocked light from a star.</li>
+                            <li>Voyager 2 is the only spacecraft to visit Uranus, flying by in January 1986.</li>
+                            <li>The planet's magnetic field is tilted 59° from its rotation axis and offset from the center.</li>
+                            <li>Uranus and Neptune are classified as "ice giants" — rich in water, ammonia, and methane ices.</li>
+                            <li>At its distance, Uranus receives only about 1/400 the sunlight that Earth does.</li>
+                        </ul>
+                    </section>
+
+                    <section class="Planet-Detail-Section">
+                        <h2>Major Moons</h2>
+                        <div class="Planet-Detail-Moon">
+                            <h3>Titania</h3>
+                            <div class="Planet-Detail-Moon-Stats">
+                                <span>Diameter: 1,578 km</span>
+                                <span>Orbit period: 8.71 days</span>
+                            </div>
+                            <ul class="Planet-Detail-Moon-Facts">
+                                <li>Titania is Uranus's largest moon, about half the size of Earth's Moon.</li>
+                                <li>Its surface shows deep canyons, fault valleys, and evidence of past geological activity.</li>
+                                <li>A possible subsurface ocean may exist, warmed by tidal forces or radioactive decay.</li>
+                                <li>Named after the Queen of the Fairies in Shakespeare's <em>A Midsummer Night's Dream</em>.</li>
+                            </ul>
+                        </div>
+                        <div class="Planet-Detail-Moon">
+                            <h3>Oberon</h3>
+                            <div class="Planet-Detail-Moon-Stats">
+                                <span>Diameter: 1,523 km</span>
+                                <span>Orbit period: 13.46 days</span>
+                            </div>
+                            <ul class="Planet-Detail-Moon-Facts">
+                                <li>Oberon is Uranus's second-largest moon and the outermost of the five major satellites.</li>
+                                <li>Its ancient, heavily cratered surface suggests little geological activity for billions of years.</li>
+                                <li>Large craters on Oberon have bright rays, indicating relatively recent impacts.</li>
+                                <li>Named after the King of the Fairies in Shakespeare's <em>A Midsummer Night's Dream</em>.</li>
+                            </ul>
+                        </div>
+                    </section>
+                </article>
+            </div>
+        </main>
+
+        <script type="importmap">
+            { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+        </script>
+        <script type="module" src="../planet-detail-3d.js"></script>
     </body>
 </html>

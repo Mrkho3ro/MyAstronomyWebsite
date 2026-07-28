@@ -5,7 +5,7 @@
         <title>Jupiter – Solar System</title>
         <link rel="stylesheet" href="../Astronomy.css" />
     </head>
-    <body class="Background-Solar-System">
+    <body class="Planet-Detail-Page">
         <nav>
             <p>Astronomy</p>
             <ul>
@@ -16,36 +16,126 @@
             </ul>
         </nav>
 
-        <p class="M-Back-Link"><a href="../Solar-System.html">← Back to Solar System</a></p>
+        <p class="Planet-Detail-Back"><a href="../Solar-System.html">← Back to Solar System</a></p>
 
-        <div class="M-divs M-divs-detail Planet-detail">
-            <div class="h1-M"><h1>Jupiter</h1></div>
-            <div class="Planet-detail-image">
-                <img src="../Jupiter.webp" alt="Jupiter" />
+        <header class="Planet-Detail-Header Planet-Detail-Header--jupiter">
+            <div class="Planet-Detail-Header-Inner">
+                <div>
+                    <h1 class="Planet-Detail-Title">Jupiter</h1>
+                    <p class="Planet-Detail-Tagline">King of planets — a storm-wracked gas giant with a retinue of moons.</p>
+                </div>
+                <span class="Planet-Detail-Type-Badge">Gas giant</span>
             </div>
-            <p class="Planet-detail-intro">
-                Jupiter is the largest planet in the Solar System, a gas giant famous for its Great Red Spot—a massive,
-                long-lasting storm.
-            </p>
-            <footer class="Ul-M">
-                <ul>
-                    <li><a>Type: Gas giant</a></li>
-                    <li><a>Distance from Sun: ~779 million km</a></li>
-                    <li><a>Orbital period: ~12 Earth years</a></li>
-                    <li><a>Known moons: 95+ (including Ganymede, Europa, Io, Callisto)</a></li>
-                    <li><a>Mass: More than twice all other planets combined</a></li>
-                </ul>
-            </footer>
-            <section class="Planet-facts">
-                <h2>Interesting Facts</h2>
-                <ul>
-                    <li>The Great Red Spot is a storm larger than Earth that has raged for centuries.</li>
-                    <li>Jupiter's strong gravity helps shield inner planets by deflecting asteroids and comets.</li>
-                    <li>Europa, one of its moons, may harbor a subsurface ocean beneath ice.</li>
-                    <li>Jupiter has faint rings, discovered by Voyager 1 in 1979.</li>
-                    <li>Its rapid rotation (about 10 hours) creates dramatic cloud bands and jet streams.</li>
-                </ul>
+        </header>
+
+        <main class="Planet-Detail-Main">
+            <section class="Planet-Detail-Hero" aria-label="3D model of Jupiter and Galilean moons">
+                <canvas id="planet-detail-canvas" data-planet="Jupiter" aria-label="Rotating 3D Jupiter with moons"></canvas>
+                <p class="Planet-Detail-Hero-Hint">Drag to rotate · Scroll to zoom</p>
             </section>
-        </div>
+
+            <div class="Planet-Detail-Layout">
+                <aside class="Planet-Detail-Stats">
+                    <h2>At a Glance</h2>
+                    <ul class="Planet-Detail-Stat-List">
+                        <li><span class="Planet-Detail-Stat-Label">Diameter</span><span class="Planet-Detail-Stat-Value">139,820 km (equator)</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Mass</span><span class="Planet-Detail-Stat-Value">1.90 × 10²⁷ kg (318× Earth)</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Surface gravity</span><span class="Planet-Detail-Stat-Value">24.8 m/s² (2.53× Earth)*</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Day length</span><span class="Planet-Detail-Stat-Value">9 h 56 min (fastest spin)</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Year length</span><span class="Planet-Detail-Stat-Value">11.86 Earth years</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Atmosphere</span><span class="Planet-Detail-Stat-Value">89% H₂, 10% He, trace CH₄, NH₃</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Avg. cloud temp.</span><span class="Planet-Detail-Stat-Value">~−110 °C</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Known moons</span><span class="Planet-Detail-Stat-Value">95+ confirmed</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Discovered</span><span class="Planet-Detail-Stat-Value">Known since antiquity</span></li>
+                    </ul>
+                </aside>
+
+                <article class="Planet-Detail-Content">
+                    <p class="Planet-Detail-Intro">
+                        Jupiter is the largest planet in the Solar System — more massive than all other planets combined. This
+                        swirling ball of hydrogen and helium has no solid surface; instead, pressure and temperature increase
+                        steadily toward a dense core. Its Great Red Spot, banded clouds, and powerful magnetic field make Jupiter
+                        one of the most dynamic worlds we study.
+                    </p>
+
+                    <section class="Planet-Detail-Section">
+                        <h2>Key Facts</h2>
+                        <ul class="Planet-Detail-Facts">
+                            <li>The Great Red Spot is an anticyclonic storm larger than Earth that has persisted for at least 350 years.</li>
+                            <li>Jupiter's rapid rotation flattens it into an oblate spheroid — noticeably wider at the equator.</li>
+                            <li>It emits more heat than it receives from the Sun, powered by slow gravitational contraction.</li>
+                            <li>Jupiter's magnetic field is the strongest of any planet — 14 times stronger than Earth's.</li>
+                            <li>Its gravity acts as a "cosmic vacuum cleaner," deflecting or capturing comets and asteroids.</li>
+                            <li>Galileo discovered four large moons in 1610, proving not everything orbits Earth.</li>
+                            <li>Jupiter has faint rings discovered by Voyager 1 in 1979, made of dust from its inner moons.</li>
+                            <li>The Juno spacecraft (since 2016) has mapped Jupiter's interior, auroras, and polar cyclones.</li>
+                            <li>Lightning on Jupiter is three times more powerful than on Earth and occurs in water-cloud layers.</li>
+                            <li>A probe entering Jupiter would be crushed and vaporized long before reaching any solid core.</li>
+                        </ul>
+                    </section>
+
+                    <section class="Planet-Detail-Section">
+                        <h2>Major Moons — The Galilean Satellites</h2>
+                        <div class="Planet-Detail-Moon">
+                            <h3>Io</h3>
+                            <div class="Planet-Detail-Moon-Stats">
+                                <span>Diameter: 3,643 km</span>
+                                <span>Orbit period: 1.77 days</span>
+                            </div>
+                            <ul class="Planet-Detail-Moon-Facts">
+                                <li>Io is the most volcanically active body in the Solar System, with hundreds of active volcanoes.</li>
+                                <li>Jupiter's gravity and tidal forces from Europa and Ganymede heat Io's interior, melting rock.</li>
+                                <li>Its surface is covered in sulfur and sulfur dioxide frost, giving it a colorful, mottled appearance.</li>
+                                <li>Io's volcanic plumes shoot material hundreds of kilometers into space.</li>
+                            </ul>
+                        </div>
+                        <div class="Planet-Detail-Moon">
+                            <h3>Europa</h3>
+                            <div class="Planet-Detail-Moon-Stats">
+                                <span>Diameter: 3,122 km</span>
+                                <span>Orbit period: 3.55 days</span>
+                            </div>
+                            <ul class="Planet-Detail-Moon-Facts">
+                                <li>Europa has a smooth, icy crust that may hide a global ocean with more water than all Earth's oceans.</li>
+                                <li>Tidal heating from Jupiter keeps the subsurface ocean liquid despite frigid surface temperatures.</li>
+                                <li>It is a top target in the search for extraterrestrial life — NASA's Europa Clipper launches in 2024.</li>
+                                <li>Reddish cracks and ridges on the surface suggest material welling up from the ocean below.</li>
+                            </ul>
+                        </div>
+                        <div class="Planet-Detail-Moon">
+                            <h3>Ganymede</h3>
+                            <div class="Planet-Detail-Moon-Stats">
+                                <span>Diameter: 5,268 km</span>
+                                <span>Orbit period: 7.15 days</span>
+                            </div>
+                            <ul class="Planet-Detail-Moon-Facts">
+                                <li>Ganymede is the largest moon in the Solar System — bigger than Mercury and Pluto.</li>
+                                <li>It is the only moon known to generate its own magnetic field.</li>
+                                <li>Evidence suggests a subsurface saltwater ocean beneath its icy crust.</li>
+                                <li>Its surface shows both ancient dark terrain and younger, grooved bright regions.</li>
+                            </ul>
+                        </div>
+                        <div class="Planet-Detail-Moon">
+                            <h3>Callisto</h3>
+                            <div class="Planet-Detail-Moon-Stats">
+                                <span>Diameter: 4,821 km</span>
+                                <span>Orbit period: 16.69 days</span>
+                            </div>
+                            <ul class="Planet-Detail-Moon-Facts">
+                                <li>Callisto is the most heavily cratered object in the Solar System — its surface is ancient and unchanged for billions of years.</li>
+                                <li>It may have a subsurface ocean, but receives less tidal heating than the inner Galilean moons.</li>
+                                <li>Callisto's dark surface is covered in ice mixed with rocky material from impacts.</li>
+                                <li>It orbits far enough from Jupiter that it experiences less radiation than Io, Europa, or Ganymede.</li>
+                            </ul>
+                        </div>
+                    </section>
+                </article>
+            </div>
+        </main>
+
+        <script type="importmap">
+            { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+        </script>
+        <script type="module" src="../planet-detail-3d.js"></script>
     </body>
 </html>

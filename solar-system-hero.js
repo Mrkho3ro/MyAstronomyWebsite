@@ -11,6 +11,27 @@ const TEXTURE_BASE = "https://cdn.jsdelivr.net/gh/elymas/solar-simulator@main/pu
 const THREEJS_TEXTURE_BASE = "https://threejs.org/examples/textures/planets/";
 const ORBIT_SPEED_FACTOR = 0.22;
 const SPHERE_SEGMENTS = 64;
+
+// Sidereal day length in Earth days (negative = retrograde). Scaled so Earth ≈ one spin every ~12 s.
+const AXIAL_ROTATION_DAYS = {
+    Sun: 25.38,
+    Mercury: 58.646,
+    Venus: -243.025,
+    Earth: 1.0,
+    Mars: 1.025957,
+    Jupiter: 0.41354,
+    Saturn: 0.44401,
+    Uranus: 0.71833,
+    Neptune: 0.67125,
+};
+const VISUAL_EARTH_ROTATION_SEC = 12;
+const BASE_AXIAL_SPEED = (Math.PI * 2) / VISUAL_EARTH_ROTATION_SEC;
+
+function getAxialRotationSpeed(bodyName) {
+    const days = AXIAL_ROTATION_DAYS[bodyName];
+    if (!days) return BASE_AXIAL_SPEED;
+    return (BASE_AXIAL_SPEED / Math.abs(days)) * Math.sign(days);
+}
 const ORBIT_SCALE = 0.78;
 const BODY_SCALE = 1.38;
 const ASTEROID_COUNT = 420;
@@ -81,7 +102,10 @@ const MOONS_BY_PLANET = {
         { name: "Titan", radius: 0.12, orbit: 2.5, speed: 0.046, color: 0xcc9944 },
         { name: "Enceladus", radius: 0.055, orbit: 1.85, speed: 0.058, color: 0xeeeeee },
     ],
-    Uranus: [{ name: "Titania", radius: 0.075, orbit: 1.55, speed: 0.052, color: 0x99aabb }],
+    Uranus: [
+        { name: "Titania", radius: 0.075, orbit: 1.55, speed: 0.052, color: 0x99aabb },
+        { name: "Oberon", radius: 0.07, orbit: 1.95, speed: 0.044, color: 0x8899aa },
+    ],
     Neptune: [{ name: "Triton", radius: 0.095, orbit: 1.65, speed: 0.05, color: 0xbbccdd }],
 };
 
@@ -232,8 +256,8 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0a1230);
 scene.fog = new THREE.FogExp2(0x0c1538, 0.0018);
 
-const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 500);
-camera.position.set(0, 78, 1.5);
+const camera = new THREE.PerspectiveCamera(52, 1, 0.1, 500);
+camera.position.set(0, 72, 1.5);
 camera.lookAt(0, 0, 0);
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: "high-performance" });
@@ -1000,10 +1024,13 @@ PLANET_DATA.forEach((data) => {
     const moons = createMoonsForPlanet(planet, data.name);
     moonEntries.push(...moons);
 
+    const cloudMesh = planet.children.find((c) => c.isMesh && c.material?.transparent && !c.geometry?.type?.includes("Ring"));
+
     planetMeshes.push({
         mesh: planet,
         pivot,
         data,
+        cloudMesh: cloudMesh || null,
         baseScale: 1,
         hoverScale: 1,
         angle: Math.random() * Math.PI * 2,
@@ -1671,7 +1698,7 @@ function animate() {
 
     if (hoveredBody) positionPlanetHoverLabel(hoveredBody);
 
-    sun.rotation.y += 0.0006;
+    sun.rotation.y += getAxialRotationSpeed("Sun") * delta;
     orbitGroup.rotation.y += delta * 0.011;
     orbitGroup.rotation.x = Math.sin(skyTime * 0.07) * 0.012;
     orbitGroup.rotation.z = Math.sin(skyTime * 0.05 + 0.6) * 0.006;
@@ -1689,7 +1716,9 @@ function animate() {
     planetMeshes.forEach((entry) => {
         entry.angle += entry.data.speed * ORBIT_SPEED_FACTOR;
         entry.pivot.rotation.y = entry.angle;
-        entry.mesh.rotation.y += 0.002;
+        const spin = getAxialRotationSpeed(entry.data.name) * delta;
+        entry.mesh.rotation.y += spin;
+        if (entry.cloudMesh) entry.cloudMesh.rotation.y += spin * 1.08;
         const targetScale = entry.hoverScale;
         entry.mesh.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.12);
     });

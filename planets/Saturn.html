@@ -5,7 +5,7 @@
         <title>Saturn – Solar System</title>
         <link rel="stylesheet" href="../Astronomy.css" />
     </head>
-    <body class="Background-Solar-System">
+    <body class="Planet-Detail-Page">
         <nav>
             <p>Astronomy</p>
             <ul>
@@ -16,35 +16,102 @@
             </ul>
         </nav>
 
-        <p class="M-Back-Link"><a href="../Solar-System.html">← Back to Solar System</a></p>
+        <p class="Planet-Detail-Back"><a href="../Solar-System.html">← Back to Solar System</a></p>
 
-        <div class="M-divs M-divs-detail Planet-detail">
-            <div class="h1-M"><h1>Saturn</h1></div>
-            <div class="Planet-detail-image">
-                <img src="../Saturn.webp" alt="Saturn" />
+        <header class="Planet-Detail-Header Planet-Detail-Header--saturn">
+            <div class="Planet-Detail-Header-Inner">
+                <div>
+                    <h1 class="Planet-Detail-Title">Saturn</h1>
+                    <p class="Planet-Detail-Tagline">Lord of the rings — a golden gas giant with moons of ice and mystery.</p>
+                </div>
+                <span class="Planet-Detail-Type-Badge">Gas giant</span>
             </div>
-            <p class="Planet-detail-intro">
-                Saturn is best known for its stunning ring system. It's a gas giant made mostly of hydrogen and helium.
-            </p>
-            <footer class="Ul-M">
-                <ul>
-                    <li><a>Type: Gas giant</a></li>
-                    <li><a>Distance from Sun: ~1.4 billion km</a></li>
-                    <li><a>Orbital period: ~29 Earth years</a></li>
-                    <li><a>Known moons: 140+ (including Titan and Enceladus)</a></li>
-                    <li><a>Density: Less dense than water—it would float in a giant bathtub</a></li>
-                </ul>
-            </footer>
-            <section class="Planet-facts">
-                <h2>Interesting Facts</h2>
-                <ul>
-                    <li>Saturn's rings are made of countless ice and rock particles, some as small as grains of sand.</li>
-                    <li>Titan has lakes of liquid methane and a thick nitrogen atmosphere.</li>
-                    <li>Enceladus shoots geysers of water ice from its south pole into space.</li>
-                    <li>The Cassini spacecraft orbited Saturn for 13 years, revolutionizing our understanding.</li>
-                    <li>Hexagonal jet streams swirl around Saturn's north pole—a unique atmospheric feature.</li>
-                </ul>
+        </header>
+
+        <main class="Planet-Detail-Main">
+            <section class="Planet-Detail-Hero" aria-label="3D model of Saturn, rings, and moons">
+                <canvas id="planet-detail-canvas" data-planet="Saturn" aria-label="Rotating 3D Saturn with rings and moons"></canvas>
+                <p class="Planet-Detail-Hero-Hint">Drag to rotate · Scroll to zoom</p>
             </section>
-        </div>
+
+            <div class="Planet-Detail-Layout">
+                <aside class="Planet-Detail-Stats">
+                    <h2>At a Glance</h2>
+                    <ul class="Planet-Detail-Stat-List">
+                        <li><span class="Planet-Detail-Stat-Label">Diameter</span><span class="Planet-Detail-Stat-Value">116,460 km (equator)</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Mass</span><span class="Planet-Detail-Stat-Value">5.68 × 10²⁶ kg (95× Earth)</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Surface gravity</span><span class="Planet-Detail-Stat-Value">10.4 m/s² (1.07× Earth)*</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Day length</span><span class="Planet-Detail-Stat-Value">10 h 33 min</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Year length</span><span class="Planet-Detail-Stat-Value">29.46 Earth years</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Atmosphere</span><span class="Planet-Detail-Stat-Value">96% H₂, 3% He, trace CH₄</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Avg. cloud temp.</span><span class="Planet-Detail-Stat-Value">~−140 °C</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Known moons</span><span class="Planet-Detail-Stat-Value">146+ confirmed</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Discovered</span><span class="Planet-Detail-Stat-Value">Known since antiquity; rings in 1610</span></li>
+                    </ul>
+                </aside>
+
+                <article class="Planet-Detail-Content">
+                    <p class="Planet-Detail-Intro">
+                        Saturn is the sixth planet from the Sun and the second largest in the Solar System. It is best known for
+                        its spectacular ring system — thousands of ringlets made of ice and rock particles ranging from dust to
+                        house-sized chunks. Saturn is less dense than water; if a bathtub big enough existed, the planet would
+                        float. Its many moons include two of the most intriguing worlds in the Solar System: Titan and Enceladus.
+                    </p>
+
+                    <section class="Planet-Detail-Section">
+                        <h2>Key Facts</h2>
+                        <ul class="Planet-Detail-Facts">
+                            <li>Saturn's rings extend up to 282,000 km from the planet but are only about 10 meters thick in places.</li>
+                            <li>The rings are mostly water ice with a smaller fraction of rocky material and organic compounds.</li>
+                            <li>A permanent hexagonal jet stream swirls around Saturn's north pole — a unique atmospheric feature.</li>
+                            <li>Cassini orbited Saturn for 13 years (2004–2017), revolutionizing our understanding of the system.</li>
+                            <li>Saturn radiates 2.5 times more energy than it receives from the Sun, powered by internal heat.</li>
+                            <li>Its low density (0.687 g/cm³) makes it the least dense planet — it would float in water.</li>
+                            <li>Seasons on Saturn last about 7 Earth years each due to its 29.5-year orbital period.</li>
+                            <li>Lightning storms on Saturn can be a thousand times more powerful than those on Earth.</li>
+                            <li>The rings may be relatively young — perhaps only 100 million years old — or constantly recycled.</li>
+                            <li>Saturn's moon Titan is the only moon with a thick atmosphere and stable liquids on its surface.</li>
+                        </ul>
+                    </section>
+
+                    <section class="Planet-Detail-Section">
+                        <h2>Major Moons</h2>
+                        <div class="Planet-Detail-Moon">
+                            <h3>Titan</h3>
+                            <div class="Planet-Detail-Moon-Stats">
+                                <span>Diameter: 5,150 km</span>
+                                <span>Orbit period: 15.95 days</span>
+                            </div>
+                            <ul class="Planet-Detail-Moon-Facts">
+                                <li>Titan is Saturn's largest moon and the second-largest moon in the Solar System.</li>
+                                <li>Its thick nitrogen atmosphere (1.5× Earth's pressure) shrouds the surface from direct view.</li>
+                                <li>Lakes and seas of liquid methane and ethane exist near the poles — the only stable surface liquids beyond Earth.</li>
+                                <li>The Huygens probe landed on Titan in 2005, sending back images of river channels and rounded icy pebbles.</li>
+                                <li>Titan's dense haze makes it a laboratory for studying prebiotic chemistry.</li>
+                            </ul>
+                        </div>
+                        <div class="Planet-Detail-Moon">
+                            <h3>Enceladus</h3>
+                            <div class="Planet-Detail-Moon-Stats">
+                                <span>Diameter: 504 km</span>
+                                <span>Orbit period: 1.37 days</span>
+                            </div>
+                            <ul class="Planet-Detail-Moon-Facts">
+                                <li>Enceladus shoots geysers of water vapor and ice from cracks at its south pole into space.</li>
+                                <li>Cassini flew through these plumes and detected organic molecules, salts, and hydrogen.</li>
+                                <li>A global subsurface ocean lies beneath its icy crust, heated by tidal flexing from Saturn.</li>
+                                <li>Its bright, reflective surface makes Enceladus one of the most reflective bodies in the Solar System.</li>
+                                <li>It is a leading candidate for hosting microbial life in its warm, salty ocean.</li>
+                            </ul>
+                        </div>
+                    </section>
+                </article>
+            </div>
+        </main>
+
+        <script type="importmap">
+            { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+        </script>
+        <script type="module" src="../planet-detail-3d.js"></script>
     </body>
 </html>

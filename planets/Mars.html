@@ -5,7 +5,7 @@
         <title>Mars – Solar System</title>
         <link rel="stylesheet" href="../Astronomy.css" />
     </head>
-    <body class="Background-Solar-System">
+    <body class="Planet-Detail-Page">
         <nav>
             <p>Astronomy</p>
             <ul>
@@ -16,36 +16,102 @@
             </ul>
         </nav>
 
-        <p class="M-Back-Link"><a href="../Solar-System.html">← Back to Solar System</a></p>
+        <p class="Planet-Detail-Back"><a href="../Solar-System.html">← Back to Solar System</a></p>
 
-        <div class="M-divs M-divs-detail Planet-detail">
-            <div class="h1-M"><h1>Mars</h1></div>
-            <div class="Planet-detail-image">
-                <img src="../Mars.webp" alt="Mars" />
+        <header class="Planet-Detail-Header Planet-Detail-Header--mars">
+            <div class="Planet-Detail-Header-Inner">
+                <div>
+                    <h1 class="Planet-Detail-Title">Mars</h1>
+                    <p class="Planet-Detail-Tagline">The Red Planet — dusty deserts, ancient rivers, and two tiny moons.</p>
+                </div>
+                <span class="Planet-Detail-Type-Badge">Terrestrial planet</span>
             </div>
-            <p class="Planet-detail-intro">
-                Known as the Red Planet, Mars has a dusty surface and signs of ancient water. Scientists study it
-                closely for clues about past life.
-            </p>
-            <footer class="Ul-M">
-                <ul>
-                    <li><a>Type: Terrestrial (rocky)</a></li>
-                    <li><a>Distance from Sun: ~228 million km</a></li>
-                    <li><a>Orbital period: 687 Earth days</a></li>
-                    <li><a>Moons: 2 (Phobos and Deimos)</a></li>
-                    <li><a>Home to Olympus Mons—the tallest volcano in the Solar System</a></li>
-                </ul>
-            </footer>
-            <section class="Planet-facts">
-                <h2>Interesting Facts</h2>
-                <ul>
-                    <li>Mars gets its red color from iron oxide (rust) dust on its surface.</li>
-                    <li>River valleys and lake beds suggest Mars once had flowing liquid water.</li>
-                    <li>Dust storms can engulf the entire planet for weeks.</li>
-                    <li>NASA rovers including Perseverance actively search for signs of ancient microbial life.</li>
-                    <li>A day on Mars (a "sol") is about 24 hours and 37 minutes.</li>
-                </ul>
+        </header>
+
+        <main class="Planet-Detail-Main">
+            <section class="Planet-Detail-Hero" aria-label="3D model of Mars and moons">
+                <canvas id="planet-detail-canvas" data-planet="Mars" aria-label="Rotating 3D Mars with Phobos and Deimos"></canvas>
+                <p class="Planet-Detail-Hero-Hint">Drag to rotate · Scroll to zoom</p>
             </section>
-        </div>
+
+            <div class="Planet-Detail-Layout">
+                <aside class="Planet-Detail-Stats">
+                    <h2>At a Glance</h2>
+                    <ul class="Planet-Detail-Stat-List">
+                        <li><span class="Planet-Detail-Stat-Label">Diameter</span><span class="Planet-Detail-Stat-Value">6,779 km</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Mass</span><span class="Planet-Detail-Stat-Value">6.42 × 10²³ kg</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Surface gravity</span><span class="Planet-Detail-Stat-Value">3.71 m/s² (0.38× Earth)</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Day length</span><span class="Planet-Detail-Stat-Value">24 h 37 min (sol)</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Year length</span><span class="Planet-Detail-Stat-Value">687 Earth days</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Atmosphere</span><span class="Planet-Detail-Stat-Value">95% CO₂, thin (0.6% Earth's pressure)</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Avg. temperature</span><span class="Planet-Detail-Stat-Value">~−65 °C</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Moons</span><span class="Planet-Detail-Stat-Value">2 (Phobos, Deimos)</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Discovered</span><span class="Planet-Detail-Stat-Value">Known since antiquity</span></li>
+                    </ul>
+                </aside>
+
+                <article class="Planet-Detail-Content">
+                    <p class="Planet-Detail-Intro">
+                        Mars is the fourth planet from the Sun and the most explored world beyond Earth. Its iron-rich dust gives
+                        the surface a distinctive red hue. Orbital and rover missions have found evidence that liquid water once
+                        flowed across Mars, making it a prime target in the search for past microbial life and a future destination
+                        for human exploration.
+                    </p>
+
+                    <section class="Planet-Detail-Section">
+                        <h2>Key Facts</h2>
+                        <ul class="Planet-Detail-Facts">
+                            <li>Olympus Mons is the tallest volcano in the Solar System — about 22 km high and 600 km wide.</li>
+                            <li>Valles Marineris is a canyon system stretching over 4,000 km — far longer and deeper than the Grand Canyon.</li>
+                            <li>Mars has polar ice caps made of water ice and frozen carbon dioxide that grow and shrink with the seasons.</li>
+                            <li>Global dust storms can engulf the entire planet for weeks, blocking sunlight from solar-powered rovers.</li>
+                            <li>River valleys, lake beds, and minerals that form in water all point to a wetter past ~3 billion years ago.</li>
+                            <li>The thin atmosphere cannot support liquid water on the surface today, but briny water may exist briefly.</li>
+                            <li>NASA's Perseverance rover is collecting samples for possible return to Earth in the 2030s.</li>
+                            <li>Mars has seasons like Earth because of a similar axial tilt (25.2°), but each season lasts nearly twice as long.</li>
+                            <li>Evidence suggests Mars lost most of its atmosphere and magnetic field billions of years ago.</li>
+                            <li>Multiple nations and private companies plan crewed missions to Mars within the coming decades.</li>
+                        </ul>
+                    </section>
+
+                    <section class="Planet-Detail-Section">
+                        <h2>Moons</h2>
+                        <div class="Planet-Detail-Moon">
+                            <h3>Phobos</h3>
+                            <div class="Planet-Detail-Moon-Stats">
+                                <span>Diameter: 22.4 km</span>
+                                <span>Orbit period: 7.65 hours</span>
+                                <span>Distance: 9,376 km</span>
+                            </div>
+                            <ul class="Planet-Detail-Moon-Facts">
+                                <li>Phobos orbits Mars faster than the planet rotates — it rises in the west and sets in the east.</li>
+                                <li>It is heavily cratered, with the giant Stickney crater dominating one face.</li>
+                                <li>Phobos is spiraling inward and will either crash into Mars or break apart within ~50 million years.</li>
+                                <li>Its low density suggests it may be a rubble pile or captured asteroid.</li>
+                            </ul>
+                        </div>
+                        <div class="Planet-Detail-Moon">
+                            <h3>Deimos</h3>
+                            <div class="Planet-Detail-Moon-Stats">
+                                <span>Diameter: 12.4 km</span>
+                                <span>Orbit period: 30.3 hours</span>
+                                <span>Distance: 23,460 km</span>
+                            </div>
+                            <ul class="Planet-Detail-Moon-Facts">
+                                <li>Deimos is the smaller and outer of Mars's two moons, with a smoother surface than Phobos.</li>
+                                <li>From Mars, it appears star-like because it is too small to show a visible disk.</li>
+                                <li>Like Phobos, Deimos is irregularly shaped and likely a captured asteroid from the asteroid belt.</li>
+                                <li>Its orbit is slowly expanding as tidal forces gradually push it away from Mars.</li>
+                            </ul>
+                        </div>
+                    </section>
+                </article>
+            </div>
+        </main>
+
+        <script type="importmap">
+            { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+        </script>
+        <script type="module" src="../planet-detail-3d.js"></script>
     </body>
 </html>

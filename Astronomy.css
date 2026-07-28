@@ -184,12 +184,22 @@ body {
   text-align: center;
 }
 
+.Solar-System-Hero-Wrapper {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 40px);
+}
+
 .Solar-System-Main-Picture {
   position: relative;
   overflow: hidden;
-  height: 951px;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  max-height: 600px;
   background: #060a18;
   border-bottom: 4px solid #6495ed;
+  border-radius: 0 0 14px 14px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
 }
 
 #solar-system-canvas {
@@ -1182,6 +1192,320 @@ body .M-divs {
   box-shadow: 0 0 30px rgba(100, 149, 237, 0.35);
 }
 
+/* ── Planet detail profile pages (distinct from main Solar System) ── */
+.Planet-Detail-Page {
+  background: #04060f;
+  min-height: 100vh;
+}
+
+.Planet-Detail-Back {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 24px 0;
+  font-family: "Bruno Ace SC", system-ui, sans-serif;
+  font-size: 0.9rem;
+}
+
+.Planet-Detail-Back a {
+  color: #7a9fd4;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.Planet-Detail-Back a:hover {
+  color: #a8c8ff;
+}
+
+.Planet-Detail-Header {
+  max-width: 1100px;
+  margin: 12px auto 0;
+  padding: 28px 32px 32px;
+  border-radius: 16px 16px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.Planet-Detail-Header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(1px 1px at 15% 25%, rgba(255, 255, 255, 0.45), transparent),
+    radial-gradient(1px 1px at 75% 60%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 45% 80%, rgba(255, 255, 255, 0.25), transparent);
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.Planet-Detail-Header--sun {
+  background: linear-gradient(135deg, #3d1800 0%, #8a3a00 40%, #c45a00 100%);
+}
+.Planet-Detail-Header--mercury {
+  background: linear-gradient(135deg, #1a1510 0%, #4a4035 50%, #6b5d4a 100%);
+}
+.Planet-Detail-Header--venus {
+  background: linear-gradient(135deg, #2a1a08 0%, #6b4020 50%, #a06030 100%);
+}
+.Planet-Detail-Header--earth {
+  background: linear-gradient(135deg, #0a1a2e 0%, #1a4060 50%, #2a6090 100%);
+}
+.Planet-Detail-Header--mars {
+  background: linear-gradient(135deg, #1a0808 0%, #5a2020 50%, #8a3535 100%);
+}
+.Planet-Detail-Header--jupiter {
+  background: linear-gradient(135deg, #1a1208 0%, #5a4020 50%, #8a6030 100%);
+}
+.Planet-Detail-Header--saturn {
+  background: linear-gradient(135deg, #1a1810 0%, #4a4530 50%, #7a7050 100%);
+}
+.Planet-Detail-Header--uranus {
+  background: linear-gradient(135deg, #081820 0%, #1a4050 50%, #2a6070 100%);
+}
+.Planet-Detail-Header--neptune {
+  background: linear-gradient(135deg, #080818 0%, #1a2060 50%, #2030a0 100%);
+}
+
+.Planet-Detail-Header-Inner {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.Planet-Detail-Title {
+  margin: 0;
+  font-family: "Passero One", sans-serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  color: #fff;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.02em;
+}
+
+.Planet-Detail-Tagline {
+  margin: 6px 0 0;
+  font-family: "Macondo", serif;
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  color: rgba(255, 255, 255, 0.88);
+  max-width: 520px;
+}
+
+.Planet-Detail-Type-Badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-family: "Bruno Ace SC", system-ui, sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.Planet-Detail-Main {
+  max-width: 1100px;
+  margin: 0 auto 80px;
+  padding: 0 24px;
+}
+
+.Planet-Detail-Hero {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 520px;
+  background: radial-gradient(ellipse at 50% 60%, #0a1020 0%, #020408 100%);
+  border-left: 1px solid rgba(100, 149, 237, 0.2);
+  border-right: 1px solid rgba(100, 149, 237, 0.2);
+  overflow: hidden;
+}
+
+.Planet-Detail-Hero canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.Planet-Detail-Hero-Hint {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 5px 14px;
+  font-family: "Bruno Ace SC", system-ui, sans-serif;
+  font-size: 0.72rem;
+  color: rgba(200, 220, 255, 0.7);
+  background: rgba(4, 8, 18, 0.72);
+  border-radius: 999px;
+  border: 1px solid rgba(100, 149, 237, 0.2);
+  pointer-events: none;
+}
+
+.Planet-Detail-Layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 0;
+  background: linear-gradient(180deg, #0a0e1a 0%, #060810 100%);
+  border: 1px solid rgba(100, 149, 237, 0.22);
+  border-top: none;
+  border-radius: 0 0 16px 16px;
+  overflow: hidden;
+}
+
+.Planet-Detail-Stats {
+  padding: 28px 22px;
+  background: rgba(4, 8, 20, 0.85);
+  border-right: 1px solid rgba(100, 149, 237, 0.15);
+}
+
+.Planet-Detail-Stats h2 {
+  margin: 0 0 18px;
+  font-family: "Bruno Ace SC", system-ui, sans-serif;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #6495ed;
+}
+
+.Planet-Detail-Stat-List {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.Planet-Detail-Stat-List li {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.Planet-Detail-Stat-Label {
+  font-family: "Bruno Ace SC", system-ui, sans-serif;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7aa8;
+}
+
+.Planet-Detail-Stat-Value {
+  font-family: "Keania One", sans-serif;
+  font-size: 1rem;
+  color: #d8e4ff;
+  line-height: 1.35;
+}
+
+.Planet-Detail-Content {
+  padding: 28px 32px 36px;
+}
+
+.Planet-Detail-Intro {
+  margin: 0 0 28px;
+  font-family: "Macondo", serif;
+  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+  color: #b8c8e8;
+  line-height: 1.65;
+}
+
+.Planet-Detail-Section {
+  margin-bottom: 32px;
+}
+
+.Planet-Detail-Section h2 {
+  margin: 0 0 14px;
+  padding-bottom: 8px;
+  font-family: "Passero One", sans-serif;
+  font-size: 1.35rem;
+  color: #8eb4ff;
+  border-bottom: 1px solid rgba(100, 149, 237, 0.25);
+}
+
+.Planet-Detail-Facts {
+  margin: 0;
+  padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.Planet-Detail-Facts li {
+  font-family: "Keania One", sans-serif;
+  font-size: 0.95rem;
+  color: #a8b8d8;
+  line-height: 1.55;
+}
+
+.Planet-Detail-Moon {
+  margin-bottom: 24px;
+  padding: 18px 20px;
+  background: rgba(8, 14, 32, 0.65);
+  border-radius: 12px;
+  border: 1px solid rgba(100, 149, 237, 0.18);
+}
+
+.Planet-Detail-Moon h3 {
+  margin: 0 0 10px;
+  font-family: "Passero One", sans-serif;
+  font-size: 1.1rem;
+  color: #c8d8ff;
+}
+
+.Planet-Detail-Moon-Stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-bottom: 12px;
+  font-family: "Bruno Ace SC", system-ui, sans-serif;
+  font-size: 0.72rem;
+  color: #7a9fd4;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.Planet-Detail-Moon-Facts {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.Planet-Detail-Moon-Facts li {
+  font-family: "Keania One", sans-serif;
+  font-size: 0.88rem;
+  color: #98a8c8;
+  line-height: 1.5;
+}
+
+@media (max-width: 860px) {
+  .Planet-Detail-Layout {
+    grid-template-columns: 1fr;
+  }
+
+  .Planet-Detail-Stats {
+    border-right: none;
+    border-bottom: 1px solid rgba(100, 149, 237, 0.15);
+  }
+
+  .Planet-Detail-Stat-List {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .Planet-Detail-Content {
+    padding: 24px 20px 32px;
+  }
+
+  .Planet-Detail-Hero {
+    aspect-ratio: 4 / 3;
+    max-height: 400px;
+  }
+}
+
 .Planet-detail-intro {
   padding: 0 28px 12px;
   font-family: "Keania One", sans-serif;
@@ -1216,7 +1540,8 @@ body .M-divs {
   }
 
   .Solar-System-Main-Picture {
-    height: 620px;
+    aspect-ratio: 4 / 3;
+    max-height: 480px;
   }
 
   .Planet-Hover-Tooltip {

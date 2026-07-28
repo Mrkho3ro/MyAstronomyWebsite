@@ -5,7 +5,7 @@
         <title>Earth – Solar System</title>
         <link rel="stylesheet" href="../Astronomy.css" />
     </head>
-    <body class="Background-Solar-System">
+    <body class="Planet-Detail-Page">
         <nav>
             <p>Astronomy</p>
             <ul>
@@ -16,36 +16,89 @@
             </ul>
         </nav>
 
-        <p class="M-Back-Link"><a href="../Solar-System.html">← Back to Solar System</a></p>
+        <p class="Planet-Detail-Back"><a href="../Solar-System.html">← Back to Solar System</a></p>
 
-        <div class="M-divs M-divs-detail Planet-detail">
-            <div class="h1-M"><h1>Earth</h1></div>
-            <div class="Planet-detail-image">
-                <img src="../Earth.webp" alt="Earth" />
+        <header class="Planet-Detail-Header Planet-Detail-Header--earth">
+            <div class="Planet-Detail-Header-Inner">
+                <div>
+                    <h1 class="Planet-Detail-Title">Earth</h1>
+                    <p class="Planet-Detail-Tagline">Our blue oasis — the only known world where life thrives.</p>
+                </div>
+                <span class="Planet-Detail-Type-Badge">Terrestrial planet</span>
             </div>
-            <p class="Planet-detail-intro">
-                Our home planet, Earth is the only known place with life. It has liquid water, a breathable atmosphere,
-                and diverse ecosystems.
-            </p>
-            <footer class="Ul-M">
-                <ul>
-                    <li><a>Type: Terrestrial (rocky)</a></li>
-                    <li><a>Distance from Sun: ~150 million km (1 AU)</a></li>
-                    <li><a>Orbital period: 365.25 days</a></li>
-                    <li><a>Moons: 1 (the Moon)</a></li>
-                    <li><a>Atmosphere: 78% nitrogen, 21% oxygen</a></li>
-                </ul>
-            </footer>
-            <section class="Planet-facts">
-                <h2>Interesting Facts</h2>
-                <ul>
-                    <li>About 71% of Earth's surface is covered by oceans.</li>
-                    <li>Earth's magnetic field protects life from harmful solar radiation.</li>
-                    <li>Plate tectonics recycle the crust and help regulate climate over geologic time.</li>
-                    <li>Earth is the densest planet in the Solar System.</li>
-                    <li>From space, Earth appears as a pale blue dot—a fragile oasis in the cosmos.</li>
-                </ul>
+        </header>
+
+        <main class="Planet-Detail-Main">
+            <section class="Planet-Detail-Hero" aria-label="3D model of Earth and Moon">
+                <canvas id="planet-detail-canvas" data-planet="Earth" aria-label="Rotating 3D Earth with Moon"></canvas>
+                <p class="Planet-Detail-Hero-Hint">Drag to rotate · Scroll to zoom</p>
             </section>
-        </div>
+
+            <div class="Planet-Detail-Layout">
+                <aside class="Planet-Detail-Stats">
+                    <h2>At a Glance</h2>
+                    <ul class="Planet-Detail-Stat-List">
+                        <li><span class="Planet-Detail-Stat-Label">Diameter</span><span class="Planet-Detail-Stat-Value">12,742 km</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Mass</span><span class="Planet-Detail-Stat-Value">5.97 × 10²⁴ kg</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Surface gravity</span><span class="Planet-Detail-Stat-Value">9.81 m/s²</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Day length</span><span class="Planet-Detail-Stat-Value">23 h 56 min (sidereal)</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Year length</span><span class="Planet-Detail-Stat-Value">365.25 days</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Atmosphere</span><span class="Planet-Detail-Stat-Value">78% N₂, 21% O₂, 1% Ar</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Avg. surface temp.</span><span class="Planet-Detail-Stat-Value">~15 °C</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Moons</span><span class="Planet-Detail-Stat-Value">1 (the Moon)</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Discovered</span><span class="Planet-Detail-Stat-Value">Our home — known always</span></li>
+                    </ul>
+                </aside>
+
+                <article class="Planet-Detail-Content">
+                    <p class="Planet-Detail-Intro">
+                        Earth is the third planet from the Sun and the only astronomical object known to harbor life. Liquid water
+                        covers about 71% of its surface, a protective magnetic field shields the atmosphere from solar wind, and
+                        plate tectonics continuously recycle the crust. From orbit, Earth appears as a fragile blue marble — a
+                        reminder of how rare and precious habitable worlds may be.
+                    </p>
+
+                    <section class="Planet-Detail-Section">
+                        <h2>Key Facts</h2>
+                        <ul class="Planet-Detail-Facts">
+                            <li>Earth is the densest planet in the Solar System, with an iron-nickel core and silicate mantle.</li>
+                            <li>The magnetic field, generated by the rotating core, deflects harmful charged particles from the Sun.</li>
+                            <li>Plate tectonics create mountains, ocean trenches, and earthquakes while regulating long-term CO₂ levels.</li>
+                            <li>Earth's axial tilt of 23.5° causes the seasons as the planet orbits the Sun.</li>
+                            <li>About 71% of the surface is ocean; the Pacific Ocean alone covers more area than all land combined.</li>
+                            <li>Earth's atmosphere blocks most harmful UV radiation and burns up small meteors before they reach the ground.</li>
+                            <li>Life appeared at least 3.5 billion years ago; oxygen from photosynthesis transformed the atmosphere.</li>
+                            <li>Earth has one natural satellite — the Moon — which stabilizes our axial tilt and drives ocean tides.</li>
+                            <li>Human activity is now a major force shaping climate, ecosystems, and geology — the Anthropocene era.</li>
+                            <li>From the Moon, astronauts saw Earth as a "pale blue dot" — a symbol of global unity and environmental stewardship.</li>
+                        </ul>
+                    </section>
+
+                    <section class="Planet-Detail-Section">
+                        <h2>Moons</h2>
+                        <div class="Planet-Detail-Moon">
+                            <h3>The Moon</h3>
+                            <div class="Planet-Detail-Moon-Stats">
+                                <span>Diameter: 3,474 km</span>
+                                <span>Orbit period: 27.3 days</span>
+                                <span>Distance: ~384,400 km</span>
+                            </div>
+                            <ul class="Planet-Detail-Moon-Facts">
+                                <li>The Moon is the fifth-largest moon in the Solar System and the largest relative to its parent planet.</li>
+                                <li>It likely formed when a Mars-sized body collided with early Earth ~4.5 billion years ago.</li>
+                                <li>The same side always faces Earth because the Moon is tidally locked in its orbit.</li>
+                                <li>Lunar gravity drives ocean tides and has gradually slowed Earth's rotation over billions of years.</li>
+                                <li>Apollo astronauts brought back 382 kg of rock, proving the Moon was once molten and geologically active.</li>
+                            </ul>
+                        </div>
+                    </section>
+                </article>
+            </div>
+        </main>
+
+        <script type="importmap">
+            { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+        </script>
+        <script type="module" src="../planet-detail-3d.js"></script>
     </body>
 </html>

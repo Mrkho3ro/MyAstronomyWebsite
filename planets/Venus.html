@@ -5,7 +5,7 @@
         <title>Venus – Solar System</title>
         <link rel="stylesheet" href="../Astronomy.css" />
     </head>
-    <body class="Background-Solar-System">
+    <body class="Planet-Detail-Page">
         <nav>
             <p>Astronomy</p>
             <ul>
@@ -16,36 +16,70 @@
             </ul>
         </nav>
 
-        <p class="M-Back-Link"><a href="../Solar-System.html">← Back to Solar System</a></p>
+        <p class="Planet-Detail-Back"><a href="../Solar-System.html">← Back to Solar System</a></p>
 
-        <div class="M-divs M-divs-detail Planet-detail">
-            <div class="h1-M"><h1>Venus</h1></div>
-            <div class="Planet-detail-image">
-                <img src="../Venus.webp" alt="Venus" />
+        <header class="Planet-Detail-Header Planet-Detail-Header--venus">
+            <div class="Planet-Detail-Header-Inner">
+                <div>
+                    <h1 class="Planet-Detail-Title">Venus</h1>
+                    <p class="Planet-Detail-Tagline">Earth's twin in size — a furnace world shrouded in toxic clouds.</p>
+                </div>
+                <span class="Planet-Detail-Type-Badge">Terrestrial planet</span>
             </div>
-            <p class="Planet-detail-intro">
-                Venus is similar in size to Earth but covered in thick, toxic clouds. It's the hottest planet in the
-                Solar System due to its powerful greenhouse effect.
-            </p>
-            <footer class="Ul-M">
-                <ul>
-                    <li><a>Type: Terrestrial (rocky)</a></li>
-                    <li><a>Distance from Sun: ~108 million km</a></li>
-                    <li><a>Orbital period: 225 Earth days</a></li>
-                    <li><a>Surface temperature: ~465 °C (870 °F)</a></li>
-                    <li><a>Moons: 0</a></li>
-                </ul>
-            </footer>
-            <section class="Planet-facts">
-                <h2>Interesting Facts</h2>
-                <ul>
-                    <li>Venus rotates backward compared to most planets (retrograde rotation).</li>
-                    <li>Its thick atmosphere is mostly carbon dioxide with clouds of sulfuric acid.</li>
-                    <li>Venus is often called Earth's "sister planet" because of similar size and mass.</li>
-                    <li>A day on Venus (243 Earth days) is longer than its year.</li>
-                    <li>Surface pressure is about 90 times that of Earth—like being 900 m underwater.</li>
-                </ul>
+        </header>
+
+        <main class="Planet-Detail-Main">
+            <section class="Planet-Detail-Hero" aria-label="3D model of Venus">
+                <canvas id="planet-detail-canvas" data-planet="Venus" aria-label="Rotating 3D Venus"></canvas>
+                <p class="Planet-Detail-Hero-Hint">Drag to rotate · Scroll to zoom</p>
             </section>
-        </div>
+
+            <div class="Planet-Detail-Layout">
+                <aside class="Planet-Detail-Stats">
+                    <h2>At a Glance</h2>
+                    <ul class="Planet-Detail-Stat-List">
+                        <li><span class="Planet-Detail-Stat-Label">Diameter</span><span class="Planet-Detail-Stat-Value">12,104 km</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Mass</span><span class="Planet-Detail-Stat-Value">4.87 × 10²⁴ kg</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Surface gravity</span><span class="Planet-Detail-Stat-Value">8.87 m/s² (0.91× Earth)</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Day length</span><span class="Planet-Detail-Stat-Value">243 Earth days (retrograde)</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Year length</span><span class="Planet-Detail-Stat-Value">225 Earth days</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Atmosphere</span><span class="Planet-Detail-Stat-Value">96.5% CO₂, clouds of H₂SO₄</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Avg. surface temp.</span><span class="Planet-Detail-Stat-Value">~465 °C (hottest planet)</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Moons</span><span class="Planet-Detail-Stat-Value">0</span></li>
+                        <li><span class="Planet-Detail-Stat-Label">Discovered</span><span class="Planet-Detail-Stat-Value">Known since antiquity</span></li>
+                    </ul>
+                </aside>
+
+                <article class="Planet-Detail-Content">
+                    <p class="Planet-Detail-Intro">
+                        Venus is often called Earth's "sister planet" because of similar size and mass, but its environment could
+                        not be more different. A runaway greenhouse effect traps heat beneath thick sulfuric-acid clouds,
+                        making Venus the hottest planet in the Solar System — even hotter than Mercury despite being farther
+                        from the Sun.
+                    </p>
+
+                    <section class="Planet-Detail-Section">
+                        <h2>Key Facts</h2>
+                        <ul class="Planet-Detail-Facts">
+                            <li>Venus rotates backward (retrograde) — the Sun rises in the west and sets in the east.</li>
+                            <li>A Venusian day (243 Earth days) is longer than its year (225 Earth days).</li>
+                            <li>Surface pressure is about 92 bar — roughly 90 times Earth's, like being 900 m underwater.</li>
+                            <li>Thick clouds reflect sunlight brilliantly, making Venus the brightest natural object in the night sky after the Moon.</li>
+                            <li>Radar mapping by Magellan revealed vast volcanic plains, highlands, and thousands of volcanoes.</li>
+                            <li>There is no liquid water on the surface today; any ancient oceans likely boiled away billions of years ago.</li>
+                            <li>Super-rotating winds in the upper atmosphere circle the planet in about 4 Earth days.</li>
+                            <li>Soviet Venera landers were the first to transmit images from another planet's surface (1970s–1980s).</li>
+                            <li>Venus may still be geologically active, with evidence of recent volcanic resurfacing.</li>
+                            <li>Studying Venus helps scientists understand how runaway greenhouse effects can transform habitable worlds.</li>
+                        </ul>
+                    </section>
+                </article>
+            </div>
+        </main>
+
+        <script type="importmap">
+            { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+        </script>
+        <script type="module" src="../planet-detail-3d.js"></script>
     </body>
 </html>
