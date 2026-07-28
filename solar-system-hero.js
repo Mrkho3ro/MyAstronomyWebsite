@@ -106,6 +106,8 @@ const MAX_ORBIT_EXTENT = Math.max(
 );
 const CONSTELLATION_SKY_RADIUS = MAX_ORBIT_EXTENT * SKY_SPHERE_MARGIN;
 const SKY_SCALE = CONSTELLATION_SKY_RADIUS / LEGACY_SKY_RADIUS;
+// Sky dome sits outside max zoom; keep the full sphere inside the camera far plane.
+const CAMERA_FAR = CONSTELLATION_SKY_RADIUS * 2 + SCALE_PRESETS.real.maxZoom;
 
 function scaleSky(value) {
     return value * SKY_SCALE;
@@ -268,7 +270,6 @@ const planetHoverLabel = document.getElementById("planet-hover-label");
 const zoomLabelsContainer = document.getElementById("planet-zoom-labels");
 const scaleToggleBtn = document.getElementById("scale-toggle-btn");
 const themeToggleBtn = document.getElementById("theme-toggle-btn");
-const constellationToggleBtn = document.getElementById("constellation-toggle-btn");
 const scaleNoteEl = document.getElementById("scale-note");
 const previewCanvas = document.getElementById("planet-tooltip-canvas");
 const heroSection = document.querySelector(".Solar-System-Main-Picture");
@@ -286,7 +287,7 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0a1230);
 scene.fog = new THREE.FogExp2(0x0c1538, 0.0018);
 
-const camera = new THREE.PerspectiveCamera(52, 1, 0.1, 500);
+const camera = new THREE.PerspectiveCamera(52, 1, 0.1, CAMERA_FAR);
 camera.position.set(0, 72, 1.5);
 camera.lookAt(0, 0, 0);
 
@@ -559,6 +560,8 @@ function createConstellations(geoJson) {
     return group;
 }
 
+let constellationGroup = null;
+
 function createSkyBackground() {
     const group = new THREE.Group();
 
@@ -624,7 +627,7 @@ function createSkyBackground() {
     const parallaxStars = createParallaxStarLayers();
     group.add(parallaxStars.group);
 
-    const constellationGroup = createConstellations(constellationGeoJson);
+    constellationGroup = createConstellations(constellationGeoJson);
     group.add(constellationGroup);
 
     return { group, nebulaMaterial, milkyWayMaterial, parallaxStars, milkyWayBand, constellationGroup };
@@ -1537,13 +1540,27 @@ let constellationsVisible = true;
 
 function applyConstellationVisibility(visible) {
     constellationsVisible = visible;
-    if (skyBackground.constellationGroup) {
-        skyBackground.constellationGroup.visible = visible;
+    const group = constellationGroup ?? skyBackground?.constellationGroup;
+    if (group) {
+        group.visible = visible;
+        group.traverse((child) => {
+            child.visible = visible;
+        });
     }
-    if (constellationToggleBtn) {
-        constellationToggleBtn.textContent = visible ? "★ Constellations" : "Constellations Off";
-        constellationToggleBtn.setAttribute("aria-pressed", visible ? "true" : "false");
+    const btn = document.getElementById("constellation-toggle-btn");
+    if (btn) {
+        btn.textContent = visible ? "★ Constellations" : "Constellations Off";
+        btn.setAttribute("aria-pressed", visible ? "true" : "false");
     }
+}
+
+function initConstellationToggle() {
+    const btn = document.getElementById("constellation-toggle-btn");
+    if (!btn) return;
+    btn.addEventListener("click", () => {
+        applyConstellationVisibility(!constellationsVisible);
+    });
+    applyConstellationVisibility(constellationsVisible);
 }
 
 function updateScrollParallax() {
@@ -1568,16 +1585,11 @@ if (themeToggleBtn) {
     });
 }
 
-if (constellationToggleBtn) {
-    constellationToggleBtn.addEventListener("click", () => {
-        applyConstellationVisibility(!constellationsVisible);
-    });
-}
+initConstellationToggle();
 
 window.addEventListener("scroll", updateScrollParallax, { passive: true });
 updateScrollParallax();
 applyTheme("dark");
-applyConstellationVisibility(true);
 if (scaleNoteEl) scaleNoteEl.hidden = true;
 initZoomLabels();
 canvas.addEventListener("pointerenter", onPointerMove);
