@@ -1290,6 +1290,16 @@ body.solar-light-mode nav ul a[aria-current="page"] {
   transition: border-color 0.2s, color 0.2s, background 0.2s;
 }
 
+.Planet-Size-Compare-Label--inner {
+  font-size: 0.54rem;
+  padding: 2px 6px;
+  letter-spacing: 0.04em;
+}
+
+.Planet-Size-Compare-Label--above {
+  transform: translate(-50%, -100%);
+}
+
 .Planet-Size-Compare-Label:hover,
 .Planet-Size-Compare-Label.is-hovered {
   border-color: rgba(141, 180, 255, 0.7);

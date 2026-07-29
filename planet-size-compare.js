@@ -228,6 +228,12 @@ BODIES.forEach((spec, index) => {
     const label = document.createElement("button");
     label.type = "button";
     label.className = "Planet-Size-Compare-Label";
+    if (index >= 1 && index <= 4) {
+        label.classList.add("Planet-Size-Compare-Label--inner");
+        if (index % 2 === 0) {
+            label.classList.add("Planet-Size-Compare-Label--above");
+        }
+    }
     label.textContent = spec.reducedScale ? `${spec.name}*` : spec.name;
     label.dataset.slug = spec.slug;
     label.setAttribute("aria-label", `Open ${spec.name} detail page`);
@@ -264,18 +270,51 @@ function resize() {
     positionLabels();
 }
 
+/** World-space Y for label anchor; Mercury–Mars alternate above/below. */
+function getLabelWorldY(entry, index) {
+    const pad = 0.38;
+    if (index >= 1 && index <= 4) {
+        return index % 2 === 1 ? -(entry.radius + pad) : entry.radius + pad;
+    }
+    return -(entry.radius + pad);
+}
+
+/** Nudge label Y apart when projected centers are closer than minDist px. */
+function resolveLabelCollisions(layout, minDist) {
+    const byX = [...layout].sort((a, b) => a.x - b.x);
+    for (let j = 1; j < byX.length; j += 1) {
+        const prev = byX[j - 1];
+        const curr = byX[j];
+        const dx = curr.x - prev.x;
+        if (dx >= minDist) continue;
+        const push = (minDist - dx) * 0.55;
+        prev.y -= push;
+        curr.y += push;
+    }
+}
+
 function positionLabels() {
     const width = canvas.clientWidth || 1;
     const height = canvas.clientHeight || 1;
     const tmp = new THREE.Vector3();
-    entries.forEach((entry, i) => {
-        tmp.set(entry.x, -entry.radius - 0.35, 0);
+    const layout = entries.map((entry, i) => {
+        tmp.set(entry.x, getLabelWorldY(entry, i), 0);
         tmp.project(camera);
-        const lx = ((tmp.x + 1) / 2) * width;
-        const ly = ((-tmp.y + 1) / 2) * height;
+        return {
+            i,
+            x: ((tmp.x + 1) / 2) * width,
+            y: ((-tmp.y + 1) / 2) * height,
+            above: labelEls[i].classList.contains("Planet-Size-Compare-Label--above"),
+        };
+    });
+
+    resolveLabelCollisions(layout, 44);
+
+    layout.forEach(({ i, x, y, above }) => {
         const el = labelEls[i];
-        el.style.left = `${lx}px`;
-        el.style.top = `${Math.min(height - 8, ly + 8)}px`;
+        el.style.left = `${x}px`;
+        const yPad = above ? -6 : 8;
+        el.style.top = `${Math.max(6, Math.min(height - 6, y + yPad))}px`;
     });
 }
 
