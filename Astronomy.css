@@ -907,6 +907,69 @@ body {
   visibility: visible;
 }
 
+.Measure-Aim-Reticle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 26px;
+  height: 26px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.1s ease;
+  border: 1px solid rgba(0, 255, 170, 0.55);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.35),
+    0 0 12px rgba(0, 255, 170, 0.25);
+  background: radial-gradient(circle at center, #00ffaa 0 2px, transparent 2px);
+}
+
+.Measure-Aim-Reticle.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.Measure-Aim-Reticle::before,
+.Measure-Aim-Reticle::after {
+  content: "";
+  position: absolute;
+  background: #00ffaa;
+  box-shadow: 0 0 6px rgba(0, 255, 170, 0.75);
+}
+
+.Measure-Aim-Reticle::before {
+  left: 50%;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+
+.Measure-Aim-Reticle::after {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  transform: translateY(-50%);
+}
+
+body.solar-light-mode .Measure-Aim-Reticle {
+  border-color: rgba(0, 140, 100, 0.65);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.6),
+    0 0 10px rgba(0, 180, 130, 0.3);
+  background: radial-gradient(circle at center, #008866 0 2px, transparent 2px);
+}
+
+body.solar-light-mode .Measure-Aim-Reticle::before,
+body.solar-light-mode .Measure-Aim-Reticle::after {
+  background: #008866;
+  box-shadow: 0 0 4px rgba(0, 140, 100, 0.5);
+}
+
 .Distance-Measure-Readout {
   position: absolute;
   top: 12px;

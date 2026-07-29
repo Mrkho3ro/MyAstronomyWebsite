@@ -337,6 +337,7 @@ const eclipticGridToggleBtn = document.getElementById("ecliptic-grid-toggle-btn"
 const measureDistanceBtn = document.getElementById("measure-distance-btn");
 const measureReadoutEl = document.getElementById("distance-measure-readout");
 const measureValueEl = document.getElementById("distance-measure-value");
+const measureAimReticleEl = document.getElementById("measure-aim-reticle");
 const scaleNoteEl = document.getElementById("scale-note");
 const previewCanvas = document.getElementById("planet-tooltip-canvas");
 const heroSection = document.querySelector(".Solar-System-Main-Picture");
@@ -1280,6 +1281,26 @@ function clearMeasureSelection() {
     updateBodySelectionRings();
 }
 
+function hideMeasureAimReticle() {
+    if (!measureAimReticleEl) return;
+    measureAimReticleEl.hidden = true;
+    measureAimReticleEl.classList.remove("is-visible");
+}
+
+function updateMeasureAimReticle(clientX, clientY) {
+    if (!measureAimReticleEl || !heroSection || !measureState.active) return;
+    const rect = heroSection.getBoundingClientRect();
+    measureAimReticleEl.style.left = `${clientX - rect.left}px`;
+    measureAimReticleEl.style.top = `${clientY - rect.top}px`;
+    measureAimReticleEl.hidden = false;
+    measureAimReticleEl.classList.add("is-visible");
+}
+
+function resetMeasureSelection() {
+    clearMeasureSelection();
+    scheduleSaveSolarSystemState();
+}
+
 function setMeasureLineEndpoints(fromPoint, toPoint, showDistance) {
     getMeasurePointWorldPosition(fromPoint, measurePointA);
     getMeasurePointWorldPosition(toPoint, measurePointB);
@@ -1302,8 +1323,15 @@ function setMeasureControls(active) {
         : { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_ROTATE };
     canvas.style.cursor = active ? "crosshair" : "default";
     if (measureReadoutEl) measureReadoutEl.hidden = !active;
-    if (active) clearHoverState();
-    if (!active) clearMeasureSelection();
+    if (active) {
+        clearHoverState();
+        if (pointerInside.active) {
+            updateMeasureAimReticle(pointerInside.clientX, pointerInside.clientY);
+        }
+    } else {
+        hideMeasureAimReticle();
+        clearMeasureSelection();
+    }
 }
 
 function applyMeasureMode(active) {
@@ -2026,6 +2054,7 @@ function onPointerMove(event) {
     pointerInside.clientX = event.clientX;
     pointerInside.clientY = event.clientY;
     if (measureState.active) {
+        updateMeasureAimReticle(event.clientX, event.clientY);
         updateMeasurePreview();
     } else {
         updateHoverFromPointer();
@@ -2035,6 +2064,7 @@ function onPointerMove(event) {
 function onPointerLeave() {
     pointerInside.active = false;
     if (measureState.active) {
+        hideMeasureAimReticle();
         clearMeasurePreviewHoverBody();
         measureState.previewPoint = null;
         if (measureState.points[0] && !measureState.points[1]) {
@@ -2045,6 +2075,17 @@ function onPointerLeave() {
         return;
     }
     clearHoverState();
+}
+
+function onMeasurePointerDown(event) {
+    if (!measureState.active || event.button !== 2) return;
+    event.preventDefault();
+    resetMeasureSelection();
+}
+
+function onCanvasContextMenu(event) {
+    if (!measureState.active) return;
+    event.preventDefault();
 }
 
 function handleClick(event) {
@@ -2317,6 +2358,8 @@ canvas.addEventListener("pointerenter", onPointerMove);
 canvas.addEventListener("pointermove", onPointerMove);
 canvas.addEventListener("pointerleave", onPointerLeave);
 canvas.addEventListener("pointercancel", onPointerLeave);
+canvas.addEventListener("pointerdown", onMeasurePointerDown);
+canvas.addEventListener("contextmenu", onCanvasContextMenu);
 canvas.addEventListener("click", handleClick);
 
 window.addEventListener("resize", resizeRenderer);
