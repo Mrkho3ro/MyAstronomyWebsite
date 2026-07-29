@@ -184,6 +184,9 @@ const SUN_DATA = {
     name: "The Sun",
     slug: "Sun",
     texture: "2k_sun.jpg",
+    type: "G-type star",
+    distanceAu: 0,
+    distanceLabel: "Center",
     intro:
         "The Sun is the star at the center of our Solar System—a G-type main-sequence star that provides the light and heat that make life on Earth possible.",
     radiusKm: 696340,
@@ -197,6 +200,7 @@ const PLANET_SPECS = [
         name: "Mercury",
         slug: "Mercury",
         texture: "2k_mercury.jpg",
+        type: "Terrestrial",
         speed: 0.022,
         radiusKm: 2439.7,
         moonCount: 0,
@@ -208,6 +212,7 @@ const PLANET_SPECS = [
         name: "Venus",
         slug: "Venus",
         texture: "2k_venus_surface.jpg",
+        type: "Terrestrial",
         speed: 0.018,
         radiusKm: 6051.8,
         moonCount: 0,
@@ -219,6 +224,7 @@ const PLANET_SPECS = [
         name: "Earth",
         slug: "Earth",
         texture: "2k_earth_daymap.jpg",
+        type: "Terrestrial",
         normalMap: `${THREEJS_TEXTURE_BASE}earth_normal_2048.jpg`,
         clouds: "2k_earth_clouds.jpg",
         speed: 0.015,
@@ -232,6 +238,7 @@ const PLANET_SPECS = [
         name: "Mars",
         slug: "Mars",
         texture: "2k_mars.jpg",
+        type: "Terrestrial",
         speed: 0.012,
         radiusKm: 3389.5,
         moonCount: 2,
@@ -243,6 +250,7 @@ const PLANET_SPECS = [
         name: "Jupiter",
         slug: "Jupiter",
         texture: "2k_jupiter.jpg",
+        type: "Gas giant",
         speed: 0.008,
         radiusKm: 69911,
         moonCount: 95,
@@ -254,6 +262,7 @@ const PLANET_SPECS = [
         name: "Saturn",
         slug: "Saturn",
         texture: "2k_saturn.jpg",
+        type: "Gas giant",
         speed: 0.006,
         rings: true,
         radiusKm: 58232,
@@ -266,6 +275,7 @@ const PLANET_SPECS = [
         name: "Uranus",
         slug: "Uranus",
         texture: "2k_uranus.jpg",
+        type: "Ice giant",
         speed: 0.004,
         radiusKm: 25362,
         moonCount: 28,
@@ -277,6 +287,7 @@ const PLANET_SPECS = [
         name: "Neptune",
         slug: "Neptune",
         texture: "2k_neptune.jpg",
+        type: "Ice giant",
         speed: 0.003,
         radiusKm: 24622,
         moonCount: 16,
@@ -289,6 +300,8 @@ const PLANET_SPECS = [
 function buildPlanetData(preset) {
     return PLANET_SPECS.map((spec) => ({
         ...spec,
+        distanceAu: ORBIT_AU[spec.name],
+        distanceLabel: `${ORBIT_AU[spec.name]} AU`,
         radius: preset.earthRadius * RADIUS_EARTH_RATIO[spec.name],
         orbit: preset.earthOrbit * ORBIT_AU[spec.name],
     }));
@@ -301,9 +314,21 @@ const errorBanner = document.getElementById("solar-system-error");
 const tooltip = document.getElementById("planet-tooltip");
 const tooltipPreview = document.getElementById("planet-tooltip-preview");
 const tooltipContent = document.getElementById("planet-tooltip-content");
+const tooltipType = document.getElementById("planet-tooltip-type");
 const tooltipTitle = document.getElementById("planet-tooltip-title");
 const tooltipText = document.getElementById("planet-tooltip-text");
 const tooltipFacts = document.getElementById("planet-tooltip-facts");
+const TOOLTIP_THEME_SLUGS = [
+    "sun",
+    "mercury",
+    "venus",
+    "earth",
+    "mars",
+    "jupiter",
+    "saturn",
+    "uranus",
+    "neptune",
+];
 const planetHoverLabel = document.getElementById("planet-hover-label");
 const zoomLabelsContainer = document.getElementById("planet-zoom-labels");
 const scaleToggleBtn = document.getElementById("scale-toggle-btn");
@@ -1827,13 +1852,34 @@ function formatRadiusKm(km) {
 }
 
 function formatTemperature(celsius) {
-    if (celsius >= 1000) return `~${celsius.toLocaleString()}°C (surface)`;
+    if (celsius >= 1000) return `~${celsius.toLocaleString()}°C`;
     return `~${celsius > 0 ? "+" : ""}${celsius}°C`;
 }
 
-function formatFacts(data) {
+function setTooltipTheme(bodyEntry) {
+    if (!tooltip) return;
+    TOOLTIP_THEME_SLUGS.forEach((slug) => {
+        tooltip.classList.remove(`Planet-Hover-Tooltip--${slug}`);
+    });
+    const themeSlug = String(bodyEntry.data.slug || "sun").toLowerCase();
+    tooltip.classList.add(`Planet-Hover-Tooltip--${themeSlug}`);
+}
+
+function renderTooltipFacts(data) {
+    if (!tooltipFacts) return;
     const moons = data.moonCount === 0 ? "None" : data.moonCount.toLocaleString();
-    return `Radius: ${formatRadiusKm(data.radiusKm)} · Moons: ${moons} · Temp: ${formatTemperature(data.avgTempC)}`;
+    const rows = [
+        { label: "Distance", value: data.distanceLabel || (data.isSun ? "Center" : "—") },
+        { label: "Radius", value: formatRadiusKm(data.radiusKm) },
+        { label: "Moons", value: moons },
+        { label: "Temp", value: formatTemperature(data.avgTempC) },
+    ];
+    tooltipFacts.innerHTML = rows
+        .map(
+            (row) =>
+                `<div class="Planet-Tooltip-Fact"><dt>${row.label}</dt><dd>${row.value}</dd></div>`,
+        )
+        .join("");
 }
 
 function updatePlanetHoverLabel(bodyEntry) {
@@ -1863,9 +1909,11 @@ function positionPlanetHoverLabel(bodyEntry) {
 }
 
 function updateTooltipContent(bodyEntry) {
+    setTooltipTheme(bodyEntry);
+    if (tooltipType) tooltipType.textContent = bodyEntry.data.type || "";
     tooltipTitle.textContent = bodyEntry.data.name;
     tooltipText.textContent = bodyEntry.data.intro;
-    if (tooltipFacts) tooltipFacts.textContent = formatFacts(bodyEntry.data);
+    renderTooltipFacts(bodyEntry.data);
     setPreviewBody(bodyEntry);
     tooltipPreview.classList.toggle("is-sun", Boolean(bodyEntry.isSun));
     tooltipPreview.classList.add("is-active");
@@ -1927,6 +1975,9 @@ function hideTooltip() {
     previewBodyEntry = null;
     tooltipPreview.classList.remove("is-active", "is-switching", "is-sun");
     tooltipContent.classList.remove("is-switching");
+    TOOLTIP_THEME_SLUGS.forEach((slug) => {
+        tooltip.classList.remove(`Planet-Hover-Tooltip--${slug}`);
+    });
 
     if (tooltipSwitchTimer) {
         clearTimeout(tooltipSwitchTimer);
