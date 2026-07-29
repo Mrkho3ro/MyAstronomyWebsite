@@ -21,24 +21,38 @@ UA = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
 }
 
-NAV_DETAIL = """        <nav>
-            <p>Astronomy</p>
-            <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../Solar-System.html">Solar System</a></li>
-                <li><a href="../Messier-Objects.html">Messier Objects</a></li>
-                <li><a href="../Tools.html">Tools</a></li>
-            </ul>
+NAV_DETAIL = """        <nav class="site-nav" aria-label="Main">
+            <div class="site-nav__inner">
+                <a class="site-nav__brand" href="../index.html">Astronomy</a>
+                <button type="button" class="site-nav__toggle" aria-expanded="false" aria-controls="site-nav-menu" aria-label="Menu">
+                    <span class="site-nav__toggle-bar" aria-hidden="true"></span>
+                    <span class="site-nav__toggle-bar" aria-hidden="true"></span>
+                    <span class="site-nav__toggle-bar" aria-hidden="true"></span>
+                </button>
+                <ul id="site-nav-menu" class="site-nav__links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../Solar-System.html">Solar System</a></li>
+                    <li><a href="../Messier-Objects.html">Messier Objects</a></li>
+                    <li><a href="../Tools.html">Tools</a></li>
+                </ul>
+            </div>
         </nav>"""
 
-NAV_GALLERY = """        <nav>
-            <p>Astronomy</p>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="Solar-System.html">Solar System</a></li>
-                <li><a href="Messier-Objects.html">Messier Objects</a></li>
-                <li><a href="Tools.html">Tools</a></li>
-            </ul>
+NAV_GALLERY = """        <nav class="site-nav" aria-label="Main">
+            <div class="site-nav__inner">
+                <a class="site-nav__brand" href="index.html">Astronomy</a>
+                <button type="button" class="site-nav__toggle" aria-expanded="false" aria-controls="site-nav-menu" aria-label="Menu">
+                    <span class="site-nav__toggle-bar" aria-hidden="true"></span>
+                    <span class="site-nav__toggle-bar" aria-hidden="true"></span>
+                    <span class="site-nav__toggle-bar" aria-hidden="true"></span>
+                </button>
+                <ul id="site-nav-menu" class="site-nav__links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="Solar-System.html">Solar System</a></li>
+                    <li><a href="Messier-Objects.html">Messier Objects</a></li>
+                    <li><a href="Tools.html">Tools</a></li>
+                </ul>
+            </div>
         </nav>"""
 
 ASTRO_THUMBS: dict[int, str] = {}
@@ -146,6 +160,7 @@ def detail_page(obj: dict) -> str:
         <meta charset="UTF-8" />
         <title>{escape(obj["title"])}</title>
         <link rel="stylesheet" href="../Astronomy.css" />
+        <script src="../site-nav.js" defer></script>
     </head>
     <body class="Messier-Objects-Background">
 {NAV_DETAIL}
@@ -202,6 +217,7 @@ def gallery_page(objects: list[dict]) -> str:
         <meta charset="UTF-8" />
         <title>Messier Objects</title>
         <link rel="stylesheet" href="Astronomy.css" />
+        <script src="site-nav.js" defer></script>
     </head>
     <body class="Messier-Objects-Background">
 {NAV_GALLERY}
