@@ -1226,6 +1226,7 @@ function initEclipticGridToggle() {
     if (!eclipticGridToggleBtn) return;
     eclipticGridToggleBtn.addEventListener("click", () => {
         applyEclipticGridVisibility(!eclipticGridVisible);
+        scheduleSaveSolarSystemState();
     });
     applyEclipticGridVisibility(eclipticGridVisible);
 }
@@ -1293,6 +1294,7 @@ function initMeasureDistanceToggle() {
     if (!measureDistanceBtn) return;
     measureDistanceBtn.addEventListener("click", () => {
         applyMeasureMode(!measureState.active);
+        scheduleSaveSolarSystemState();
     });
     applyMeasureMode(false);
 }
@@ -1608,6 +1610,7 @@ controls.addEventListener("change", () => {
 
 controls.addEventListener("end", () => {
     isOrbiting = false;
+    scheduleSaveSolarSystemState();
 });
 
 setupBodyInteractionHelpers();
@@ -1996,6 +1999,7 @@ function onPointerLeave() {
 function handleClick(event) {
     if (measureState.active) {
         handleMeasureClick(event);
+        scheduleSaveSolarSystemState();
         return;
     }
 
@@ -2006,6 +2010,7 @@ function handleClick(event) {
 
     const hit = getHoverRaycastTarget(event.clientX, event.clientY);
     if (hit) {
+        saveSolarSystemState();
         window.location.href = `planets/${hit.data.slug}.html`;
     }
 }
@@ -2219,6 +2224,7 @@ function initConstellationToggle() {
     if (!btn) return;
     btn.addEventListener("click", () => {
         applyConstellationVisibility(!constellationsVisible);
+        scheduleSaveSolarSystemState();
     });
     applyConstellationVisibility(constellationsVisible);
 }
@@ -2236,12 +2242,14 @@ if (scaleToggleBtn) {
     scaleToggleBtn.addEventListener("click", () => {
         const next = activeScalePreset.key === "educational" ? "real" : "educational";
         applyScalePreset(next);
+        scheduleSaveSolarSystemState();
     });
 }
 
 if (themeToggleBtn) {
     themeToggleBtn.addEventListener("click", () => {
         applyTheme(currentTheme === "dark" ? "light" : "dark");
+        scheduleSaveSolarSystemState();
     });
 }
 
@@ -2265,6 +2273,204 @@ resizeRenderer();
 
 let lastFrameTime = performance.now();
 let skyTime = 0;
+
+const SOLAR_SYSTEM_STATE_KEY = "solarSystemState";
+let isRestoringSolarState = false;
+let saveSolarStateTimer = null;
+
+function serializeMeasurePoint(point) {
+    if (!point) return null;
+    if (point.bodyEntry?.data?.slug) {
+        return { type: "body", slug: point.bodyEntry.data.slug };
+    }
+    if (point.fixedPosition) {
+        return {
+            type: "fixed",
+            x: point.fixedPosition.x,
+            y: point.fixedPosition.y,
+            z: point.fixedPosition.z,
+        };
+    }
+    return null;
+}
+
+function resolveBodyBySlug(slug) {
+    if (!slug) return null;
+    if (slug === sunEntry.data.slug) return sunEntry;
+    return planetMeshes.find((entry) => entry.data.slug === slug) ?? null;
+}
+
+function deserializeMeasurePoint(saved) {
+    if (!saved || typeof saved !== "object") return null;
+    if (saved.type === "body") {
+        const body = resolveBodyBySlug(saved.slug);
+        if (!body) return null;
+        return { bodyEntry: body, fixedPosition: null };
+    }
+    if (
+        saved.type === "fixed" &&
+        Number.isFinite(saved.x) &&
+        Number.isFinite(saved.y) &&
+        Number.isFinite(saved.z)
+    ) {
+        return {
+            bodyEntry: null,
+            fixedPosition: new THREE.Vector3(saved.x, saved.y, saved.z),
+        };
+    }
+    return null;
+}
+
+function collectSolarSystemState() {
+    return {
+        constellationsVisible,
+        eclipticGridVisible,
+        measureMode: measureState.active,
+        scalePreset: activeScalePreset.key,
+        lightMode: currentTheme === "light",
+        camera: {
+            x: camera.position.x,
+            y: camera.position.y,
+            z: camera.position.z,
+        },
+        controlsTarget: {
+            x: controls.target.x,
+            y: controls.target.y,
+            z: controls.target.z,
+        },
+        orbitGroupRotation: {
+            x: orbitGroup.rotation.x,
+            y: orbitGroup.rotation.y,
+            z: orbitGroup.rotation.z,
+        },
+        skyTime,
+        planetAngles: Object.fromEntries(planetMeshes.map((entry) => [entry.data.slug, entry.angle])),
+        moonAngles: Object.fromEntries(moonEntries.map((moon) => [moon.name, moon.angle])),
+        // Measure A/B: body slugs and/or ecliptic fixed world points when present
+        measurePoints: measureState.points.map(serializeMeasurePoint),
+    };
+}
+
+function saveSolarSystemState() {
+    if (isRestoringSolarState) return;
+    try {
+        sessionStorage.setItem(SOLAR_SYSTEM_STATE_KEY, JSON.stringify(collectSolarSystemState()));
+    } catch {
+        // Ignore quota / private-mode failures
+    }
+}
+
+function scheduleSaveSolarSystemState() {
+    if (isRestoringSolarState) return;
+    clearTimeout(saveSolarStateTimer);
+    saveSolarStateTimer = setTimeout(saveSolarSystemState, 150);
+}
+
+function restoreMeasurePoints(savedPoints) {
+    if (!Array.isArray(savedPoints)) return;
+    const restored = savedPoints.map(deserializeMeasurePoint);
+    // If point A cannot be restored, keep measure ON but leave points cleared
+    if (!restored[0]) return;
+
+    measureState.points = [restored[0], restored[1] || null];
+    measureState.previewPoint = null;
+    clearMeasurePreviewHoverBody();
+
+    if (measureState.points[0] && measureState.points[1]) {
+        updateMeasureLineAndDistance();
+        return;
+    }
+
+    updateMeasureMarker(measureMarkerA, measureState.points[0]);
+    measureMarkerA.visible = true;
+    measureMarkerB.visible = false;
+    measureLine.visible = false;
+    if (measureValueEl) measureValueEl.textContent = "—";
+    updateBodySelectionRings();
+}
+
+function restoreSolarSystemState() {
+    let raw;
+    try {
+        raw = sessionStorage.getItem(SOLAR_SYSTEM_STATE_KEY);
+    } catch {
+        return;
+    }
+    if (!raw) return;
+
+    let state;
+    try {
+        state = JSON.parse(raw);
+    } catch {
+        return;
+    }
+    if (!state || typeof state !== "object") return;
+
+    isRestoringSolarState = true;
+    try {
+        if (state.scalePreset === "real" || state.scalePreset === "educational") {
+            applyScalePreset(state.scalePreset);
+        }
+
+        applyTheme(state.lightMode ? "light" : "dark");
+        applyConstellationVisibility(Boolean(state.constellationsVisible));
+        applyEclipticGridVisibility(Boolean(state.eclipticGridVisible));
+
+        if (state.camera && Number.isFinite(state.camera.x) && Number.isFinite(state.camera.y) && Number.isFinite(state.camera.z)) {
+            camera.position.set(state.camera.x, state.camera.y, state.camera.z);
+        }
+        if (
+            state.controlsTarget &&
+            Number.isFinite(state.controlsTarget.x) &&
+            Number.isFinite(state.controlsTarget.y) &&
+            Number.isFinite(state.controlsTarget.z)
+        ) {
+            controls.target.set(state.controlsTarget.x, state.controlsTarget.y, state.controlsTarget.z);
+        }
+        controls.update();
+
+        if (typeof state.skyTime === "number" && Number.isFinite(state.skyTime)) {
+            skyTime = state.skyTime;
+        }
+        if (state.orbitGroupRotation) {
+            const { x, y, z } = state.orbitGroupRotation;
+            if (Number.isFinite(x) && Number.isFinite(y) && Number.isFinite(z)) {
+                orbitGroup.rotation.set(x, y, z);
+            }
+        }
+
+        if (state.planetAngles && typeof state.planetAngles === "object") {
+            planetMeshes.forEach((entry) => {
+                const angle = state.planetAngles[entry.data.slug];
+                if (typeof angle === "number" && Number.isFinite(angle)) {
+                    entry.angle = angle;
+                    entry.pivot.rotation.y = angle;
+                }
+            });
+        }
+
+        if (state.moonAngles && typeof state.moonAngles === "object") {
+            moonEntries.forEach((moon) => {
+                const angle = state.moonAngles[moon.name];
+                if (typeof angle === "number" && Number.isFinite(angle)) {
+                    moon.angle = angle;
+                    moon.pivot.rotation.y = angle;
+                }
+            });
+        }
+
+        applyMeasureMode(Boolean(state.measureMode));
+        if (state.measureMode) {
+            restoreMeasurePoints(state.measurePoints);
+        }
+    } finally {
+        isRestoringSolarState = false;
+    }
+}
+
+window.addEventListener("pagehide", saveSolarSystemState);
+window.addEventListener("beforeunload", saveSolarSystemState);
+restoreSolarSystemState();
 
 function asteroidBeltOrbit(beltGroup) {
     beltGroup.children.forEach((asteroid) => {
