@@ -135,6 +135,8 @@ const fillLight = new THREE.DirectionalLight(0x7799cc, 0.4);
 fillLight.position.set(-6, -2, 4);
 scene.add(fillLight);
 
+/** Uniform enlargement for all comparison bodies; relative sizes stay true. */
+const SIZE_MULTIPLIER = 2.0;
 const UNIT = 0.11;
 const GAP = 0.55;
 const entries = [];
@@ -147,7 +149,7 @@ wrapper.insertBefore(labelsRow, canvas.nextSibling);
 
 let cursorX = 0;
 BODIES.forEach((spec, index) => {
-    const radius = spec.radiusEarth * UNIT;
+    const radius = spec.radiusEarth * UNIT * SIZE_MULTIPLIER;
     const halfSpan = radius * (spec.rings ? 2.2 : 1);
     if (index === 0) {
         cursorX = halfSpan;
@@ -240,7 +242,8 @@ entries.forEach((entry) => {
     entry.x = entry.group.position.x;
 });
 
-camera.position.z = Math.max(22, totalWidth * 0.72);
+// Closer than pre-enlargement (0.72) so bodies fill the fixed viewport.
+camera.position.z = Math.max(20, totalWidth * 0.52);
 camera.lookAt(0, 0, 0);
 
 const raycaster = new THREE.Raycaster();
