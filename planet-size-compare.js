@@ -50,7 +50,8 @@ const BODIES = [
     { name: "Neptune", slug: "Neptune", texture: "2k_neptune.jpg", radiusEarth: RADIUS_EARTH.Neptune },
 ];
 
-const AXIAL_DAYS = {
+// Sidereal day length in Earth days (negative = retrograde). Scaled so Earth ≈ one spin every ~12 s.
+const AXIAL_ROTATION_DAYS = {
     Sun: 25.38,
     Mercury: 58.646,
     Venus: -243.025,
@@ -61,12 +62,13 @@ const AXIAL_DAYS = {
     Uranus: 0.71833,
     Neptune: 0.67125,
 };
-const BASE_SPIN = (Math.PI * 2) / 14;
+const VISUAL_EARTH_ROTATION_SEC = 12;
+const BASE_AXIAL_SPEED = (Math.PI * 2) / VISUAL_EARTH_ROTATION_SEC;
 
-function axialSpeed(name) {
-    const days = AXIAL_DAYS[name];
-    if (!days) return BASE_SPIN;
-    return (BASE_SPIN / Math.abs(days)) * Math.sign(days);
+function getAxialRotationSpeed(bodyName) {
+    const days = AXIAL_ROTATION_DAYS[bodyName];
+    if (!days) return BASE_AXIAL_SPEED;
+    return (BASE_AXIAL_SPEED / Math.abs(days)) * Math.sign(days);
 }
 
 const canvas = document.getElementById("planet-size-compare-canvas");
@@ -366,7 +368,7 @@ function animate() {
     lastTime = now;
 
     entries.forEach((entry) => {
-        const spin = axialSpeed(entry.spec.name) * delta;
+        const spin = getAxialRotationSpeed(entry.spec.name) * delta;
         entry.mesh.rotation.y += spin;
         if (entry.group.userData.clouds) {
             entry.group.userData.clouds.rotation.y += spin * 1.08;
