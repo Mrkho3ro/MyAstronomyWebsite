@@ -1,113 +1,92 @@
-@import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Coral+Pixels&family=Flavors&family=Henny+Penny&family=Rubik+Glitch&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Coral+Pixels&family=Flavors&family=Henny+Penny&family=Rubik+Glitch&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Bungee+Shade&family=Coral+Pixels&family=Flavors&family=Henny+Penny&family=Rubik+Glitch&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Coral+Pixels&family=Henny+Penny&family=Rubik+Glitch&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Agu+Display&family=Black+Ops+One&family=Bungee+Shade&family=Coral+Pixels&family=Flavors&family=Henny+Penny&family=Metamorphous&family=Rubik+Glitch&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Agu+Display&family=Black+Ops+One&family=Bungee+Shade&family=Coral+Pixels&family=Flavors&family=Henny+Penny&family=Rubik+Glitch&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Agu+Display&family=Black+Ops+One&family=Bungee+Shade&family=Coral+Pixels&family=Flavors&family=Henny+Penny&family=Keania+One&family=Metamorphous&family=Oi&family=Rubik+Glitch&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Agu+Display&family=Black+Ops+One&family=Bungee+Shade&family=Coral+Pixels&family=Flavors&family=Henny+Penny&family=Keania+One&family=Metamorphous&family=Oi&family=Passero+One&family=Rubik+Glitch&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Agu+Display&family=Black+Ops+One&family=Bruno+Ace+SC&family=Bungee+Shade&family=Coral+Pixels&family=Flavors&family=Henny+Penny&family=Keania+One&family=Metamorphous&family=Oi&family=Passero+One&family=Rubik+Glitch&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Macondo&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Finger+Paint&family=Macondo&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Sans+3:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap");
 
 /* ── Design system ───────────────────────────────────────────── */
 :root {
-  --space-bg-deep: #020308;
-  --space-bg-mid: #0a0e1c;
-  --space-bg-elevated: #101828;
-  --space-text-primary: #eef1fa;
-  --space-text-secondary: #b0bcd8;
-  --space-text-muted: #6b7aa8;
-  --space-glass: rgba(10, 14, 30, 0.68);
-  --space-glass-strong: rgba(8, 12, 26, 0.88);
-  --space-glass-border: rgba(255, 255, 255, 0.1);
-  --space-radius-sm: 8px;
-  --space-radius-md: 14px;
-  --space-radius-lg: 20px;
-  --space-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
-  --space-font-display: "Bruno Ace SC", "Tourney", system-ui, sans-serif;
-  --space-font-body: "Keania One", sans-serif;
-  --space-font-accent: "Passero One", sans-serif;
+  --color-bg: #0d1117;
+  --color-surface: #161b22;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-text: #e6edf3;
+  --color-text-muted: #8b949e;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Source Serif 4", Georgia, serif;
+  --font-ui: "Source Sans 3", system-ui, sans-serif;
 
-  --page-accent: #6495ed;
-  --page-accent-soft: #8fa9ff;
-  --page-accent-muted: #4a6aa8;
-  --page-accent-glow: rgba(100, 149, 237, 0.4);
-  --page-accent-subtle: rgba(100, 149, 237, 0.12);
-  --page-bg-top: #0a0f2c;
-  --page-bg-bottom: #020412;
-  --page-heading: #eef1fa;
-  --page-body-text: #b0bcd8;
+  --space-bg-deep: var(--color-bg);
+  --space-bg-mid: var(--color-surface);
+  --space-bg-elevated: #1c2128;
+  --space-text-primary: var(--color-text);
+  --space-text-secondary: var(--color-text-muted);
+  --space-text-muted: #6e7681;
+  --space-glass: var(--color-surface);
+  --space-glass-strong: #1c2128;
+  --space-glass-border: var(--color-border);
+  --space-radius-sm: 6px;
+  --space-radius-md: 8px;
+  --space-radius-lg: 10px;
+  --space-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  --space-font-display: var(--font-display);
+  --space-font-body: var(--font-body);
+  --space-font-accent: var(--font-display);
 
-  --nav-bg-top: #0a0f2c;
-  --nav-bg-bottom: #020412;
-  --nav-ink: #cbd5ff;
-  --nav-link: #8fa9ff;
-  --nav-link-hover: #e8eeff;
+  --page-accent: #8b949e;
+  --page-accent-soft: #b1bac4;
+  --page-accent-muted: #6e7681;
+  --page-accent-glow: transparent;
+  --page-accent-subtle: rgba(255, 255, 255, 0.03);
+  --page-bg-top: var(--color-bg);
+  --page-bg-bottom: var(--color-bg);
+  --page-heading: var(--color-text);
+  --page-body-text: var(--color-text-muted);
+
+  --nav-bg-top: var(--color-bg);
+  --nav-bg-bottom: var(--color-bg);
+  --nav-ink: var(--color-text);
+  --nav-link: var(--color-text-muted);
+  --nav-link-hover: var(--color-text);
   --nav-accent: var(--page-accent);
-  --nav-glow: var(--page-accent-glow);
+  --nav-glow: transparent;
 }
 
-/* Per-page accent themes */
+/* Per-page accent themes — one muted accent each */
 body.page-home {
-  --page-accent: #e8a840;
-  --page-accent-soft: #f0c870;
-  --page-accent-muted: #a87828;
-  --page-accent-glow: rgba(232, 168, 64, 0.42);
-  --page-accent-subtle: rgba(232, 168, 64, 0.14);
-  --page-bg-top: #0c0a06;
-  --page-bg-bottom: #060508;
-  --page-heading: #fff4dc;
-  --page-body-text: #d4c4a0;
-  --nav-link: #c8a860;
-  --nav-link-hover: #fff0d0;
+  --page-accent: #b8956a;
+  --page-accent-soft: #c9ad82;
+  --page-accent-muted: #8a7355;
+  --page-accent-subtle: rgba(184, 149, 106, 0.06);
+  --nav-link: var(--color-text-muted);
+  --nav-link-hover: var(--color-text);
 }
 
 body.page-solar,
 body.Background-Solar-System {
-  --page-accent: #f08040;
-  --page-accent-soft: #6495ed;
-  --page-accent-muted: #c06030;
-  --page-accent-glow: rgba(240, 128, 64, 0.38);
-  --page-accent-subtle: rgba(240, 128, 64, 0.12);
-  --page-bg-top: #120a06;
-  --page-bg-bottom: #060818;
-  --page-heading: #fff0e8;
-  --page-body-text: #c8b8a8;
-  --nav-link: #d89868;
-  --nav-link-hover: #ffe8d8;
+  --page-accent: #a67c5b;
+  --page-accent-soft: #b89275;
+  --page-accent-muted: #7a5d47;
+  --page-accent-subtle: rgba(166, 124, 91, 0.06);
+  --nav-link: var(--color-text-muted);
+  --nav-link-hover: var(--color-text);
 }
 
 body.page-messier,
 body.Messier-Objects-Background {
-  --page-accent: #c060e8;
-  --page-accent-soft: #e090f8;
-  --page-accent-muted: #8040a8;
-  --page-accent-glow: rgba(192, 96, 232, 0.42);
-  --page-accent-subtle: rgba(192, 96, 232, 0.14);
-  --page-bg-top: #0c0618;
-  --page-bg-bottom: #040210;
-  --page-heading: #f0e0ff;
-  --page-body-text: #c0a8d8;
-  --nav-link: #b888e0;
-  --nav-link-hover: #f0e0ff;
+  --page-accent: #6b6580;
+  --page-accent-soft: #858099;
+  --page-accent-muted: #524e62;
+  --page-accent-subtle: rgba(107, 101, 128, 0.06);
+  --nav-link: var(--color-text-muted);
+  --nav-link-hover: var(--color-text);
 }
 
 body.page-tools {
-  --page-accent: #30c8b8;
-  --page-accent-soft: #60e8d8;
-  --page-accent-muted: #208878;
-  --page-accent-glow: rgba(48, 200, 184, 0.4);
-  --page-accent-subtle: rgba(48, 200, 184, 0.12);
-  --page-bg-top: #040c10;
-  --page-bg-bottom: #020608;
-  --page-heading: #e0fff8;
-  --page-body-text: #a0d0c8;
-  --nav-link: #58c8b8;
-  --nav-link-hover: #d8fff8;
+  --page-accent: #5a8a8a;
+  --page-accent-soft: #6f9e9e;
+  --page-accent-muted: #456868;
+  --page-accent-subtle: rgba(90, 138, 138, 0.06);
+  --nav-link: var(--color-text-muted);
+  --nav-link-hover: var(--color-text);
 }
 
-/* Starfield page backgrounds */
+/* Page backgrounds — flat with optional subtle top wash */
 body.page-home,
 body.page-solar,
 body.page-messier,
@@ -117,37 +96,23 @@ body.Messier-Objects-Background,
 body#Home-Background {
   min-height: 100vh;
   color: var(--page-body-text);
-  background-color: var(--page-bg-bottom);
-  background-image:
-    radial-gradient(ellipse 120% 80% at 50% -20%, var(--page-accent-subtle), transparent 55%),
-    radial-gradient(1px 1px at 8% 18%, rgba(255, 255, 255, 0.45), transparent),
-    radial-gradient(1px 1px at 22% 62%, rgba(255, 255, 255, 0.3), transparent),
-    radial-gradient(1px 1px at 48% 28%, rgba(255, 255, 255, 0.35), transparent),
-    radial-gradient(1px 1px at 72% 78%, rgba(255, 255, 255, 0.25), transparent),
-    radial-gradient(1px 1px at 88% 12%, rgba(255, 255, 255, 0.4), transparent),
-    radial-gradient(1px 1px at 35% 88%, rgba(255, 255, 255, 0.2), transparent),
-    linear-gradient(180deg, var(--page-bg-top) 0%, var(--page-bg-bottom) 100%);
+  background-color: var(--color-bg);
+  background-image: linear-gradient(180deg, var(--page-accent-subtle) 0%, var(--color-bg) 120px);
   background-attachment: fixed;
 }
 
 /* ── Site navigation ─────────────────────────────────────────── */
 .site-nav,
 nav {
-
   position: sticky;
   top: 0;
   z-index: 1000;
   margin: 0;
-  background:
-    linear-gradient(180deg, var(--page-accent-subtle) 0%, transparent 42%),
-    linear-gradient(180deg, var(--nav-bg-top), var(--nav-bg-bottom));
-  border-bottom: 1px solid color-mix(in srgb, var(--page-accent) 35%, transparent);
-  box-shadow:
-    0 1px 0 color-mix(in srgb, var(--page-accent-soft) 18%, transparent),
-    0 12px 32px rgba(2, 4, 18, 0.55),
-    0 0 48px var(--page-accent-glow);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .site-nav__inner {
@@ -158,7 +123,7 @@ nav {
   flex-wrap: wrap;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0.85rem 1.25rem 0.95rem;
+  padding: 0.75rem 1.25rem;
 }
 
 .site-nav__brand,
@@ -166,49 +131,33 @@ nav > p,
 nav .site-nav__brand {
   display: inline-block;
   margin: 0;
-  padding: 0.15rem 0 0.35rem;
-  color: #fff;
-  font-family: "Bruno Ace SC", "Tourney", sans-serif;
-  font-size: clamp(1.55rem, 3.5vw, 2.35rem);
-  letter-spacing: 0.06em;
+  padding: 0;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
   text-decoration: none;
-  text-transform: uppercase;
-  border-bottom: 2px solid transparent;
-  background: linear-gradient(90deg, #fff 0%, var(--page-accent-soft) 45%, var(--page-accent) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+  text-transform: none;
+  border-bottom: none;
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  -webkit-text-fill-color: unset;
   position: relative;
-  transition: filter 0.25s ease, transform 0.25s ease;
+  transition: color 0.2s ease;
 }
 
 .site-nav__brand::after,
 nav > p::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 2px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, var(--page-accent), var(--page-accent-soft), transparent);
-  opacity: 0.85;
-  transform: scaleX(1);
-  transform-origin: left;
-  transition: opacity 0.25s ease, transform 0.3s ease;
+  display: none;
 }
 
 .site-nav__brand:hover,
 .site-nav__brand:focus-visible {
-  filter: brightness(1.12);
-  transform: translateY(-1px);
-}
-
-.site-nav__brand:hover::after,
-.site-nav__brand:focus-visible::after {
-  opacity: 1;
-  transform: scaleX(1.02);
+  color: var(--page-accent);
+  filter: none;
+  transform: none;
 }
 
 .site-nav__toggle {
@@ -220,18 +169,18 @@ nav > p::after {
   height: 2.5rem;
   padding: 0.45rem;
   margin: 0;
-  border: 1px solid color-mix(in srgb, var(--page-accent) 40%, transparent);
-  border-radius: 8px;
-  background: var(--space-glass);
+  border: 1px solid var(--color-border);
+  border-radius: var(--space-radius-sm);
+  background: var(--color-surface);
   cursor: pointer;
-  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .site-nav__toggle:hover,
 .site-nav__toggle:focus-visible {
-  border-color: var(--nav-accent);
-  background: var(--page-accent-subtle);
-  box-shadow: 0 0 16px var(--page-accent-glow);
+  border-color: var(--page-accent);
+  background: var(--color-surface);
+  box-shadow: none;
   outline: none;
 }
 
@@ -239,9 +188,9 @@ nav > p::after {
   display: block;
   width: 100%;
   height: 2px;
-  border-radius: 2px;
-  background: var(--nav-link);
-  transition: transform 0.28s ease, opacity 0.2s ease, background 0.2s ease;
+  border-radius: 1px;
+  background: var(--color-text-muted);
+  transition: transform 0.28s ease, opacity 0.2s ease;
 }
 
 .site-nav.is-open .site-nav__toggle-bar:nth-child(1) {
@@ -263,12 +212,13 @@ nav ul {
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-  gap: 0.35rem 0.15rem;
+  gap: 0.15rem 0.5rem;
   margin: 0;
   padding: 0;
-  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
-  font-family: "Bruno Ace SC", "Tourney", sans-serif;
-  letter-spacing: 0.04em;
+  font-size: 0.9375rem;
+  font-family: var(--font-ui);
+  font-weight: 500;
+  letter-spacing: 0;
 }
 
 .site-nav__links li,
@@ -280,27 +230,27 @@ nav ul li {
 nav ul a {
   position: relative;
   display: inline-block;
-  padding: 0.55rem 0.9rem;
+  padding: 0.5rem 0.75rem;
   text-decoration: none;
   color: var(--nav-link);
-  border-radius: 6px;
-  transition: color 0.22s ease, background 0.22s ease, text-shadow 0.22s ease;
+  border-radius: 0;
+  transition: color 0.2s ease;
 }
 
 .site-nav__links a::after,
 nav ul a::after {
   content: "";
   position: absolute;
-  left: 0.9rem;
-  right: 0.9rem;
-  bottom: 0.35rem;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.25rem;
   height: 2px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, var(--page-accent), var(--page-accent-soft));
+  border-radius: 0;
+  background: var(--page-accent);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.28s ease;
-  box-shadow: 0 0 12px var(--page-accent-glow);
+  transition: transform 0.2s ease;
+  box-shadow: none;
 }
 
 .site-nav__links a:hover,
@@ -308,8 +258,8 @@ nav ul a::after {
 nav ul a:hover,
 nav ul a:focus-visible {
   color: var(--nav-link-hover);
-  background: var(--page-accent-subtle);
-  text-shadow: 0 0 18px var(--page-accent-glow);
+  background: transparent;
+  text-shadow: none;
   outline: none;
 }
 
@@ -324,10 +274,10 @@ nav ul a[aria-current="page"]::after {
 
 .site-nav__links a[aria-current="page"],
 nav ul a[aria-current="page"] {
-  color: #fff;
-  background: var(--page-accent-subtle);
-  text-shadow: 0 0 16px var(--page-accent-glow);
-  box-shadow: inset 0 0 20px color-mix(in srgb, var(--page-accent) 12%, transparent);
+  color: var(--color-text);
+  background: transparent;
+  text-shadow: none;
+  box-shadow: none;
 }
 
 @media (max-width: 720px) {
@@ -401,6 +351,13 @@ nav ul a[aria-current="page"] {
 
 body {
   margin: 0;
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--color-text);
 }
 
 #Home-IMG {
@@ -409,20 +366,17 @@ body {
   background-position: center;
   margin: clamp(24px, 4vw, 50px) clamp(16px, 8vw, 200px);
   height: clamp(280px, 45vw, 500px);
-  border-radius: var(--space-radius-lg);
-  border: 1px solid color-mix(in srgb, var(--page-accent) 35%, transparent);
-  box-shadow:
-    var(--space-shadow),
-    0 0 60px var(--page-accent-glow);
+  border-radius: var(--space-radius-md);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--space-shadow);
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: border-color 0.2s ease;
 }
 
 body.page-home a:has(#Home-IMG):hover #Home-IMG {
-  transform: translateY(-3px);
-  box-shadow:
-    var(--space-shadow),
-    0 0 80px var(--page-accent-glow);
+  transform: none;
+  border-color: color-mix(in srgb, var(--page-accent) 40%, var(--color-border));
+  box-shadow: var(--space-shadow);
 }
 
 #Home-Background {
@@ -430,30 +384,31 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
 }
 
 #Hero-Section {
-  text-transform: uppercase;
   color: var(--page-heading);
-  font-size: clamp(1rem, 2.5vw, 160%);
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
   text-align: center;
-  font-family: var(--space-font-display);
+  font-family: var(--font-body);
   margin: 0 clamp(16px, 6vw, 50px);
   padding: clamp(24px, 4vw, 40px);
-  background: var(--space-glass);
-  border: 1px solid var(--space-glass-border);
-  border-radius: var(--space-radius-md);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 0 40px var(--page-accent-glow);
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 0;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
 }
 
 #Introduction-Section {
-  text-transform: uppercase;
   color: var(--page-body-text);
-  font-size: clamp(0.95rem, 2vw, 160%);
+  font-size: clamp(0.95rem, 2vw, 1.125rem);
   text-align: center;
-  font-family: var(--space-font-display);
+  font-family: var(--font-body);
   margin: clamp(32px, 5vw, 50px) clamp(16px, 8vw, 100px) clamp(48px, 6vw, 70px);
   padding-bottom: clamp(24px, 4vw, 40px);
-  border-bottom: 2px solid color-mix(in srgb, var(--page-accent) 45%, transparent);
+  border-bottom: 1px solid var(--color-border);
+  text-transform: none;
 }
 
 #Main-Title {
@@ -465,8 +420,8 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
   font-size: 100%;
   text-align: left;
   margin: clamp(32px, 5vw, 50px) clamp(16px, 12vw, 300px);
-  font-family: var(--space-font-body);
-  border-bottom: 2px solid color-mix(in srgb, var(--page-accent) 35%, transparent);
+  font-family: var(--font-body);
+  border-bottom: 1px solid var(--color-border);
   margin-bottom: clamp(48px, 6vw, 70px);
   padding-bottom: clamp(24px, 4vw, 40px);
 }
@@ -481,42 +436,42 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
 }
 
 #Featured-Sections-Preview li {
-  background: var(--space-glass);
-  border: 1px solid var(--space-glass-border);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--space-radius-md);
   padding: clamp(20px, 3vw, 28px);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: border-color 0.2s ease;
 }
 
 #Featured-Sections-Preview li:hover {
-  transform: translateY(-4px);
-  border-color: color-mix(in srgb, var(--page-accent) 50%, transparent);
-  box-shadow: 0 8px 32px var(--page-accent-glow);
+  transform: none;
+  border-color: color-mix(in srgb, var(--page-accent) 35%, var(--color-border));
+  box-shadow: none;
 }
 
 #Featured-Sections-Preview h1 {
   color: var(--page-heading);
-  font-family: var(--space-font-accent);
-  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-  font-weight: normal;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-weight: 600;
   margin: 0 0 10px;
 }
 
 #Featured-Sections-Preview p {
-  font-size: clamp(0.95rem, 1.8vw, 150%);
+  font-size: clamp(0.95rem, 1.8vw, 1rem);
   margin: 0;
-  line-height: 1.55;
+  line-height: 1.6;
 }
 
 #Why-This-Website {
   color: var(--page-body-text);
-  font-size: clamp(1rem, 2vw, 150%);
+  font-size: clamp(1rem, 2vw, 1.0625rem);
   margin: clamp(20px, 4vw, 40px) clamp(16px, 12vw, 300px);
   text-align: left;
-  font-family: "Finger Paint", var(--space-font-body);
-  border-bottom: 2px solid color-mix(in srgb, var(--page-accent) 35%, transparent);
+  font-family: var(--font-body);
+  border-bottom: 1px solid var(--color-border);
   padding-bottom: clamp(24px, 4vw, 40px);
 }
 
@@ -532,24 +487,23 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
 
 #Quote-Section {
   color: var(--page-heading);
-  font-size: clamp(1.1rem, 2.5vw, 180%);
+  font-size: clamp(1.1rem, 2.5vw, 1.375rem);
   text-align: center;
-  font-family: "Macondo", serif;
-  border: 2px solid color-mix(in srgb, var(--page-accent) 50%, transparent);
+  font-family: var(--font-display);
+  font-style: italic;
+  border: 1px solid var(--color-border);
   margin: clamp(48px, 8vw, 70px) auto;
   padding: clamp(24px, 4vw, 36px) clamp(20px, 5vw, 40px);
-  border-radius: var(--space-radius-lg);
+  border-radius: var(--space-radius-md);
   max-width: 650px;
   width: calc(100% - 32px);
   min-height: auto;
   height: auto;
-  box-shadow:
-    0 0 40px var(--page-accent-glow),
-    inset 0 0 30px color-mix(in srgb, var(--page-accent) 8%, transparent);
-  background: var(--space-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  font-weight: bold;
+  box-shadow: none;
+  background: var(--color-surface);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  font-weight: 400;
 }
 
 .Background-Solar-System {
@@ -557,11 +511,8 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
 }
 
 .Solar-Hero-Banner {
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 0%, var(--page-accent-glow), transparent 55%),
-    radial-gradient(ellipse 60% 40% at 80% 20%, color-mix(in srgb, var(--page-accent-soft) 15%, transparent), transparent 50%),
-    linear-gradient(180deg, color-mix(in srgb, var(--page-bg-top) 90%, #0a0f2c) 0%, var(--page-bg-bottom) 55%, #0a1230 100%);
-  border-bottom: 1px solid color-mix(in srgb, var(--page-accent) 25%, transparent);
+  background: transparent;
+  border-bottom: 1px solid var(--color-border);
   padding: 36px 40px 40px;
   text-align: center;
 }
@@ -580,28 +531,28 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
   content: "";
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--page-accent) 55%, transparent), transparent);
+  background: var(--color-border);
 }
 
 .Solar-3D-Divider-Label {
-  font-family: var(--space-font-display);
-  font-size: 0.72rem;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--page-accent-soft);
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
   white-space: nowrap;
   padding: 6px 14px;
-  border: 1px solid color-mix(in srgb, var(--page-accent) 35%, transparent);
-  border-radius: 999px;
-  background: var(--space-glass);
+  border: 1px solid var(--color-border);
+  border-radius: var(--space-radius-sm);
+  background: transparent;
 }
 
 .Solar-3D-Section {
-  background: linear-gradient(180deg, #050810 0%, #0a1020 40%, #060818 100%);
+  background: var(--color-bg);
   padding: 24px 0 48px;
-  margin-top: 8px;
-  border-top: 1px solid color-mix(in srgb, var(--page-accent) 12%, transparent);
-  border-bottom: 1px solid color-mix(in srgb, var(--page-accent) 18%, transparent);
+  margin-top: 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .Solar-System-Hero-Wrapper {
@@ -641,11 +592,11 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
 
 .Solar-Hero-Eyebrow {
   margin: 0 0 10px;
-  font-family: var(--space-font-display);
-  font-size: 0.78rem;
-  letter-spacing: 0.18em;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--page-accent-soft);
+  color: var(--color-text-muted);
 }
 
 .Solar-Hero-Title {
@@ -653,12 +604,12 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
   padding: 0;
   text-align: center;
   color: var(--page-heading);
-  font-family: "Black Ops One", sans-serif;
-  font-size: clamp(2.4rem, 6vw, 4.2rem);
-  font-weight: normal;
-  letter-spacing: 0.02em;
-  text-shadow: 0 0 28px var(--page-accent-glow);
-  line-height: 1.05;
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 6vw, 3.5rem);
+  font-weight: 600;
+  letter-spacing: 0;
+  text-shadow: none;
+  line-height: 1.1;
 }
 
 .Solar-Hero-Lead {
@@ -678,12 +629,10 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
   min-width: 0;
   aspect-ratio: 16 / 10;
   max-height: 600px;
-  background: #060a18;
-  border: 1px solid color-mix(in srgb, var(--page-accent) 35%, transparent);
-  border-radius: 14px;
-  box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.55),
-    inset 0 0 60px var(--page-accent-subtle);
+  background: #0a0e14;
+  border: 1px solid var(--color-border);
+  border-radius: var(--space-radius-md);
+  box-shadow: var(--space-shadow);
 }
 
 #solar-system-canvas {
@@ -704,10 +653,10 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
   margin: 0;
   padding: 24px 32px;
   text-align: center;
-  font-family: "Keania One", sans-serif;
-  font-size: clamp(1rem, 2.2vw, 1.35rem);
-  color: #c8d8ff;
-  background: rgba(6, 10, 24, 0.92);
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  color: var(--color-text);
+  background: rgba(13, 17, 23, 0.95);
 }
 
 .Solar-System-Error[hidden] {
@@ -733,7 +682,7 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
   z-index: 5;
   width: min(440px, calc(100% - 24px));
   padding: 14px 16px 16px;
-  font-family: "Keania One", sans-serif;
+  font-family: var(--font-body);
   color: var(--tip-text);
   background:
     linear-gradient(145deg, var(--tip-accent-soft), transparent 42%),
@@ -948,7 +897,7 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
 
 .Planet-Tooltip-Type {
   margin: 0 0 4px;
-  font-family: "Bruno Ace SC", system-ui, sans-serif;
+  font-family: var(--font-ui);
   font-size: 0.62rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -959,7 +908,7 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
 .Planet-Hover-Tooltip h2 {
   margin: 0 0 10px;
   padding: 0;
-  font-family: "Passero One", sans-serif;
+  font-family: var(--font-display);
   font-size: 1.45rem;
   font-weight: normal;
   letter-spacing: 0.02em;
@@ -971,7 +920,7 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
 
 .Planet-Hover-Tooltip p#planet-tooltip-text {
   margin: 10px 0 0;
-  font-family: "Keania One", sans-serif;
+  font-family: var(--font-body);
   padding: 0;
   font-size: 0.88rem;
   line-height: 1.45;
@@ -998,7 +947,7 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
 
 .Planet-Tooltip-Fact dt {
   margin: 0;
-  font-family: "Bruno Ace SC", system-ui, sans-serif;
+  font-family: var(--font-ui);
   font-size: 0.58rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1008,39 +957,39 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
 
 .Planet-Tooltip-Fact dd {
   margin: 0;
-  font-family: "Passero One", sans-serif;
+  font-family: var(--font-display);
   font-size: 0.92rem;
   color: var(--tip-title);
   line-height: 1.25;
 }
 
 .Solar-Control-Btn {
-  font-family: var(--space-font-body);
-  font-size: 0.82rem;
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid color-mix(in srgb, var(--page-accent) 45%, transparent);
-  background: var(--space-glass-strong);
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
+  padding: 8px 12px;
+  border-radius: var(--space-radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
   color: var(--page-heading);
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
   width: 100%;
   text-align: center;
   line-height: 1.25;
 }
 
 .Solar-Control-Btn:hover {
-  border-color: color-mix(in srgb, var(--page-accent-soft) 75%, transparent);
-  color: #fff;
-  background: color-mix(in srgb, var(--page-accent) 15%, var(--space-glass-strong));
-  box-shadow: 0 0 16px var(--page-accent-glow);
+  border-color: var(--page-accent);
+  color: var(--color-text);
+  background: var(--color-surface);
+  box-shadow: none;
 }
 
 .Solar-Control-Btn[aria-pressed="true"] {
   border-color: var(--page-accent);
-  background: color-mix(in srgb, var(--page-accent) 25%, var(--space-glass-strong));
-  color: #fff;
-  box-shadow: 0 0 20px var(--page-accent-glow);
+  background: var(--page-accent-subtle);
+  color: var(--color-text);
+  box-shadow: none;
 }
 
 .Solar-Scale-Note {
@@ -1051,7 +1000,7 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
   z-index: 4;
   margin: 0;
   padding: 6px 14px;
-  font-family: "Keania One", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.82rem;
   color: #8fa9ff;
   background: rgba(6, 10, 24, 0.72);
@@ -1065,7 +1014,7 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
   z-index: 4;
   transform: translate(-50%, -100%);
   padding: 4px 10px;
-  font-family: "Keania One", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.82rem;
   color: #e8eeff;
   background: rgba(6, 10, 24, 0.78);
@@ -1171,7 +1120,7 @@ body.solar-light-mode .Measure-Aim-Reticle::after {
   gap: 4px;
   max-width: min(320px, calc(100% - 24px));
   padding: 10px 14px;
-  font-family: "Keania One", sans-serif;
+  font-family: var(--font-body);
   color: #e8eeff;
   background: rgba(6, 10, 24, 0.88);
   border: 1px solid rgba(0, 255, 170, 0.45);
@@ -1225,7 +1174,7 @@ body.solar-light-mode .Distance-Measure-Hint {
   position: absolute;
   transform: translate(-50%, -100%);
   padding: 3px 9px;
-  font-family: "Keania One", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.78rem;
   letter-spacing: 0.04em;
   color: #d8e4ff;
@@ -1387,14 +1336,14 @@ body.solar-light-mode nav ul a[aria-current="page"] {
 }
 
 .Title {
-  font-family: "Tourney", sans-serif;
+  font-family: var(--font-ui);
 }
 
 .S-Head {
   padding-left: 100px;
   padding-right: 100px;
   padding-bottom: 80px;
-  font-family: "Keania One";
+  font-family: var(--font-body);
 }
 
 .S-P1 {
@@ -1414,7 +1363,7 @@ body.solar-light-mode nav ul a[aria-current="page"] {
 }
 
 .Planets {
-  font-family: "Black Ops One";
+  font-family: var(--font-display);
   color: LightSteelBlue;
   background-color: black;
   width: 300px;
@@ -1426,7 +1375,7 @@ body.solar-light-mode nav ul a[aria-current="page"] {
 }
 
 .Planets p {
-  font-family: "Rubik Glitch";
+  font-family: var(--font-ui);
   padding-left: 7px;
   padding-right: 7px;
 }
@@ -1451,12 +1400,9 @@ body.solar-light-mode nav ul a[aria-current="page"] {
 }
 
 .Solar-Learn-Section {
-  background:
-    radial-gradient(ellipse 70% 40% at 50% 0%, var(--page-accent-glow), transparent 50%),
-    radial-gradient(ellipse 50% 30% at 20% 80%, color-mix(in srgb, var(--page-accent-soft) 10%, transparent), transparent 45%),
-    linear-gradient(180deg, var(--page-bg-bottom) 0%, #0a1230 45%, #080c1c 100%);
+  background: transparent;
   padding: 56px 0 72px;
-  border-top: 1px solid color-mix(in srgb, var(--page-accent) 14%, transparent);
+  border-top: 1px solid var(--color-border);
 }
 
 .Solar-Learn-Inner {
@@ -1473,18 +1419,18 @@ body.solar-light-mode nav ul a[aria-current="page"] {
 
 .Solar-Learn-Title {
   margin: 0 0 12px;
-  font-family: var(--space-font-accent);
-  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
-  font-weight: normal;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 600;
   color: var(--page-heading);
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
 }
 
 .Solar-Learn-Lead {
   margin: 0;
-  font-family: var(--space-font-body);
-  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
-  line-height: 1.55;
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.8vw, 1.0625rem);
+  line-height: 1.6;
   color: var(--page-body-text);
 }
 
@@ -1492,15 +1438,12 @@ body.solar-light-mode nav ul a[aria-current="page"] {
   position: relative;
   margin: 0 auto 48px;
   padding: 16px 12px 52px;
-  background:
-    radial-gradient(ellipse at 20% 40%, color-mix(in srgb, var(--page-accent) 8%, transparent), transparent 40%),
-    radial-gradient(ellipse at 80% 50%, color-mix(in srgb, var(--page-accent-soft) 10%, transparent), transparent 45%),
-    var(--space-glass-strong);
-  border: 1px solid color-mix(in srgb, var(--page-accent) 28%, transparent);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--space-radius-md);
   overflow: hidden;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 #planet-size-compare-canvas {
@@ -1527,7 +1470,7 @@ body.solar-light-mode nav ul a[aria-current="page"] {
   border-radius: 6px;
   background: rgba(6, 10, 24, 0.82);
   color: #c8d4f0;
-  font-family: "Bruno Ace SC", system-ui, sans-serif;
+  font-family: var(--font-ui);
   font-size: 0.62rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -1559,7 +1502,7 @@ body.solar-light-mode nav ul a[aria-current="page"] {
   bottom: 14px;
   margin: 0;
   text-align: center;
-  font-family: "Keania One", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.82rem;
   color: #7a90b8;
 }
@@ -1567,7 +1510,7 @@ body.solar-light-mode nav ul a[aria-current="page"] {
 .Planet-Size-Compare-Error {
   margin: 12px 0 0;
   text-align: center;
-  font-family: "Keania One", sans-serif;
+  font-family: var(--font-body);
   color: #c8d8ff;
 }
 
@@ -1693,31 +1636,28 @@ body.solar-light-mode nav ul a[aria-current="page"] {
 
 .Main-Image-Tools {
   background-image:
-    linear-gradient(to bottom, rgba(2, 6, 8, 0.92) 0%, rgba(2, 6, 8, 0.4) 35%, transparent 65%),
-    linear-gradient(135deg, color-mix(in srgb, var(--page-accent) 25%, transparent), transparent 60%),
+    linear-gradient(to bottom, rgba(13, 17, 23, 0.85) 0%, rgba(13, 17, 23, 0.5) 40%, transparent 70%),
     url("Tools%20Main%20Image%203.avif");
   background-size: cover;
   background-position: center bottom;
-  height: clamp(400px, 60vw, 800px);
+  height: clamp(360px, 50vw, 560px);
   margin: 0;
   position: relative;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .Main-Image-Tools::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 60%, var(--page-bg-bottom) 100%);
-  pointer-events: none;
+  display: none;
 }
 
 .Main-Image-Tools h1 {
   margin: 0;
-  color: var(--page-heading);
-  font-size: clamp(1.5rem, 4vw, 300%);
+  color: var(--color-text);
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 500;
   padding: clamp(24px, 4vw, 50px) clamp(16px, 4vw, 50px) 0;
-  font-family: var(--space-font-display);
-  text-shadow: 0 0 30px var(--page-accent-glow);
+  font-family: var(--font-ui);
+  text-shadow: none;
   position: relative;
   z-index: 1;
 }
@@ -1725,37 +1665,40 @@ body.solar-light-mode nav ul a[aria-current="page"] {
 .Main-Image-Tools h2 {
   margin: 0;
   padding: 0 clamp(16px, 4vw, 50px);
-  font-size: clamp(2.5rem, 8vw, 500%);
-  color: var(--page-accent);
-  font-family: var(--space-font-accent);
-  font-weight: normal;
-  text-shadow: 0 0 40px var(--page-accent-glow);
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 600;
+  color: var(--page-heading);
+  font-family: var(--font-display);
+  text-transform: none;
+  letter-spacing: 0;
+  text-shadow: none;
   position: relative;
   z-index: 1;
 }
 
 .Telescopes {
-  margin: clamp(32px, 6vw, 100px) auto;
+  margin: clamp(32px, 6vw, 64px) auto;
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid color-mix(in srgb, var(--page-accent) 35%, transparent);
+  border: 1px solid var(--color-border);
   gap: 20px;
   width: min(850px, calc(100% - 32px));
   min-height: 270px;
   justify-content: center;
   align-items: center;
-  background: var(--space-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: var(--space-radius-lg);
-  box-shadow: 0 8px 32px var(--page-accent-glow);
-  padding: clamp(12px, 2vw, 20px);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  background: var(--color-surface);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-radius: var(--space-radius-md);
+  box-shadow: none;
+  padding: clamp(16px, 2vw, 24px);
+  transition: border-color 0.2s ease;
 }
 
 .Telescopes:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 40px var(--page-accent-glow);
+  transform: none;
+  border-color: color-mix(in srgb, var(--page-accent) 30%, var(--color-border));
+  box-shadow: none;
 }
 
 .Tel-P {
@@ -1807,7 +1750,7 @@ body.solar-light-mode nav ul a[aria-current="page"] {
 .Tel-P P {
   padding: 10px;
   font-size: 100%;
-  font-family: "Metamorphous", var(--space-font-body);
+  font-family: var(--font-body);
   line-height: 1.5;
 }
 
@@ -1886,7 +1829,7 @@ body.solar-light-mode nav ul a[aria-current="page"] {
 
 .M-Atlas-Title {
   color: #cbd5ff;
-  font-family: "Passero One", sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(1.5rem, 4vw, 2.2rem);
   margin: 0 0 8px;
   text-shadow: 0 0 20px rgba(100, 149, 237, 0.5);
@@ -1894,7 +1837,7 @@ body.solar-light-mode nav ul a[aria-current="page"] {
 
 .M-Atlas-Subtitle {
   color: #8fa9ff;
-  font-family: "Keania One", sans-serif;
+  font-family: var(--font-body);
   font-size: 110%;
   margin: 0 0 18px;
 }
@@ -1924,7 +1867,7 @@ body.solar-light-mode nav ul a[aria-current="page"] {
   outline: none;
   color: #cbd5ff;
   font-size: 110%;
-  font-family: "Bruno Ace SC", system-ui, sans-serif;
+  font-family: var(--font-ui);
   min-width: 0;
 }
 
@@ -1966,7 +1909,7 @@ body.solar-light-mode nav ul a[aria-current="page"] {
 
 .M-Atlas-Range {
   flex: 0 0 72px;
-  font-family: "Passero One", sans-serif;
+  font-family: var(--font-display);
   font-size: 85%;
   color: #6495ed;
   text-align: center;
@@ -1990,7 +1933,7 @@ body.solar-light-mode nav ul a[aria-current="page"] {
   border-radius: 50%;
   text-decoration: none;
   color: #e8eeff;
-  font-family: "Keania One", sans-serif;
+  font-family: var(--font-body);
   font-size: 78%;
   background: radial-gradient(circle at 35% 30%, #4da3ff, #1a3a7a 55%, #0a1535);
   border: 2px solid rgba(141, 180, 255, 0.5);
@@ -2013,7 +1956,7 @@ body.solar-light-mode nav ul a[aria-current="page"] {
   position: relative;
   text-align: center;
   color: #6b7aa8;
-  font-family: "Macondo", serif;
+  font-family: var(--font-display);
   font-size: 120%;
   margin: 20px 0 0;
 }
@@ -2023,47 +1966,34 @@ body.solar-light-mode nav ul a[aria-current="page"] {
   max-width: 1100px;
   margin: 0 auto clamp(48px, 8vw, 80px);
   padding: 32px 16px 40px;
-  background:
-    radial-gradient(ellipse at 50% 0%, var(--page-accent-glow), transparent 50%),
-    var(--space-glass);
-  border: 1px solid color-mix(in srgb, var(--page-accent) 35%, transparent);
-  border-radius: var(--space-radius-lg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 0 60px var(--page-accent-glow);
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--color-border);
+  border-radius: 0;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .M-Gallery-Section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(1px 1px at 20% 30%, rgba(255, 255, 255, 0.5), transparent),
-    radial-gradient(1px 1px at 60% 70%, rgba(255, 255, 255, 0.35), transparent),
-    radial-gradient(1px 1px at 80% 20%, rgba(255, 255, 255, 0.4), transparent);
-  pointer-events: none;
-  opacity: 0.5;
-}
-
-.M-Gallery-Header {
-  position: relative;
-  text-align: center;
-  margin-bottom: 28px;
+  display: none;
 }
 
 .M-Gallery-Title {
   color: var(--page-heading);
-  font-family: var(--space-font-accent);
-  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 600;
   margin: 0 0 10px;
-  text-shadow: 0 0 24px var(--page-accent-glow);
+  text-shadow: none;
 }
 
 .M-Gallery-Subtitle {
-  color: var(--page-accent-soft);
-  font-family: var(--space-font-body);
-  font-size: 115%;
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-size: 1rem;
   margin: 0 0 18px;
 }
 
@@ -2073,11 +2003,11 @@ body.solar-light-mode nav ul a[aria-current="page"] {
   gap: 10px;
   max-width: 440px;
   width: 100%;
-  background: var(--space-glass-strong);
-  border: 2px solid color-mix(in srgb, var(--page-accent) 40%, transparent);
-  border-radius: 999px;
-  padding: 8px 18px;
-  box-shadow: 0 0 24px var(--page-accent-glow);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--space-radius-sm);
+  padding: 8px 14px;
+  box-shadow: none;
 }
 
 .M-Gallery-Search-Icon {
@@ -2137,9 +2067,9 @@ body.solar-light-mode nav ul a[aria-current="page"] {
 }
 
 .M-Gallery-Cell:hover {
-  transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--page-accent) 55%, transparent);
-  box-shadow: 0 0 18px var(--page-accent-glow);
+  transform: none;
+  border-color: color-mix(in srgb, var(--page-accent) 30%, var(--color-border));
+  box-shadow: none;
 }
 
 .M-Gallery-Cell-hidden {
@@ -2150,9 +2080,9 @@ body.solar-light-mode nav ul a[aria-current="page"] {
   width: 100%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  border-radius: 6px;
-  border: 2px solid color-mix(in srgb, var(--page-accent) 35%, transparent);
-  background: var(--page-bg-bottom);
+  border-radius: var(--space-radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
   margin-bottom: 8px;
 }
 
@@ -2173,13 +2103,13 @@ body.solar-light-mode nav ul a[aria-current="page"] {
 
 .M-Gallery-Label strong {
   color: var(--page-accent);
-  font-family: var(--space-font-accent);
-  font-weight: normal;
+  font-family: var(--font-display);
+  font-weight: 600;
 }
 
 .M-Gallery-Type {
   color: var(--page-accent-muted);
-  font-family: "Macondo", serif;
+  font-family: var(--font-display);
   font-size: 0.72rem;
   line-height: 1.2;
 }
@@ -2188,7 +2118,7 @@ body.solar-light-mode nav ul a[aria-current="page"] {
   position: relative;
   text-align: center;
   color: var(--page-accent-muted);
-  font-family: "Macondo", serif;
+  font-family: var(--font-display);
   font-size: 120%;
   margin: 24px 0 0;
 }
@@ -2197,7 +2127,7 @@ body.solar-light-mode nav ul a[aria-current="page"] {
   max-width: 980px;
   margin: 24px auto 0;
   padding: 0 20px;
-  font-family: "Keania One", sans-serif;
+  font-family: var(--font-body);
   font-size: 120%;
 }
 
@@ -2319,7 +2249,7 @@ body .M-divs {
   max-width: 1100px;
   margin: 0 auto;
   padding: 20px 24px 0;
-  font-family: "Bruno Ace SC", system-ui, sans-serif;
+  font-family: var(--font-ui);
   font-size: 0.9rem;
 }
 
@@ -2392,7 +2322,7 @@ body .M-divs {
 
 .Planet-Detail-Title {
   margin: 0;
-  font-family: "Passero One", sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(2rem, 5vw, 3.2rem);
   color: #fff;
   text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
@@ -2401,7 +2331,7 @@ body .M-divs {
 
 .Planet-Detail-Tagline {
   margin: 6px 0 0;
-  font-family: "Macondo", serif;
+  font-family: var(--font-display);
   font-size: clamp(1rem, 2.5vw, 1.35rem);
   color: rgba(255, 255, 255, 0.88);
   max-width: 520px;
@@ -2411,7 +2341,7 @@ body .M-divs {
   display: inline-block;
   padding: 6px 16px;
   border-radius: 999px;
-  font-family: "Bruno Ace SC", system-ui, sans-serif;
+  font-family: var(--font-ui);
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -2450,7 +2380,7 @@ body .M-divs {
   transform: translateX(-50%);
   margin: 0;
   padding: 5px 14px;
-  font-family: "Bruno Ace SC", system-ui, sans-serif;
+  font-family: var(--font-ui);
   font-size: 0.72rem;
   color: rgba(200, 220, 255, 0.7);
   background: rgba(4, 8, 18, 0.72);
@@ -2478,7 +2408,7 @@ body .M-divs {
 
 .Planet-Detail-Stats h2 {
   margin: 0 0 18px;
-  font-family: "Bruno Ace SC", system-ui, sans-serif;
+  font-family: var(--font-ui);
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -2501,7 +2431,7 @@ body .M-divs {
 }
 
 .Planet-Detail-Stat-Label {
-  font-family: "Bruno Ace SC", system-ui, sans-serif;
+  font-family: var(--font-ui);
   font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -2509,7 +2439,7 @@ body .M-divs {
 }
 
 .Planet-Detail-Stat-Value {
-  font-family: "Keania One", sans-serif;
+  font-family: var(--font-body);
   font-size: 1rem;
   color: #d8e4ff;
   line-height: 1.35;
@@ -2521,7 +2451,7 @@ body .M-divs {
 
 .Planet-Detail-Intro {
   margin: 0 0 28px;
-  font-family: "Macondo", serif;
+  font-family: var(--font-display);
   font-size: clamp(1.05rem, 2.2vw, 1.25rem);
   color: #b8c8e8;
   line-height: 1.65;
@@ -2534,7 +2464,7 @@ body .M-divs {
 .Planet-Detail-Section h2 {
   margin: 0 0 14px;
   padding-bottom: 8px;
-  font-family: "Passero One", sans-serif;
+  font-family: var(--font-display);
   font-size: 1.35rem;
   color: #8eb4ff;
   border-bottom: 1px solid rgba(100, 149, 237, 0.25);
@@ -2549,7 +2479,7 @@ body .M-divs {
 }
 
 .Planet-Detail-Facts li {
-  font-family: "Keania One", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.95rem;
   color: #a8b8d8;
   line-height: 1.55;
@@ -2565,7 +2495,7 @@ body .M-divs {
 
 .Planet-Detail-Moon h3 {
   margin: 0 0 10px;
-  font-family: "Passero One", sans-serif;
+  font-family: var(--font-display);
   font-size: 1.1rem;
   color: #c8d8ff;
 }
@@ -2575,7 +2505,7 @@ body .M-divs {
   flex-wrap: wrap;
   gap: 8px 20px;
   margin-bottom: 12px;
-  font-family: "Bruno Ace SC", system-ui, sans-serif;
+  font-family: var(--font-ui);
   font-size: 0.72rem;
   color: #7a9fd4;
   text-transform: uppercase;
@@ -2591,7 +2521,7 @@ body .M-divs {
 }
 
 .Planet-Detail-Moon-Facts li {
-  font-family: "Keania One", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.88rem;
   color: #98a8c8;
   line-height: 1.5;
@@ -2614,7 +2544,7 @@ body .M-divs {
 
 .Planet-Detail-Figure figcaption {
   padding: 0.55rem 0.85rem;
-  font-family: "Keania One", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.82rem;
   color: #8fa9cc;
   border-top: 1px solid rgba(100, 149, 237, 0.15);
@@ -2626,7 +2556,7 @@ body .M-divs {
 
 .Planet-Detail-Moon-System-Summary {
   margin: 0 0 16px;
-  font-family: "Keania One", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.92rem;
   color: #98a8c8;
   line-height: 1.55;
@@ -2635,7 +2565,7 @@ body .M-divs {
 .Planet-Detail-Moon-Table {
   width: 100%;
   border-collapse: collapse;
-  font-family: "Keania One", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.85rem;
   margin-top: 8px;
 }
@@ -2648,7 +2578,7 @@ body .M-divs {
 }
 
 .Planet-Detail-Moon-Table th {
-  font-family: "Bruno Ace SC", system-ui, sans-serif;
+  font-family: var(--font-ui);
   font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -2893,7 +2823,7 @@ body .M-divs {
 
 .Planet-detail-intro {
   padding: 0 28px 12px;
-  font-family: "Keania One", sans-serif;
+  font-family: var(--font-body);
   font-size: 140%;
   color: #a6b0d6;
   text-align: center;
@@ -2902,7 +2832,7 @@ body .M-divs {
 
 .Planet-facts {
   padding: 0 28px 28px;
-  font-family: "Keania One", sans-serif;
+  font-family: var(--font-body);
   color: #cbd5ff;
 }
 
@@ -2973,29 +2903,32 @@ body .M-divs {
   }
 }
 
-/* ── Messier creative intro ─────────────────────────────────── */
+/* ── Messier intro ───────────────────────────────────────────── */
 .M-Head-creative {
   padding-top: clamp(40px, 6vw, 64px);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: clamp(32px, 5vw, 48px);
 }
 
 .M-P1-hero {
-  font-family: "Passero One", var(--space-font-accent);
-  font-size: clamp(3rem, 10vw, 6rem);
-  line-height: 1;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 600;
+  line-height: 1.1;
   margin: 0;
-  background: linear-gradient(135deg, var(--page-heading) 0%, var(--page-accent) 55%, var(--page-accent-soft) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+  color: var(--page-heading);
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  -webkit-text-fill-color: unset;
 }
 
 .M-P1-sub {
-  font-family: "Bruno Ace SC", var(--space-font-display);
-  font-size: clamp(0.9rem, 2.5vw, 1.4rem);
-  letter-spacing: 0.35em;
+  font-family: var(--font-ui);
+  font-size: clamp(0.8rem, 2vw, 0.9375rem);
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--page-accent-soft);
+  color: var(--color-text-muted);
   margin: 0.5rem 0 1.5rem;
 }
 
@@ -3006,59 +2939,57 @@ body .M-divs {
 }
 
 .M-P2-lead {
-  font-family: "Keania One", var(--space-font-body);
-  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-family: var(--font-body);
+  font-size: clamp(1.125rem, 2.5vw, 1.375rem);
   color: var(--page-heading);
-  line-height: 1.45;
+  line-height: 1.55;
 }
 
 .M-Intro-Drop {
-  float: left;
-  font-family: "Passero One", var(--space-font-accent);
-  font-size: clamp(3rem, 8vw, 4.5rem);
-  line-height: 0.85;
-  color: var(--page-accent);
-  margin: 0.05em 0.12em 0 0;
+  display: none;
 }
 
 .M-Intro-Stats {
   display: flex;
   justify-content: center;
-  gap: clamp(20px, 5vw, 48px);
+  gap: clamp(24px, 5vw, 48px);
   flex-wrap: wrap;
   margin: 2rem 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
 }
 
 .M-Intro-Stat {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem 1.5rem;
-  background: var(--space-glass);
-  border: 1px solid color-mix(in srgb, var(--page-accent) 40%, transparent);
-  border-radius: var(--space-radius-md);
-  min-width: 100px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  min-width: 80px;
 }
 
 .M-Stat-Num {
-  font-family: "Bruno Ace SC", var(--space-font-display);
-  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 600;
   color: var(--page-accent);
 }
 
 .M-Stat-Label {
-  font-family: "Keania One", var(--space-font-body);
-  font-size: 0.85rem;
-  color: var(--page-accent-muted);
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
 }
 
 .M-P5-cta {
-  font-family: "Keania One", var(--space-font-body);
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
-  color: var(--page-accent-soft);
-  font-style: italic;
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 2vw, 1rem);
+  color: var(--color-text-muted);
+  font-style: normal;
 }
 
 /* ── Messier interactive sky map ────────────────────────────── */
@@ -3074,24 +3005,24 @@ body .M-divs {
 }
 
 .M-SkyMap-Title {
-  font-family: "Passero One", var(--space-font-accent);
+  font-family: var(--font-display);
   font-size: clamp(1.5rem, 4vw, 2.2rem);
   color: var(--page-heading);
   margin: 0 0 0.35rem;
 }
 
 .M-SkyMap-Subtitle {
-  font-family: "Keania One", var(--space-font-body);
+  font-family: var(--font-body);
   color: var(--page-accent-muted);
   margin: 0;
 }
 
 .M-SkyMap {
-  background: var(--space-glass-strong);
-  border: 1px solid color-mix(in srgb, var(--page-accent) 45%, transparent);
-  border-radius: var(--space-radius-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--space-radius-md);
   overflow: hidden;
-  box-shadow: 0 0 48px var(--page-accent-glow);
+  box-shadow: var(--space-shadow);
 }
 
 .M-SkyMap-Viewport {
@@ -3144,14 +3075,14 @@ body .M-divs {
 }
 
 .M-SkyMap-Popup-Cap {
-  font-family: "Keania One", var(--space-font-body);
+  font-family: var(--font-body);
   font-size: 0.85rem;
   color: var(--page-heading);
   margin: 8px 0 4px;
 }
 
 .M-SkyMap-Popup-Link {
-  font-family: "Bruno Ace SC", var(--space-font-display);
+  font-family: var(--font-ui);
   font-size: 0.72rem;
   color: var(--page-accent-soft);
   text-decoration: none;
@@ -3168,8 +3099,8 @@ body .M-divs {
   justify-content: space-between;
   gap: 12px;
   padding: 12px 16px;
-  background: linear-gradient(180deg, rgba(12, 6, 24, 0.95), rgba(4, 2, 16, 0.98));
-  border-top: 1px solid color-mix(in srgb, var(--page-accent) 35%, transparent);
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
 }
 
 .M-SkyMap-Legend {
@@ -3184,23 +3115,23 @@ body .M-divs {
   align-items: center;
   gap: 5px;
   padding: 6px 10px;
-  background: rgba(8, 4, 20, 0.8);
-  border: 1px solid color-mix(in srgb, var(--page-accent) 30%, transparent);
-  border-radius: 999px;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--space-radius-sm);
   color: var(--page-body-text);
-  font-family: "Keania One", var(--space-font-body);
-  font-size: 0.72rem;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
   cursor: pointer;
   transition: opacity 0.2s, border-color 0.2s;
 }
 
 .M-SkyMap-Legend-Btn:not(.is-active) {
-  opacity: 0.45;
+  opacity: 0.5;
 }
 
 .M-SkyMap-Legend-Btn.is-active {
   border-color: var(--page-accent);
-  box-shadow: 0 0 12px var(--page-accent-glow);
+  box-shadow: none;
 }
 
 .M-SkyMap-Legend-Sym {
@@ -3213,9 +3144,9 @@ body .M-divs {
   align-items: center;
   gap: 8px;
   padding: 8px 14px;
-  background: rgba(4, 2, 16, 0.9);
-  border: 1px solid color-mix(in srgb, var(--page-accent) 40%, transparent);
-  border-radius: 999px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--space-radius-sm);
   min-width: min(260px, 100%);
 }
 
@@ -3225,7 +3156,7 @@ body .M-divs {
   border: none;
   outline: none;
   color: var(--page-heading);
-  font-family: "Bruno Ace SC", var(--space-font-display);
+  font-family: var(--font-ui);
   font-size: 0.8rem;
   min-width: 0;
 }
@@ -3237,28 +3168,30 @@ body .M-divs {
 }
 
 .Main-Image-Tools h1 {
-  font-family: "Passero One", var(--space-font-accent);
-  font-size: clamp(1.8rem, 5vw, 3.2rem);
-  color: #e0fff8;
-  letter-spacing: 0.04em;
+  font-family: var(--font-ui);
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 500;
+  color: var(--color-text);
+  letter-spacing: 0;
 }
 
 .Main-Image-Tools h2 {
-  font-family: "Bruno Ace SC", var(--space-font-display);
-  font-size: clamp(2.8rem, 9vw, 5.5rem);
-  color: var(--page-accent);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 600;
+  color: var(--page-heading);
+  text-transform: none;
+  letter-spacing: 0;
 }
 
 .Tools-Hero-Eyebrow {
   margin: 0;
   padding: clamp(28px, 4vw, 48px) clamp(16px, 4vw, 50px) 0;
-  font-family: "Keania One", var(--space-font-body);
-  font-size: clamp(0.85rem, 2vw, 1rem);
-  letter-spacing: 0.25em;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--page-accent-soft);
+  color: var(--color-text-muted);
   position: relative;
   z-index: 1;
 }
@@ -3266,10 +3199,11 @@ body .M-divs {
 .T-Head-creative {
   text-align: center;
   padding: clamp(32px, 5vw, 48px) clamp(16px, 8vw, 120px);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .T-P2-lead {
-  font-family: "Passero One", var(--space-font-accent);
+  font-family: var(--font-display);
   font-size: clamp(1.2rem, 3vw, 1.7rem);
   color: var(--page-heading);
   max-width: 780px;
@@ -3290,28 +3224,28 @@ body .M-divs {
 
 .Tel-Nav-Btn {
   display: inline-block;
-  padding: 10px 18px;
-  background: var(--space-glass);
-  border: 1px solid color-mix(in srgb, var(--page-accent) 40%, transparent);
-  border-radius: 999px;
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--space-radius-sm);
   color: var(--page-body-text);
-  font-family: "Bruno Ace SC", var(--space-font-display);
-  font-size: clamp(0.75rem, 2vw, 0.9rem);
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
   text-decoration: none;
-  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  transition: border-color 0.2s, color 0.2s;
 }
 
 .Tel-Nav-Btn:hover,
 .Tel-Nav-Btn.is-active {
-  transform: translateY(-2px);
+  transform: none;
   border-color: var(--page-accent);
-  box-shadow: 0 0 20px var(--page-accent-glow);
+  box-shadow: none;
   color: var(--page-heading);
 }
 
 .Tools-Featured-Title {
   text-align: center;
-  font-family: "Passero One", var(--space-font-accent);
+  font-family: var(--font-display);
   font-size: clamp(1.4rem, 3.5vw, 2rem);
   color: var(--page-heading);
   margin: 0 0 1.5rem;
@@ -3321,7 +3255,7 @@ body .M-divs {
   display: inline-block;
   margin-top: 0.75rem;
   color: var(--page-accent);
-  font-family: "Bruno Ace SC", var(--space-font-display);
+  font-family: var(--font-ui);
   font-size: 0.85rem;
   text-decoration: none;
 }
@@ -3336,7 +3270,7 @@ body .M-divs {
 
 .Tel-Back-Link a {
   color: var(--page-accent-soft);
-  font-family: "Keania One", var(--space-font-body);
+  font-family: var(--font-body);
   text-decoration: none;
 }
 
@@ -3351,14 +3285,14 @@ body .M-divs {
 }
 
 .Tel-Type-Head h1 {
-  font-family: "Passero One", var(--space-font-accent);
+  font-family: var(--font-display);
   font-size: clamp(1.8rem, 4vw, 2.8rem);
   color: var(--page-heading);
   margin: 0.5rem 0;
 }
 
 .Tel-Type-Intro {
-  font-family: "Keania One", var(--space-font-body);
+  font-family: var(--font-body);
   font-size: clamp(1rem, 2.5vw, 1.2rem);
   color: var(--page-body-text);
   max-width: 720px;
@@ -3400,77 +3334,30 @@ body .M-divs {
 }
 
 .Tel-Type-Body h2 {
-  font-family: "Bruno Ace SC", var(--space-font-display);
+  font-family: var(--font-ui);
   font-size: clamp(1rem, 2.5vw, 1.25rem);
   color: var(--page-heading);
   margin: 0 0 0.5rem;
 }
 
 .Tel-Type-Specs {
-  font-family: "Keania One", var(--space-font-body);
+  font-family: var(--font-body);
   font-size: 0.9rem;
   color: var(--page-accent);
   margin: 0 0 0.5rem;
 }
 
 .Tel-Type-Body p:last-child {
-  font-family: "Keania One", var(--space-font-body);
+  font-family: var(--font-body);
   color: var(--page-body-text);
   line-height: 1.5;
   margin: 0;
 }
 
-/* ── Home page creative ──────────────────────────────────────── */
+/* ── Home page ───────────────────────────────────────────────── */
 .Home-Hero-Wrap {
   position: relative;
   margin: clamp(16px, 3vw, 32px) clamp(16px, 6vw, 120px);
-}
-
-.Home-Hero-Orbs {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
-}
-
-.Home-Orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.35;
-  animation: home-orb-float 8s ease-in-out infinite;
-}
-
-.Home-Orb-1 {
-  width: 200px;
-  height: 200px;
-  background: var(--page-accent);
-  top: 10%;
-  left: 5%;
-}
-
-.Home-Orb-2 {
-  width: 150px;
-  height: 150px;
-  background: #e06040;
-  top: 50%;
-  right: 10%;
-  animation-delay: -3s;
-}
-
-.Home-Orb-3 {
-  width: 120px;
-  height: 120px;
-  background: var(--page-accent-soft);
-  bottom: 5%;
-  left: 40%;
-  animation-delay: -5s;
-}
-
-@keyframes home-orb-float {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(20px, -15px) scale(1.08); }
 }
 
 .Home-Nasa-Link {
@@ -3488,20 +3375,21 @@ body .M-divs {
   position: absolute;
   bottom: 16px;
   right: 16px;
-  padding: 8px 16px;
-  background: rgba(0, 0, 0, 0.65);
-  border: 1px solid color-mix(in srgb, var(--page-accent) 50%, transparent);
-  border-radius: 999px;
-  color: var(--page-accent-soft);
-  font-family: "Bruno Ace SC", var(--space-font-display);
-  font-size: 0.8rem;
-  letter-spacing: 0.05em;
-  transition: background 0.2s, color 0.2s;
+  padding: 6px 14px;
+  background: rgba(13, 17, 23, 0.85);
+  border: 1px solid var(--color-border);
+  border-radius: var(--space-radius-sm);
+  color: var(--color-text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
+  letter-spacing: 0;
+  transition: border-color 0.2s, color 0.2s;
 }
 
 .Home-Nasa-Link:hover .Home-Nasa-Badge {
-  background: color-mix(in srgb, var(--page-accent) 30%, rgba(0, 0, 0, 0.8));
-  color: #fff;
+  background: rgba(13, 17, 23, 0.95);
+  border-color: var(--page-accent);
+  color: var(--color-text);
 }
 
 .Home-Hero-Text {
@@ -3511,31 +3399,36 @@ body .M-divs {
 }
 
 .Home-Title-Line {
-  font-family: "Bruno Ace SC", var(--space-font-display);
-  font-size: clamp(1.2rem, 3.5vw, 2rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 400;
   margin: 0;
-  letter-spacing: 0.12em;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .Home-Title-Accent {
-  font-family: "Passero One", var(--space-font-accent);
-  font-size: clamp(2.5rem, 8vw, 4.5rem);
-  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 7vw, 3.75rem);
+  font-weight: 600;
+  margin: 0.25rem 0;
   color: var(--page-accent);
-  text-shadow: 0 0 40px var(--page-accent-glow);
+  text-shadow: none;
   line-height: 1.1;
 }
 
 .Home-Intro-Lead {
-  font-family: "Passero One", var(--space-font-accent);
-  font-size: clamp(1.2rem, 3vw, 1.6rem);
-  color: var(--page-accent);
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+  font-weight: 600;
+  color: var(--page-heading);
   margin: 0 0 0.75rem;
 }
 
 .Home-Featured-Heading {
-  font-family: "Passero One", var(--space-font-accent);
-  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.375rem, 3.5vw, 1.75rem);
+  font-weight: 600;
   color: var(--page-heading);
   text-align: center;
   margin: 0 0 clamp(24px, 4vw, 36px);
@@ -3555,60 +3448,48 @@ body .M-divs {
 }
 
 .Home-Card-Icon {
-  font-size: 2rem;
+  font-size: 1.5rem;
   display: block;
   margin-bottom: 0.5rem;
+  opacity: 0.85;
 }
 
 .Home-Card h1 {
-  font-family: "Bruno Ace SC", var(--space-font-display);
-  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+  font-weight: 600;
   color: var(--page-heading);
   margin: 0 0 0.5rem;
 }
 
 .Home-Card p {
-  font-family: "Keania One", var(--space-font-body);
-  font-size: 0.95rem;
-  line-height: 1.5;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 1.6;
   margin: 0;
 }
 
 .Home-Card-CTA {
   display: inline-block;
   margin-top: 1rem;
-  font-family: "Bruno Ace SC", var(--space-font-display);
-  font-size: 0.8rem;
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
   color: var(--page-accent);
-  letter-spacing: 0.05em;
+  letter-spacing: 0;
 }
 
-.Home-Card-solar:hover {
-  border-color: color-mix(in srgb, #f08040 55%, transparent);
-  box-shadow: 0 8px 32px rgba(240, 128, 64, 0.35);
-}
-
-.Home-Card-messier:hover {
-  border-color: color-mix(in srgb, #c060e8 55%, transparent);
-  box-shadow: 0 8px 32px rgba(192, 96, 232, 0.35);
-}
-
+.Home-Card-solar:hover,
+.Home-Card-messier:hover,
 .Home-Card-tools:hover {
-  border-color: color-mix(in srgb, #30c8b8 55%, transparent);
-  box-shadow: 0 8px 32px rgba(48, 200, 184, 0.35);
+  border-color: color-mix(in srgb, var(--page-accent) 35%, var(--color-border));
+  box-shadow: none;
 }
 
 .Home-Quote {
   text-align: center;
   padding: clamp(32px, 5vw, 48px) clamp(16px, 8vw, 80px) clamp(48px, 6vw, 80px);
-  font-family: "Keania One", var(--space-font-body);
+  font-family: var(--font-body);
   color: var(--page-body-text);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .Home-Orb {
-    animation: none;
-  }
 }
 
 @media (max-width: 640px) {
