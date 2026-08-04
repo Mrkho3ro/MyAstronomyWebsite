@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parent
 CATALOG_INDEX = (
     "https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/"
 )
+ASTRO_GALLERY = "https://astropixels.com/messier/messiergallery.html"
 UA = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -133,39 +134,61 @@ def scrape_all_images() -> dict[int, str]:
     return image_urls
 
 
-def install_images(image_urls: dict[int, str]) -> None:
+def astro_thumb_urls() -> dict[int, str]:
+    html = fetch(ASTRO_GALLERY).decode("utf-8", "replace")
+    urls: dict[int, str] = {}
+    for path, num in re.findall(r'src="(\.\./[^"]+/thumb/M(\d+)-\d+n\.jpg)"', html):
+        urls[int(num)] = "https://astropixels.com/" + path.replace("../", "", 1)
+    return urls
+
+
+def install_images(image_urls: dict[int, str], astro: dict[int, str] | None = None) -> None:
+    astro = astro or {}
+    nasa_ok = 0
+    fallback_ok = 0
+    failed: list[int] = []
+
     for num in range(1, 111):
-        url = image_urls.get(num)
         thumb = ROOT / f"M{num}-thumb.jpg"
         primary = ROOT / f"M{num}-1.jpg"
+        url = image_urls.get(num) or astro.get(num)
+        source = "NASA" if image_urls.get(num) else "AstroPixels"
 
-        if url:
-            if download(url, thumb):
-                print(f"Saved {thumb.name}")
-                shutil.copy2(thumb, primary)
-                for slot in (2, 3):
-                    dest = ROOT / f"M{num}-{slot}.jpg"
-                    if not dest.exists() or dest.stat().st_size < 800:
-                        shutil.copy2(thumb, dest)
+        if not url:
+            if primary.exists() and primary.stat().st_size >= 800:
+                if not thumb.exists() or thumb.stat().st_size < 800:
+                    shutil.copy2(primary, thumb)
+                continue
+            print(f"WARNING: no image source for M{num}")
+            failed.append(num)
+            continue
+
+        if download(url, thumb):
+            print(f"Saved {thumb.name} ({source})")
+            shutil.copy2(thumb, primary)
+            for slot in (2, 3):
+                dest = ROOT / f"M{num}-{slot}.jpg"
+                if not dest.exists() or dest.stat().st_size < 800:
+                    shutil.copy2(thumb, dest)
+            if source == "NASA":
+                nasa_ok += 1
             else:
-                print(f"WARNING: failed M{num}")
-        elif primary.exists():
-            if not thumb.exists():
-                shutil.copy2(primary, thumb)
+                fallback_ok += 1
         else:
-            print(f"WARNING: no image for M{num}")
+            print(f"WARNING: failed M{num} from {source}")
+            if primary.exists() and primary.stat().st_size >= 800 and not thumb.exists():
+                shutil.copy2(primary, thumb)
+            else:
+                failed.append(num)
+
+    print(f"Installed {nasa_ok} NASA + {fallback_ok} fallback images; {len(failed)} failed: {failed}")
 
 
 def main() -> None:
-    manifest = ROOT / "messier-nasa-images.json"
-    if manifest.exists():
-        image_urls = json.loads(manifest.read_text(encoding="utf-8"))
-        image_urls = {int(k): v for k, v in image_urls.items()}
-        print(f"Loaded {len(image_urls)} URLs from manifest")
-    else:
-        image_urls = scrape_all_images()
-
-    install_images(image_urls)
+    image_urls = scrape_all_images()
+    astro = astro_thumb_urls()
+    print(f"AstroPixels fallback URLs: {len(astro)}")
+    install_images(image_urls, astro)
 
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 /**
- * Interactive Messier sky map — pan/zoom all-sky view with category markers.
+ * Interactive Messier sky map — fixed Milky Way background with zoomable markers.
  */
 (function () {
   "use strict";
@@ -26,21 +26,15 @@
   var ctx = canvas.getContext("2d");
 
   var catalog = [];
-  var scale = 1;
-  var fitScale = 1;
-  var minScale = 0.25;
-  var maxScale = 6;
-  var offsetX = 0;
-  var offsetY = 0;
-  var dragging = false;
-  var dragStart = { x: 0, y: 0, ox: 0, oy: 0 };
+  var zoom = 1;
+  var minZoom = 0.55;
+  var maxZoom = 6;
   var imgW = 3600;
   var imgH = 1800;
   var visibleCats = {};
   var selected = null;
   var highlightNum = null;
   var pinchDist = null;
-  var didDrag = false;
   var viewReady = false;
 
   Object.keys(CATEGORIES).forEach(function (k) {
@@ -93,49 +87,15 @@
   }
 
   function raDecToXY(raHours, decDeg) {
-    var x = (raHours / 24) * imgW;
-    var y = ((90 - decDeg) / 180) * imgH;
-    return { x: x, y: y };
-  }
-
-  function computeFitScale() {
-    var vw = viewport.clientWidth;
-    var vh = viewport.clientHeight;
-    if (!vw || !vh || !imgW || !imgH) return 1;
-    return Math.min(vw / imgW, vh / imgH);
-  }
-
-  function layoutBackground() {
-    bgImg.style.width = imgW + "px";
-    bgImg.style.height = imgH + "px";
-    bgImg.style.marginLeft = -imgW / 2 + "px";
-    bgImg.style.marginTop = -imgH / 2 + "px";
+    return { x: (raHours / 24) * imgW, y: ((90 - decDeg) / 180) * imgH };
   }
 
   function resetView() {
-    fitScale = computeFitScale();
-    scale = fitScale;
-    minScale = fitScale * 0.55;
-    offsetX = 0;
-    offsetY = 0;
-  }
-
-  function syncBgTransform() {
-    bgImg.style.transform =
-      "translate(" + offsetX + "px," + offsetY + "px) scale(" + scale + ")";
+    zoom = 1;
   }
 
   function resizeCanvas() {
     var rect = viewport.getBoundingClientRect();
-    var prevFit = fitScale;
-    fitScale = computeFitScale();
-    if (!viewReady) {
-      scale = fitScale;
-      minScale = fitScale * 0.55;
-    } else if (prevFit > 0) {
-      scale = scale * (fitScale / prevFit);
-      minScale = fitScale * 0.55;
-    }
     canvas.width = rect.width * devicePixelRatio;
     canvas.height = rect.height * devicePixelRatio;
     canvas.style.width = rect.width + "px";
@@ -148,26 +108,17 @@
     var rect = viewport.getBoundingClientRect();
     var cx = rect.width / 2;
     var cy = rect.height / 2;
+    var bx = (wx / imgW) * rect.width;
+    var by = (wy / imgH) * rect.height;
     return {
-      x: (wx - imgW / 2) * scale + cx + offsetX,
-      y: (wy - imgH / 2) * scale + cy + offsetY,
-    };
-  }
-
-  function screenToWorld(sx, sy) {
-    var rect = viewport.getBoundingClientRect();
-    var cx = rect.width / 2;
-    var cy = rect.height / 2;
-    return {
-      x: (sx - cx - offsetX) / scale + imgW / 2,
-      y: (sy - cy - offsetY) / scale + imgH / 2,
+      x: (bx - cx) * zoom + cx,
+      y: (by - cy) * zoom + cy,
     };
   }
 
   function drawMarker(x, y, cat, obj, isHighlight) {
     var catInfo = CATEGORIES[cat] || CATEGORIES.other;
-    var zoomFactor = scale / fitScale;
-    var r = (isHighlight ? 9 : 6) / Math.sqrt(Math.max(1, zoomFactor * 0.65));
+    var r = (isHighlight ? 9 : 6) / Math.sqrt(Math.max(1, zoom * 0.65));
     r = Math.max(4, Math.min(r, isHighlight ? 11 : 8));
     ctx.save();
     ctx.translate(x, y);
@@ -240,7 +191,7 @@
         ctx.strokeStyle = catInfo.color;
         ctx.stroke();
     }
-    if (scale > fitScale * 2.2 || isHighlight) {
+    if (zoom > 2.2 || isHighlight) {
       ctx.fillStyle = "#f0e0ff";
       ctx.font = "bold 10px Keania One, sans-serif";
       ctx.textAlign = "center";
@@ -308,11 +259,8 @@
     return best;
   }
 
-  function centerOn(obj, zoom) {
-    var pos = raDecToXY(obj.ra, obj.dec);
-    if (zoom) scale = Math.min(maxScale, Math.max(fitScale * 1.8, scale));
-    offsetX = -(pos.x - imgW / 2) * scale;
-    offsetY = -(pos.y - imgH / 2) * scale;
+  function centerOn(obj, doZoom) {
+    if (doZoom) zoom = Math.min(maxZoom, Math.max(1.8, zoom));
     selected = obj;
     highlightNum = obj.num;
     draw();
@@ -320,43 +268,14 @@
 
   function onWheel(e) {
     e.preventDefault();
-    var rect = viewport.getBoundingClientRect();
-    var mx = e.clientX - rect.left;
-    var my = e.clientY - rect.top;
     var factor = e.deltaY < 0 ? 1.12 : 0.89;
-    var newScale = Math.min(maxScale, Math.max(minScale, scale * factor));
-    var ratio = newScale / scale;
-    offsetX = mx - (mx - offsetX) * ratio;
-    offsetY = my - (my - offsetY) * ratio;
-    scale = newScale;
+    zoom = Math.min(maxZoom, Math.max(minZoom, zoom * factor));
     draw();
   }
 
   viewport.addEventListener("wheel", onWheel, { passive: false });
 
-  viewport.addEventListener("mousedown", function (e) {
-    if (e.button !== 0) return;
-    dragging = true;
-    didDrag = false;
-    dragStart = { x: e.clientX, y: e.clientY, ox: offsetX, oy: offsetY };
-  });
-
-  window.addEventListener("mousemove", function (e) {
-    if (!dragging) return;
-    if (Math.abs(e.clientX - dragStart.x) > 3 || Math.abs(e.clientY - dragStart.y) > 3) {
-      didDrag = true;
-    }
-    offsetX = dragStart.ox + (e.clientX - dragStart.x);
-    offsetY = dragStart.oy + (e.clientY - dragStart.y);
-    draw();
-  });
-
-  window.addEventListener("mouseup", function () {
-    dragging = false;
-  });
-
   viewport.addEventListener("click", function (e) {
-    if (didDrag) return;
     var rect = viewport.getBoundingClientRect();
     var hit = findAt(e.clientX - rect.left, e.clientY - rect.top);
     if (hit) {
@@ -373,10 +292,7 @@
   viewport.addEventListener(
     "touchstart",
     function (e) {
-      if (e.touches.length === 1) {
-        dragging = true;
-        dragStart = { x: e.touches[0].clientX, y: e.touches[0].clientY, ox: offsetX, oy: offsetY };
-      } else if (e.touches.length === 2) {
+      if (e.touches.length === 2) {
         pinchDist = Math.hypot(
           e.touches[0].clientX - e.touches[1].clientX,
           e.touches[0].clientY - e.touches[1].clientY
@@ -389,24 +305,13 @@
   viewport.addEventListener(
     "touchmove",
     function (e) {
-      if (e.touches.length === 1 && dragging) {
-        offsetX = dragStart.ox + (e.touches[0].clientX - dragStart.x);
-        offsetY = dragStart.oy + (e.touches[0].clientY - dragStart.y);
-        draw();
-      } else if (e.touches.length === 2 && pinchDist) {
-        var rect = viewport.getBoundingClientRect();
-        var mx = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left;
-        var my = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top;
+      if (e.touches.length === 2 && pinchDist) {
         var d = Math.hypot(
           e.touches[0].clientX - e.touches[1].clientX,
           e.touches[0].clientY - e.touches[1].clientY
         );
         var factor = d / pinchDist;
-        var newScale = Math.min(maxScale, Math.max(minScale, scale * factor));
-        var ratio = newScale / scale;
-        offsetX = mx - (mx - offsetX) * ratio;
-        offsetY = my - (my - offsetY) * ratio;
-        scale = newScale;
+        zoom = Math.min(maxZoom, Math.max(minZoom, zoom * factor));
         pinchDist = d;
         draw();
       }
@@ -415,7 +320,6 @@
   );
 
   viewport.addEventListener("touchend", function () {
-    dragging = false;
     pinchDist = null;
   });
 
@@ -463,17 +367,10 @@
       imgW = bgImg.naturalWidth;
       imgH = bgImg.naturalHeight;
     }
-    layoutBackground();
     resetView();
     viewReady = true;
     resizeCanvas();
   }
-
-  var origDraw = draw;
-  draw = function () {
-    syncBgTransform();
-    origDraw();
-  };
 
   fetch("messier-catalog.json")
     .then(function (r) {

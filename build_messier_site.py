@@ -257,7 +257,7 @@ def gallery_page(objects: list[dict]) -> str:
         <section class="M-SkyMap-Section" aria-label="Interactive Messier sky map">
             <div class="M-SkyMap-Header">
                 <h2 class="M-SkyMap-Title">Interactive Messier Sky Map</h2>
-                <p class="M-SkyMap-Subtitle">Pan, zoom, and filter all 110 objects plotted across the celestial sphere</p>
+                <p class="M-SkyMap-Subtitle">Zoom and filter all 110 objects plotted across the celestial sphere</p>
             </div>
             <div id="messier-sky-map" class="M-SkyMap">
                 <div class="M-SkyMap-Viewport">

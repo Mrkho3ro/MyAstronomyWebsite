@@ -3100,23 +3100,18 @@ body .M-divs {
   aspect-ratio: 2 / 1;
   max-height: clamp(320px, 55vw, 520px);
   overflow: hidden;
-  cursor: grab;
+  cursor: default;
   background: #020210;
   touch-action: none;
 }
 
-.M-SkyMap-Viewport:active {
-  cursor: grabbing;
-}
-
 .M-SkyMap-BG {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  width: auto;
-  height: auto;
-  max-width: none;
-  transform-origin: center center;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: none;
   pointer-events: none;
   user-select: none;
   opacity: 0.92;
