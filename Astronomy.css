@@ -3096,7 +3096,9 @@ body .M-divs {
 
 .M-SkyMap-Viewport {
   position: relative;
-  height: clamp(320px, 55vw, 520px);
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  max-height: clamp(320px, 55vw, 520px);
   overflow: hidden;
   cursor: grab;
   background: #020210;
@@ -3111,9 +3113,9 @@ body .M-divs {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 180%;
-  min-width: 900px;
+  width: auto;
   height: auto;
+  max-width: none;
   transform-origin: center center;
   pointer-events: none;
   user-select: none;

@@ -27,7 +27,8 @@
 
   var catalog = [];
   var scale = 1;
-  var minScale = 0.6;
+  var fitScale = 1;
+  var minScale = 0.25;
   var maxScale = 6;
   var offsetX = 0;
   var offsetY = 0;
@@ -40,6 +41,7 @@
   var highlightNum = null;
   var pinchDist = null;
   var didDrag = false;
+  var viewReady = false;
 
   Object.keys(CATEGORIES).forEach(function (k) {
     visibleCats[k] = true;
@@ -96,8 +98,44 @@
     return { x: x, y: y };
   }
 
+  function computeFitScale() {
+    var vw = viewport.clientWidth;
+    var vh = viewport.clientHeight;
+    if (!vw || !vh || !imgW || !imgH) return 1;
+    return Math.min(vw / imgW, vh / imgH);
+  }
+
+  function layoutBackground() {
+    bgImg.style.width = imgW + "px";
+    bgImg.style.height = imgH + "px";
+    bgImg.style.marginLeft = -imgW / 2 + "px";
+    bgImg.style.marginTop = -imgH / 2 + "px";
+  }
+
+  function resetView() {
+    fitScale = computeFitScale();
+    scale = fitScale;
+    minScale = fitScale * 0.55;
+    offsetX = 0;
+    offsetY = 0;
+  }
+
+  function syncBgTransform() {
+    bgImg.style.transform =
+      "translate(" + offsetX + "px," + offsetY + "px) scale(" + scale + ")";
+  }
+
   function resizeCanvas() {
     var rect = viewport.getBoundingClientRect();
+    var prevFit = fitScale;
+    fitScale = computeFitScale();
+    if (!viewReady) {
+      scale = fitScale;
+      minScale = fitScale * 0.55;
+    } else if (prevFit > 0) {
+      scale = scale * (fitScale / prevFit);
+      minScale = fitScale * 0.55;
+    }
     canvas.width = rect.width * devicePixelRatio;
     canvas.height = rect.height * devicePixelRatio;
     canvas.style.width = rect.width + "px";
@@ -128,7 +166,9 @@
 
   function drawMarker(x, y, cat, obj, isHighlight) {
     var catInfo = CATEGORIES[cat] || CATEGORIES.other;
-    var r = isHighlight ? 9 : 6;
+    var zoomFactor = scale / fitScale;
+    var r = (isHighlight ? 9 : 6) / Math.sqrt(Math.max(1, zoomFactor * 0.65));
+    r = Math.max(4, Math.min(r, isHighlight ? 11 : 8));
     ctx.save();
     ctx.translate(x, y);
     if (isHighlight) {
@@ -200,7 +240,7 @@
         ctx.strokeStyle = catInfo.color;
         ctx.stroke();
     }
-    if (scale > 1.8 || isHighlight) {
+    if (scale > fitScale * 2.2 || isHighlight) {
       ctx.fillStyle = "#f0e0ff";
       ctx.font = "bold 10px Keania One, sans-serif";
       ctx.textAlign = "center";
@@ -270,8 +310,7 @@
 
   function centerOn(obj, zoom) {
     var pos = raDecToXY(obj.ra, obj.dec);
-    var rect = viewport.getBoundingClientRect();
-    if (zoom) scale = Math.min(maxScale, Math.max(2, scale));
+    if (zoom) scale = Math.min(maxScale, Math.max(fitScale * 1.8, scale));
     offsetX = -(pos.x - imgW / 2) * scale;
     offsetY = -(pos.y - imgH / 2) * scale;
     selected = obj;
@@ -355,12 +394,19 @@
         offsetY = dragStart.oy + (e.touches[0].clientY - dragStart.y);
         draw();
       } else if (e.touches.length === 2 && pinchDist) {
+        var rect = viewport.getBoundingClientRect();
+        var mx = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left;
+        var my = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top;
         var d = Math.hypot(
           e.touches[0].clientX - e.touches[1].clientX,
           e.touches[0].clientY - e.touches[1].clientY
         );
         var factor = d / pinchDist;
-        scale = Math.min(maxScale, Math.max(minScale, scale * factor));
+        var newScale = Math.min(maxScale, Math.max(minScale, scale * factor));
+        var ratio = newScale / scale;
+        offsetX = mx - (mx - offsetX) * ratio;
+        offsetY = my - (my - offsetY) * ratio;
+        scale = newScale;
         pinchDist = d;
         draw();
       }
@@ -407,20 +453,20 @@
     });
   }
 
-  bgImg.addEventListener("load", function () {
+  bgImg.addEventListener("load", onBgReady);
+  if (bgImg.complete && bgImg.naturalWidth) {
+    onBgReady();
+  }
+
+  function onBgReady() {
     if (bgImg.naturalWidth) {
       imgW = bgImg.naturalWidth;
       imgH = bgImg.naturalHeight;
     }
-    bgImg.style.transform = "translate(" + offsetX + "px," + offsetY + "px) scale(" + scale + ")";
+    layoutBackground();
+    resetView();
+    viewReady = true;
     resizeCanvas();
-  });
-
-  function syncBgTransform() {
-    var cx = viewport.clientWidth / 2;
-    var cy = viewport.clientHeight / 2;
-    bgImg.style.transformOrigin = cx + "px " + cy + "px";
-    bgImg.style.transform = "translate(" + offsetX + "px," + offsetY + "px) scale(" + scale + ")";
   }
 
   var origDraw = draw;
