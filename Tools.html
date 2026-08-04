@@ -47,50 +47,73 @@
             <p class="T-P4">Choose a telescope type below to explore real examples, specs, and what each design does best.</p>
         </header>
 
-        <nav class="Tel-Type-Nav Tel-Type-Nav-main" aria-label="Telescope types">
-            <a href="telescopes/dobsonian.html" class="Tel-Nav-Btn">🔭 Dobsonian</a>
-            <a href="telescopes/newtonian.html" class="Tel-Nav-Btn">🪞 Newtonian</a>
-            <a href="telescopes/refractor.html" class="Tel-Nav-Btn">🔍 Refractor</a>
-            <a href="telescopes/schmidt-cassegrain.html" class="Tel-Nav-Btn">⚙️ Schmidt-Cassegrain</a>
-            <a href="telescopes/maksutov.html" class="Tel-Nav-Btn">🌙 Maksutov</a>
-            <a href="telescopes/radio.html" class="Tel-Nav-Btn">📡 Radio</a>
+        <nav class="Tel-Type-Grid" aria-label="Telescope types">
+            <a href="telescopes/dobsonian.html" class="Tel-Type-Card-Btn tel-type-dob">
+                <span class="Tel-Type-Card-Btn-Visual">
+                    <img src="Tel-3.webp" alt="" loading="lazy" />
+                    <span class="Tel-Type-Card-Btn-Glow" aria-hidden="true"></span>
+                </span>
+                <span class="Tel-Type-Card-Btn-Body">
+                    <span class="Tel-Type-Card-Btn-Icon" aria-hidden="true">🔭</span>
+                    <span class="Tel-Type-Card-Btn-Title">Dobsonian</span>
+                    <span class="Tel-Type-Card-Btn-Desc">Maximum aperture per dollar for deep-sky hunting</span>
+                </span>
+            </a>
+            <a href="telescopes/newtonian.html" class="Tel-Type-Card-Btn tel-type-newton">
+                <span class="Tel-Type-Card-Btn-Visual">
+                    <img src="Tel-2.webp" alt="" loading="lazy" />
+                    <span class="Tel-Type-Card-Btn-Glow" aria-hidden="true"></span>
+                </span>
+                <span class="Tel-Type-Card-Btn-Body">
+                    <span class="Tel-Type-Card-Btn-Icon" aria-hidden="true">🪞</span>
+                    <span class="Tel-Type-Card-Btn-Title">Newtonian</span>
+                    <span class="Tel-Type-Card-Btn-Desc">Classic reflector on equatorial or Dob mounts</span>
+                </span>
+            </a>
+            <a href="telescopes/refractor.html" class="Tel-Type-Card-Btn tel-type-refractor">
+                <span class="Tel-Type-Card-Btn-Visual">
+                    <img src="Tel-4.webp" alt="" loading="lazy" />
+                    <span class="Tel-Type-Card-Btn-Glow" aria-hidden="true"></span>
+                </span>
+                <span class="Tel-Type-Card-Btn-Body">
+                    <span class="Tel-Type-Card-Btn-Icon" aria-hidden="true">🔍</span>
+                    <span class="Tel-Type-Card-Btn-Title">Refractor</span>
+                    <span class="Tel-Type-Card-Btn-Desc">Crisp planetary views in a portable tube</span>
+                </span>
+            </a>
+            <a href="telescopes/schmidt-cassegrain.html" class="Tel-Type-Card-Btn tel-type-sct">
+                <span class="Tel-Type-Card-Btn-Visual">
+                    <img src="Tel-1.webp" alt="" loading="lazy" />
+                    <span class="Tel-Type-Card-Btn-Glow" aria-hidden="true"></span>
+                </span>
+                <span class="Tel-Type-Card-Btn-Body">
+                    <span class="Tel-Type-Card-Btn-Icon" aria-hidden="true">⚙️</span>
+                    <span class="Tel-Type-Card-Btn-Title">Schmidt-Cassegrain</span>
+                    <span class="Tel-Type-Card-Btn-Desc">Compact catadioptric with GoTo options</span>
+                </span>
+            </a>
+            <a href="telescopes/maksutov.html" class="Tel-Type-Card-Btn tel-type-mak">
+                <span class="Tel-Type-Card-Btn-Visual">
+                    <img src="Tel-1.webp" alt="" loading="lazy" />
+                    <span class="Tel-Type-Card-Btn-Glow" aria-hidden="true"></span>
+                </span>
+                <span class="Tel-Type-Card-Btn-Body">
+                    <span class="Tel-Type-Card-Btn-Icon" aria-hidden="true">🌙</span>
+                    <span class="Tel-Type-Card-Btn-Title">Maksutov</span>
+                    <span class="Tel-Type-Card-Btn-Desc">Rugged Mak-Cass for Moon and planets</span>
+                </span>
+            </a>
+            <a href="telescopes/radio.html" class="Tel-Type-Card-Btn tel-type-radio">
+                <span class="Tel-Type-Card-Btn-Visual">
+                    <img src="Tel-6.webp" alt="" loading="lazy" />
+                    <span class="Tel-Type-Card-Btn-Glow" aria-hidden="true"></span>
+                </span>
+                <span class="Tel-Type-Card-Btn-Body">
+                    <span class="Tel-Type-Card-Btn-Icon" aria-hidden="true">📡</span>
+                    <span class="Tel-Type-Card-Btn-Title">Radio</span>
+                    <span class="Tel-Type-Card-Btn-Desc">Detect hydrogen, pulsars, and cosmic signals</span>
+                </span>
+            </a>
         </nav>
-
-        <section class="Tools-Featured Tools-Featured-creative" aria-label="Featured telescopes">
-            <h2 class="Tools-Featured-Title">Featured Instruments</h2>
-            <div class="Telescopes">
-                <img src="Tel-3.webp" class="Tel-Img" alt="Sky-Watcher Heritage 130 Dobsonian" />
-                <header class="Tel-P">
-                    <h1>Sky-Watcher Heritage 130 Tabletop Dobsonian</h1>
-                    <p>
-                        A large-aperture Dobsonian known for excellent light-gathering. Ideal for observing faint Messier
-                        objects like galaxies and nebulae from a dark site.
-                    </p>
-                    <a href="telescopes/dobsonian.html" class="Tel-Inline-Link">Explore Dobsonians →</a>
-                </header>
-            </div>
-            <div class="Telescopes">
-                <img src="Tel-2.webp" class="Tel-Img" alt="Celestron AstroMaster 130EQ" />
-                <header class="Tel-P">
-                    <h1>Celestron AstroMaster 130EQ-MD</h1>
-                    <p>
-                        A reflector telescope for beginners and intermediate users — great for the Moon, planets, and
-                        brighter deep-space targets with an equatorial mount.
-                    </p>
-                    <a href="telescopes/newtonian.html" class="Tel-Inline-Link">Explore Reflectors →</a>
-                </header>
-            </div>
-            <div class="Telescopes">
-                <img src="Tel-4.webp" class="Tel-Img" alt="Celestron Travel Scope 70 DX" />
-                <header class="Tel-P">
-                    <h1>Celestron Travel Scope 70 DX</h1>
-                    <p>
-                        Ultra-portable refractor for travel and quick solar-system sessions — slip it in a backpack and
-                        observe anywhere.
-                    </p>
-                    <a href="telescopes/refractor.html" class="Tel-Inline-Link">Explore Refractors →</a>
-                </header>
-            </div>
-        </section>
     </body>
 </html>

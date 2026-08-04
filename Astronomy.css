@@ -3575,21 +3575,243 @@ body.page-home .Home-Hero-Wrap::before {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.28), 0 0 22px rgba(90, 138, 138, 0.14);
 }
 
-.Tools-Featured-creative {
-  background: linear-gradient(180deg, rgba(90, 138, 138, 0.04) 0%, transparent 100%);
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
-  padding-top: clamp(32px, 5vw, 48px);
-  padding-bottom: clamp(32px, 5vw, 48px);
+/* ── Tools type card grid (main page) ─────────────────────────── */
+.Tel-Type-Grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: clamp(16px, 3vw, 24px);
+  max-width: 1100px;
+  margin: 0 auto clamp(48px, 6vw, 80px);
+  padding: 0 clamp(16px, 4vw, 40px);
 }
 
-body.page-tools .Tools-Featured .Telescopes {
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+.Tel-Type-Card-Btn {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  background: var(--space-glass);
+  border: 1px solid color-mix(in srgb, var(--page-accent) 30%, transparent);
+  border-radius: var(--space-radius-lg);
+  overflow: hidden;
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
 }
 
-body.page-tools .Tools-Featured .Telescopes:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.28), 0 0 20px var(--page-accent-glow);
+.Tel-Type-Card-Btn:hover,
+.Tel-Type-Card-Btn:focus-visible {
+  transform: translateY(-4px);
+  border-color: var(--page-accent);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.32), 0 0 24px var(--page-accent-glow);
+}
+
+.Tel-Type-Card-Btn-Visual {
+  position: relative;
+  height: 140px;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(90, 138, 138, 0.12) 0%, rgba(13, 17, 23, 0.6) 100%);
+}
+
+.Tel-Type-Card-Btn-Visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.4s ease;
+}
+
+.Tel-Type-Card-Btn:hover .Tel-Type-Card-Btn-Visual img {
+  transform: scale(1.06);
+}
+
+.Tel-Type-Card-Btn-Glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.tel-type-dob .Tel-Type-Card-Btn-Glow {
+  background: radial-gradient(circle at 50% 80%, rgba(90, 138, 138, 0.35) 0%, transparent 65%);
+  animation: tel-glow-pulse 4s ease-in-out infinite;
+}
+
+.tel-type-newton .Tel-Type-Card-Btn-Glow {
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.12) 50%, transparent 60%);
+  background-size: 200% 100%;
+  animation: tel-shimmer 3s ease-in-out infinite;
+}
+
+.tel-type-refractor .Tel-Type-Card-Btn-Glow {
+  background: radial-gradient(circle at 30% 40%, rgba(120, 180, 200, 0.25) 0%, transparent 50%);
+  animation: tel-glow-pulse 3.5s ease-in-out infinite;
+}
+
+.tel-type-sct .Tel-Type-Card-Btn-Icon {
+  animation: tel-icon-spin 8s linear infinite;
+}
+
+.tel-type-mak .Tel-Type-Card-Btn-Glow {
+  background: radial-gradient(circle at 70% 30%, rgba(200, 200, 220, 0.2) 0%, transparent 55%);
+  animation: tel-glow-pulse 5s ease-in-out infinite;
+}
+
+.tel-type-radio .Tel-Type-Card-Btn-Glow::before,
+.tel-type-radio .Tel-Type-Card-Btn-Glow::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 1px solid rgba(90, 138, 138, 0.4);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: tel-radio-ring 3s ease-out infinite;
+}
+
+.tel-type-radio .Tel-Type-Card-Btn-Glow::after {
+  animation-delay: 1.5s;
+}
+
+@keyframes tel-glow-pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.75; }
+}
+
+@keyframes tel-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes tel-icon-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes tel-radio-ring {
+  0% { width: 20px; height: 20px; opacity: 0.8; }
+  100% { width: 120px; height: 120px; opacity: 0; }
+}
+
+.Tel-Type-Card-Btn-Body {
+  padding: clamp(14px, 2.5vw, 20px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.Tel-Type-Card-Btn-Icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.Tel-Type-Card-Btn-Title {
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+  font-weight: 600;
+  color: var(--page-heading);
+}
+
+.Tel-Type-Card-Btn-Desc {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--page-body-text);
+}
+
+/* ── Telescope intro blocks (category pages, NASA-style) ──────── */
+.Tel-Intro-List {
+  max-width: 960px;
+  margin: 0 auto clamp(32px, 5vw, 48px);
+  padding: 0 clamp(16px, 4vw, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 6vw, 64px);
+}
+
+.Tel-Intro-Block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 4vw, 40px);
+  align-items: start;
+}
+
+.tel-intro--image-right .Tel-Intro-Text {
+  order: 1;
+}
+
+.tel-intro--image-right .Tel-Intro-Figure {
+  order: 2;
+}
+
+.tel-intro--image-left .Tel-Intro-Text {
+  order: 2;
+}
+
+.tel-intro--image-left .Tel-Intro-Figure {
+  order: 1;
+}
+
+.Tel-Intro-Text h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.375rem, 3vw, 1.875rem);
+  font-weight: 600;
+  color: var(--page-heading);
+  margin: 0 0 0.75rem;
+  line-height: 1.2;
+}
+
+.Tel-Intro-Text p {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 2vw, 1.0625rem);
+  line-height: 1.6;
+  color: var(--page-body-text);
+  margin: 0 0 0.75rem;
+}
+
+.Tel-Intro-Text .Tel-Type-Specs {
+  margin-bottom: 0.75rem;
+}
+
+.Tel-Intro-Link {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  color: var(--page-accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.Tel-Intro-Link:hover {
+  color: var(--page-accent-soft);
+  border-bottom-color: var(--page-accent-soft);
+}
+
+.Tel-Intro-Figure {
+  margin: 0;
+}
+
+.Tel-Intro-Figure img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--space-radius-sm);
+  display: block;
+  border: 1px solid var(--color-border);
+}
+
+.Tel-Intro-Figure figcaption {
+  margin-top: 0.5rem;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.Tel-Type-Examples-Heading {
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  color: var(--page-heading);
+  margin: 0 0 1.5rem;
 }
 
 .Home-Quote {
@@ -3611,5 +3833,19 @@ body.page-tools .Tools-Featured .Telescopes:hover {
 
   .Tel-Type-Card {
     flex-direction: column;
+  }
+
+  .Tel-Intro-Block {
+    grid-template-columns: 1fr;
+  }
+
+  .tel-intro--image-right .Tel-Intro-Text,
+  .tel-intro--image-left .Tel-Intro-Text {
+    order: 1;
+  }
+
+  .tel-intro--image-right .Tel-Intro-Figure,
+  .tel-intro--image-left .Tel-Intro-Figure {
+    order: 2;
   }
 }
