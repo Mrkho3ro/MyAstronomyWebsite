@@ -3857,3 +3857,245 @@ body.page-home .Home-Hero-Wrap::before {
     order: 2;
   }
 }
+
+/* ── Tools carousel nav (NASA-style) ──────────────────────────── */
+.Tel-Carousel-Section {
+  background: linear-gradient(180deg, #0a0e14 0%, var(--color-bg) 100%);
+  border-bottom: 1px solid var(--color-border);
+  padding: clamp(28px, 4vw, 40px) 0 clamp(36px, 5vw, 52px);
+}
+
+.Tel-Carousel-Label {
+  margin: 0 0 clamp(20px, 3vw, 28px);
+  padding: 0 clamp(16px, 4vw, 48px);
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--page-accent-soft);
+}
+
+.Tel-Carousel {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 48px);
+}
+
+.Tel-Carousel-Viewport {
+  overflow: hidden;
+  margin-right: clamp(48px, 6vw, 64px);
+}
+
+.Tel-Carousel-Track {
+  display: flex;
+  gap: clamp(20px, 3vw, 32px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+
+.Tel-Carousel-Track::-webkit-scrollbar {
+  display: none;
+}
+
+.Tel-Carousel-Item {
+  flex: 0 0 min(100%, 420px);
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(16px, 2.5vw, 24px);
+  scroll-snap-align: start;
+  text-decoration: none;
+  color: inherit;
+  padding: clamp(12px, 2vw, 16px) 0;
+  transition: opacity 0.2s ease;
+}
+
+.Tel-Carousel-Item:hover,
+.Tel-Carousel-Item:focus-visible {
+  opacity: 0.92;
+}
+
+.Tel-Carousel-Item:focus-visible {
+  outline: 2px solid var(--page-accent);
+  outline-offset: 4px;
+  border-radius: var(--space-radius-sm);
+}
+
+.Tel-Carousel-Thumb {
+  flex-shrink: 0;
+  width: clamp(110px, 12vw, 130px);
+  height: clamp(110px, 12vw, 130px);
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  border: 2px solid color-mix(in srgb, var(--page-accent) 35%, transparent);
+  background: var(--color-surface);
+}
+
+.tel-carousel-thumb--sct {
+  object-position: 35% center;
+}
+
+.tel-carousel-thumb--mak {
+  object-position: 72% center;
+}
+
+.Tel-Carousel-Body {
+  flex: 1;
+  min-width: 0;
+  padding-top: 0.25rem;
+}
+
+.Tel-Carousel-Title {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 2.2vw, 1.375rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-text);
+}
+
+.Tel-Carousel-Desc {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: clamp(0.875rem, 1.6vw, 0.9375rem);
+  line-height: 1.55;
+  color: var(--color-text-muted);
+}
+
+.Tel-Carousel-Arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--page-accent) 40%, var(--color-border));
+  background: color-mix(in srgb, var(--color-surface) 90%, transparent);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.Tel-Carousel-Arrow:hover,
+.Tel-Carousel-Arrow:focus-visible {
+  background: color-mix(in srgb, var(--page-accent) 18%, var(--color-surface));
+  border-color: var(--page-accent);
+  box-shadow: 0 0 20px var(--page-accent-glow);
+}
+
+.Tel-Carousel-Arrow:focus-visible {
+  outline: 2px solid var(--page-accent);
+  outline-offset: 2px;
+}
+
+.Tel-Carousel-Arrow--prev {
+  right: clamp(56px, 7vw, 72px);
+}
+
+.Tel-Carousel-Arrow--next {
+  right: clamp(16px, 4vw, 48px);
+}
+
+.Tel-Carousel-Arrow[hidden] {
+  display: none;
+}
+
+/* ── Tools history section ────────────────────────────────────── */
+.Tel-History {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: clamp(40px, 6vw, 72px) clamp(16px, 4vw, 40px) clamp(56px, 8vw, 96px);
+}
+
+.Tel-History-Head {
+  margin-bottom: clamp(32px, 5vw, 48px);
+  padding-bottom: clamp(20px, 3vw, 28px);
+  border-bottom: 1px solid color-mix(in srgb, var(--page-accent) 25%, var(--color-border));
+}
+
+.Tel-History-Head h2 {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 600;
+  color: var(--page-heading);
+  letter-spacing: 0.01em;
+}
+
+.Tel-History-Lead {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  line-height: 1.65;
+  color: var(--page-body-text);
+  font-style: italic;
+}
+
+.Tel-History-Content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 4vw, 40px);
+}
+
+.Tel-History-Era {
+  position: relative;
+  padding-left: clamp(16px, 2.5vw, 24px);
+  border-left: 2px solid color-mix(in srgb, var(--page-accent) 30%, transparent);
+}
+
+.Tel-History-Era-Title {
+  margin: 0 0 0.65rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 2.5vw, 1.3125rem);
+  font-weight: 600;
+  color: var(--page-accent-soft);
+  letter-spacing: 0.02em;
+}
+
+.Tel-History-Era p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: clamp(0.9375rem, 1.8vw, 1.0625rem);
+  line-height: 1.7;
+  color: var(--page-body-text);
+}
+
+@media (max-width: 640px) {
+  .Tel-Carousel-Viewport {
+    margin-right: 0;
+    padding-bottom: 52px;
+  }
+
+  .Tel-Carousel-Arrow {
+    top: auto;
+    bottom: 0;
+    transform: none;
+  }
+
+  .Tel-Carousel-Arrow--prev {
+    right: 56px;
+  }
+
+  .Tel-Carousel-Arrow--next {
+    right: 0;
+  }
+
+  .Tel-Carousel-Item {
+    flex-basis: min(100%, 340px);
+  }
+}
