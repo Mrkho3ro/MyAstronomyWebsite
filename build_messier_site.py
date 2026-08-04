@@ -62,9 +62,7 @@ def parse_objects(html: str) -> list[dict]:
     pattern = re.compile(
         r'<div class="M-divs" id="M(\d+)">\s*'
         r'<div class="h1-M">\s*<h1>(.*?)</h1>\s*</div>\s*'
-        r'<div class="Img-M">\s*'
-        r'(?:<img src="([^"]+)" class="Image-M" alt="[^"]*" />\s*){3}\s*'
-        r'</div>\s*'
+        r'<div class="Img-M">.*?</div>\s*'
         r'<footer class="Ul-M">\s*<ul>(.*?)</ul>\s*</footer>\s*'
         r'</div>',
         re.DOTALL,
@@ -119,7 +117,14 @@ def astro_thumb_urls() -> dict[int, str]:
 
 
 def has_local_images(num: int) -> bool:
-    return (ROOT / f"M{num}-1.jpg").exists()
+    return (ROOT / f"M{num}-1.jpg").exists() or (ROOT / f"M{num}-thumb.jpg").exists()
+
+
+def thumb_src(num: int, from_detail: bool) -> str:
+    thumb = f"M{num}-thumb.jpg"
+    if (ROOT / thumb).exists():
+        return f"../{thumb}" if from_detail else thumb
+    return image_src(num, 1, from_detail)
 
 
 def ensure_local_images(thumbs: dict[int, str]) -> None:
@@ -150,10 +155,15 @@ def image_src(num: int, slot: int, from_detail: bool) -> str:
 
 def detail_page(obj: dict) -> str:
     n = obj["num"]
-    imgs = "\n".join(
+    primary = thumb_src(n, True)
+    extras = [
         f'                <img src="{escape(image_src(n, i, True))}" class="Image-M" alt="M{n}" />'
-        for i in (1, 2, 3)
-    )
+        for i in (2, 3)
+        if (ROOT / f"M{n}-{i}.jpg").exists()
+    ]
+    imgs = f'                <img src="{escape(primary)}" class="Image-M Image-M-primary" alt="M{n} — Hubble" />\n'
+    if extras:
+        imgs += "\n".join(extras)
     return f"""<!doctype html>
 <html lang="en">
     <head>
@@ -193,7 +203,7 @@ def detail_page(obj: dict) -> str:
 
 def gallery_cell(obj: dict) -> str:
     n = obj["num"]
-    thumb = image_src(n, 1, False)
+    thumb = thumb_src(n, False)
     return f"""                <a href="messier/M{n}.html" class="M-Gallery-Cell" data-num="{n}">
                     <div class="M-Gallery-Thumb-Wrap">
                         <img src="{escape(thumb)}" class="M-Gallery-Thumb" alt="M{n}" loading="lazy" />
@@ -215,37 +225,60 @@ def gallery_page(objects: list[dict]) -> str:
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Messier Objects</title>
         <link rel="stylesheet" href="Astronomy.css" />
         <script src="site-nav.js" defer></script>
+        <script src="messier-sky-map.js" defer></script>
     </head>
-    <body class="Messier-Objects-Background">
+    <body class="Messier-Objects-Background page-messier">
 {NAV_GALLERY}
 
-        <header class="M-Head">
-            <p class="M-P1">🌌 Messier Objects</p>
-            <p class="M-P2">
-                Hidden across the night sky are some of the most breathtaking deep-space objects ever discovered—glowing
-                nebulae, distant galaxies, and dense star clusters that reveal the true scale of the universe.
-            </p>
-            <p class="M-P3">
-                The Messier Objects are a collection of 110 astronomical objects cataloged by the French astronomer
-                Charles Messier in the 18th century. Originally, Messier was searching for comets, but he began
-                recording these "fuzzy objects" to avoid confusing them with his comet discoveries.
-            </p>
-            <p class="M-P4">
-                Today, his catalog is one of the most famous in astronomy. It includes spectacular sights like the
-                Andromeda Galaxy, the Orion Nebula, and many star clusters visible even with small telescopes.
-            </p>
-            <p class="M-P5">
-                Click each thumbnail below to open a dedicated page with photos and observing details for that object.
-            </p>
+        <header class="M-Head M-Head-creative">
+            <p class="M-P1 M-P1-hero">Messier</p>
+            <p class="M-P1-sub">110 Deep-Sky Treasures</p>
+            <div class="M-Intro-Block">
+                <p class="M-P2 M-P2-lead">
+                    <span class="M-Intro-Drop">C</span>harles Messier hunted comets — and accidentally mapped the universe.
+                </p>
+                <p class="M-P3">
+                    In the 1700s he cataloged fuzzy objects to <em>avoid</em> them. Today those same nebulae, clusters, and galaxies
+                    are among the most celebrated sights in the night sky — now captured in stunning detail by NASA's Hubble Space Telescope.
+                </p>
+            </div>
+            <div class="M-Intro-Stats">
+                <div class="M-Intro-Stat"><span class="M-Stat-Num">110</span><span class="M-Stat-Label">Objects</span></div>
+                <div class="M-Intro-Stat"><span class="M-Stat-Num">88+</span><span class="M-Stat-Label">Hubble Images</span></div>
+                <div class="M-Intro-Stat"><span class="M-Stat-Num">7</span><span class="M-Stat-Label">Categories</span></div>
+            </div>
+            <p class="M-P5 M-P5-cta">Explore the interactive sky map below, then browse the full Hubble gallery.</p>
         </header>
+
+        <section class="M-SkyMap-Section" aria-label="Interactive Messier sky map">
+            <div class="M-SkyMap-Header">
+                <h2 class="M-SkyMap-Title">Interactive Messier Sky Map</h2>
+                <p class="M-SkyMap-Subtitle">Pan, zoom, and filter all 110 objects plotted across the celestial sphere</p>
+            </div>
+            <div id="messier-sky-map" class="M-SkyMap">
+                <div class="M-SkyMap-Viewport">
+                    <img class="M-SkyMap-BG" src="milky-way-allsky.jpg" alt="Milky Way all-sky background" draggable="false" />
+                    <canvas class="M-SkyMap-Canvas" aria-label="Messier object markers"></canvas>
+                    <div class="M-SkyMap-Popup" hidden></div>
+                </div>
+                <div class="M-SkyMap-Controls">
+                    <div class="M-SkyMap-Legend" role="toolbar" aria-label="Filter by object type"></div>
+                    <label class="M-SkyMap-Search">
+                        <span class="M-SkyMap-Search-Icon">🔍</span>
+                        <input type="search" class="M-SkyMap-Search-Input" placeholder="Search M1–M110 or name…" autocomplete="off" />
+                    </label>
+                </div>
+            </div>
+        </section>
 
         <section class="M-Gallery-Section" aria-label="Messier catalog gallery">
             <div class="M-Gallery-Header">
-                <h2 class="M-Gallery-Title">Messier Catalog Photo Gallery</h2>
-                <p class="M-Gallery-Subtitle">All 110 objects — browse the grid and click any thumbnail for full details</p>
+                <h2 class="M-Gallery-Title">Hubble Messier Gallery</h2>
+                <p class="M-Gallery-Subtitle">NASA Hubble Space Telescope images — all 110 objects with detail pages</p>
                 <label class="M-Gallery-Search-Wrap">
                     <span class="M-Gallery-Search-Icon">🔭</span>
                     <input
@@ -260,7 +293,7 @@ def gallery_page(objects: list[dict]) -> str:
             <div class="M-Gallery-Grid" id="M-Gallery-Grid">
 {grid}
             </div>
-            <p class="M-Gallery-Hint">Tip: each thumbnail opens its own detail page — like AstroPixels, one object at a time.</p>
+            <p class="M-Gallery-Hint">Images from NASA's Hubble Messier Catalog where available. Click any thumbnail for observing details.</p>
         </section>
 
         <script>
@@ -298,7 +331,8 @@ def main() -> None:
         raise SystemExit(f"Expected 110 objects, parsed {len(objects)}")
 
     ASTRO_THUMBS = astro_thumb_urls()
-    ensure_local_images(ASTRO_THUMBS)
+    if not (ROOT / "messier-nasa-images.json").exists():
+        ensure_local_images(ASTRO_THUMBS)
 
     MESSIER_DIR.mkdir(exist_ok=True)
     for obj in objects:

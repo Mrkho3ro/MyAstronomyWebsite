@@ -6,7 +6,6 @@
         <title>Home — My Astronomy Website</title>
         <link rel="stylesheet" href="Astronomy.css" />
         <script src="site-nav.js" defer></script>
-        <!-- this page includes an explanation for the whole website-->
     </head>
     <body id="Home-Background" class="page-home">
         <nav class="site-nav" aria-label="Main">
@@ -25,78 +24,95 @@
                 </ul>
             </div>
         </nav>
-        <a href="https://www.nasa.gov/" target="_blank">
-            <div id="Home-IMG"></div>
-        </a>
-        <div id="Hero-Section">
-            <div id="Main-Title">
-                <p>Explore the Universe Beyond Earth</p>
+
+        <div class="Home-Hero-Wrap">
+            <div class="Home-Hero-Orbs" aria-hidden="true">
+                <span class="Home-Orb Home-Orb-1"></span>
+                <span class="Home-Orb Home-Orb-2"></span>
+                <span class="Home-Orb Home-Orb-3"></span>
             </div>
-            <div id="Subtitle">
-                <p>
-                    From the wonders of the Solar System to deep-space mysteries like Messier objects, discover the
-                    cosmos through knowledge, images, and powerful tools.
-                </p>
+            <a href="https://www.nasa.gov/" target="_blank" rel="noopener" class="Home-Nasa-Link">
+                <div id="Home-IMG">
+                    <span class="Home-Nasa-Badge">Visit NASA ↗</span>
+                </div>
+            </a>
+            <div id="Hero-Section" class="Home-Hero-Text">
+                <div id="Main-Title">
+                    <p class="Home-Title-Line">Explore the</p>
+                    <p class="Home-Title-Accent">Universe</p>
+                    <p class="Home-Title-Line">Beyond Earth</p>
+                </div>
+                <div id="Subtitle">
+                    <p>
+                        From our Solar System to the Hubble Messier catalog — discover the cosmos through
+                        interactive maps, stunning imagery, and telescope guides.
+                    </p>
+                </div>
             </div>
         </div>
-        <br />
-        <div id="Introduction-Section">
+
+        <div id="Introduction-Section" class="Home-Intro">
+            <p class="Home-Intro-Lead">Your gateway to the night sky</p>
             <p>
-                This website is your gateway to space. Learn about planets, stars, and deep-sky objects in a simple and
-                visual way. Whether you're a beginner or an astronomy enthusiast, you’ll find clear explanations,
-                beautiful imagery, and useful tools to help you explore the night sky.
+                Learn about planets, star clusters, and distant galaxies in a visual, approachable way.
+                Whether you're picking up your first telescope or diving into deep-sky objects, you'll find
+                clear explanations and tools to guide your journey.
             </p>
         </div>
-        <br />
-        <div id="Featured-Sections-Preview">
+
+        <div id="Featured-Sections-Preview" class="Home-Featured">
+            <h2 class="Home-Featured-Heading">Explore the Site</h2>
             <ul>
-                <li>
-                    <div>
-                        <h1>🌍 Solar System</h1>
+                <li class="Home-Card Home-Card-solar">
+                    <a href="Solar-System.html" class="Home-Card-Link">
+                        <span class="Home-Card-Icon">🌍</span>
+                        <h1>Solar System</h1>
                         <p>
-                            Travel through our cosmic neighborhood. Learn about planets, moons, dwarf planets, and the
-                            structure of our system.
+                            Travel through our cosmic neighborhood — planets, moons, and the structure of our star system.
                         </p>
-                    </div>
+                        <span class="Home-Card-CTA">Enter →</span>
+                    </a>
                 </li>
-                <li>
-                    <div>
-                        <h1>✨ Messier Objects</h1>
+                <li class="Home-Card Home-Card-messier">
+                    <a href="Messier-Objects.html" class="Home-Card-Link">
+                        <span class="Home-Card-Icon">✨</span>
+                        <h1>Messier Objects</h1>
                         <p>
-                            Deep space wonders captured by history. Discover galaxies, nebulae, and star clusters
-                            cataloged by Charles Messier.
+                            110 deep-sky wonders with an interactive sky map and NASA Hubble gallery.
                         </p>
-                    </div>
+                        <span class="Home-Card-CTA">Explore →</span>
+                    </a>
                 </li>
-                <li>
-                    <div>
-                        <h1>🔭 Telescope Tools</h1>
+                <li class="Home-Card Home-Card-tools">
+                    <a href="Tools.html" class="Home-Card-Link">
+                        <span class="Home-Card-Icon">🔭</span>
+                        <h1>Telescope Tools</h1>
                         <p>
-                            See the universe more clearly. Compare telescopes, understand magnification, and choose the
-                            right tool for stargazing.
+                            Compare telescope types — Dobsonians, refractors, SCTs, and radio dishes.
                         </p>
-                    </div>
+                        <span class="Home-Card-CTA">Browse →</span>
+                    </a>
                 </li>
             </ul>
         </div>
-        <br />
-        <div id="Why-This-Website">
+
+        <div id="Why-This-Website" class="Home-Why">
             <div id="Heading2">
                 <p><b>Why This Website?</b></p>
             </div>
             <div id="Points">
                 <ol>
-                    <li><a>Simple explanations (no confusing jargon)</a></li>
-                    <li><a>Visual learning with images and diagrams</a></li>
-                    <li><a>Organized astronomy topics in one place</a></li>
-                    <li><a>Tools for real stargazing and telescope understanding</a></li>
+                    <li>Simple explanations — no confusing jargon</li>
+                    <li>Visual learning with Hubble imagery and interactive maps</li>
+                    <li>Organized astronomy topics in one place</li>
+                    <li>Tools for real stargazing and telescope understanding</li>
                 </ol>
             </div>
         </div>
-        <br />
-        <div id="Quote-Section">
+
+        <div id="Quote-Section" class="Home-Quote">
             <div>
-                <p><i>“Across the sea of space, the stars are other suns.”</i></p>
+                <p><i>"Across the sea of space, the stars are other suns."</i></p>
             </div>
             <div>
                 <p>— Carl Sagan</p>

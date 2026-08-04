@@ -2,9 +2,11 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Messier Objects</title>
         <link rel="stylesheet" href="Astronomy.css" />
         <script src="site-nav.js" defer></script>
+        <script src="messier-sky-map.js" defer></script>
     </head>
     <body class="Messier-Objects-Background page-messier">
         <nav class="site-nav" aria-label="Main">
@@ -24,30 +26,51 @@
             </div>
         </nav>
 
-        <header class="M-Head">
-            <p class="M-P1">🌌 Messier Objects</p>
-            <p class="M-P2">
-                Hidden across the night sky are some of the most breathtaking deep-space objects ever discovered—glowing
-                nebulae, distant galaxies, and dense star clusters that reveal the true scale of the universe.
-            </p>
-            <p class="M-P3">
-                The Messier Objects are a collection of 110 astronomical objects cataloged by the French astronomer
-                Charles Messier in the 18th century. Originally, Messier was searching for comets, but he began
-                recording these "fuzzy objects" to avoid confusing them with his comet discoveries.
-            </p>
-            <p class="M-P4">
-                Today, his catalog is one of the most famous in astronomy. It includes spectacular sights like the
-                Andromeda Galaxy, the Orion Nebula, and many star clusters visible even with small telescopes.
-            </p>
-            <p class="M-P5">
-                Click each thumbnail below to open a dedicated page with photos and observing details for that object.
-            </p>
+        <header class="M-Head M-Head-creative">
+            <p class="M-P1 M-P1-hero">Messier</p>
+            <p class="M-P1-sub">110 Deep-Sky Treasures</p>
+            <div class="M-Intro-Block">
+                <p class="M-P2 M-P2-lead">
+                    <span class="M-Intro-Drop">C</span>harles Messier hunted comets — and accidentally mapped the universe.
+                </p>
+                <p class="M-P3">
+                    In the 1700s he cataloged fuzzy objects to <em>avoid</em> them. Today those same nebulae, clusters, and galaxies
+                    are among the most celebrated sights in the night sky — now captured in stunning detail by NASA's Hubble Space Telescope.
+                </p>
+            </div>
+            <div class="M-Intro-Stats">
+                <div class="M-Intro-Stat"><span class="M-Stat-Num">110</span><span class="M-Stat-Label">Objects</span></div>
+                <div class="M-Intro-Stat"><span class="M-Stat-Num">88+</span><span class="M-Stat-Label">Hubble Images</span></div>
+                <div class="M-Intro-Stat"><span class="M-Stat-Num">7</span><span class="M-Stat-Label">Categories</span></div>
+            </div>
+            <p class="M-P5 M-P5-cta">Explore the interactive sky map below, then browse the full Hubble gallery.</p>
         </header>
+
+        <section class="M-SkyMap-Section" aria-label="Interactive Messier sky map">
+            <div class="M-SkyMap-Header">
+                <h2 class="M-SkyMap-Title">Interactive Messier Sky Map</h2>
+                <p class="M-SkyMap-Subtitle">Pan, zoom, and filter all 110 objects plotted across the celestial sphere</p>
+            </div>
+            <div id="messier-sky-map" class="M-SkyMap">
+                <div class="M-SkyMap-Viewport">
+                    <img class="M-SkyMap-BG" src="milky-way-allsky.jpg" alt="Milky Way all-sky background" draggable="false" />
+                    <canvas class="M-SkyMap-Canvas" aria-label="Messier object markers"></canvas>
+                    <div class="M-SkyMap-Popup" hidden></div>
+                </div>
+                <div class="M-SkyMap-Controls">
+                    <div class="M-SkyMap-Legend" role="toolbar" aria-label="Filter by object type"></div>
+                    <label class="M-SkyMap-Search">
+                        <span class="M-SkyMap-Search-Icon">🔍</span>
+                        <input type="search" class="M-SkyMap-Search-Input" placeholder="Search M1–M110 or name…" autocomplete="off" />
+                    </label>
+                </div>
+            </div>
+        </section>
 
         <section class="M-Gallery-Section" aria-label="Messier catalog gallery">
             <div class="M-Gallery-Header">
-                <h2 class="M-Gallery-Title">Messier Catalog Photo Gallery</h2>
-                <p class="M-Gallery-Subtitle">All 110 objects — browse the grid and click any thumbnail for full details</p>
+                <h2 class="M-Gallery-Title">Hubble Messier Gallery</h2>
+                <p class="M-Gallery-Subtitle">NASA Hubble Space Telescope images — all 110 objects with detail pages</p>
                 <label class="M-Gallery-Search-Wrap">
                     <span class="M-Gallery-Search-Icon">🔭</span>
                     <input
@@ -63,56 +86,56 @@
             <div class="M-Gallery-Row">
                 <a href="messier/M1.html" class="M-Gallery-Cell" data-num="1">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M1-1.jpg" class="M-Gallery-Thumb" alt="M1" loading="lazy" />
+                        <img src="M1-thumb.jpg" class="M-Gallery-Thumb" alt="M1" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M1</strong> Crab Nebula</span>
                     <span class="M-Gallery-Type">Supernova Remnant</span>
                 </a>
                 <a href="messier/M2.html" class="M-Gallery-Cell" data-num="2">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M2-1.jpg" class="M-Gallery-Thumb" alt="M2" loading="lazy" />
+                        <img src="M2-thumb.jpg" class="M-Gallery-Thumb" alt="M2" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M2</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M3.html" class="M-Gallery-Cell" data-num="3">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M3-1.jpg" class="M-Gallery-Thumb" alt="M3" loading="lazy" />
+                        <img src="M3-thumb.jpg" class="M-Gallery-Thumb" alt="M3" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M3</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M4.html" class="M-Gallery-Cell" data-num="4">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M4-1.jpg" class="M-Gallery-Thumb" alt="M4" loading="lazy" />
+                        <img src="M4-thumb.jpg" class="M-Gallery-Thumb" alt="M4" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M4</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M5.html" class="M-Gallery-Cell" data-num="5">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M5-1.jpg" class="M-Gallery-Thumb" alt="M5" loading="lazy" />
+                        <img src="M5-thumb.jpg" class="M-Gallery-Thumb" alt="M5" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M5</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M6.html" class="M-Gallery-Cell" data-num="6">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M6-1.jpg" class="M-Gallery-Thumb" alt="M6" loading="lazy" />
+                        <img src="M6-thumb.jpg" class="M-Gallery-Thumb" alt="M6" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M6</strong> Butterfly Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M7.html" class="M-Gallery-Cell" data-num="7">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M7-1.jpg" class="M-Gallery-Thumb" alt="M7" loading="lazy" />
+                        <img src="M7-thumb.jpg" class="M-Gallery-Thumb" alt="M7" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M7</strong> Ptolemy&#x27;s Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M8.html" class="M-Gallery-Cell" data-num="8">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M8-1.jpg" class="M-Gallery-Thumb" alt="M8" loading="lazy" />
+                        <img src="M8-thumb.jpg" class="M-Gallery-Thumb" alt="M8" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M8</strong> Lagoon Nebula</span>
                     <span class="M-Gallery-Type">Emission Nebula</span>
@@ -121,56 +144,56 @@
             <div class="M-Gallery-Row">
                 <a href="messier/M9.html" class="M-Gallery-Cell" data-num="9">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M9-1.jpg" class="M-Gallery-Thumb" alt="M9" loading="lazy" />
+                        <img src="M9-thumb.jpg" class="M-Gallery-Thumb" alt="M9" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M9</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M10.html" class="M-Gallery-Cell" data-num="10">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M10-1.jpg" class="M-Gallery-Thumb" alt="M10" loading="lazy" />
+                        <img src="M10-thumb.jpg" class="M-Gallery-Thumb" alt="M10" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M10</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M11.html" class="M-Gallery-Cell" data-num="11">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M11-1.jpg" class="M-Gallery-Thumb" alt="M11" loading="lazy" />
+                        <img src="M11-thumb.jpg" class="M-Gallery-Thumb" alt="M11" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M11</strong> Wild Duck Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M12.html" class="M-Gallery-Cell" data-num="12">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M12-1.jpg" class="M-Gallery-Thumb" alt="M12" loading="lazy" />
+                        <img src="M12-thumb.jpg" class="M-Gallery-Thumb" alt="M12" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M12</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M13.html" class="M-Gallery-Cell" data-num="13">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M13-1.jpg" class="M-Gallery-Thumb" alt="M13" loading="lazy" />
+                        <img src="M13-thumb.jpg" class="M-Gallery-Thumb" alt="M13" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M13</strong> Hercules Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M14.html" class="M-Gallery-Cell" data-num="14">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M14-1.jpg" class="M-Gallery-Thumb" alt="M14" loading="lazy" />
+                        <img src="M14-thumb.jpg" class="M-Gallery-Thumb" alt="M14" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M14</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M15.html" class="M-Gallery-Cell" data-num="15">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M15-1.jpg" class="M-Gallery-Thumb" alt="M15" loading="lazy" />
+                        <img src="M15-thumb.jpg" class="M-Gallery-Thumb" alt="M15" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M15</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M16.html" class="M-Gallery-Cell" data-num="16">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M16-1.jpg" class="M-Gallery-Thumb" alt="M16" loading="lazy" />
+                        <img src="M16-thumb.jpg" class="M-Gallery-Thumb" alt="M16" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M16</strong> Eagle Nebula</span>
                     <span class="M-Gallery-Type">Emission Nebula</span>
@@ -179,56 +202,56 @@
             <div class="M-Gallery-Row">
                 <a href="messier/M17.html" class="M-Gallery-Cell" data-num="17">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M17-1.jpg" class="M-Gallery-Thumb" alt="M17" loading="lazy" />
+                        <img src="M17-thumb.jpg" class="M-Gallery-Thumb" alt="M17" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M17</strong> Omega Nebula</span>
                     <span class="M-Gallery-Type">Emission Nebula</span>
                 </a>
                 <a href="messier/M18.html" class="M-Gallery-Cell" data-num="18">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M18-1.jpg" class="M-Gallery-Thumb" alt="M18" loading="lazy" />
+                        <img src="M18-thumb.jpg" class="M-Gallery-Thumb" alt="M18" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M18</strong> Open Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M19.html" class="M-Gallery-Cell" data-num="19">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M19-1.jpg" class="M-Gallery-Thumb" alt="M19" loading="lazy" />
+                        <img src="M19-thumb.jpg" class="M-Gallery-Thumb" alt="M19" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M19</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M20.html" class="M-Gallery-Cell" data-num="20">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M20-1.jpg" class="M-Gallery-Thumb" alt="M20" loading="lazy" />
+                        <img src="M20-thumb.jpg" class="M-Gallery-Thumb" alt="M20" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M20</strong> Trifid Nebula</span>
                     <span class="M-Gallery-Type">Emission/Reflection Nebula</span>
                 </a>
                 <a href="messier/M21.html" class="M-Gallery-Cell" data-num="21">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M21-1.jpg" class="M-Gallery-Thumb" alt="M21" loading="lazy" />
+                        <img src="M21-thumb.jpg" class="M-Gallery-Thumb" alt="M21" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M21</strong> Open Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M22.html" class="M-Gallery-Cell" data-num="22">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M22-1.jpg" class="M-Gallery-Thumb" alt="M22" loading="lazy" />
+                        <img src="M22-thumb.jpg" class="M-Gallery-Thumb" alt="M22" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M22</strong> Sagittarius Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M23.html" class="M-Gallery-Cell" data-num="23">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M23-1.jpg" class="M-Gallery-Thumb" alt="M23" loading="lazy" />
+                        <img src="M23-thumb.jpg" class="M-Gallery-Thumb" alt="M23" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M23</strong> Open Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M24.html" class="M-Gallery-Cell" data-num="24">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M24-1.jpg" class="M-Gallery-Thumb" alt="M24" loading="lazy" />
+                        <img src="M24-thumb.jpg" class="M-Gallery-Thumb" alt="M24" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M24</strong> Sagittarius Star Cloud</span>
                     <span class="M-Gallery-Type">Star Cloud</span>
@@ -237,56 +260,56 @@
             <div class="M-Gallery-Row">
                 <a href="messier/M25.html" class="M-Gallery-Cell" data-num="25">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M25-1.jpg" class="M-Gallery-Thumb" alt="M25" loading="lazy" />
+                        <img src="M25-thumb.jpg" class="M-Gallery-Thumb" alt="M25" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M25</strong> Open Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M26.html" class="M-Gallery-Cell" data-num="26">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M26-1.jpg" class="M-Gallery-Thumb" alt="M26" loading="lazy" />
+                        <img src="M26-thumb.jpg" class="M-Gallery-Thumb" alt="M26" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M26</strong> Open Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M27.html" class="M-Gallery-Cell" data-num="27">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M27-1.jpg" class="M-Gallery-Thumb" alt="M27" loading="lazy" />
+                        <img src="M27-thumb.jpg" class="M-Gallery-Thumb" alt="M27" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M27</strong> Dumbbell Nebula</span>
                     <span class="M-Gallery-Type">Planetary Nebula</span>
                 </a>
                 <a href="messier/M28.html" class="M-Gallery-Cell" data-num="28">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M28-1.jpg" class="M-Gallery-Thumb" alt="M28" loading="lazy" />
+                        <img src="M28-thumb.jpg" class="M-Gallery-Thumb" alt="M28" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M28</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M29.html" class="M-Gallery-Cell" data-num="29">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M29-1.jpg" class="M-Gallery-Thumb" alt="M29" loading="lazy" />
+                        <img src="M29-thumb.jpg" class="M-Gallery-Thumb" alt="M29" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M29</strong> Open Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M30.html" class="M-Gallery-Cell" data-num="30">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M30-1.jpg" class="M-Gallery-Thumb" alt="M30" loading="lazy" />
+                        <img src="M30-thumb.jpg" class="M-Gallery-Thumb" alt="M30" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M30</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M31.html" class="M-Gallery-Cell" data-num="31">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M31-1.jpg" class="M-Gallery-Thumb" alt="M31" loading="lazy" />
+                        <img src="M31-thumb.jpg" class="M-Gallery-Thumb" alt="M31" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M31</strong> Andromeda Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M32.html" class="M-Gallery-Cell" data-num="32">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M32-1.jpg" class="M-Gallery-Thumb" alt="M32" loading="lazy" />
+                        <img src="M32-thumb.jpg" class="M-Gallery-Thumb" alt="M32" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M32</strong> Elliptical Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
@@ -295,56 +318,56 @@
             <div class="M-Gallery-Row">
                 <a href="messier/M33.html" class="M-Gallery-Cell" data-num="33">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M33-1.jpg" class="M-Gallery-Thumb" alt="M33" loading="lazy" />
+                        <img src="M33-thumb.jpg" class="M-Gallery-Thumb" alt="M33" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M33</strong> Triangulum Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M34.html" class="M-Gallery-Cell" data-num="34">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M34-1.jpg" class="M-Gallery-Thumb" alt="M34" loading="lazy" />
+                        <img src="M34-thumb.jpg" class="M-Gallery-Thumb" alt="M34" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M34</strong> Open Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M35.html" class="M-Gallery-Cell" data-num="35">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M35-1.jpg" class="M-Gallery-Thumb" alt="M35" loading="lazy" />
+                        <img src="M35-thumb.jpg" class="M-Gallery-Thumb" alt="M35" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M35</strong> Open Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M36.html" class="M-Gallery-Cell" data-num="36">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M36-1.jpg" class="M-Gallery-Thumb" alt="M36" loading="lazy" />
+                        <img src="M36-thumb.jpg" class="M-Gallery-Thumb" alt="M36" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M36</strong> Open Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M37.html" class="M-Gallery-Cell" data-num="37">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M37-1.jpg" class="M-Gallery-Thumb" alt="M37" loading="lazy" />
+                        <img src="M37-thumb.jpg" class="M-Gallery-Thumb" alt="M37" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M37</strong> Open Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M38.html" class="M-Gallery-Cell" data-num="38">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M38-1.jpg" class="M-Gallery-Thumb" alt="M38" loading="lazy" />
+                        <img src="M38-thumb.jpg" class="M-Gallery-Thumb" alt="M38" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M38</strong> Open Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M39.html" class="M-Gallery-Cell" data-num="39">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M39-1.jpg" class="M-Gallery-Thumb" alt="M39" loading="lazy" />
+                        <img src="M39-thumb.jpg" class="M-Gallery-Thumb" alt="M39" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M39</strong> Open Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M40.html" class="M-Gallery-Cell" data-num="40">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M40-1.jpg" class="M-Gallery-Thumb" alt="M40" loading="lazy" />
+                        <img src="M40-thumb.jpg" class="M-Gallery-Thumb" alt="M40" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M40</strong> Winnecke 4</span>
                     <span class="M-Gallery-Type">Double Star</span>
@@ -353,56 +376,56 @@
             <div class="M-Gallery-Row">
                 <a href="messier/M41.html" class="M-Gallery-Cell" data-num="41">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M41-1.jpg" class="M-Gallery-Thumb" alt="M41" loading="lazy" />
+                        <img src="M41-thumb.jpg" class="M-Gallery-Thumb" alt="M41" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M41</strong> Open Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M42.html" class="M-Gallery-Cell" data-num="42">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M42-1.jpg" class="M-Gallery-Thumb" alt="M42" loading="lazy" />
+                        <img src="M42-thumb.jpg" class="M-Gallery-Thumb" alt="M42" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M42</strong> Orion Nebula</span>
                     <span class="M-Gallery-Type">Emission Nebula</span>
                 </a>
                 <a href="messier/M43.html" class="M-Gallery-Cell" data-num="43">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M43-1.jpg" class="M-Gallery-Thumb" alt="M43" loading="lazy" />
+                        <img src="M43-thumb.jpg" class="M-Gallery-Thumb" alt="M43" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M43</strong> De Mairan&#x27;s Nebula</span>
                     <span class="M-Gallery-Type">Emission Nebula</span>
                 </a>
                 <a href="messier/M44.html" class="M-Gallery-Cell" data-num="44">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M44-1.jpg" class="M-Gallery-Thumb" alt="M44" loading="lazy" />
+                        <img src="M44-thumb.jpg" class="M-Gallery-Thumb" alt="M44" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M44</strong> Beehive Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M45.html" class="M-Gallery-Cell" data-num="45">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M45-1.jpg" class="M-Gallery-Thumb" alt="M45" loading="lazy" />
+                        <img src="M45-thumb.jpg" class="M-Gallery-Thumb" alt="M45" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M45</strong> Pleiades</span>
                     <span class="M-Gallery-Type">Open Star Cluster</span>
                 </a>
                 <a href="messier/M46.html" class="M-Gallery-Cell" data-num="46">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M46-1.jpg" class="M-Gallery-Thumb" alt="M46" loading="lazy" />
+                        <img src="M46-thumb.jpg" class="M-Gallery-Thumb" alt="M46" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M46</strong> Open Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M47.html" class="M-Gallery-Cell" data-num="47">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M47-1.jpg" class="M-Gallery-Thumb" alt="M47" loading="lazy" />
+                        <img src="M47-thumb.jpg" class="M-Gallery-Thumb" alt="M47" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M47</strong> Open Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M48.html" class="M-Gallery-Cell" data-num="48">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M48-1.jpg" class="M-Gallery-Thumb" alt="M48" loading="lazy" />
+                        <img src="M48-thumb.jpg" class="M-Gallery-Thumb" alt="M48" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M48</strong> Open Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
@@ -411,56 +434,56 @@
             <div class="M-Gallery-Row">
                 <a href="messier/M49.html" class="M-Gallery-Cell" data-num="49">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M49-1.jpg" class="M-Gallery-Thumb" alt="M49" loading="lazy" />
+                        <img src="M49-thumb.jpg" class="M-Gallery-Thumb" alt="M49" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M49</strong> Elliptical Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M50.html" class="M-Gallery-Cell" data-num="50">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M50-1.jpg" class="M-Gallery-Thumb" alt="M50" loading="lazy" />
+                        <img src="M50-thumb.jpg" class="M-Gallery-Thumb" alt="M50" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M50</strong> Open Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M51.html" class="M-Gallery-Cell" data-num="51">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M51-1.jpg" class="M-Gallery-Thumb" alt="M51" loading="lazy" />
+                        <img src="M51-thumb.jpg" class="M-Gallery-Thumb" alt="M51" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M51</strong> Whirlpool Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M52.html" class="M-Gallery-Cell" data-num="52">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M52-1.jpg" class="M-Gallery-Thumb" alt="M52" loading="lazy" />
+                        <img src="M52-thumb.jpg" class="M-Gallery-Thumb" alt="M52" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M52</strong> Open Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M53.html" class="M-Gallery-Cell" data-num="53">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M53-1.jpg" class="M-Gallery-Thumb" alt="M53" loading="lazy" />
+                        <img src="M53-thumb.jpg" class="M-Gallery-Thumb" alt="M53" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M53</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M54.html" class="M-Gallery-Cell" data-num="54">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M54-1.jpg" class="M-Gallery-Thumb" alt="M54" loading="lazy" />
+                        <img src="M54-thumb.jpg" class="M-Gallery-Thumb" alt="M54" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M54</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M55.html" class="M-Gallery-Cell" data-num="55">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M55-1.jpg" class="M-Gallery-Thumb" alt="M55" loading="lazy" />
+                        <img src="M55-thumb.jpg" class="M-Gallery-Thumb" alt="M55" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M55</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M56.html" class="M-Gallery-Cell" data-num="56">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M56-1.jpg" class="M-Gallery-Thumb" alt="M56" loading="lazy" />
+                        <img src="M56-thumb.jpg" class="M-Gallery-Thumb" alt="M56" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M56</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
@@ -469,56 +492,56 @@
             <div class="M-Gallery-Row">
                 <a href="messier/M57.html" class="M-Gallery-Cell" data-num="57">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M57-1.jpg" class="M-Gallery-Thumb" alt="M57" loading="lazy" />
+                        <img src="M57-thumb.jpg" class="M-Gallery-Thumb" alt="M57" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M57</strong> Ring Nebula</span>
                     <span class="M-Gallery-Type">Planetary Nebula</span>
                 </a>
                 <a href="messier/M58.html" class="M-Gallery-Cell" data-num="58">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M58-1.jpg" class="M-Gallery-Thumb" alt="M58" loading="lazy" />
+                        <img src="M58-thumb.jpg" class="M-Gallery-Thumb" alt="M58" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M58</strong> Barred Spiral Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M59.html" class="M-Gallery-Cell" data-num="59">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M59-1.jpg" class="M-Gallery-Thumb" alt="M59" loading="lazy" />
+                        <img src="M59-thumb.jpg" class="M-Gallery-Thumb" alt="M59" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M59</strong> Elliptical Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M60.html" class="M-Gallery-Cell" data-num="60">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M60-1.jpg" class="M-Gallery-Thumb" alt="M60" loading="lazy" />
+                        <img src="M60-thumb.jpg" class="M-Gallery-Thumb" alt="M60" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M60</strong> Elliptical Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M61.html" class="M-Gallery-Cell" data-num="61">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M61-1.jpg" class="M-Gallery-Thumb" alt="M61" loading="lazy" />
+                        <img src="M61-thumb.jpg" class="M-Gallery-Thumb" alt="M61" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M61</strong> Spiral Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M62.html" class="M-Gallery-Cell" data-num="62">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M62-1.jpg" class="M-Gallery-Thumb" alt="M62" loading="lazy" />
+                        <img src="M62-thumb.jpg" class="M-Gallery-Thumb" alt="M62" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M62</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M63.html" class="M-Gallery-Cell" data-num="63">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M63-1.jpg" class="M-Gallery-Thumb" alt="M63" loading="lazy" />
+                        <img src="M63-thumb.jpg" class="M-Gallery-Thumb" alt="M63" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M63</strong> Sunflower Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M64.html" class="M-Gallery-Cell" data-num="64">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M64-1.jpg" class="M-Gallery-Thumb" alt="M64" loading="lazy" />
+                        <img src="M64-thumb.jpg" class="M-Gallery-Thumb" alt="M64" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M64</strong> Black Eye Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
@@ -527,56 +550,56 @@
             <div class="M-Gallery-Row">
                 <a href="messier/M65.html" class="M-Gallery-Cell" data-num="65">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M65-1.jpg" class="M-Gallery-Thumb" alt="M65" loading="lazy" />
+                        <img src="M65-thumb.jpg" class="M-Gallery-Thumb" alt="M65" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M65</strong> Leo Triplet Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M66.html" class="M-Gallery-Cell" data-num="66">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M66-1.jpg" class="M-Gallery-Thumb" alt="M66" loading="lazy" />
+                        <img src="M66-thumb.jpg" class="M-Gallery-Thumb" alt="M66" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M66</strong> Leo Triplet Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M67.html" class="M-Gallery-Cell" data-num="67">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M67-1.jpg" class="M-Gallery-Thumb" alt="M67" loading="lazy" />
+                        <img src="M67-thumb.jpg" class="M-Gallery-Thumb" alt="M67" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M67</strong> Open Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M68.html" class="M-Gallery-Cell" data-num="68">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M68-1.jpg" class="M-Gallery-Thumb" alt="M68" loading="lazy" />
+                        <img src="M68-thumb.jpg" class="M-Gallery-Thumb" alt="M68" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M68</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M69.html" class="M-Gallery-Cell" data-num="69">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M69-1.jpg" class="M-Gallery-Thumb" alt="M69" loading="lazy" />
+                        <img src="M69-thumb.jpg" class="M-Gallery-Thumb" alt="M69" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M69</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M70.html" class="M-Gallery-Cell" data-num="70">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M70-1.jpg" class="M-Gallery-Thumb" alt="M70" loading="lazy" />
+                        <img src="M70-thumb.jpg" class="M-Gallery-Thumb" alt="M70" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M70</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M71.html" class="M-Gallery-Cell" data-num="71">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M71-1.jpg" class="M-Gallery-Thumb" alt="M71" loading="lazy" />
+                        <img src="M71-thumb.jpg" class="M-Gallery-Thumb" alt="M71" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M71</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M72.html" class="M-Gallery-Cell" data-num="72">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M72-1.jpg" class="M-Gallery-Thumb" alt="M72" loading="lazy" />
+                        <img src="M72-thumb.jpg" class="M-Gallery-Thumb" alt="M72" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M72</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
@@ -585,56 +608,56 @@
             <div class="M-Gallery-Row">
                 <a href="messier/M73.html" class="M-Gallery-Cell" data-num="73">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M73-1.jpg" class="M-Gallery-Thumb" alt="M73" loading="lazy" />
+                        <img src="M73-thumb.jpg" class="M-Gallery-Thumb" alt="M73" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M73</strong> Asterism</span>
                     <span class="M-Gallery-Type">Asterism</span>
                 </a>
                 <a href="messier/M74.html" class="M-Gallery-Cell" data-num="74">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M74-1.jpg" class="M-Gallery-Thumb" alt="M74" loading="lazy" />
+                        <img src="M74-thumb.jpg" class="M-Gallery-Thumb" alt="M74" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M74</strong> Phantom Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M75.html" class="M-Gallery-Cell" data-num="75">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M75-1.jpg" class="M-Gallery-Thumb" alt="M75" loading="lazy" />
+                        <img src="M75-thumb.jpg" class="M-Gallery-Thumb" alt="M75" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M75</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M76.html" class="M-Gallery-Cell" data-num="76">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M76-1.jpg" class="M-Gallery-Thumb" alt="M76" loading="lazy" />
+                        <img src="M76-thumb.jpg" class="M-Gallery-Thumb" alt="M76" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M76</strong> Little Dumbbell Nebula</span>
                     <span class="M-Gallery-Type">Planetary Nebula</span>
                 </a>
                 <a href="messier/M77.html" class="M-Gallery-Cell" data-num="77">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M77-1.jpg" class="M-Gallery-Thumb" alt="M77" loading="lazy" />
+                        <img src="M77-thumb.jpg" class="M-Gallery-Thumb" alt="M77" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M77</strong> Cetus Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M78.html" class="M-Gallery-Cell" data-num="78">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M78-1.jpg" class="M-Gallery-Thumb" alt="M78" loading="lazy" />
+                        <img src="M78-thumb.jpg" class="M-Gallery-Thumb" alt="M78" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M78</strong> Reflection Nebula</span>
                     <span class="M-Gallery-Type">Reflection Nebula</span>
                 </a>
                 <a href="messier/M79.html" class="M-Gallery-Cell" data-num="79">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M79-1.jpg" class="M-Gallery-Thumb" alt="M79" loading="lazy" />
+                        <img src="M79-thumb.jpg" class="M-Gallery-Thumb" alt="M79" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M79</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M80.html" class="M-Gallery-Cell" data-num="80">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M80-1.jpg" class="M-Gallery-Thumb" alt="M80" loading="lazy" />
+                        <img src="M80-thumb.jpg" class="M-Gallery-Thumb" alt="M80" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M80</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
@@ -643,56 +666,56 @@
             <div class="M-Gallery-Row">
                 <a href="messier/M81.html" class="M-Gallery-Cell" data-num="81">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M81-1.jpg" class="M-Gallery-Thumb" alt="M81" loading="lazy" />
+                        <img src="M81-thumb.jpg" class="M-Gallery-Thumb" alt="M81" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M81</strong> Bode&#x27;s Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M82.html" class="M-Gallery-Cell" data-num="82">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M82-1.jpg" class="M-Gallery-Thumb" alt="M82" loading="lazy" />
+                        <img src="M82-thumb.jpg" class="M-Gallery-Thumb" alt="M82" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M82</strong> Cigar Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M83.html" class="M-Gallery-Cell" data-num="83">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M83-1.jpg" class="M-Gallery-Thumb" alt="M83" loading="lazy" />
+                        <img src="M83-thumb.jpg" class="M-Gallery-Thumb" alt="M83" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M83</strong> Southern Pinwheel Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M84.html" class="M-Gallery-Cell" data-num="84">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M84-1.jpg" class="M-Gallery-Thumb" alt="M84" loading="lazy" />
+                        <img src="M84-thumb.jpg" class="M-Gallery-Thumb" alt="M84" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M84</strong> Elliptical Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M85.html" class="M-Gallery-Cell" data-num="85">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M85-1.jpg" class="M-Gallery-Thumb" alt="M85" loading="lazy" />
+                        <img src="M85-thumb.jpg" class="M-Gallery-Thumb" alt="M85" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M85</strong> Elliptical Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M86.html" class="M-Gallery-Cell" data-num="86">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M86-1.jpg" class="M-Gallery-Thumb" alt="M86" loading="lazy" />
+                        <img src="M86-thumb.jpg" class="M-Gallery-Thumb" alt="M86" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M86</strong> Elliptical Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M87.html" class="M-Gallery-Cell" data-num="87">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M87-1.jpg" class="M-Gallery-Thumb" alt="M87" loading="lazy" />
+                        <img src="M87-thumb.jpg" class="M-Gallery-Thumb" alt="M87" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M87</strong> Virgo A</span>
                     <span class="M-Gallery-Type">Elliptical Galaxy</span>
                 </a>
                 <a href="messier/M88.html" class="M-Gallery-Cell" data-num="88">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M88-1.jpg" class="M-Gallery-Thumb" alt="M88" loading="lazy" />
+                        <img src="M88-thumb.jpg" class="M-Gallery-Thumb" alt="M88" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M88</strong> Spiral Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
@@ -701,56 +724,56 @@
             <div class="M-Gallery-Row">
                 <a href="messier/M89.html" class="M-Gallery-Cell" data-num="89">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M89-1.jpg" class="M-Gallery-Thumb" alt="M89" loading="lazy" />
+                        <img src="M89-thumb.jpg" class="M-Gallery-Thumb" alt="M89" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M89</strong> Elliptical Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M90.html" class="M-Gallery-Cell" data-num="90">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M90-1.jpg" class="M-Gallery-Thumb" alt="M90" loading="lazy" />
+                        <img src="M90-thumb.jpg" class="M-Gallery-Thumb" alt="M90" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M90</strong> Spiral Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M91.html" class="M-Gallery-Cell" data-num="91">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M91-1.jpg" class="M-Gallery-Thumb" alt="M91" loading="lazy" />
+                        <img src="M91-thumb.jpg" class="M-Gallery-Thumb" alt="M91" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M91</strong> Barred Spiral Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M92.html" class="M-Gallery-Cell" data-num="92">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M92-1.jpg" class="M-Gallery-Thumb" alt="M92" loading="lazy" />
+                        <img src="M92-thumb.jpg" class="M-Gallery-Thumb" alt="M92" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M92</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M93.html" class="M-Gallery-Cell" data-num="93">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M93-1.jpg" class="M-Gallery-Thumb" alt="M93" loading="lazy" />
+                        <img src="M93-thumb.jpg" class="M-Gallery-Thumb" alt="M93" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M93</strong> Open Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M94.html" class="M-Gallery-Cell" data-num="94">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M94-1.jpg" class="M-Gallery-Thumb" alt="M94" loading="lazy" />
+                        <img src="M94-thumb.jpg" class="M-Gallery-Thumb" alt="M94" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M94</strong> Croc&#x27;s Eye Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M95.html" class="M-Gallery-Cell" data-num="95">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M95-1.jpg" class="M-Gallery-Thumb" alt="M95" loading="lazy" />
+                        <img src="M95-thumb.jpg" class="M-Gallery-Thumb" alt="M95" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M95</strong> Barred Spiral Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M96.html" class="M-Gallery-Cell" data-num="96">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M96-1.jpg" class="M-Gallery-Thumb" alt="M96" loading="lazy" />
+                        <img src="M96-thumb.jpg" class="M-Gallery-Thumb" alt="M96" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M96</strong> Spiral Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
@@ -759,56 +782,56 @@
             <div class="M-Gallery-Row">
                 <a href="messier/M97.html" class="M-Gallery-Cell" data-num="97">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M97-1.jpg" class="M-Gallery-Thumb" alt="M97" loading="lazy" />
+                        <img src="M97-thumb.jpg" class="M-Gallery-Thumb" alt="M97" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M97</strong> Owl Nebula</span>
                     <span class="M-Gallery-Type">Planetary Nebula</span>
                 </a>
                 <a href="messier/M98.html" class="M-Gallery-Cell" data-num="98">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M98-1.jpg" class="M-Gallery-Thumb" alt="M98" loading="lazy" />
+                        <img src="M98-thumb.jpg" class="M-Gallery-Thumb" alt="M98" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M98</strong> Spiral Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M99.html" class="M-Gallery-Cell" data-num="99">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M99-1.jpg" class="M-Gallery-Thumb" alt="M99" loading="lazy" />
+                        <img src="M99-thumb.jpg" class="M-Gallery-Thumb" alt="M99" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M99</strong> Spiral Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M100.html" class="M-Gallery-Cell" data-num="100">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M100-1.jpg" class="M-Gallery-Thumb" alt="M100" loading="lazy" />
+                        <img src="M100-thumb.jpg" class="M-Gallery-Thumb" alt="M100" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M100</strong> Spiral Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M101.html" class="M-Gallery-Cell" data-num="101">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M101-1.jpg" class="M-Gallery-Thumb" alt="M101" loading="lazy" />
+                        <img src="M101-thumb.jpg" class="M-Gallery-Thumb" alt="M101" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M101</strong> Pinwheel Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M102.html" class="M-Gallery-Cell" data-num="102">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M102-1.jpg" class="M-Gallery-Thumb" alt="M102" loading="lazy" />
+                        <img src="M102-thumb.jpg" class="M-Gallery-Thumb" alt="M102" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M102</strong> Spindle Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M103.html" class="M-Gallery-Cell" data-num="103">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M103-1.jpg" class="M-Gallery-Thumb" alt="M103" loading="lazy" />
+                        <img src="M103-thumb.jpg" class="M-Gallery-Thumb" alt="M103" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M103</strong> Open Cluster</span>
                     <span class="M-Gallery-Type">Open Cluster</span>
                 </a>
                 <a href="messier/M104.html" class="M-Gallery-Cell" data-num="104">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M104-1.jpg" class="M-Gallery-Thumb" alt="M104" loading="lazy" />
+                        <img src="M104-thumb.jpg" class="M-Gallery-Thumb" alt="M104" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M104</strong> Sombrero Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
@@ -817,49 +840,49 @@
             <div class="M-Gallery-Row">
                 <a href="messier/M105.html" class="M-Gallery-Cell" data-num="105">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M105-1.jpg" class="M-Gallery-Thumb" alt="M105" loading="lazy" />
+                        <img src="M105-thumb.jpg" class="M-Gallery-Thumb" alt="M105" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M105</strong> Elliptical Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M106.html" class="M-Gallery-Cell" data-num="106">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M106-1.jpg" class="M-Gallery-Thumb" alt="M106" loading="lazy" />
+                        <img src="M106-thumb.jpg" class="M-Gallery-Thumb" alt="M106" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M106</strong> Spiral Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M107.html" class="M-Gallery-Cell" data-num="107">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M107-1.jpg" class="M-Gallery-Thumb" alt="M107" loading="lazy" />
+                        <img src="M107-thumb.jpg" class="M-Gallery-Thumb" alt="M107" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M107</strong> Globular Cluster</span>
                     <span class="M-Gallery-Type">Globular Cluster</span>
                 </a>
                 <a href="messier/M108.html" class="M-Gallery-Cell" data-num="108">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M108-1.jpg" class="M-Gallery-Thumb" alt="M108" loading="lazy" />
+                        <img src="M108-thumb.jpg" class="M-Gallery-Thumb" alt="M108" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M108</strong> Surfboard Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M109.html" class="M-Gallery-Cell" data-num="109">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M109-1.jpg" class="M-Gallery-Thumb" alt="M109" loading="lazy" />
+                        <img src="M109-thumb.jpg" class="M-Gallery-Thumb" alt="M109" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M109</strong> Barred Spiral Galaxy</span>
                     <span class="M-Gallery-Type">Galaxy</span>
                 </a>
                 <a href="messier/M110.html" class="M-Gallery-Cell" data-num="110">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="M110-1.jpg" class="M-Gallery-Thumb" alt="M110" loading="lazy" />
+                        <img src="M110-thumb.jpg" class="M-Gallery-Thumb" alt="M110" loading="lazy" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M110</strong> Andromeda Satellite</span>
                     <span class="M-Gallery-Type">Elliptical Galaxy</span>
                 </a>
             </div>
             </div>
-            <p class="M-Gallery-Hint">Tip: each thumbnail opens its own detail page — like AstroPixels, one object at a time.</p>
+            <p class="M-Gallery-Hint">Images from NASA's Hubble Messier Catalog where available. Click any thumbnail for observing details.</p>
         </section>
 
         <script>

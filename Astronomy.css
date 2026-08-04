@@ -2972,3 +2972,659 @@ body .M-divs {
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* ── Messier creative intro ─────────────────────────────────── */
+.M-Head-creative {
+  padding-top: clamp(40px, 6vw, 64px);
+}
+
+.M-P1-hero {
+  font-family: "Passero One", var(--space-font-accent);
+  font-size: clamp(3rem, 10vw, 6rem);
+  line-height: 1;
+  margin: 0;
+  background: linear-gradient(135deg, var(--page-heading) 0%, var(--page-accent) 55%, var(--page-accent-soft) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.M-P1-sub {
+  font-family: "Bruno Ace SC", var(--space-font-display);
+  font-size: clamp(0.9rem, 2.5vw, 1.4rem);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--page-accent-soft);
+  margin: 0.5rem 0 1.5rem;
+}
+
+.M-Intro-Block {
+  max-width: 720px;
+  margin: 0 auto 2rem;
+  text-align: left;
+}
+
+.M-P2-lead {
+  font-family: "Keania One", var(--space-font-body);
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  color: var(--page-heading);
+  line-height: 1.45;
+}
+
+.M-Intro-Drop {
+  float: left;
+  font-family: "Passero One", var(--space-font-accent);
+  font-size: clamp(3rem, 8vw, 4.5rem);
+  line-height: 0.85;
+  color: var(--page-accent);
+  margin: 0.05em 0.12em 0 0;
+}
+
+.M-Intro-Stats {
+  display: flex;
+  justify-content: center;
+  gap: clamp(20px, 5vw, 48px);
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.M-Intro-Stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: var(--space-glass);
+  border: 1px solid color-mix(in srgb, var(--page-accent) 40%, transparent);
+  border-radius: var(--space-radius-md);
+  min-width: 100px;
+}
+
+.M-Stat-Num {
+  font-family: "Bruno Ace SC", var(--space-font-display);
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  color: var(--page-accent);
+}
+
+.M-Stat-Label {
+  font-family: "Keania One", var(--space-font-body);
+  font-size: 0.85rem;
+  color: var(--page-accent-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.M-P5-cta {
+  font-family: "Keania One", var(--space-font-body);
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: var(--page-accent-soft);
+  font-style: italic;
+}
+
+/* ── Messier interactive sky map ────────────────────────────── */
+.M-SkyMap-Section {
+  max-width: 1200px;
+  margin: 0 auto clamp(40px, 6vw, 64px);
+  padding: 0 16px;
+}
+
+.M-SkyMap-Header {
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.M-SkyMap-Title {
+  font-family: "Passero One", var(--space-font-accent);
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  color: var(--page-heading);
+  margin: 0 0 0.35rem;
+}
+
+.M-SkyMap-Subtitle {
+  font-family: "Keania One", var(--space-font-body);
+  color: var(--page-accent-muted);
+  margin: 0;
+}
+
+.M-SkyMap {
+  background: var(--space-glass-strong);
+  border: 1px solid color-mix(in srgb, var(--page-accent) 45%, transparent);
+  border-radius: var(--space-radius-lg);
+  overflow: hidden;
+  box-shadow: 0 0 48px var(--page-accent-glow);
+}
+
+.M-SkyMap-Viewport {
+  position: relative;
+  height: clamp(320px, 55vw, 520px);
+  overflow: hidden;
+  cursor: grab;
+  background: #020210;
+  touch-action: none;
+}
+
+.M-SkyMap-Viewport:active {
+  cursor: grabbing;
+}
+
+.M-SkyMap-BG {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 180%;
+  min-width: 900px;
+  height: auto;
+  transform-origin: center center;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.92;
+}
+
+.M-SkyMap-Canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.M-SkyMap-Popup {
+  position: absolute;
+  z-index: 10;
+  width: 200px;
+  padding: 10px;
+  background: var(--space-glass-strong);
+  border: 1px solid color-mix(in srgb, var(--page-accent) 50%, transparent);
+  border-radius: var(--space-radius-sm);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  pointer-events: auto;
+}
+
+.M-SkyMap-Popup-Img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+}
+
+.M-SkyMap-Popup-Cap {
+  font-family: "Keania One", var(--space-font-body);
+  font-size: 0.85rem;
+  color: var(--page-heading);
+  margin: 8px 0 4px;
+}
+
+.M-SkyMap-Popup-Link {
+  font-family: "Bruno Ace SC", var(--space-font-display);
+  font-size: 0.72rem;
+  color: var(--page-accent-soft);
+  text-decoration: none;
+}
+
+.M-SkyMap-Popup-Link:hover {
+  color: var(--page-accent);
+}
+
+.M-SkyMap-Controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  background: linear-gradient(180deg, rgba(12, 6, 24, 0.95), rgba(4, 2, 16, 0.98));
+  border-top: 1px solid color-mix(in srgb, var(--page-accent) 35%, transparent);
+}
+
+.M-SkyMap-Legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  flex: 1;
+}
+
+.M-SkyMap-Legend-Btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  background: rgba(8, 4, 20, 0.8);
+  border: 1px solid color-mix(in srgb, var(--page-accent) 30%, transparent);
+  border-radius: 999px;
+  color: var(--page-body-text);
+  font-family: "Keania One", var(--space-font-body);
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: opacity 0.2s, border-color 0.2s;
+}
+
+.M-SkyMap-Legend-Btn:not(.is-active) {
+  opacity: 0.45;
+}
+
+.M-SkyMap-Legend-Btn.is-active {
+  border-color: var(--page-accent);
+  box-shadow: 0 0 12px var(--page-accent-glow);
+}
+
+.M-SkyMap-Legend-Sym {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.M-SkyMap-Search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: rgba(4, 2, 16, 0.9);
+  border: 1px solid color-mix(in srgb, var(--page-accent) 40%, transparent);
+  border-radius: 999px;
+  min-width: min(260px, 100%);
+}
+
+.M-SkyMap-Search-Input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--page-heading);
+  font-family: "Bruno Ace SC", var(--space-font-display);
+  font-size: 0.8rem;
+  min-width: 0;
+}
+
+/* ── Tools page overhaul ─────────────────────────────────────── */
+.Tools-Hero-Link {
+  display: block;
+  text-decoration: none;
+}
+
+.Main-Image-Tools h1 {
+  font-family: "Passero One", var(--space-font-accent);
+  font-size: clamp(1.8rem, 5vw, 3.2rem);
+  color: #e0fff8;
+  letter-spacing: 0.04em;
+}
+
+.Main-Image-Tools h2 {
+  font-family: "Bruno Ace SC", var(--space-font-display);
+  font-size: clamp(2.8rem, 9vw, 5.5rem);
+  color: var(--page-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.Tools-Hero-Eyebrow {
+  margin: 0;
+  padding: clamp(28px, 4vw, 48px) clamp(16px, 4vw, 50px) 0;
+  font-family: "Keania One", var(--space-font-body);
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--page-accent-soft);
+  position: relative;
+  z-index: 1;
+}
+
+.T-Head-creative {
+  text-align: center;
+  padding: clamp(32px, 5vw, 48px) clamp(16px, 8vw, 120px);
+}
+
+.T-P2-lead {
+  font-family: "Passero One", var(--space-font-accent);
+  font-size: clamp(1.2rem, 3vw, 1.7rem);
+  color: var(--page-heading);
+  max-width: 780px;
+  margin: 0 auto 1rem;
+}
+
+.Tel-Type-Nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 clamp(16px, 4vw, 40px) clamp(32px, 5vw, 48px);
+}
+
+.Tel-Type-Nav-main {
+  margin-top: -1rem;
+}
+
+.Tel-Nav-Btn {
+  display: inline-block;
+  padding: 10px 18px;
+  background: var(--space-glass);
+  border: 1px solid color-mix(in srgb, var(--page-accent) 40%, transparent);
+  border-radius: 999px;
+  color: var(--page-body-text);
+  font-family: "Bruno Ace SC", var(--space-font-display);
+  font-size: clamp(0.75rem, 2vw, 0.9rem);
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.Tel-Nav-Btn:hover,
+.Tel-Nav-Btn.is-active {
+  transform: translateY(-2px);
+  border-color: var(--page-accent);
+  box-shadow: 0 0 20px var(--page-accent-glow);
+  color: var(--page-heading);
+}
+
+.Tools-Featured-Title {
+  text-align: center;
+  font-family: "Passero One", var(--space-font-accent);
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  color: var(--page-heading);
+  margin: 0 0 1.5rem;
+}
+
+.Tel-Inline-Link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  color: var(--page-accent);
+  font-family: "Bruno Ace SC", var(--space-font-display);
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.Tel-Inline-Link:hover {
+  color: var(--page-accent-soft);
+}
+
+.Tel-Back-Link {
+  padding: 1rem clamp(16px, 4vw, 40px) 0;
+}
+
+.Tel-Back-Link a {
+  color: var(--page-accent-soft);
+  font-family: "Keania One", var(--space-font-body);
+  text-decoration: none;
+}
+
+.Tel-Type-Head {
+  text-align: center;
+  padding: clamp(24px, 4vw, 40px) clamp(16px, 6vw, 80px);
+}
+
+.Tel-Type-Icon {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.Tel-Type-Head h1 {
+  font-family: "Passero One", var(--space-font-accent);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: var(--page-heading);
+  margin: 0.5rem 0;
+}
+
+.Tel-Type-Intro {
+  font-family: "Keania One", var(--space-font-body);
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: var(--page-body-text);
+  max-width: 720px;
+  margin: 0 auto;
+  line-height: 1.55;
+}
+
+.Tel-Type-Examples {
+  max-width: 900px;
+  margin: 0 auto clamp(48px, 6vw, 80px);
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.Tel-Type-Card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: clamp(16px, 3vw, 24px);
+  background: var(--space-glass);
+  border: 1px solid color-mix(in srgb, var(--page-accent) 35%, transparent);
+  border-radius: var(--space-radius-lg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.Tel-Type-Img {
+  width: min(220px, 100%);
+  height: auto;
+  border-radius: var(--space-radius-sm);
+  object-fit: cover;
+}
+
+.Tel-Type-Body {
+  flex: 1;
+  min-width: 220px;
+}
+
+.Tel-Type-Body h2 {
+  font-family: "Bruno Ace SC", var(--space-font-display);
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: var(--page-heading);
+  margin: 0 0 0.5rem;
+}
+
+.Tel-Type-Specs {
+  font-family: "Keania One", var(--space-font-body);
+  font-size: 0.9rem;
+  color: var(--page-accent);
+  margin: 0 0 0.5rem;
+}
+
+.Tel-Type-Body p:last-child {
+  font-family: "Keania One", var(--space-font-body);
+  color: var(--page-body-text);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Home page creative ──────────────────────────────────────── */
+.Home-Hero-Wrap {
+  position: relative;
+  margin: clamp(16px, 3vw, 32px) clamp(16px, 6vw, 120px);
+}
+
+.Home-Hero-Orbs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.Home-Orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.35;
+  animation: home-orb-float 8s ease-in-out infinite;
+}
+
+.Home-Orb-1 {
+  width: 200px;
+  height: 200px;
+  background: var(--page-accent);
+  top: 10%;
+  left: 5%;
+}
+
+.Home-Orb-2 {
+  width: 150px;
+  height: 150px;
+  background: #e06040;
+  top: 50%;
+  right: 10%;
+  animation-delay: -3s;
+}
+
+.Home-Orb-3 {
+  width: 120px;
+  height: 120px;
+  background: var(--page-accent-soft);
+  bottom: 5%;
+  left: 40%;
+  animation-delay: -5s;
+}
+
+@keyframes home-orb-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20px, -15px) scale(1.08); }
+}
+
+.Home-Nasa-Link {
+  display: block;
+  position: relative;
+  z-index: 1;
+  text-decoration: none;
+}
+
+#Home-IMG {
+  position: relative;
+}
+
+.Home-Nasa-Badge {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid color-mix(in srgb, var(--page-accent) 50%, transparent);
+  border-radius: 999px;
+  color: var(--page-accent-soft);
+  font-family: "Bruno Ace SC", var(--space-font-display);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  transition: background 0.2s, color 0.2s;
+}
+
+.Home-Nasa-Link:hover .Home-Nasa-Badge {
+  background: color-mix(in srgb, var(--page-accent) 30%, rgba(0, 0, 0, 0.8));
+  color: #fff;
+}
+
+.Home-Hero-Text {
+  position: relative;
+  z-index: 1;
+  margin-top: clamp(20px, 3vw, 32px);
+}
+
+.Home-Title-Line {
+  font-family: "Bruno Ace SC", var(--space-font-display);
+  font-size: clamp(1.2rem, 3.5vw, 2rem);
+  margin: 0;
+  letter-spacing: 0.12em;
+}
+
+.Home-Title-Accent {
+  font-family: "Passero One", var(--space-font-accent);
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  margin: 0;
+  color: var(--page-accent);
+  text-shadow: 0 0 40px var(--page-accent-glow);
+  line-height: 1.1;
+}
+
+.Home-Intro-Lead {
+  font-family: "Passero One", var(--space-font-accent);
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  color: var(--page-accent);
+  margin: 0 0 0.75rem;
+}
+
+.Home-Featured-Heading {
+  font-family: "Passero One", var(--space-font-accent);
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  color: var(--page-heading);
+  text-align: center;
+  margin: 0 0 clamp(24px, 4vw, 36px);
+}
+
+.Home-Card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.Home-Card-Link {
+  display: block;
+  padding: clamp(20px, 3vw, 28px);
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+}
+
+.Home-Card-Icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.Home-Card h1 {
+  font-family: "Bruno Ace SC", var(--space-font-display);
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  color: var(--page-heading);
+  margin: 0 0 0.5rem;
+}
+
+.Home-Card p {
+  font-family: "Keania One", var(--space-font-body);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.Home-Card-CTA {
+  display: inline-block;
+  margin-top: 1rem;
+  font-family: "Bruno Ace SC", var(--space-font-display);
+  font-size: 0.8rem;
+  color: var(--page-accent);
+  letter-spacing: 0.05em;
+}
+
+.Home-Card-solar:hover {
+  border-color: color-mix(in srgb, #f08040 55%, transparent);
+  box-shadow: 0 8px 32px rgba(240, 128, 64, 0.35);
+}
+
+.Home-Card-messier:hover {
+  border-color: color-mix(in srgb, #c060e8 55%, transparent);
+  box-shadow: 0 8px 32px rgba(192, 96, 232, 0.35);
+}
+
+.Home-Card-tools:hover {
+  border-color: color-mix(in srgb, #30c8b8 55%, transparent);
+  box-shadow: 0 8px 32px rgba(48, 200, 184, 0.35);
+}
+
+.Home-Quote {
+  text-align: center;
+  padding: clamp(32px, 5vw, 48px) clamp(16px, 8vw, 80px) clamp(48px, 6vw, 80px);
+  font-family: "Keania One", var(--space-font-body);
+  color: var(--page-body-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .Home-Orb {
+    animation: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .M-SkyMap-Controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .M-SkyMap-Search {
+    width: 100%;
+  }
+
+  .Tel-Type-Card {
+    flex-direction: column;
+  }
+}

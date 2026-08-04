@@ -1,0 +1,1102 @@
+[
+  {
+    "num": 1,
+    "name": "Crab Nebula",
+    "type": "Supernova Remnant",
+    "category": "supernova-remnant",
+    "constellation": "Taurus",
+    "ra": 5.575,
+    "dec": 22.017,
+    "thumb": "M1-thumb.jpg"
+  },
+  {
+    "num": 2,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Aquarius",
+    "ra": 21.558,
+    "dec": -0.823,
+    "thumb": "M2-thumb.jpg"
+  },
+  {
+    "num": 3,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Canes Venatici",
+    "ra": 13.703,
+    "dec": 28.377,
+    "thumb": "M3-thumb.jpg"
+  },
+  {
+    "num": 4,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Scorpius",
+    "ra": 16.393,
+    "dec": -26.526,
+    "thumb": "M4-thumb.jpg"
+  },
+  {
+    "num": 5,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Serpens",
+    "ra": 15.308,
+    "dec": 2.083,
+    "thumb": "M5-thumb.jpg"
+  },
+  {
+    "num": 6,
+    "name": "Butterfly Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Scorpius",
+    "ra": 17.67,
+    "dec": -32.217,
+    "thumb": "M6-thumb.jpg"
+  },
+  {
+    "num": 7,
+    "name": "Ptolemy's Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Scorpius",
+    "ra": 17.9,
+    "dec": -34.817,
+    "thumb": "M7-thumb.jpg"
+  },
+  {
+    "num": 8,
+    "name": "Lagoon Nebula",
+    "type": "Emission Nebula",
+    "category": "diffuse-nebula",
+    "constellation": "Sagittarius",
+    "ra": 18.033,
+    "dec": -24.383,
+    "thumb": "M8-thumb.jpg"
+  },
+  {
+    "num": 9,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Ophiuchus",
+    "ra": 17.32,
+    "dec": -18.517,
+    "thumb": "M9-thumb.jpg"
+  },
+  {
+    "num": 10,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Ophiuchus",
+    "ra": 16.952,
+    "dec": -4.1,
+    "thumb": "M10-thumb.jpg"
+  },
+  {
+    "num": 11,
+    "name": "Wild Duck Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Scutum",
+    "ra": 18.851,
+    "dec": -6.267,
+    "thumb": "M11-thumb.jpg"
+  },
+  {
+    "num": 12,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Ophiuchus",
+    "ra": 16.787,
+    "dec": -1.95,
+    "thumb": "M12-thumb.jpg"
+  },
+  {
+    "num": 13,
+    "name": "Hercules Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Hercules",
+    "ra": 16.695,
+    "dec": 36.467,
+    "thumb": "M13-thumb.jpg"
+  },
+  {
+    "num": 14,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Ophiuchus",
+    "ra": 17.629,
+    "dec": 3.25,
+    "thumb": "M14-thumb.jpg"
+  },
+  {
+    "num": 15,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Pegasus",
+    "ra": 21.5,
+    "dec": 12.167,
+    "thumb": "M15-thumb.jpg"
+  },
+  {
+    "num": 16,
+    "name": "Eagle Nebula",
+    "type": "Emission Nebula",
+    "category": "diffuse-nebula",
+    "constellation": "Serpens",
+    "ra": 18.187,
+    "dec": -13.817,
+    "thumb": "M16-thumb.jpg"
+  },
+  {
+    "num": 17,
+    "name": "Omega Nebula",
+    "type": "Emission Nebula",
+    "category": "diffuse-nebula",
+    "constellation": "Sagittarius",
+    "ra": 18.346,
+    "dec": -16.167,
+    "thumb": "M17-thumb.jpg"
+  },
+  {
+    "num": 18,
+    "name": "Open Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Sagittarius",
+    "ra": 18.333,
+    "dec": -17.133,
+    "thumb": "M18-thumb.jpg"
+  },
+  {
+    "num": 19,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Ophiuchus",
+    "ra": 17.043,
+    "dec": -26.267,
+    "thumb": "M19-thumb.jpg"
+  },
+  {
+    "num": 20,
+    "name": "Trifid Nebula",
+    "type": "Emission/Reflection Nebula",
+    "category": "diffuse-nebula",
+    "constellation": "Sagittarius",
+    "ra": 18.035,
+    "dec": -23.017,
+    "thumb": "M20-thumb.jpg"
+  },
+  {
+    "num": 21,
+    "name": "Open Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Sagittarius",
+    "ra": 18.051,
+    "dec": -22.5,
+    "thumb": "M21-thumb.jpg"
+  },
+  {
+    "num": 22,
+    "name": "Sagittarius Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Sagittarius",
+    "ra": 18.606,
+    "dec": -23.9,
+    "thumb": "M22-thumb.jpg"
+  },
+  {
+    "num": 23,
+    "name": "Open Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Sagittarius",
+    "ra": 17.567,
+    "dec": -19.0,
+    "thumb": "M23-thumb.jpg"
+  },
+  {
+    "num": 24,
+    "name": "Sagittarius Star Cloud",
+    "type": "Star Cloud",
+    "category": "other",
+    "constellation": "Sagittarius",
+    "ra": 18.283,
+    "dec": -18.5,
+    "thumb": "M24-thumb.jpg"
+  },
+  {
+    "num": 25,
+    "name": "Open Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Sagittarius",
+    "ra": 18.528,
+    "dec": -19.25,
+    "thumb": "M25-thumb.jpg"
+  },
+  {
+    "num": 26,
+    "name": "Open Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Scutum",
+    "ra": 18.762,
+    "dec": -9.383,
+    "thumb": "M26-thumb.jpg"
+  },
+  {
+    "num": 27,
+    "name": "Dumbbell Nebula",
+    "type": "Planetary Nebula",
+    "category": "planetary-nebula",
+    "constellation": "Vulpecula",
+    "ra": 19.993,
+    "dec": 22.717,
+    "thumb": "M27-thumb.jpg"
+  },
+  {
+    "num": 28,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Sagittarius",
+    "ra": 18.408,
+    "dec": -24.867,
+    "thumb": "M28-thumb.jpg"
+  },
+  {
+    "num": 29,
+    "name": "Open Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Cygnus",
+    "ra": 20.397,
+    "dec": 38.533,
+    "thumb": "M29-thumb.jpg"
+  },
+  {
+    "num": 30,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Capricornus",
+    "ra": 21.673,
+    "dec": -23.183,
+    "thumb": "M30-thumb.jpg"
+  },
+  {
+    "num": 31,
+    "name": "Andromeda Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Andromeda",
+    "ra": 0.712,
+    "dec": 41.269,
+    "thumb": "M31-thumb.jpg"
+  },
+  {
+    "num": 32,
+    "name": "Elliptical Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Andromeda",
+    "ra": 0.713,
+    "dec": 40.867,
+    "thumb": "M32-thumb.jpg"
+  },
+  {
+    "num": 33,
+    "name": "Triangulum Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Triangulum",
+    "ra": 1.564,
+    "dec": 30.66,
+    "thumb": "M33-thumb.jpg"
+  },
+  {
+    "num": 34,
+    "name": "Open Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Perseus",
+    "ra": 2.709,
+    "dec": 42.783,
+    "thumb": "M34-thumb.jpg"
+  },
+  {
+    "num": 35,
+    "name": "Open Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Gemini",
+    "ra": 6.149,
+    "dec": 24.35,
+    "thumb": "M35-thumb.jpg"
+  },
+  {
+    "num": 36,
+    "name": "Open Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Auriga",
+    "ra": 5.603,
+    "dec": 34.133,
+    "thumb": "M36-thumb.jpg"
+  },
+  {
+    "num": 37,
+    "name": "Open Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Auriga",
+    "ra": 5.877,
+    "dec": 32.55,
+    "thumb": "M37-thumb.jpg"
+  },
+  {
+    "num": 38,
+    "name": "Open Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Auriga",
+    "ra": 5.478,
+    "dec": 35.833,
+    "thumb": "M38-thumb.jpg"
+  },
+  {
+    "num": 39,
+    "name": "Open Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Cygnus",
+    "ra": 21.537,
+    "dec": 48.433,
+    "thumb": "M39-thumb.jpg"
+  },
+  {
+    "num": 40,
+    "name": "Winnecke 4",
+    "type": "Double Star",
+    "category": "other",
+    "constellation": "Ursa Major",
+    "ra": 12.373,
+    "dec": 58.083,
+    "thumb": "M40-thumb.jpg"
+  },
+  {
+    "num": 41,
+    "name": "Open Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Canis Major",
+    "ra": 6.767,
+    "dec": -20.733,
+    "thumb": "M41-thumb.jpg"
+  },
+  {
+    "num": 42,
+    "name": "Orion Nebula",
+    "type": "Emission Nebula",
+    "category": "diffuse-nebula",
+    "constellation": "Orion",
+    "ra": 5.588,
+    "dec": -5.391,
+    "thumb": "M42-thumb.jpg"
+  },
+  {
+    "num": 43,
+    "name": "De Mairan's Nebula",
+    "type": "Emission Nebula",
+    "category": "diffuse-nebula",
+    "constellation": "Orion",
+    "ra": 5.592,
+    "dec": -5.271,
+    "thumb": "M43-thumb.jpg"
+  },
+  {
+    "num": 44,
+    "name": "Beehive Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Cancer",
+    "ra": 8.668,
+    "dec": 19.983,
+    "thumb": "M44-thumb.jpg"
+  },
+  {
+    "num": 45,
+    "name": "Pleiades",
+    "type": "Open Star Cluster",
+    "category": "other",
+    "constellation": "Taurus",
+    "ra": 3.783,
+    "dec": 24.117,
+    "thumb": "M45-thumb.jpg"
+  },
+  {
+    "num": 46,
+    "name": "Open Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Puppis",
+    "ra": 7.702,
+    "dec": -14.817,
+    "thumb": "M46-thumb.jpg"
+  },
+  {
+    "num": 47,
+    "name": "Open Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Puppis",
+    "ra": 7.605,
+    "dec": -14.5,
+    "thumb": "M47-thumb.jpg"
+  },
+  {
+    "num": 48,
+    "name": "Open Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Hydra",
+    "ra": 8.227,
+    "dec": -5.8,
+    "thumb": "M48-thumb.jpg"
+  },
+  {
+    "num": 49,
+    "name": "Elliptical Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Virgo",
+    "ra": 12.498,
+    "dec": 8.0,
+    "thumb": "M49-thumb.jpg"
+  },
+  {
+    "num": 50,
+    "name": "Open Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Monoceros",
+    "ra": 7.048,
+    "dec": -8.333,
+    "thumb": "M50-thumb.jpg"
+  },
+  {
+    "num": 51,
+    "name": "Whirlpool Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Canes Venatici",
+    "ra": 13.498,
+    "dec": 47.195,
+    "thumb": "M51-thumb.jpg"
+  },
+  {
+    "num": 52,
+    "name": "Open Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Cassiopeia",
+    "ra": 23.407,
+    "dec": 61.583,
+    "thumb": "M52-thumb.jpg"
+  },
+  {
+    "num": 53,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Coma Berenices",
+    "ra": 13.213,
+    "dec": 18.167,
+    "thumb": "M53-thumb.jpg"
+  },
+  {
+    "num": 54,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Sagittarius",
+    "ra": 18.92,
+    "dec": -30.483,
+    "thumb": "M54-thumb.jpg"
+  },
+  {
+    "num": 55,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Sagittarius",
+    "ra": 19.668,
+    "dec": -30.967,
+    "thumb": "M55-thumb.jpg"
+  },
+  {
+    "num": 56,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Lyra",
+    "ra": 19.278,
+    "dec": 30.183,
+    "thumb": "M56-thumb.jpg"
+  },
+  {
+    "num": 57,
+    "name": "Ring Nebula",
+    "type": "Planetary Nebula",
+    "category": "planetary-nebula",
+    "constellation": "Lyra",
+    "ra": 18.887,
+    "dec": 33.029,
+    "thumb": "M57-thumb.jpg"
+  },
+  {
+    "num": 58,
+    "name": "Barred Spiral Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Virgo",
+    "ra": 12.373,
+    "dec": 11.817,
+    "thumb": "M58-thumb.jpg"
+  },
+  {
+    "num": 59,
+    "name": "Elliptical Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Virgo",
+    "ra": 12.7,
+    "dec": 11.65,
+    "thumb": "M59-thumb.jpg"
+  },
+  {
+    "num": 60,
+    "name": "Elliptical Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Virgo",
+    "ra": 12.73,
+    "dec": 11.55,
+    "thumb": "M60-thumb.jpg"
+  },
+  {
+    "num": 61,
+    "name": "Spiral Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Virgo",
+    "ra": 12.367,
+    "dec": 4.467,
+    "thumb": "M61-thumb.jpg"
+  },
+  {
+    "num": 62,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Ophiuchus",
+    "ra": 17.017,
+    "dec": -30.117,
+    "thumb": "M62-thumb.jpg"
+  },
+  {
+    "num": 63,
+    "name": "Sunflower Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Canes Venatici",
+    "ra": 13.262,
+    "dec": 42.033,
+    "thumb": "M63-thumb.jpg"
+  },
+  {
+    "num": 64,
+    "name": "Black Eye Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Coma Berenices",
+    "ra": 12.945,
+    "dec": 21.683,
+    "thumb": "M64-thumb.jpg"
+  },
+  {
+    "num": 65,
+    "name": "Leo Triplet Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Leo",
+    "ra": 11.312,
+    "dec": 13.092,
+    "thumb": "M65-thumb.jpg"
+  },
+  {
+    "num": 66,
+    "name": "Leo Triplet Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Leo",
+    "ra": 11.336,
+    "dec": 12.992,
+    "thumb": "M66-thumb.jpg"
+  },
+  {
+    "num": 67,
+    "name": "Open Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Cancer",
+    "ra": 11.8,
+    "dec": 11.817,
+    "thumb": "M67-thumb.jpg"
+  },
+  {
+    "num": 68,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Hydra",
+    "ra": 12.617,
+    "dec": -26.733,
+    "thumb": "M68-thumb.jpg"
+  },
+  {
+    "num": 69,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Sagittarius",
+    "ra": 18.527,
+    "dec": -32.35,
+    "thumb": "M69-thumb.jpg"
+  },
+  {
+    "num": 70,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Sagittarius",
+    "ra": 18.723,
+    "dec": -32.283,
+    "thumb": "M70-thumb.jpg"
+  },
+  {
+    "num": 71,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Sagittarius",
+    "ra": 19.896,
+    "dec": 18.783,
+    "thumb": "M71-thumb.jpg"
+  },
+  {
+    "num": 72,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Aquarius",
+    "ra": 20.893,
+    "dec": -12.533,
+    "thumb": "M72-thumb.jpg"
+  },
+  {
+    "num": 73,
+    "name": "Asterism",
+    "type": "Asterism",
+    "category": "other",
+    "constellation": "Aquarius",
+    "ra": 20.978,
+    "dec": -12.633,
+    "thumb": "M73-thumb.jpg"
+  },
+  {
+    "num": 74,
+    "name": "Phantom Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Pisces",
+    "ra": 1.615,
+    "dec": 15.783,
+    "thumb": "M74-thumb.jpg"
+  },
+  {
+    "num": 75,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Sagittarius",
+    "ra": 20.1,
+    "dec": -21.917,
+    "thumb": "M75-thumb.jpg"
+  },
+  {
+    "num": 76,
+    "name": "Little Dumbbell Nebula",
+    "type": "Planetary Nebula",
+    "category": "planetary-nebula",
+    "constellation": "Perseus",
+    "ra": 1.702,
+    "dec": 51.567,
+    "thumb": "M76-thumb.jpg"
+  },
+  {
+    "num": 77,
+    "name": "Cetus Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Cetus",
+    "ra": 2.711,
+    "dec": -0.017,
+    "thumb": "M77-thumb.jpg"
+  },
+  {
+    "num": 78,
+    "name": "Reflection Nebula",
+    "type": "Reflection Nebula",
+    "category": "diffuse-nebula",
+    "constellation": "Orion",
+    "ra": 3.783,
+    "dec": 0.067,
+    "thumb": "M78-thumb.jpg"
+  },
+  {
+    "num": 79,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Lepus",
+    "ra": 5.544,
+    "dec": -24.533,
+    "thumb": "M79-thumb.jpg"
+  },
+  {
+    "num": 80,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Scorpius",
+    "ra": 16.283,
+    "dec": -22.967,
+    "thumb": "M80-thumb.jpg"
+  },
+  {
+    "num": 81,
+    "name": "Bode's Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Ursa Major",
+    "ra": 9.928,
+    "dec": 69.067,
+    "thumb": "M81-thumb.jpg"
+  },
+  {
+    "num": 82,
+    "name": "Cigar Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Ursa Major",
+    "ra": 9.928,
+    "dec": 69.683,
+    "thumb": "M82-thumb.jpg"
+  },
+  {
+    "num": 83,
+    "name": "Southern Pinwheel Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Hydra",
+    "ra": 13.617,
+    "dec": -29.867,
+    "thumb": "M83-thumb.jpg"
+  },
+  {
+    "num": 84,
+    "name": "Elliptical Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Virgo",
+    "ra": 12.417,
+    "dec": 12.887,
+    "thumb": "M84-thumb.jpg"
+  },
+  {
+    "num": 85,
+    "name": "Elliptical Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Coma Berenices",
+    "ra": 12.423,
+    "dec": 11.517,
+    "thumb": "M85-thumb.jpg"
+  },
+  {
+    "num": 86,
+    "name": "Elliptical Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Virgo",
+    "ra": 12.433,
+    "dec": 12.95,
+    "thumb": "M86-thumb.jpg"
+  },
+  {
+    "num": 87,
+    "name": "Virgo A",
+    "type": "Elliptical Galaxy",
+    "category": "galaxy",
+    "constellation": "Virgo",
+    "ra": 12.357,
+    "dec": 12.387,
+    "thumb": "M87-thumb.jpg"
+  },
+  {
+    "num": 88,
+    "name": "Spiral Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Coma Berenices",
+    "ra": 12.533,
+    "dec": 14.417,
+    "thumb": "M88-thumb.jpg"
+  },
+  {
+    "num": 89,
+    "name": "Elliptical Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Virgo",
+    "ra": 12.59,
+    "dec": 12.557,
+    "thumb": "M89-thumb.jpg"
+  },
+  {
+    "num": 90,
+    "name": "Spiral Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Virgo",
+    "ra": 12.567,
+    "dec": 13.163,
+    "thumb": "M90-thumb.jpg"
+  },
+  {
+    "num": 91,
+    "name": "Barred Spiral Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Coma Berenices",
+    "ra": 12.59,
+    "dec": 14.5,
+    "thumb": "M91-thumb.jpg"
+  },
+  {
+    "num": 92,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Hercules",
+    "ra": 17.283,
+    "dec": 43.137,
+    "thumb": "M92-thumb.jpg"
+  },
+  {
+    "num": 93,
+    "name": "Open Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Puppis",
+    "ra": 10.708,
+    "dec": -23.867,
+    "thumb": "M93-thumb.jpg"
+  },
+  {
+    "num": 94,
+    "name": "Croc's Eye Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Canes Venatici",
+    "ra": 12.833,
+    "dec": 41.117,
+    "thumb": "M94-thumb.jpg"
+  },
+  {
+    "num": 95,
+    "name": "Barred Spiral Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Leo",
+    "ra": 10.7,
+    "dec": 11.7,
+    "thumb": "M95-thumb.jpg"
+  },
+  {
+    "num": 96,
+    "name": "Spiral Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Leo",
+    "ra": 10.925,
+    "dec": 11.7,
+    "thumb": "M96-thumb.jpg"
+  },
+  {
+    "num": 97,
+    "name": "Owl Nebula",
+    "type": "Planetary Nebula",
+    "category": "planetary-nebula",
+    "constellation": "Ursa Major",
+    "ra": 11.247,
+    "dec": 55.017,
+    "thumb": "M97-thumb.jpg"
+  },
+  {
+    "num": 98,
+    "name": "Spiral Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Coma Berenices",
+    "ra": 12.23,
+    "dec": 14.9,
+    "thumb": "M98-thumb.jpg"
+  },
+  {
+    "num": 99,
+    "name": "Spiral Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Coma Berenices",
+    "ra": 12.315,
+    "dec": 14.417,
+    "thumb": "M99-thumb.jpg"
+  },
+  {
+    "num": 100,
+    "name": "Spiral Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Coma Berenices",
+    "ra": 12.373,
+    "dec": 15.817,
+    "thumb": "M100-thumb.jpg"
+  },
+  {
+    "num": 101,
+    "name": "Pinwheel Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Ursa Major",
+    "ra": 14.053,
+    "dec": 54.349,
+    "thumb": "M101-thumb.jpg"
+  },
+  {
+    "num": 102,
+    "name": "Spindle Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Draco",
+    "ra": 15.1,
+    "dec": 55.767,
+    "thumb": "M102-thumb.jpg"
+  },
+  {
+    "num": 103,
+    "name": "Open Cluster",
+    "type": "Open Cluster",
+    "category": "open-cluster",
+    "constellation": "Cassiopeia",
+    "ra": 1.56,
+    "dec": 60.667,
+    "thumb": "M103-thumb.jpg"
+  },
+  {
+    "num": 104,
+    "name": "Sombrero Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Virgo",
+    "ra": 12.667,
+    "dec": -11.617,
+    "thumb": "M104-thumb.jpg"
+  },
+  {
+    "num": 105,
+    "name": "Elliptical Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Leo",
+    "ra": 10.788,
+    "dec": 12.583,
+    "thumb": "M105-thumb.jpg"
+  },
+  {
+    "num": 106,
+    "name": "Spiral Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Canes Venatici",
+    "ra": 12.185,
+    "dec": 47.3,
+    "thumb": "M106-thumb.jpg"
+  },
+  {
+    "num": 107,
+    "name": "Globular Cluster",
+    "type": "Globular Cluster",
+    "category": "globular-cluster",
+    "constellation": "Ophiuchus",
+    "ra": 16.204,
+    "dec": -13.053,
+    "thumb": "M107-thumb.jpg"
+  },
+  {
+    "num": 108,
+    "name": "Surfboard Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Ursa Major",
+    "ra": 11.192,
+    "dec": 55.667,
+    "thumb": "M108-thumb.jpg"
+  },
+  {
+    "num": 109,
+    "name": "Barred Spiral Galaxy",
+    "type": "Galaxy",
+    "category": "galaxy",
+    "constellation": "Ursa Major",
+    "ra": 11.957,
+    "dec": 53.375,
+    "thumb": "M109-thumb.jpg"
+  },
+  {
+    "num": 110,
+    "name": "Andromeda Satellite",
+    "type": "Elliptical Galaxy",
+    "category": "galaxy",
+    "constellation": "Andromeda",
+    "ra": 0.677,
+    "dec": 41.683,
+    "thumb": "M110-thumb.jpg"
+  }
+]
