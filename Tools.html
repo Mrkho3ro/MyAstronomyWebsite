@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="Astronomy.css" />
         <script src="site-nav.js" defer></script>
         <script src="tools-carousel.js" defer></script>
+        <script src="site-scroll.js" defer></script>
     </head>
     <body class="page-tools">
         <nav class="site-nav" aria-label="Main">
@@ -40,42 +41,42 @@
                 <div class="Tel-Carousel-Viewport">
                     <div class="Tel-Carousel-Track" tabindex="0" role="list">
                         <a href="telescopes/dobsonian.html" class="Tel-Carousel-Item" role="listitem">
-                            <img class="Tel-Carousel-Thumb" src="Tel-3.webp" alt="Dobsonian telescope on rocker-box mount" width="130" height="130" loading="lazy" />
+                            <img class="Tel-Carousel-Thumb" src="telescopes/images/type-dobsonian.webp" alt="Dobsonian telescope on rocker-box mount — Wikimedia Commons (CC BY-SA 3.0)" width="130" height="130" loading="lazy" />
                             <div class="Tel-Carousel-Body">
                                 <h3 class="Tel-Carousel-Title">1. Dobsonian Reflectors</h3>
                                 <p class="Tel-Carousel-Desc">Simple alt-azimuth mounts paired with large mirrors — maximum aperture per dollar for sweeping the deep sky.</p>
                             </div>
                         </a>
                         <a href="telescopes/newtonian.html" class="Tel-Carousel-Item" role="listitem">
-                            <img class="Tel-Carousel-Thumb" src="Tel-2.webp" alt="Newtonian reflector on equatorial mount" width="130" height="130" loading="lazy" />
+                            <img class="Tel-Carousel-Thumb" src="telescopes/images/type-newtonian.webp" alt="Newtonian reflector on equatorial mount — Wikimedia Commons (CC BY-SA 3.0)" width="130" height="130" loading="lazy" />
                             <div class="Tel-Carousel-Body">
                                 <h3 class="Tel-Carousel-Title">2. Newtonian Reflectors</h3>
                                 <p class="Tel-Carousel-Desc">Isaac Newton's mirror design remains the workhorse of amateur astronomy on equatorial and Dobsonian mounts alike.</p>
                             </div>
                         </a>
                         <a href="telescopes/refractor.html" class="Tel-Carousel-Item" role="listitem">
-                            <img class="Tel-Carousel-Thumb" src="Tel-4.webp" alt="Achromatic refractor telescope" width="130" height="130" loading="lazy" />
+                            <img class="Tel-Carousel-Thumb" src="telescopes/images/type-refractor.webp" alt="Achromatic refractor telescope — Wikimedia Commons (CC BY-SA 3.0)" width="130" height="130" loading="lazy" />
                             <div class="Tel-Carousel-Body">
                                 <h3 class="Tel-Carousel-Title">3. Refracting Telescopes</h3>
                                 <p class="Tel-Carousel-Desc">Lens-based tubes deliver crisp, high-contrast views of the Moon and planets in a portable package.</p>
                             </div>
                         </a>
                         <a href="telescopes/schmidt-cassegrain.html" class="Tel-Carousel-Item" role="listitem">
-                            <img class="Tel-Carousel-Thumb tel-carousel-thumb--sct" src="Tel-1.webp" alt="Schmidt-Cassegrain catadioptric telescope" width="130" height="130" loading="lazy" />
+                            <img class="Tel-Carousel-Thumb tel-carousel-thumb--sct" src="telescopes/images/type-schmidt-cassegrain.webp" alt="Schmidt-Cassegrain catadioptric telescope — Wikimedia Commons (CC BY-SA 3.0)" width="130" height="130" loading="lazy" />
                             <div class="Tel-Carousel-Body">
                                 <h3 class="Tel-Carousel-Title">4. Schmidt-Cassegrain</h3>
                                 <p class="Tel-Carousel-Desc">Mirrors and a correcting lens plate fold light into a compact tube — ideal for GoTo tracking and long focal lengths.</p>
                             </div>
                         </a>
                         <a href="telescopes/maksutov.html" class="Tel-Carousel-Item" role="listitem">
-                            <img class="Tel-Carousel-Thumb tel-carousel-thumb--mak" src="Tel-1.webp" alt="Maksutov-Cassegrain compact telescope" width="130" height="130" loading="lazy" />
+                            <img class="Tel-Carousel-Thumb tel-carousel-thumb--mak" src="telescopes/images/type-maksutov.webp" alt="Maksutov-Cassegrain compact telescope — Wikimedia Commons (CC BY-SA 3.0)" width="130" height="130" loading="lazy" />
                             <div class="Tel-Carousel-Body">
                                 <h3 class="Tel-Carousel-Title">5. Maksutov-Cassegrain</h3>
                                 <p class="Tel-Carousel-Desc">Thick meniscus corrector lenses produce rugged, closed-tube scopes prized for lunar and planetary detail.</p>
                             </div>
                         </a>
                         <a href="telescopes/radio.html" class="Tel-Carousel-Item" role="listitem">
-                            <img class="Tel-Carousel-Thumb" src="Tel-6.webp" alt="Radio telescope dish array" width="130" height="130" loading="lazy" />
+                            <img class="Tel-Carousel-Thumb" src="telescopes/images/type-radio.webp" alt="Radio telescope dish array — NRAO / Wikimedia Commons (public domain / CC BY-SA 2.0)" width="130" height="130" loading="lazy" />
                             <div class="Tel-Carousel-Body">
                                 <h3 class="Tel-Carousel-Title">6. Radio Telescopes</h3>
                                 <p class="Tel-Carousel-Desc">Parabolic dishes and interferometers tune into hydrogen, pulsars, and signals invisible to the human eye.</p>
@@ -92,8 +93,8 @@
             </div>
         </section>
 
-        <section class="Tel-History" aria-labelledby="tel-history-heading">
-            <header class="Tel-History-Head">
+        <section class="Tel-History Tel-History-Split" aria-labelledby="tel-history-heading">
+            <header class="Tel-History-Head Scroll-Reveal">
                 <h2 id="tel-history-heading">History of the Telescope</h2>
                 <p class="Tel-History-Lead">
                     Four centuries of glass, mirrors, and ingenuity — from a Dutch spectacle-maker's workshop to
@@ -102,89 +103,113 @@
             </header>
 
             <div class="Tel-History-Content">
-                <article class="Tel-History-Era">
-                    <h3 class="Tel-History-Era-Title">1608 — The First Light-Gatherers</h3>
-                    <p>
-                        In the autumn of 1608, the Dutch spectacle-maker Hans Lipperhey applied for a patent on an
-                        instrument that magnified distant objects using convex and concave lenses. Word spread quickly
-                        across Europe. By the following year, Galileo Galilei had built his own improved version and
-                        turned it toward the night sky — revealing the craters of the Moon, the phases of Venus, and
-                        four moons orbiting Jupiter. Those observations shattered the ancient model of an unchanging
-                        cosmos and demonstrated that Earth was not the center of all motion.
-                    </p>
+                <article class="Split-Section Scroll-Reveal">
+                    <div class="Split-Section-Text">
+                        <h3 class="Tel-History-Era-Title">1608 — The First Light-Gatherers</h3>
+                        <p>
+                            In the autumn of 1608, the Dutch spectacle-maker Hans Lipperhey applied for a patent on an
+                            instrument that magnified distant objects using convex and concave lenses. Word spread quickly
+                            across Europe. By the following year, Galileo Galilei had built his own improved version and
+                            turned it toward the night sky — revealing the craters of the Moon, the phases of Venus, and
+                            four moons orbiting Jupiter.
+                        </p>
+                    </div>
+                    <figure class="Split-Section-Figure Split-Section-Visual">
+                        <img src="telescopes/images/type-refractor.webp" alt="Early refracting telescope — Wikimedia Commons" loading="lazy" width="640" height="480" />
+                        <figcaption>Refracting telescopes opened the first window on the heavens</figcaption>
+                    </figure>
                 </article>
 
-                <article class="Tel-History-Era">
-                    <h3 class="Tel-History-Era-Title">1668 — Newton's Mirror</h3>
-                    <p>
-                        Early refractors suffered from chromatic aberration: different colors of light focused at
-                        slightly different points, blurring fine detail. In 1668, Isaac Newton presented a radical
-                        alternative — a telescope that gathered light with a curved mirror instead of a lens. Because
-                        all wavelengths reflect at the same angle, the Newtonian reflector produced images free of
-                        false color. The design remains one of the most popular configurations among amateur
-                        astronomers today.
-                    </p>
+                <article class="Split-Section Split-Section--reverse Scroll-Reveal">
+                    <div class="Split-Section-Text">
+                        <h3 class="Tel-History-Era-Title">1668 — Newton's Mirror</h3>
+                        <p>
+                            Early refractors suffered from chromatic aberration: different colors of light focused at
+                            slightly different points, blurring fine detail. In 1668, Isaac Newton presented a radical
+                            alternative — a telescope that gathered light with a curved mirror instead of a lens. The
+                            Newtonian reflector produced images free of false color and remains popular today.
+                        </p>
+                    </div>
+                    <figure class="Split-Section-Figure Split-Section-Visual">
+                        <img src="telescopes/images/type-newtonian.webp" alt="Newtonian reflector telescope — Wikimedia Commons" loading="lazy" width="640" height="480" />
+                        <figcaption>Newton's mirror design — the workhorse of amateur astronomy</figcaption>
+                    </figure>
                 </article>
 
-                <article class="Tel-History-Era">
-                    <h3 class="Tel-History-Era-Title">1780s — Herschel and the Giant Mirrors</h3>
-                    <p>
-                        William Herschel, a German-born musician turned astronomer working in England, pushed
-                        reflecting telescopes to unprecedented scale. Grinding and polishing mirrors by hand in his
-                        garden, he constructed instruments of ever-increasing aperture. With a 48-inch reflector —
-                        then the largest in the world — he discovered Uranus in 1781 and went on to catalog thousands
-                        of nebulae and double stars, fundamentally expanding humanity's map of the deep sky.
-                    </p>
+                <article class="Split-Section Scroll-Reveal">
+                    <div class="Split-Section-Text">
+                        <h3 class="Tel-History-Era-Title">1780s — Herschel and the Giant Mirrors</h3>
+                        <p>
+                            William Herschel pushed reflecting telescopes to unprecedented scale, grinding mirrors by hand.
+                            With a 48-inch reflector he discovered Uranus in 1781 and cataloged thousands of nebulae and
+                            double stars, fundamentally expanding humanity's map of the deep sky.
+                        </p>
+                    </div>
+                    <figure class="Split-Section-Figure Split-Section-Visual">
+                        <img src="telescopes/images/type-dobsonian.webp" alt="Large Dobsonian reflector — Wikimedia Commons" loading="lazy" width="640" height="480" />
+                        <figcaption>Large-aperture reflectors reveal faint galaxies and nebula structure</figcaption>
+                    </figure>
                 </article>
 
-                <article class="Tel-History-Era">
-                    <h3 class="Tel-History-Era-Title">1758 — The Achromatic Breakthrough</h3>
-                    <p>
-                        John Dollond and others solved the refractor's color problem by pairing a crown-glass convex
-                        lens with a flint-glass concave element. The two materials bend different wavelengths by
-                        complementary amounts, bringing red and blue light to a common focus. Achromatic refractors
-                        became the standard for precision planetary observation throughout the nineteenth century and
-                        remain prized for their sharp, high-contrast views.
-                    </p>
+                <article class="Split-Section Split-Section--reverse Scroll-Reveal">
+                    <div class="Split-Section-Text">
+                        <h3 class="Tel-History-Era-Title">1758 — The Achromatic Breakthrough</h3>
+                        <p>
+                            John Dollond solved the refractor's color problem by pairing crown-glass and flint-glass lenses.
+                            Achromatic refractors became the standard for precision planetary observation throughout the
+                            nineteenth century and remain prized for sharp, high-contrast views.
+                        </p>
+                    </div>
+                    <figure class="Split-Section-Figure Split-Section-Visual">
+                        <img src="telescopes/images/evostar-72ed.webp" alt="Modern apochromatic refractor — Wikimedia Commons" loading="lazy" width="640" height="480" />
+                        <figcaption>Achromatic refractors deliver crisp lunar and planetary detail</figcaption>
+                    </figure>
                 </article>
 
-                <article class="Tel-History-Era">
-                    <h3 class="Tel-History-Era-Title">Modern Mounts and the Dobsonian Revolution</h3>
-                    <p>
-                        Equatorial mounts, driven by clock mechanisms, allowed telescopes to track stars as Earth
-                        rotated. In the twentieth century, motorized GoTo systems automated that process entirely,
-                        slewing instruments to any cataloged object at the push of a button. Meanwhile, John Dobson's
-                        simple alt-azimuth rocker-box design — paired with large-aperture Newtonian mirrors — put
-                        deep-sky observing within reach of ordinary enthusiasts. Catadioptric designs such as the
-                        Schmidt-Cassegrain and Maksutov-Cassegrain folded long focal lengths into portable tubes,
-                        bridging the gap between reflector aperture and refractor convenience.
-                    </p>
+                <article class="Split-Section Scroll-Reveal">
+                    <div class="Split-Section-Text">
+                        <h3 class="Tel-History-Era-Title">Modern Mounts and the Dobsonian Revolution</h3>
+                        <p>
+                            Equatorial mounts and GoTo systems automated star tracking. John Dobson's rocker-box design paired
+                            with large Newtonian mirrors put deep-sky observing within reach of ordinary enthusiasts.
+                            Schmidt-Cassegrain and Maksutov designs folded long focal lengths into portable tubes.
+                        </p>
+                    </div>
+                    <figure class="Split-Section-Figure Split-Section-Visual">
+                        <img src="telescopes/images/type-schmidt-cassegrain.webp" alt="Schmidt-Cassegrain telescope — Wikimedia Commons" loading="lazy" width="640" height="480" />
+                        <figcaption>Catadioptric designs bridge aperture and portability</figcaption>
+                    </figure>
                 </article>
 
-                <article class="Tel-History-Era">
-                    <h3 class="Tel-History-Era-Title">Space Telescopes — Hubble and Beyond</h3>
-                    <p>
-                        Earth's atmosphere distorts and absorbs much of the light reaching ground-based instruments.
-                        Launched in 1990, the Hubble Space Telescope orbits above that veil, delivering sharp images
-                        across ultraviolet, visible, and near-infrared wavelengths. Its observations refined the age
-                        of the universe, revealed protoplanetary disks, and produced some of the most iconic
-                        astronomical images ever captured. The James Webb Space Telescope, operating primarily in the
-                        infrared since 2022, peers through dust clouds to study the earliest galaxies and the atmospheres
-                        of exoplanets — extending the telescope's reach farther back in cosmic time than ever before.
-                    </p>
+                <article class="Split-Section Split-Section--reverse Scroll-Reveal">
+                    <div class="Split-Section-Text">
+                        <h3 class="Tel-History-Era-Title">Space Telescopes — Hubble and Beyond</h3>
+                        <p>
+                            Launched in 1990, the Hubble Space Telescope orbits above Earth's atmosphere, delivering sharp
+                            images across ultraviolet, visible, and near-infrared wavelengths. The James Webb Space Telescope,
+                            operating primarily in the infrared since 2022, peers through dust to study the earliest galaxies.
+                        </p>
+                    </div>
+                    <figure class="Split-Section-Figure Split-Section-Visual">
+                        <img src="M42-thumb.jpg" alt="Hubble image of the Orion Nebula" loading="lazy" width="640" height="480" />
+                        <figcaption>Hubble's iconic deep-sky imagery inspires a new generation of observers</figcaption>
+                    </figure>
                 </article>
 
-                <article class="Tel-History-Era">
-                    <h3 class="Tel-History-Era-Title">1932 — Listening to the Sky</h3>
-                    <p>
-                        Radio astronomy began by accident. In 1932, the Bell Telephone Laboratories engineer Karl
-                        Jansky detected a persistent hiss from the Milky Way's direction while investigating sources
-                        of static in long-distance radio communications. His discovery opened an entirely new window
-                        on the universe — one that reveals cold hydrogen clouds, spinning pulsars, and the faint
-                        afterglow of the Big Bang. Today, arrays such as the Very Large Array and China's FAST dish
-                        combine signals from multiple antennas to achieve resolutions rivaling optical telescopes,
-                        while backyard enthusiasts detect the Milky Way's hydrogen line with modest equipment.
-                    </p>
+                <article class="Split-Section Scroll-Reveal">
+                    <div class="Split-Section-Text">
+                        <h3 class="Tel-History-Era-Title">1932 — Listening to the Sky</h3>
+                        <p>
+                            Karl Jansky detected a persistent hiss from the Milky Way while investigating radio static.
+                            His discovery opened an entirely new window on the universe — cold hydrogen clouds, spinning
+                            pulsars, and the faint afterglow of the Big Bang. Arrays like the VLA and FAST achieve
+                            resolutions rivaling optical telescopes.
+                        </p>
+                    </div>
+                    <figure class="Split-Section-Figure Split-Section-Visual">
+                        <img src="telescopes/images/vla.webp" alt="Very Large Array radio telescope — Wikimedia Commons / NRAO" loading="lazy" width="640" height="480" />
+                        <figcaption>Radio astronomy reveals signals invisible to the human eye</figcaption>
+                    </figure>
                 </article>
             </div>
         </section>

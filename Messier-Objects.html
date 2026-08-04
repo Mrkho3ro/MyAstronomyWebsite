@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="Astronomy.css" />
         <script src="site-nav.js" defer></script>
         <script src="messier-sky-map.js" defer></script>
+        <script src="site-scroll.js" defer></script>
     </head>
     <body class="Messier-Objects-Background page-messier">
         <nav class="site-nav" aria-label="Main">
@@ -26,27 +27,41 @@
             </div>
         </nav>
 
-        <header class="M-Head M-Head-creative">
-            <p class="M-P1 M-P1-hero">Messier</p>
-            <p class="M-P1-sub">110 Deep-Sky Treasures</p>
-            <div class="M-Intro-Block">
-                <p class="M-P2 M-P2-lead">
-                    Charles Messier hunted comets — and accidentally mapped the universe.
-                </p>
-                <p class="M-P3">
-                    In the 1700s he cataloged fuzzy objects to <em>avoid</em> them. Today those same nebulae, clusters, and galaxies
-                    are among the most celebrated sights in the night sky — now captured in stunning detail by NASA's Hubble Space Telescope.
-                </p>
+        <header class="M-Head M-Head-creative M-Intro-Split">
+            <div class="Split-Section Scroll-Reveal">
+                <div class="Split-Section-Text">
+                    <p class="M-P1 M-P1-hero">Messier</p>
+                    <p class="M-P1-sub">110 Deep-Sky Treasures</p>
+                    <p class="M-P2 M-P2-lead">
+                        Charles Messier hunted comets — and accidentally mapped the universe.
+                    </p>
+                    <p class="M-P3">
+                        In the 1700s he cataloged fuzzy objects to <em>avoid</em> them. Today those same nebulae, clusters, and galaxies
+                        are among the most celebrated sights in the night sky — now captured in stunning detail by NASA's Hubble Space Telescope.
+                    </p>
+                    <p class="M-P5 M-P5-cta">Explore the interactive sky map below, then browse the full Hubble gallery.</p>
+                </div>
+                <div class="Split-Section-Visual">
+                    <figure class="Split-Section-Figure">
+                        <img src="M31-thumb.jpg" alt="M31 Andromeda Galaxy — Hubble" loading="lazy" width="640" height="480" />
+                        <figcaption>M31 Andromeda Galaxy — nearest major galaxy to the Milky Way</figcaption>
+                    </figure>
+                    <dl class="Stats-Grid">
+                        <div><dt>Objects</dt><dd>110</dd></div>
+                        <div><dt>Hubble Images</dt><dd>88+</dd></div>
+                        <div><dt>Categories</dt><dd>7 types</dd></div>
+                        <div><dt>Sky Map</dt><dd>Zoom &amp; filter</dd></div>
+                    </dl>
+                </div>
             </div>
-            <div class="M-Intro-Stats">
-                <div class="M-Intro-Stat"><span class="M-Stat-Num">110</span><span class="M-Stat-Label">Objects</span></div>
-                <div class="M-Intro-Stat"><span class="M-Stat-Num">88+</span><span class="M-Stat-Label">Hubble Images</span></div>
-                <div class="M-Intro-Stat"><span class="M-Stat-Num">7</span><span class="M-Stat-Label">Categories</span></div>
-            </div>
-            <p class="M-P5 M-P5-cta">Explore the interactive sky map below, then browse the full Hubble gallery.</p>
         </header>
 
-        <section class="M-SkyMap-Section" aria-label="Interactive Messier sky map">
+        <nav class="Section-Tab-Nav" aria-label="Messier sections">
+            <a href="#messier-sky-map" class="is-active">Interactive Sky Map</a>
+            <a href="#M-Gallery-Grid">Hubble Gallery</a>
+        </nav>
+
+        <section class="M-SkyMap-Section Scroll-Reveal" aria-label="Interactive Messier sky map">
             <div class="M-SkyMap-Header">
                 <h2 class="M-SkyMap-Title">Interactive Messier Sky Map</h2>
                 <p class="M-SkyMap-Subtitle">Zoom and filter all 110 objects plotted across the celestial sphere</p>

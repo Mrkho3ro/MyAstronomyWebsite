@@ -101,7 +101,9 @@ body#Home-Background {
   min-height: 100vh;
   color: var(--page-body-text);
   background-color: var(--color-bg);
-  background-image: linear-gradient(180deg, var(--page-accent-subtle) 0%, var(--color-bg) 120px);
+  background-image:
+    radial-gradient(ellipse 120% 60% at 50% -10%, var(--page-accent-subtle) 0%, transparent 55%),
+    linear-gradient(180deg, var(--page-accent-subtle) 0%, var(--color-bg) 180px);
   background-attachment: fixed;
 }
 
@@ -112,11 +114,11 @@ nav {
   top: 0;
   z-index: 1000;
   margin: 0;
-  background: var(--color-bg);
+  background: color-mix(in srgb, var(--color-bg) 88%, transparent);
   border-bottom: 1px solid var(--color-border);
-  box-shadow: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .site-nav__inner {
@@ -3079,6 +3081,14 @@ body .M-divs {
   touch-action: none;
 }
 
+.M-SkyMap-Viewport.is-pannable {
+  cursor: grab;
+}
+
+.M-SkyMap-Viewport.is-pannable.is-grabbing {
+  cursor: grabbing;
+}
+
 .M-SkyMap-Transform {
   position: absolute;
   left: 50%;
@@ -3086,13 +3096,18 @@ body .M-divs {
   transform-origin: center center;
   transform: translate(-50%, -50%) scale(1);
   will-change: transform;
+  transition: transform 0.18s ease-out;
+}
+
+.M-SkyMap-Viewport.is-grabbing .M-SkyMap-Transform {
+  transition: none;
 }
 
 .M-SkyMap-BG {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: fill;
+  object-fit: cover;
   pointer-events: none;
   user-select: none;
 }
@@ -3108,13 +3123,15 @@ body .M-divs {
 .M-SkyMap-Popup {
   position: absolute;
   z-index: 10;
-  width: 200px;
-  padding: 10px;
-  background: var(--space-glass-strong);
-  border: 1px solid color-mix(in srgb, var(--page-accent) 50%, transparent);
-  border-radius: var(--space-radius-sm);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  width: 260px;
+  padding: 14px 16px;
+  background: color-mix(in srgb, var(--space-glass-strong) 94%, transparent);
+  border: 1px solid color-mix(in srgb, var(--page-accent) 45%, transparent);
+  border-radius: var(--space-radius-md);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55), 0 0 24px var(--page-accent-glow);
   pointer-events: auto;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .M-SkyMap-Popup-Img {
@@ -3357,60 +3374,6 @@ body.page-tools .Tel-Nav-Btn[aria-current="page"] {
   max-width: 720px;
   margin: 0 auto;
   line-height: 1.55;
-}
-
-.Tel-Type-Examples {
-  max-width: 900px;
-  margin: 0 auto clamp(48px, 6vw, 80px);
-  padding: 0 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.Tel-Type-Card {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: clamp(16px, 3vw, 24px);
-  background: var(--space-glass);
-  border: 1px solid color-mix(in srgb, var(--page-accent) 35%, transparent);
-  border-radius: var(--space-radius-lg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-.Tel-Type-Img {
-  width: min(220px, 100%);
-  height: auto;
-  border-radius: var(--space-radius-sm);
-  object-fit: cover;
-}
-
-.Tel-Type-Body {
-  flex: 1;
-  min-width: 220px;
-}
-
-.Tel-Type-Body h2 {
-  font-family: var(--font-ui);
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
-  color: var(--page-heading);
-  margin: 0 0 0.5rem;
-}
-
-.Tel-Type-Specs {
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  color: var(--page-accent);
-  margin: 0 0 0.5rem;
-}
-
-.Tel-Type-Body p:last-child {
-  font-family: var(--font-body);
-  color: var(--page-body-text);
-  line-height: 1.5;
-  margin: 0;
 }
 
 /* ── Home page ───────────────────────────────────────────────── */
@@ -3814,14 +3777,6 @@ body.page-home .Home-Hero-Wrap::before {
   line-height: 1.4;
 }
 
-.Tel-Type-Examples-Heading {
-  text-align: center;
-  font-family: var(--font-display);
-  font-size: clamp(1.25rem, 3vw, 1.5rem);
-  color: var(--page-heading);
-  margin: 0 0 1.5rem;
-}
-
 .Home-Quote {
   text-align: center;
   padding: clamp(32px, 5vw, 48px) clamp(16px, 8vw, 80px) clamp(48px, 6vw, 80px);
@@ -3837,10 +3792,6 @@ body.page-home .Home-Hero-Wrap::before {
 
   .M-SkyMap-Search {
     width: 100%;
-  }
-
-  .Tel-Type-Card {
-    flex-direction: column;
   }
 
   .Tel-Intro-Block {
@@ -4097,5 +4048,398 @@ body.page-home .Home-Hero-Wrap::before {
 
   .Tel-Carousel-Item {
     flex-basis: min(100%, 340px);
+  }
+}
+
+/* ── NASA-style split layouts & shared components ───────────── */
+.Split-Section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 48px);
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: clamp(32px, 5vw, 56px) clamp(16px, 4vw, 40px);
+}
+
+.Split-Section--reverse .Split-Section-Text {
+  order: 2;
+}
+
+.Split-Section--reverse .Split-Section-Visual {
+  order: 1;
+}
+
+.Split-Section-Text {
+  min-width: 0;
+}
+
+.Split-Section-Visual {
+  min-width: 0;
+}
+
+.Split-Section-Eyebrow {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--page-accent-soft);
+}
+
+.Split-Section-Title {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 600;
+  color: var(--page-heading);
+  line-height: 1.15;
+}
+
+.Split-Section-Lead,
+.Split-Section-Text p {
+  margin: 0 0 1rem;
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 2vw, 1.0625rem);
+  line-height: 1.65;
+  color: var(--page-body-text);
+}
+
+.Split-Section-Lead:last-child,
+.Split-Section-Text p:last-child {
+  margin-bottom: 0;
+}
+
+.Split-Section-Figure {
+  margin: 0;
+  border-radius: var(--space-radius-md);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--page-accent) 25%, var(--color-border));
+  box-shadow: var(--space-shadow), 0 0 32px var(--page-accent-glow);
+  background: var(--color-surface);
+}
+
+.Split-Section-Figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.45s ease;
+}
+
+.Split-Section-Figure:hover img {
+  transform: scale(1.02);
+}
+
+.Split-Section-Figure figcaption {
+  padding: 0.65rem 0.85rem;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  border-top: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-surface) 90%, transparent);
+}
+
+.Stats-Grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.Stats-Grid > div {
+  padding: 0.65rem 0.75rem;
+  background: color-mix(in srgb, var(--page-accent-subtle) 80%, var(--color-surface));
+  border: 1px solid color-mix(in srgb, var(--page-accent) 20%, var(--color-border));
+  border-radius: var(--space-radius-sm);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.Stats-Grid > div:hover {
+  border-color: color-mix(in srgb, var(--page-accent) 40%, var(--color-border));
+  box-shadow: 0 0 16px var(--page-accent-glow);
+}
+
+.Stats-Grid dt {
+  margin: 0 0 0.2rem;
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.Stats-Grid dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--page-heading);
+  line-height: 1.3;
+}
+
+.Section-Tab-Nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 40px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.Section-Tab-Nav a {
+  position: relative;
+  display: inline-block;
+  padding: 0.85rem 1.25rem;
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.Section-Tab-Nav a::after {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: -1px;
+  height: 2px;
+  background: var(--page-accent);
+  transform: scaleX(0);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.Section-Tab-Nav a:hover,
+.Section-Tab-Nav a:focus-visible {
+  color: var(--color-text);
+  outline: none;
+}
+
+.Section-Tab-Nav a.is-active,
+.Section-Tab-Nav a[aria-current="true"] {
+  color: var(--page-accent-soft);
+}
+
+.Section-Tab-Nav a.is-active::after,
+.Section-Tab-Nav a[aria-current="true"]::after {
+  transform: scaleX(1);
+  box-shadow: 0 0 12px var(--page-accent-glow);
+}
+
+.Scroll-Reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.Scroll-Reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.Section-Tint-a {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, transparent 60%);
+  border-top: 1px solid color-mix(in srgb, var(--page-accent) 12%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--page-accent) 12%, transparent);
+}
+
+.Section-Tint-b {
+  background:
+    radial-gradient(ellipse 80% 60% at 100% 50%, var(--page-accent-subtle) 0%, transparent 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.015) 0%, transparent 100%);
+}
+
+/* Sky map quick review popup */
+.M-SkyMap-QR-Title {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--page-heading);
+  line-height: 1.25;
+}
+
+.M-SkyMap-QR-Desc {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--page-body-text);
+}
+
+.M-SkyMap-QR-Stats {
+  margin-bottom: 0.75rem;
+}
+
+.M-SkyMap-QR-Stats dd {
+  font-size: 0.82rem;
+}
+
+/* Home split featured highlight */
+.Home-Split-Featured {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.Home-Split-Cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.Home-Split-Card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--space-radius-sm);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.Home-Split-Card:hover {
+  border-color: color-mix(in srgb, var(--page-accent) 45%, var(--color-border));
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), 0 0 20px var(--page-accent-glow);
+  transform: translateX(4px);
+}
+
+.Home-Split-Card-Icon {
+  font-size: 1.25rem;
+  opacity: 0.9;
+}
+
+.Home-Split-Card-Body h3 {
+  margin: 0 0 0.15rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--page-heading);
+}
+
+.Home-Split-Card-Body p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+/* Solar learn split */
+.Solar-Learn-Split {
+  padding-top: clamp(24px, 4vw, 40px);
+  border-top: 1px solid color-mix(in srgb, var(--page-accent) 18%, var(--color-border));
+}
+
+.Solar-Learn-Split .Planet-Size-Compare {
+  margin: 0;
+  border-radius: var(--space-radius-md);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--page-accent) 22%, var(--color-border));
+  box-shadow: var(--space-shadow), 0 0 28px var(--page-accent-glow);
+}
+
+/* Messier intro split */
+.M-Intro-Split {
+  text-align: left;
+  padding-bottom: clamp(32px, 5vw, 48px);
+}
+
+.M-Intro-Split .M-P1-hero,
+.M-Intro-Split .M-P1-sub {
+  text-align: left;
+}
+
+.M-Intro-Split .Stats-Grid {
+  margin-top: 0.5rem;
+}
+
+/* Tools history alternating splits */
+.Tel-History-Split {
+  max-width: 1100px;
+}
+
+.Tel-History-Split .Tel-History-Head {
+  max-width: 720px;
+}
+
+.Tel-History-Split .Tel-History-Content {
+  gap: clamp(36px, 5vw, 56px);
+}
+
+.Tel-History-Split .Split-Section {
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  align-items: start;
+}
+
+/* Enhanced card & button micro-interactions */
+#Featured-Sections-Preview li {
+  background: linear-gradient(145deg, var(--color-surface) 0%, color-mix(in srgb, var(--color-bg) 40%, var(--color-surface)) 100%);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
+
+#Featured-Sections-Preview li:hover {
+  transform: translateY(-4px);
+}
+
+.Home-Card-CTA {
+  transition: color 0.2s ease, letter-spacing 0.2s ease;
+}
+
+.Home-Card-Link:hover .Home-Card-CTA {
+  letter-spacing: 0.04em;
+  color: var(--page-accent-soft);
+}
+
+.Solar-Control-Btn,
+.M-SkyMap-Legend-Btn,
+.Tel-Carousel-Arrow {
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.Solar-Control-Btn:hover,
+.M-SkyMap-Legend-Btn:hover,
+.Tel-Carousel-Arrow:hover {
+  box-shadow: 0 0 14px var(--page-accent-glow);
+}
+
+.Solar-Control-Btn:active,
+.Tel-Carousel-Arrow:active {
+  transform: scale(0.97);
+}
+
+@media (max-width: 768px) {
+  .Split-Section,
+  .Split-Section--reverse {
+    grid-template-columns: 1fr;
+  }
+
+  .Split-Section--reverse .Split-Section-Text,
+  .Split-Section--reverse .Split-Section-Visual {
+    order: unset;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .Scroll-Reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .M-SkyMap-Transform,
+  .Split-Section-Figure img,
+  #Featured-Sections-Preview li {
+    transition: none;
   }
 }

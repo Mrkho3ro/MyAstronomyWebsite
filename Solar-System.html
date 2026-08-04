@@ -5,6 +5,7 @@
         <title>Solar System</title>
         <link rel="stylesheet" href="Astronomy.css" />
         <script src="site-nav.js" defer></script>
+        <script src="site-scroll.js" defer></script>
     </head>
     <body class="Background-Solar-System page-solar">
         <nav class="site-nav" aria-label="Main">
@@ -112,25 +113,35 @@
 
         <section class="Solar-Learn-Section" aria-label="Learn more about the Solar System">
             <div class="Solar-Learn-Inner">
-                <header class="Solar-Learn-Header">
-                    <h2 class="Solar-Learn-Title">Planet Size Comparison</h2>
-                    <p class="Solar-Learn-Lead">
-                        Planets are drawn to the same scale so you can compare diameters at a glance.
-                        The Sun is shown smaller so it does not dominate the strip — click any body to open its page.
-                    </p>
-                </header>
-
-                <div class="Planet-Size-Compare" id="planet-size-compare">
-                    <canvas
-                        id="planet-size-compare-canvas"
-                        aria-label="Rotating 3D planet size comparison. Click a planet to open its detail page."></canvas>
-                    <p class="Planet-Size-Compare-Note">Sun shown at reduced scale · planets Mercury–Neptune true relative size</p>
-                    <p id="planet-size-compare-error" class="Planet-Size-Compare-Error" hidden>
-                        Unable to load the size comparison. Please refresh or enable WebGL.
-                    </p>
+                <div class="Split-Section Solar-Learn-Split Scroll-Reveal">
+                    <div class="Split-Section-Text">
+                        <p class="Split-Section-Eyebrow">Scale &amp; Size</p>
+                        <h2 class="Split-Section-Title">Planet Size Comparison</h2>
+                        <p class="Split-Section-Lead">
+                            Planets are drawn to the same scale so you can compare diameters at a glance.
+                            The Sun is shown smaller so it does not dominate the strip — click any body to open its page.
+                        </p>
+                        <dl class="Stats-Grid">
+                            <div><dt>Largest Planet</dt><dd>Jupiter</dd></div>
+                            <div><dt>Smallest Planet</dt><dd>Mercury</dd></div>
+                            <div><dt>Interactive</dt><dd>Click to explore</dd></div>
+                            <div><dt>Scale Mode</dt><dd>Real relative size</dd></div>
+                        </dl>
+                    </div>
+                    <div class="Split-Section-Visual">
+                        <div class="Planet-Size-Compare" id="planet-size-compare">
+                            <canvas
+                                id="planet-size-compare-canvas"
+                                aria-label="Rotating 3D planet size comparison. Click a planet to open its detail page."></canvas>
+                            <p class="Planet-Size-Compare-Note">Sun shown at reduced scale · planets Mercury–Neptune true relative size</p>
+                            <p id="planet-size-compare-error" class="Planet-Size-Compare-Error" hidden>
+                                Unable to load the size comparison. Please refresh or enable WebGL.
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
-                <section class="Solar-Light-Time" aria-labelledby="light-time-heading">
+                <section class="Solar-Light-Time Scroll-Reveal" aria-labelledby="light-time-heading">
                     <h2 id="light-time-heading" class="Solar-Learn-Title">How Far Is Light?</h2>
                     <p class="Solar-Learn-Lead">
                         Light from the Sun takes minutes to hours to reach each planet. These one-way travel times

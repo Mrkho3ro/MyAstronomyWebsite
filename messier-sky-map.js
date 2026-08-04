@@ -31,13 +31,22 @@
   var userZoom = 1;
   var minUserZoom = 1;
   var maxUserZoom = 5;
+  var panX = 0;
+  var panY = 0;
   var imgW = 4000;
   var imgH = 2000;
   var visibleCats = {};
   var selected = null;
+  var hoverObj = null;
   var highlightNum = null;
   var pinchDist = null;
   var viewReady = false;
+  var isDragging = false;
+  var dragStartX = 0;
+  var dragStartY = 0;
+  var panStartX = 0;
+  var panStartY = 0;
+  var dragMoved = false;
 
   Object.keys(CATEGORIES).forEach(function (k) {
     visibleCats[k] = true;
@@ -92,26 +101,42 @@
     return { x: (raHours / 24) * imgW, y: ((90 - decDeg) / 180) * imgH };
   }
 
-  function getFitScale() {
+  function getCoverScale() {
     var rect = viewport.getBoundingClientRect();
-    return Math.min(rect.width / imgW, rect.height / imgH);
+    return Math.max(rect.width / imgW, rect.height / imgH);
   }
 
   function getTotalScale() {
-    return getFitScale() * userZoom;
+    return getCoverScale() * userZoom;
+  }
+
+  function clampPan() {
+    if (userZoom <= 1) {
+      panX = 0;
+      panY = 0;
+      return;
+    }
+    var rect = viewport.getBoundingClientRect();
+    var totalScale = getTotalScale();
+    var scaledW = imgW * totalScale;
+    var scaledH = imgH * totalScale;
+    var maxPanX = Math.max(0, (scaledW - rect.width) / 2);
+    var maxPanY = Math.max(0, (scaledH - rect.height) / 2);
+    panX = Math.min(maxPanX, Math.max(-maxPanX, panX));
+    panY = Math.min(maxPanY, Math.max(-maxPanY, panY));
   }
 
   function getMapLayout() {
     var rect = viewport.getBoundingClientRect();
-    var fitScale = Math.min(rect.width / imgW, rect.height / imgH);
-    var totalScale = fitScale * userZoom;
+    var coverScale = getCoverScale();
+    var totalScale = coverScale * userZoom;
     var scaledW = imgW * totalScale;
     var scaledH = imgH * totalScale;
     return {
-      fitScale: fitScale,
+      fitScale: coverScale,
       totalScale: totalScale,
-      offsetX: (rect.width - scaledW) / 2,
-      offsetY: (rect.height - scaledH) / 2,
+      offsetX: (rect.width - scaledW) / 2 + panX,
+      offsetY: (rect.height - scaledH) / 2 + panY,
       vpW: rect.width,
       vpH: rect.height,
     };
@@ -129,11 +154,15 @@
     var totalScale = getTotalScale();
     transformLayer.style.width = imgW + "px";
     transformLayer.style.height = imgH + "px";
-    transformLayer.style.transform = "translate(-50%, -50%) scale(" + totalScale + ")";
+    transformLayer.style.transform =
+      "translate(calc(-50% + " + panX + "px), calc(-50% + " + panY + "px)) scale(" + totalScale + ")";
+    viewport.classList.toggle("is-pannable", userZoom > 1);
   }
 
   function resetView() {
     userZoom = 1;
+    panX = 0;
+    panY = 0;
     applyTransform();
   }
 
@@ -239,36 +268,70 @@
       var hi = highlightNum === obj.num || (selected && selected.num === obj.num);
       drawMarker(pos.x, pos.y, obj.category, obj, hi);
     });
-    if (selected) showPopup(selected);
+    var active = hoverObj || selected;
+    if (active) showQuickReview(active);
   }
 
-  function showPopup(obj) {
-    var pos = raDecToXY(obj.ra, obj.dec);
-    var scr = imageToScreen(pos.x, pos.y);
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function formatMagnitude(obj) {
+    if (obj.magnitude == null || obj.magnitude === "") return "—";
+    return String(obj.magnitude);
+  }
+
+  function positionPopup(sx, sy) {
     var L = getMapLayout();
-    var left = Math.min(Math.max(scr.x + 14, 8), L.vpW - 220);
-    var top = Math.min(Math.max(scr.y - 80, 8), L.vpH - 100);
+    var popupW = 260;
+    var popupH = 220;
+    var left = Math.min(Math.max(sx + 16, 8), L.vpW - popupW - 8);
+    var top = Math.min(Math.max(sy - popupH / 2, 8), L.vpH - popupH - 8);
     popup.style.left = left + "px";
     popup.style.top = top + "px";
+  }
+
+  function showQuickReview(obj, sx, sy) {
+    var desc = obj.description || obj.type || "";
+    if (desc.length > 120) desc = desc.slice(0, 117) + "…";
     popup.hidden = false;
+    popup.className = "M-SkyMap-Popup M-SkyMap-QuickReview";
     popup.innerHTML =
-      '<img src="' +
-      obj.thumb +
-      '" alt="M' +
-      obj.num +
-      '" class="M-SkyMap-Popup-Img" />' +
-      '<p class="M-SkyMap-Popup-Cap">M' +
+      '<h3 class="M-SkyMap-QR-Title">M' +
       obj.num +
       " – " +
-      formatType(obj.type) +
+      escapeHtml(obj.name) +
+      "</h3>" +
+      '<p class="M-SkyMap-QR-Desc">' +
+      escapeHtml(desc) +
       "</p>" +
+      '<dl class="Stats-Grid M-SkyMap-QR-Stats">' +
+      "<div><dt>Distance</dt><dd>" +
+      escapeHtml(obj.distance || "—") +
+      "</dd></div>" +
+      "<div><dt>App. Magnitude</dt><dd>" +
+      escapeHtml(formatMagnitude(obj)) +
+      "</dd></div>" +
+      "<div><dt>Constellation</dt><dd>" +
+      escapeHtml(obj.constellation || "—") +
+      "</dd></div>" +
+      "<div><dt>Object Type</dt><dd>" +
+      escapeHtml(obj.type || "—") +
+      "</dd></div>" +
+      "</dl>" +
       '<a href="messier/M' +
       obj.num +
       '.html" class="M-SkyMap-Popup-Link">View details →</a>';
-  }
-
-  function formatType(t) {
-    return t || "Unknown";
+    if (sx != null && sy != null) positionPopup(sx, sy);
+    else {
+      var pos = raDecToXY(obj.ra, obj.dec);
+      var scr = imageToScreen(pos.x, pos.y);
+      positionPopup(scr.x, scr.y);
+    }
   }
 
   function findAt(sx, sy) {
@@ -289,6 +352,12 @@
 
   function setZoom(next) {
     userZoom = Math.min(maxUserZoom, Math.max(minUserZoom, next));
+    if (userZoom <= 1) {
+      panX = 0;
+      panY = 0;
+    } else {
+      clampPan();
+    }
     applyTransform();
     draw();
   }
@@ -296,7 +365,9 @@
   function centerOn(obj, doZoom) {
     if (doZoom) userZoom = Math.min(maxUserZoom, Math.max(2.2, userZoom));
     selected = obj;
+    hoverObj = null;
     highlightNum = obj.num;
+    clampPan();
     applyTransform();
     draw();
   }
@@ -309,18 +380,86 @@
 
   viewport.addEventListener("wheel", onWheel, { passive: false });
 
+  viewport.addEventListener("mousedown", function (e) {
+    if (userZoom <= 1 || e.button !== 0) return;
+    isDragging = true;
+    dragMoved = false;
+    dragStartX = e.clientX;
+    dragStartY = e.clientY;
+    panStartX = panX;
+    panStartY = panY;
+    viewport.classList.add("is-grabbing");
+  });
+
+  window.addEventListener("mousemove", function (e) {
+    if (isDragging) {
+      var dx = e.clientX - dragStartX;
+      var dy = e.clientY - dragStartY;
+      if (Math.hypot(dx, dy) > 4) dragMoved = true;
+      panX = panStartX + dx;
+      panY = panStartY + dy;
+      clampPan();
+      applyTransform();
+      draw();
+      return;
+    }
+
+    var rect = viewport.getBoundingClientRect();
+    var sx = e.clientX - rect.left;
+    var sy = e.clientY - rect.top;
+    if (sx < 0 || sy < 0 || sx > rect.width || sy > rect.height) return;
+
+    var hit = findAt(sx, sy);
+    if (hit !== hoverObj) {
+      hoverObj = hit;
+      if (hit) {
+        highlightNum = hit.num;
+        showQuickReview(hit, sx, sy);
+      } else if (!selected) {
+        popup.hidden = true;
+        highlightNum = null;
+      }
+      draw();
+    } else if (hit) {
+      positionPopup(sx, sy);
+    }
+  });
+
+  window.addEventListener("mouseup", function () {
+    if (isDragging) {
+      isDragging = false;
+      viewport.classList.remove("is-grabbing");
+    }
+  });
+
   viewport.addEventListener("click", function (e) {
+    if (dragMoved) return;
     var rect = viewport.getBoundingClientRect();
     var hit = findAt(e.clientX - rect.left, e.clientY - rect.top);
     if (hit) {
       selected = hit;
+      hoverObj = hit;
       highlightNum = hit.num;
+      showQuickReview(hit, e.clientX - rect.left, e.clientY - rect.top);
       draw();
     } else {
       selected = null;
+      hoverObj = null;
       popup.hidden = true;
+      highlightNum = null;
       draw();
     }
+  });
+
+  viewport.addEventListener("mouseleave", function () {
+    hoverObj = null;
+    if (!selected) {
+      popup.hidden = true;
+      highlightNum = null;
+    } else {
+      highlightNum = selected.num;
+    }
+    draw();
   });
 
   viewport.addEventListener(
@@ -331,6 +470,12 @@
           e.touches[0].clientX - e.touches[1].clientX,
           e.touches[0].clientY - e.touches[1].clientY
         );
+      } else if (e.touches.length === 1 && userZoom > 1) {
+        isDragging = true;
+        dragStartX = e.touches[0].clientX;
+        dragStartY = e.touches[0].clientY;
+        panStartX = panX;
+        panStartY = panY;
       }
     },
     { passive: true }
@@ -346,6 +491,12 @@
         );
         setZoom(userZoom * (d / pinchDist));
         pinchDist = d;
+      } else if (isDragging && e.touches.length === 1 && userZoom > 1) {
+        panX = panStartX + (e.touches[0].clientX - dragStartX);
+        panY = panStartY + (e.touches[0].clientY - dragStartY);
+        clampPan();
+        applyTransform();
+        draw();
       }
     },
     { passive: true }
@@ -353,6 +504,7 @@
 
   viewport.addEventListener("touchend", function () {
     pinchDist = null;
+    isDragging = false;
   });
 
   if (searchInput) {
@@ -374,7 +526,7 @@
     searchInput.addEventListener("input", function () {
       var q = searchInput.value.trim().toLowerCase().replace(/^m/, "");
       if (!q) {
-        highlightNum = null;
+        highlightNum = selected ? selected.num : null;
         draw();
         return;
       }
@@ -417,6 +569,9 @@
       console.error("Messier catalog load failed:", err);
     });
 
-  window.addEventListener("resize", resizeCanvas);
+  window.addEventListener("resize", function () {
+    clampPan();
+    resizeCanvas();
+  });
   buildLegend();
 })();

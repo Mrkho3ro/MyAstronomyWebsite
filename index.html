@@ -6,6 +6,7 @@
         <title>Home — My Astronomy Website</title>
         <link rel="stylesheet" href="Astronomy.css" />
         <script src="site-nav.js" defer></script>
+        <script src="site-scroll.js" defer></script>
     </head>
     <body id="Home-Background" class="page-home">
         <nav class="site-nav" aria-label="Main">
@@ -25,7 +26,7 @@
             </div>
         </nav>
 
-        <div class="Home-Hero-Wrap">
+        <div class="Home-Hero-Wrap Scroll-Reveal">
             <a href="https://www.nasa.gov/" target="_blank" rel="noopener" class="Home-Nasa-Link">
                 <div id="Home-IMG">
                     <span class="Home-Nasa-Badge">Visit NASA ↗</span>
@@ -46,17 +47,66 @@
             </div>
         </div>
 
-        <div id="Introduction-Section" class="Home-Intro Home-Section-tint-a">
-            <p class="Home-Intro-Lead">Your gateway to the night sky</p>
-            <p>
-                Learn about planets, star clusters, and distant galaxies in a visual, approachable way.
-                Whether you're picking up your first telescope or diving into deep-sky objects, you'll find
-                clear explanations and tools to guide your journey.
-            </p>
-        </div>
+        <section class="Split-Section Home-Split-Featured Section-Tint-a Scroll-Reveal" aria-labelledby="home-intro-heading">
+            <div class="Split-Section-Text">
+                <p class="Split-Section-Eyebrow">Welcome</p>
+                <h2 id="home-intro-heading" class="Split-Section-Title">Your gateway to the night sky</h2>
+                <p class="Split-Section-Lead">
+                    Learn about planets, star clusters, and distant galaxies in a visual, approachable way.
+                    Whether you're picking up your first telescope or diving into deep-sky objects, you'll find
+                    clear explanations and tools to guide your journey.
+                </p>
+            </div>
+            <div class="Split-Section-Visual">
+                <dl class="Stats-Grid">
+                    <div><dt>Planets</dt><dd>8 + Sun</dd></div>
+                    <div><dt>Messier Objects</dt><dd>110 cataloged</dd></div>
+                    <div><dt>Telescope Types</dt><dd>6 guides</dd></div>
+                    <div><dt>3D Explorer</dt><dd>Interactive</dd></div>
+                </dl>
+            </div>
+        </section>
 
-        <div id="Featured-Sections-Preview" class="Home-Featured Home-Section-tint-b">
-            <h2 class="Home-Featured-Heading">Explore the Site</h2>
+        <section class="Split-Section Split-Section--reverse Section-Tint-b Scroll-Reveal" aria-labelledby="home-explore-heading">
+            <div class="Split-Section-Text">
+                <p class="Split-Section-Eyebrow">Explore the Site</p>
+                <h2 id="home-explore-heading" class="Split-Section-Title">Three paths into the cosmos</h2>
+                <p class="Split-Section-Lead">
+                    Start with our interactive Solar System, browse 110 Hubble Messier targets, or compare telescope
+                    designs before your first night under the stars.
+                </p>
+                <div class="Home-Split-Cards">
+                    <a href="Solar-System.html" class="Home-Split-Card">
+                        <span class="Home-Split-Card-Icon" aria-hidden="true">🌍</span>
+                        <span class="Home-Split-Card-Body">
+                            <h3>Solar System</h3>
+                            <p>3D orbits, planet facts, and size comparison</p>
+                        </span>
+                    </a>
+                    <a href="Messier-Objects.html" class="Home-Split-Card">
+                        <span class="Home-Split-Card-Icon" aria-hidden="true">✨</span>
+                        <span class="Home-Split-Card-Body">
+                            <h3>Messier Objects</h3>
+                            <p>Sky map, Hubble gallery, and detail pages</p>
+                        </span>
+                    </a>
+                    <a href="Tools.html" class="Home-Split-Card">
+                        <span class="Home-Split-Card-Icon" aria-hidden="true">🔭</span>
+                        <span class="Home-Split-Card-Body">
+                            <h3>Telescope Tools</h3>
+                            <p>Dobsonians, refractors, SCTs, and radio dishes</p>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <figure class="Split-Section-Figure">
+                <img src="M42-thumb.jpg" alt="M42 Orion Nebula — Hubble" loading="lazy" width="640" height="480" />
+                <figcaption>M42 Orion Nebula — one of 110 Messier objects with Hubble imagery</figcaption>
+            </figure>
+        </section>
+
+        <div id="Featured-Sections-Preview" class="Home-Featured Home-Section-tint-b Scroll-Reveal">
+            <h2 class="Home-Featured-Heading">Quick Links</h2>
             <ul>
                 <li class="Home-Card Home-Card-solar">
                     <a href="Solar-System.html" class="Home-Card-Link">
@@ -91,7 +141,7 @@
             </ul>
         </div>
 
-        <div id="Why-This-Website" class="Home-Why Home-Section-tint-a">
+        <div id="Why-This-Website" class="Home-Why Home-Section-tint-a Scroll-Reveal">
             <div id="Heading2">
                 <p><b>Why This Website?</b></p>
             </div>
@@ -105,7 +155,7 @@
             </div>
         </div>
 
-        <div id="Quote-Section" class="Home-Quote">
+        <div id="Quote-Section" class="Home-Quote Scroll-Reveal">
             <div>
                 <p><i>"Across the sea of space, the stars are other suns."</i></p>
             </div>

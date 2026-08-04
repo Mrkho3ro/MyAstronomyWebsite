@@ -5,6 +5,9 @@
     "type": "Supernova Remnant",
     "category": "supernova-remnant",
     "constellation": "Taurus",
+    "distance": "~6,500 light-years",
+    "description": "The remains of a massive star that exploded in 1054. It's one of the most famous supernova remnants in the sky.",
+    "magnitude": 8.4,
     "ra": 5.575,
     "dec": 22.017,
     "thumb": "M1-thumb.jpg"
@@ -15,6 +18,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Aquarius",
+    "distance": "~37,500 light-years",
+    "description": "One of the largest globular clusters, containing over 150,000 stars packed into a dense sphere.",
+    "magnitude": 6.5,
     "ra": 21.558,
     "dec": -0.823,
     "thumb": "M2-thumb.jpg"
@@ -25,6 +31,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Canes Venatici",
+    "distance": "~33,900 light-years",
+    "description": "A bright, rich globular cluster with hundreds of thousands of stars visible in small telescopes.",
+    "magnitude": 6.2,
     "ra": 13.703,
     "dec": 28.377,
     "thumb": "M3-thumb.jpg"
@@ -35,6 +44,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Scorpius",
+    "distance": "~7,200 light-years",
+    "description": "One of the closest globular clusters to Earth, easily found near the bright star Antares.",
+    "magnitude": 5.6,
     "ra": 16.393,
     "dec": -26.526,
     "thumb": "M4-thumb.jpg"
@@ -45,6 +57,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Serpens",
+    "distance": "~24,500 light-years",
+    "description": "A spectacular globular cluster with a bright, condensed core and thousands of resolved stars.",
+    "magnitude": 5.6,
     "ra": 15.308,
     "dec": 2.083,
     "thumb": "M5-thumb.jpg"
@@ -55,6 +70,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Scorpius",
+    "distance": "~1,600 light-years",
+    "description": "An open cluster whose butterfly-wing shape is visible in binoculars near the tail of Scorpius.",
+    "magnitude": 4.2,
     "ra": 17.67,
     "dec": -32.217,
     "thumb": "M6-thumb.jpg"
@@ -65,6 +83,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Scorpius",
+    "distance": "~980 light-years",
+    "description": "A bright naked-eye cluster near the sting of Scorpius, known since ancient times.",
+    "magnitude": 3.3,
     "ra": 17.9,
     "dec": -34.817,
     "thumb": "M7-thumb.jpg"
@@ -75,6 +96,9 @@
     "type": "Emission Nebula",
     "category": "diffuse-nebula",
     "constellation": "Sagittarius",
+    "distance": "~4,100 light-years",
+    "description": "A large, bright nebula filled with active star formation.",
+    "magnitude": 6.0,
     "ra": 18.033,
     "dec": -24.383,
     "thumb": "M8-thumb.jpg"
@@ -85,6 +109,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Ophiuchus",
+    "distance": "~25,800 light-years",
+    "description": "A distant globular cluster near the galactic bulge, challenging but rewarding in larger telescopes.",
+    "magnitude": 7.9,
     "ra": 17.32,
     "dec": -18.517,
     "thumb": "M9-thumb.jpg"
@@ -95,6 +122,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Ophiuchus",
+    "distance": "~14,300 light-years",
+    "description": "A bright globular cluster with a loosely concentrated core, easily visible in binoculars.",
+    "magnitude": 6.6,
     "ra": 16.952,
     "dec": -4.1,
     "thumb": "M10-thumb.jpg"
@@ -105,6 +135,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Scutum",
+    "distance": "~6,200 light-years",
+    "description": "One of the richest open clusters, with a distinctive V-shaped pattern resembling flying ducks.",
+    "magnitude": 5.8,
     "ra": 18.851,
     "dec": -6.267,
     "thumb": "M11-thumb.jpg"
@@ -115,6 +148,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Ophiuchus",
+    "distance": "~15,700 light-years",
+    "description": "A bright globular cluster with a dense core, located near M10 in the same constellation.",
+    "magnitude": 6.7,
     "ra": 16.787,
     "dec": -1.95,
     "thumb": "M12-thumb.jpg"
@@ -125,6 +161,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Hercules",
+    "distance": "~22,200 light-years",
+    "description": "One of the brightest globular clusters, containing hundreds of thousands of stars.",
+    "magnitude": 5.8,
     "ra": 16.695,
     "dec": 36.467,
     "thumb": "M13-thumb.jpg"
@@ -135,6 +174,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Ophiuchus",
+    "distance": "~30,300 light-years",
+    "description": "A moderately bright globular cluster with a compressed core, best viewed with larger apertures.",
+    "magnitude": 7.6,
     "ra": 17.629,
     "dec": 3.25,
     "thumb": "M14-thumb.jpg"
@@ -145,6 +187,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Pegasus",
+    "distance": "~33,600 light-years",
+    "description": "One of the densest known globular clusters, with stars packed tightly toward its center.",
+    "magnitude": 6.2,
     "ra": 21.5,
     "dec": 12.167,
     "thumb": "M15-thumb.jpg"
@@ -155,6 +200,9 @@
     "type": "Emission Nebula",
     "category": "diffuse-nebula",
     "constellation": "Serpens",
+    "distance": "~7,000 light-years",
+    "description": "Home to the iconic \"Pillars of Creation.\"",
+    "magnitude": 6.0,
     "ra": 18.187,
     "dec": -13.817,
     "thumb": "M16-thumb.jpg"
@@ -165,6 +213,9 @@
     "type": "Emission Nebula",
     "category": "diffuse-nebula",
     "constellation": "Sagittarius",
+    "distance": "~5,500 light-years",
+    "description": "Also called the Swan Nebula due to its distinctive shape.",
+    "magnitude": 7.0,
     "ra": 18.346,
     "dec": -16.167,
     "thumb": "M17-thumb.jpg"
@@ -175,6 +226,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Sagittarius",
+    "distance": "~4,900 light-years",
+    "description": "A loose open cluster near the Omega Nebula, best viewed in wide-field telescopes or binoculars.",
+    "magnitude": 7.5,
     "ra": 18.333,
     "dec": -17.133,
     "thumb": "M18-thumb.jpg"
@@ -185,6 +239,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Ophiuchus",
+    "distance": "~28,700 light-years",
+    "description": "An elongated globular cluster near the galactic center, notable for its oblate shape.",
+    "magnitude": 6.8,
     "ra": 17.043,
     "dec": -26.267,
     "thumb": "M19-thumb.jpg"
@@ -195,6 +252,9 @@
     "type": "Emission/Reflection Nebula",
     "category": "diffuse-nebula",
     "constellation": "Sagittarius",
+    "distance": "~5,200 light-years",
+    "description": "Known for its striking combination of red and blue regions.",
+    "magnitude": 9.0,
     "ra": 18.035,
     "dec": -23.017,
     "thumb": "M20-thumb.jpg"
@@ -205,6 +265,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Sagittarius",
+    "distance": "~4,250 light-years",
+    "description": "A compact open cluster located near the Trifid Nebula in the rich Sagittarius star fields.",
+    "magnitude": 5.9,
     "ra": 18.051,
     "dec": -22.5,
     "thumb": "M21-thumb.jpg"
@@ -215,6 +278,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Sagittarius",
+    "distance": "~10,600 light-years",
+    "description": "One of the brightest globular clusters in the sky, visible even to the naked eye under dark skies.",
+    "magnitude": 5.1,
     "ra": 18.606,
     "dec": -23.9,
     "thumb": "M22-thumb.jpg"
@@ -225,6 +291,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Sagittarius",
+    "distance": "~2,150 light-years",
+    "description": "A large, loose open cluster with dozens of stars spread across a wide area of sky.",
+    "magnitude": 5.5,
     "ra": 17.567,
     "dec": -19.0,
     "thumb": "M23-thumb.jpg"
@@ -235,6 +304,9 @@
     "type": "Star Cloud",
     "category": "other",
     "constellation": "Sagittarius",
+    "distance": "~10,000 light-years",
+    "description": "Not a true cluster but a bright patch of the Milky Way's central star fields, visible to the naked eye.",
+    "magnitude": 4.6,
     "ra": 18.283,
     "dec": -18.5,
     "thumb": "M24-thumb.jpg"
@@ -245,6 +317,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Sagittarius",
+    "distance": "~2,000 light-years",
+    "description": "A bright open cluster easily visible in binoculars, located in the Teapot asterism of Sagittarius.",
+    "magnitude": 4.6,
     "ra": 18.528,
     "dec": -19.25,
     "thumb": "M25-thumb.jpg"
@@ -255,6 +330,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Scutum",
+    "distance": "~5,000 light-years",
+    "description": "A compact open cluster in the Scutum star cloud region of the Milky Way.",
+    "magnitude": 8.0,
     "ra": 18.762,
     "dec": -9.383,
     "thumb": "M26-thumb.jpg"
@@ -265,6 +343,9 @@
     "type": "Planetary Nebula",
     "category": "planetary-nebula",
     "constellation": "Vulpecula",
+    "distance": "~1,360 light-years",
+    "description": "One of the brightest planetary nebulae, named for its distinctive hourglass or dumbbell shape.",
+    "magnitude": 7.4,
     "ra": 19.993,
     "dec": 22.717,
     "thumb": "M27-thumb.jpg"
@@ -275,6 +356,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Sagittarius",
+    "distance": "~18,000 light-years",
+    "description": "A moderately bright globular cluster located near the bright star Lambda Sagittarii.",
+    "magnitude": 6.9,
     "ra": 18.408,
     "dec": -24.867,
     "thumb": "M28-thumb.jpg"
@@ -285,6 +369,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Cygnus",
+    "distance": "~4,000 light-years",
+    "description": "A small open cluster near the star Gamma Cygni, best viewed with low-power telescopes.",
+    "magnitude": 6.6,
     "ra": 20.397,
     "dec": 38.533,
     "thumb": "M29-thumb.jpg"
@@ -295,6 +382,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Capricornus",
+    "distance": "~26,100 light-years",
+    "description": "A compact globular cluster with a dense core, requiring dark skies and moderate aperture.",
+    "magnitude": 7.2,
     "ra": 21.673,
     "dec": -23.183,
     "thumb": "M30-thumb.jpg"
@@ -305,6 +395,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Andromeda",
+    "distance": "~2.5 million light-years",
+    "description": "The nearest major galaxy to the Milky Way and the most distant object visible to the naked eye.",
+    "magnitude": 3.4,
     "ra": 0.712,
     "dec": 41.269,
     "thumb": "M31-thumb.jpg"
@@ -315,6 +408,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Andromeda",
+    "distance": "~2.65 million light-years",
+    "description": "A satellite galaxy of Andromeda, appearing as a small oval smudge near M31.",
+    "magnitude": 8.1,
     "ra": 0.713,
     "dec": 40.867,
     "thumb": "M32-thumb.jpg"
@@ -325,6 +421,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Triangulum",
+    "distance": "~2.73 million light-years",
+    "description": "The third-largest galaxy in the Local Group, a face-on spiral visible in binoculars under dark skies.",
+    "magnitude": 5.7,
     "ra": 1.564,
     "dec": 30.66,
     "thumb": "M33-thumb.jpg"
@@ -335,6 +434,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Perseus",
+    "distance": "~1,500 light-years",
+    "description": "A large, scattered open cluster best viewed with binoculars or wide-field telescopes.",
+    "magnitude": 5.2,
     "ra": 2.709,
     "dec": 42.783,
     "thumb": "M34-thumb.jpg"
@@ -345,6 +447,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Gemini",
+    "distance": "~2,800 light-years",
+    "description": "A bright, loose open cluster spanning a wide area, easily found near the feet of Gemini.",
+    "magnitude": 5.1,
     "ra": 6.149,
     "dec": 24.35,
     "thumb": "M35-thumb.jpg"
@@ -355,6 +460,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Auriga",
+    "distance": "~4,100 light-years",
+    "description": "A young open cluster with a handful of bright stars, located in the constellation Auriga.",
+    "magnitude": 6.0,
     "ra": 5.603,
     "dec": 34.133,
     "thumb": "M36-thumb.jpg"
@@ -365,6 +473,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Auriga",
+    "distance": "~4,500 light-years",
+    "description": "The richest of the three Auriga Messier clusters, containing hundreds of stars.",
+    "magnitude": 5.6,
     "ra": 5.877,
     "dec": 32.55,
     "thumb": "M37-thumb.jpg"
@@ -375,6 +486,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Auriga",
+    "distance": "~4,200 light-years",
+    "description": "An open cluster with a cross-shaped pattern of stars, located between M36 and M37.",
+    "magnitude": 7.4,
     "ra": 5.478,
     "dec": 35.833,
     "thumb": "M38-thumb.jpg"
@@ -385,6 +499,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Cygnus",
+    "distance": "~825 light-years",
+    "description": "A large, loose open cluster spanning nearly a degree of sky, best in binoculars.",
+    "magnitude": 4.6,
     "ra": 21.537,
     "dec": 48.433,
     "thumb": "M39-thumb.jpg"
@@ -395,6 +512,9 @@
     "type": "Double Star",
     "category": "other",
     "constellation": "Ursa Major",
+    "distance": "~510 light-years",
+    "description": "An optical double star in the Big Dipper, one of the few double stars in the Messier catalog.",
+    "magnitude": 8.4,
     "ra": 12.373,
     "dec": 58.083,
     "thumb": "M40-thumb.jpg"
@@ -405,6 +525,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Canis Major",
+    "distance": "~2,300 light-years",
+    "description": "A bright open cluster located below Sirius, easily visible to the naked eye.",
+    "magnitude": 4.5,
     "ra": 6.767,
     "dec": -20.733,
     "thumb": "M41-thumb.jpg"
@@ -415,6 +538,9 @@
     "type": "Emission Nebula",
     "category": "diffuse-nebula",
     "constellation": "Orion",
+    "distance": "~1,344 light-years",
+    "description": "A bright star-forming region and one of the most photographed objects in space.",
+    "magnitude": 4.0,
     "ra": 5.588,
     "dec": -5.391,
     "thumb": "M42-thumb.jpg"
@@ -425,6 +551,9 @@
     "type": "Emission Nebula",
     "category": "diffuse-nebula",
     "constellation": "Orion",
+    "distance": "~1,600 light-years",
+    "description": "A separate section of the Orion Nebula complex, appearing as a comma-shaped glow north of M42.",
+    "magnitude": 9.0,
     "ra": 5.592,
     "dec": -5.271,
     "thumb": "M43-thumb.jpg"
@@ -435,6 +564,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Cancer",
+    "distance": "~577 light-years",
+    "description": "Also called Praesepe, this ancient naked-eye cluster has been known since antiquity.",
+    "magnitude": 3.7,
     "ra": 8.668,
     "dec": 19.983,
     "thumb": "M44-thumb.jpg"
@@ -445,6 +577,9 @@
     "type": "Open Star Cluster",
     "category": "other",
     "constellation": "Taurus",
+    "distance": "~444 light-years",
+    "description": "Also called the \"Seven Sisters,\" this cluster is easily visible to the naked eye.",
+    "magnitude": 1.6,
     "ra": 3.783,
     "dec": 24.117,
     "thumb": "M45-thumb.jpg"
@@ -455,6 +590,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Puppis",
+    "distance": "~5,400 light-years",
+    "description": "A rich open cluster that also contains the faint planetary nebula NGC 2438 on its northern edge.",
+    "magnitude": 6.1,
     "ra": 7.702,
     "dec": -14.817,
     "thumb": "M46-thumb.jpg"
@@ -465,6 +603,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Puppis",
+    "distance": "~1,600 light-years",
+    "description": "A bright, loose open cluster visible to the naked eye under dark skies.",
+    "magnitude": 4.4,
     "ra": 7.605,
     "dec": -14.5,
     "thumb": "M47-thumb.jpg"
@@ -475,6 +616,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Hydra",
+    "distance": "~1,500 light-years",
+    "description": "A large open cluster in Hydra, best viewed with binoculars or low-power telescopes.",
+    "magnitude": 5.8,
     "ra": 8.227,
     "dec": -5.8,
     "thumb": "M48-thumb.jpg"
@@ -485,6 +629,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Virgo",
+    "distance": "~56 million light-years",
+    "description": "The brightest member of the Virgo Cluster, a giant elliptical galaxy with a smooth glow.",
+    "magnitude": 8.4,
     "ra": 12.498,
     "dec": 8.0,
     "thumb": "M49-thumb.jpg"
@@ -495,6 +642,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Monoceros",
+    "distance": "~3,200 light-years",
+    "description": "A heart-shaped open cluster near the Rosette Nebula region in Monoceros.",
+    "magnitude": 5.9,
     "ra": 7.048,
     "dec": -8.333,
     "thumb": "M50-thumb.jpg"
@@ -505,6 +655,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Canes Venatici",
+    "distance": "~23 million light-years",
+    "description": "A classic spiral galaxy interacting with a smaller companion.",
+    "magnitude": 8.4,
     "ra": 13.498,
     "dec": 47.195,
     "thumb": "M51-thumb.jpg"
@@ -515,6 +668,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Cassiopeia",
+    "distance": "~5,000 light-years",
+    "description": "A rich open cluster in Cassiopeia, appearing as a compact splash of stars in binoculars.",
+    "magnitude": 6.9,
     "ra": 23.407,
     "dec": 61.583,
     "thumb": "M52-thumb.jpg"
@@ -525,6 +681,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Coma Berenices",
+    "distance": "~58,000 light-years",
+    "description": "One of the most distant globular clusters in the catalog, with a bright condensed core.",
+    "magnitude": 6.3,
     "ra": 13.213,
     "dec": 18.167,
     "thumb": "M53-thumb.jpg"
@@ -535,6 +694,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Sagittarius",
+    "distance": "~87,400 light-years",
+    "description": "Now known to belong to the Sagittarius Dwarf Galaxy, this cluster lies near the galactic center.",
+    "magnitude": 7.6,
     "ra": 18.92,
     "dec": -30.483,
     "thumb": "M54-thumb.jpg"
@@ -545,6 +707,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Sagittarius",
+    "distance": "~17,600 light-years",
+    "description": "A large, loosely structured globular cluster visible in binoculars under dark skies.",
+    "magnitude": 6.3,
     "ra": 19.668,
     "dec": -30.967,
     "thumb": "M55-thumb.jpg"
@@ -555,6 +720,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Lyra",
+    "distance": "~32,900 light-years",
+    "description": "A small globular cluster located between Beta Cygni and Gamma Lyrae in the Summer Triangle.",
+    "magnitude": 8.3,
     "ra": 19.278,
     "dec": 30.183,
     "thumb": "M56-thumb.jpg"
@@ -565,6 +733,9 @@
     "type": "Planetary Nebula",
     "category": "planetary-nebula",
     "constellation": "Lyra",
+    "distance": "~2,300 light-years",
+    "description": "The most famous planetary nebula, appearing as a smoke ring or doughnut in telescopes.",
+    "magnitude": 8.8,
     "ra": 18.887,
     "dec": 33.029,
     "thumb": "M57-thumb.jpg"
@@ -575,6 +746,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Virgo",
+    "distance": "~62 million light-years",
+    "description": "One of the brightest galaxies in the Virgo Cluster, with a prominent bar structure.",
+    "magnitude": 9.7,
     "ra": 12.373,
     "dec": 11.817,
     "thumb": "M58-thumb.jpg"
@@ -585,6 +759,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Virgo",
+    "distance": "~60 million light-years",
+    "description": "An elliptical galaxy in the Virgo Cluster, appearing as a small oval glow in telescopes.",
+    "magnitude": 9.6,
     "ra": 12.7,
     "dec": 11.65,
     "thumb": "M59-thumb.jpg"
@@ -595,6 +772,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Virgo",
+    "distance": "~55 million light-years",
+    "description": "A bright elliptical galaxy in the Virgo Cluster, often observed alongside M59.",
+    "magnitude": 8.8,
     "ra": 12.73,
     "dec": 11.55,
     "thumb": "M60-thumb.jpg"
@@ -605,6 +785,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Virgo",
+    "distance": "~52 million light-years",
+    "description": "A face-on spiral galaxy in the Virgo Cluster, showing a mottled disk in larger telescopes.",
+    "magnitude": 9.7,
     "ra": 12.367,
     "dec": 4.467,
     "thumb": "M61-thumb.jpg"
@@ -615,6 +798,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Ophiuchus",
+    "distance": "~22,200 light-years",
+    "description": "An irregularly shaped globular cluster with a dense core, located near the galactic bulge.",
+    "magnitude": 6.5,
     "ra": 17.017,
     "dec": -30.117,
     "thumb": "M62-thumb.jpg"
@@ -625,6 +811,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Canes Venatici",
+    "distance": "~37 million light-years",
+    "description": "A flocculent spiral galaxy with patchy spiral arms, resembling a sunflower in long exposures.",
+    "magnitude": 8.6,
     "ra": 13.262,
     "dec": 42.033,
     "thumb": "M63-thumb.jpg"
@@ -635,6 +824,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Coma Berenices",
+    "distance": "~17 million light-years",
+    "description": "Named for the dark dust lane that blocks light from its bright nucleus, creating a black eye effect.",
+    "magnitude": 8.5,
     "ra": 12.945,
     "dec": 21.683,
     "thumb": "M64-thumb.jpg"
@@ -645,6 +837,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Leo",
+    "distance": "~35 million light-years",
+    "description": "One of three interacting galaxies in the Leo Triplet, showing a prominent dust lane.",
+    "magnitude": 9.3,
     "ra": 11.312,
     "dec": 13.092,
     "thumb": "M65-thumb.jpg"
@@ -655,6 +850,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Leo",
+    "distance": "~36 million light-years",
+    "description": "The largest galaxy in the Leo Triplet, a beautiful spiral with asymmetric spiral arms.",
+    "magnitude": 8.9,
     "ra": 11.336,
     "dec": 12.992,
     "thumb": "M66-thumb.jpg"
@@ -665,6 +863,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Cancer",
+    "distance": "~2,700 light-years",
+    "description": "One of the oldest known open clusters, estimated to be about 4 billion years old.",
+    "magnitude": 6.1,
     "ra": 11.8,
     "dec": 11.817,
     "thumb": "M67-thumb.jpg"
@@ -675,6 +876,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Hydra",
+    "distance": "~33,600 light-years",
+    "description": "One of the most loosely concentrated globular clusters, with stars spread over a wide area.",
+    "magnitude": 7.3,
     "ra": 12.617,
     "dec": -26.733,
     "thumb": "M68-thumb.jpg"
@@ -685,6 +889,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Sagittarius",
+    "distance": "~29,700 light-years",
+    "description": "A compact globular cluster near the galactic bulge, challenging to resolve into stars.",
+    "magnitude": 7.6,
     "ra": 18.527,
     "dec": -32.35,
     "thumb": "M69-thumb.jpg"
@@ -695,6 +902,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Sagittarius",
+    "distance": "~29,300 light-years",
+    "description": "A dense globular cluster near M69, both located in the crowded Sagittarius region.",
+    "magnitude": 7.9,
     "ra": 18.723,
     "dec": -32.283,
     "thumb": "M70-thumb.jpg"
@@ -705,6 +915,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Sagittarius",
+    "distance": "~13,000 light-years",
+    "description": "Once thought to be an open cluster, this loose globular is easily resolved into stars.",
+    "magnitude": 8.3,
     "ra": 19.896,
     "dec": 18.783,
     "thumb": "M71-thumb.jpg"
@@ -715,6 +928,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Aquarius",
+    "distance": "~53,400 light-years",
+    "description": "A distant globular cluster with a small apparent size, requiring larger telescopes.",
+    "magnitude": 9.3,
     "ra": 20.893,
     "dec": -12.533,
     "thumb": "M72-thumb.jpg"
@@ -725,6 +941,9 @@
     "type": "Asterism",
     "category": "other",
     "constellation": "Aquarius",
+    "distance": "~2,500 light-years",
+    "description": "A small group of four stars forming an asterism, one of the faintest Messier objects.",
+    "magnitude": 9.0,
     "ra": 20.978,
     "dec": -12.633,
     "thumb": "M73-thumb.jpg"
@@ -735,6 +954,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Pisces",
+    "distance": "~32 million light-years",
+    "description": "A nearly face-on spiral galaxy with low surface brightness, earning its ghostly nickname.",
+    "magnitude": 9.4,
     "ra": 1.615,
     "dec": 15.783,
     "thumb": "M74-thumb.jpg"
@@ -745,6 +967,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Sagittarius",
+    "distance": "~67,500 light-years",
+    "description": "One of the most densely packed globular clusters, with a very compressed core.",
+    "magnitude": 8.5,
     "ra": 20.1,
     "dec": -21.917,
     "thumb": "M75-thumb.jpg"
@@ -755,6 +980,9 @@
     "type": "Planetary Nebula",
     "category": "planetary-nebula",
     "constellation": "Perseus",
+    "distance": "~2,500 light-years",
+    "description": "A faint bipolar planetary nebula resembling a miniature version of the Dumbbell Nebula.",
+    "magnitude": 10.1,
     "ra": 1.702,
     "dec": 51.567,
     "thumb": "M76-thumb.jpg"
@@ -765,6 +993,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Cetus",
+    "distance": "~47 million light-years",
+    "description": "A bright Seyfert galaxy with an active nucleus, one of the largest Messier galaxies.",
+    "magnitude": 8.9,
     "ra": 2.711,
     "dec": -0.017,
     "thumb": "M77-thumb.jpg"
@@ -775,6 +1006,9 @@
     "type": "Reflection Nebula",
     "category": "diffuse-nebula",
     "constellation": "Orion",
+    "distance": "~1,350 light-years",
+    "description": "A faint blue reflection nebula in Orion, illuminated by nearby young stars.",
+    "magnitude": 8.3,
     "ra": 3.783,
     "dec": 0.067,
     "thumb": "M78-thumb.jpg"
@@ -785,6 +1019,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Lepus",
+    "distance": "~41,000 light-years",
+    "description": "An unusual globular cluster located far from the galactic plane, in the constellation Lepus.",
+    "magnitude": 7.7,
     "ra": 5.544,
     "dec": -24.533,
     "thumb": "M79-thumb.jpg"
@@ -795,6 +1032,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Scorpius",
+    "distance": "~32,600 light-years",
+    "description": "A compact globular cluster located midway between Antares and Alpha Centauri.",
+    "magnitude": 7.3,
     "ra": 16.283,
     "dec": -22.967,
     "thumb": "M80-thumb.jpg"
@@ -805,6 +1045,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Ursa Major",
+    "distance": "~12 million light-years",
+    "description": "A bright grand-design spiral galaxy, one of the best galaxies for amateur telescopes.",
+    "magnitude": 6.9,
     "ra": 9.928,
     "dec": 69.067,
     "thumb": "M81-thumb.jpg"
@@ -815,6 +1058,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Ursa Major",
+    "distance": "~12 million light-years",
+    "description": "A starburst galaxy edge-on to Earth, famous for its irregular red hydrogen outflows.",
+    "magnitude": 8.4,
     "ra": 9.928,
     "dec": 69.683,
     "thumb": "M82-thumb.jpg"
@@ -825,6 +1071,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Hydra",
+    "distance": "~15 million light-years",
+    "description": "A barred spiral galaxy and one of the closest and brightest barred spirals in the sky.",
+    "magnitude": 7.5,
     "ra": 13.617,
     "dec": -29.867,
     "thumb": "M83-thumb.jpg"
@@ -835,6 +1084,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Virgo",
+    "distance": "~60 million light-years",
+    "description": "A bright elliptical galaxy at the heart of the Virgo Cluster, near M86.",
+    "magnitude": 9.1,
     "ra": 12.417,
     "dec": 12.887,
     "thumb": "M84-thumb.jpg"
@@ -845,6 +1097,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Coma Berenices",
+    "distance": "~60 million light-years",
+    "description": "A lenticular galaxy interacting with the spiral NGC 4394, located in the Virgo-Coma region.",
+    "magnitude": 9.1,
     "ra": 12.423,
     "dec": 11.517,
     "thumb": "M85-thumb.jpg"
@@ -855,6 +1110,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Virgo",
+    "distance": "~52 million light-years",
+    "description": "A bright elliptical galaxy in the Markarian Chain of the Virgo Cluster.",
+    "magnitude": 8.9,
     "ra": 12.433,
     "dec": 12.95,
     "thumb": "M86-thumb.jpg"
@@ -865,6 +1123,9 @@
     "type": "Elliptical Galaxy",
     "category": "galaxy",
     "constellation": "Virgo",
+    "distance": "~53 million light-years",
+    "description": "A supergiant elliptical galaxy with a famous jet, home to the first photographed black hole.",
+    "magnitude": 8.6,
     "ra": 12.357,
     "dec": 12.387,
     "thumb": "M87-thumb.jpg"
@@ -875,6 +1136,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Coma Berenices",
+    "distance": "~47 million light-years",
+    "description": "A multi-arm spiral galaxy with a bright nucleus, located in the Coma Berenices region.",
+    "magnitude": 9.6,
     "ra": 12.533,
     "dec": 14.417,
     "thumb": "M88-thumb.jpg"
@@ -885,6 +1149,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Virgo",
+    "distance": "~50 million light-years",
+    "description": "A nearly perfectly spherical elliptical galaxy, one of the most round Messier objects.",
+    "magnitude": 9.8,
     "ra": 12.59,
     "dec": 12.557,
     "thumb": "M89-thumb.jpg"
@@ -895,6 +1162,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Virgo",
+    "distance": "~59 million light-years",
+    "description": "A spiral galaxy seen nearly face-on, with faint spiral arms visible in long exposures.",
+    "magnitude": 9.5,
     "ra": 12.567,
     "dec": 13.163,
     "thumb": "M90-thumb.jpg"
@@ -905,6 +1175,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Coma Berenices",
+    "distance": "~63 million light-years",
+    "description": "The last galaxy added by Messier himself, a barred spiral in Coma Berenices.",
+    "magnitude": 10.2,
     "ra": 12.59,
     "dec": 14.5,
     "thumb": "M91-thumb.jpg"
@@ -915,6 +1188,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Hercules",
+    "distance": "~26,700 light-years",
+    "description": "A bright but often overlooked cluster near M13.",
+    "magnitude": 6.4,
     "ra": 17.283,
     "dec": 43.137,
     "thumb": "M92-thumb.jpg"
@@ -925,6 +1201,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Puppis",
+    "distance": "~3,600 light-years",
+    "description": "A triangular-shaped open cluster, one of the closest Messier open clusters to Earth.",
+    "magnitude": 6.2,
     "ra": 10.708,
     "dec": -23.867,
     "thumb": "M93-thumb.jpg"
@@ -935,6 +1214,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Canes Venatici",
+    "distance": "~16 million light-years",
+    "description": "A bright spiral galaxy with a prominent ring of star formation around its nucleus.",
+    "magnitude": 8.2,
     "ra": 12.833,
     "dec": 41.117,
     "thumb": "M94-thumb.jpg"
@@ -945,6 +1227,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Leo",
+    "distance": "~38 million light-years",
+    "description": "A barred spiral galaxy in Leo with a bright bar and loosely wound spiral arms.",
+    "magnitude": 9.7,
     "ra": 10.7,
     "dec": 11.7,
     "thumb": "M95-thumb.jpg"
@@ -955,6 +1240,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Leo",
+    "distance": "~31 million light-years",
+    "description": "A bright spiral galaxy in the Leo I Group, with an asymmetric spiral structure.",
+    "magnitude": 9.2,
     "ra": 10.925,
     "dec": 11.7,
     "thumb": "M96-thumb.jpg"
@@ -965,6 +1253,9 @@
     "type": "Planetary Nebula",
     "category": "planetary-nebula",
     "constellation": "Ursa Major",
+    "distance": "~2,030 light-years",
+    "description": "Named for its two dark eyes created by dust lanes, visible in moderate-sized telescopes.",
+    "magnitude": 9.9,
     "ra": 11.247,
     "dec": 55.017,
     "thumb": "M97-thumb.jpg"
@@ -975,6 +1266,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Coma Berenices",
+    "distance": "~44 million light-years",
+    "description": "An nearly edge-on spiral galaxy in the Virgo Cluster with a faint, elongated glow.",
+    "magnitude": 10.1,
     "ra": 12.23,
     "dec": 14.9,
     "thumb": "M98-thumb.jpg"
@@ -985,6 +1279,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Coma Berenices",
+    "distance": "~50 million light-years",
+    "description": "A grand-design spiral galaxy in the Virgo Cluster, showing well-defined spiral arms.",
+    "magnitude": 9.9,
     "ra": 12.315,
     "dec": 14.417,
     "thumb": "M99-thumb.jpg"
@@ -995,6 +1292,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Coma Berenices",
+    "distance": "~55 million light-years",
+    "description": "A bright face-on spiral galaxy in the Virgo Cluster, with a prominent nucleus.",
+    "magnitude": 9.3,
     "ra": 12.373,
     "dec": 15.817,
     "thumb": "M100-thumb.jpg"
@@ -1005,6 +1305,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Ursa Major",
+    "distance": "~21 million light-years",
+    "description": "A large face-on spiral galaxy with loosely wound arms.",
+    "magnitude": 7.9,
     "ra": 14.053,
     "dec": 54.349,
     "thumb": "M101-thumb.jpg"
@@ -1015,6 +1318,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Draco",
+    "distance": "~50 million light-years",
+    "description": "A lenticular galaxy seen nearly edge-on, appearing as a thin needle of light in telescopes.",
+    "magnitude": 9.9,
     "ra": 15.1,
     "dec": 55.767,
     "thumb": "M102-thumb.jpg"
@@ -1025,6 +1331,9 @@
     "type": "Open Cluster",
     "category": "open-cluster",
     "constellation": "Cassiopeia",
+    "distance": "~10,000 light-years",
+    "description": "A small open cluster near Delta Cassiopeiae, best viewed with binoculars.",
+    "magnitude": 7.4,
     "ra": 1.56,
     "dec": 60.667,
     "thumb": "M103-thumb.jpg"
@@ -1035,6 +1344,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Virgo",
+    "distance": "~31 million light-years",
+    "description": "Famous for its bright core and dark dust lane resembling a hat.",
+    "magnitude": 8.0,
     "ra": 12.667,
     "dec": -11.617,
     "thumb": "M104-thumb.jpg"
@@ -1045,6 +1357,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Leo",
+    "distance": "~32 million light-years",
+    "description": "The brightest member of the Leo I Group of galaxies, appearing as a smooth oval glow.",
+    "magnitude": 9.3,
     "ra": 10.788,
     "dec": 12.583,
     "thumb": "M105-thumb.jpg"
@@ -1055,6 +1370,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Canes Venatici",
+    "distance": "~24 million light-years",
+    "description": "A spiral galaxy with an unusual outer arm structure and an active water-vapor maser nucleus.",
+    "magnitude": 8.4,
     "ra": 12.185,
     "dec": 47.3,
     "thumb": "M106-thumb.jpg"
@@ -1065,6 +1383,9 @@
     "type": "Globular Cluster",
     "category": "globular-cluster",
     "constellation": "Ophiuchus",
+    "distance": "~20,900 light-years",
+    "description": "One of the last Messier objects added, a loose globular cluster near the galactic bulge.",
+    "magnitude": 7.7,
     "ra": 16.204,
     "dec": -13.053,
     "thumb": "M107-thumb.jpg"
@@ -1075,6 +1396,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Ursa Major",
+    "distance": "~46 million light-years",
+    "description": "An edge-on spiral galaxy near the Big Dipper, appearing as a thin streak of light.",
+    "magnitude": 10.0,
     "ra": 11.192,
     "dec": 55.667,
     "thumb": "M108-thumb.jpg"
@@ -1085,6 +1409,9 @@
     "type": "Galaxy",
     "category": "galaxy",
     "constellation": "Ursa Major",
+    "distance": "~83 million light-years",
+    "description": "A barred spiral galaxy located southeast of the star Phecda in the Big Dipper.",
+    "magnitude": 9.8,
     "ra": 11.957,
     "dec": 53.375,
     "thumb": "M109-thumb.jpg"
@@ -1095,6 +1422,9 @@
     "type": "Elliptical Galaxy",
     "category": "galaxy",
     "constellation": "Andromeda",
+    "distance": "~2.69 million light-years",
+    "description": "A dwarf elliptical satellite galaxy of Andromeda, appearing as a faint oval near M31.",
+    "magnitude": 8.0,
     "ra": 0.677,
     "dec": 41.683,
     "thumb": "M110-thumb.jpg"
