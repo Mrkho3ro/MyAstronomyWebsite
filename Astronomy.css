@@ -3079,22 +3079,30 @@ body .M-divs {
   touch-action: none;
 }
 
-.M-SkyMap-BG {
+.M-SkyMap-Transform {
   position: absolute;
-  inset: 0;
+  left: 50%;
+  top: 50%;
+  transform-origin: center center;
+  transform: translate(-50%, -50%) scale(1);
+  will-change: transform;
+}
+
+.M-SkyMap-BG {
+  display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transform: none;
+  object-fit: fill;
   pointer-events: none;
   user-select: none;
-  opacity: 0.92;
 }
 
 .M-SkyMap-Canvas {
   position: absolute;
-  inset: 0;
+  left: 0;
+  top: 0;
   z-index: 2;
+  pointer-events: none;
 }
 
 .M-SkyMap-Popup {

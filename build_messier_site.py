@@ -282,8 +282,10 @@ def gallery_page(objects: list[dict]) -> str:
             </div>
             <div id="messier-sky-map" class="M-SkyMap">
                 <div class="M-SkyMap-Viewport">
-                    <img class="M-SkyMap-BG" data-src="milky-way-allsky.jpg" alt="Milky Way all-sky background" draggable="false" decoding="async" />
-                    <canvas class="M-SkyMap-Canvas" aria-label="Messier object markers"></canvas>
+                    <div class="M-SkyMap-Transform">
+                        <img class="M-SkyMap-BG" src="milky-way-allsky.jpg" alt="All-sky map background (ESA/Gaia/DPAC)" draggable="false" />
+                        <canvas class="M-SkyMap-Canvas" aria-label="Messier object markers"></canvas>
+                    </div>
                     <div class="M-SkyMap-Popup" hidden></div>
                 </div>
                 <div class="M-SkyMap-Controls">
