@@ -52,6 +52,7 @@ body.page-home {
   --page-accent: #b8956a;
   --page-accent-soft: #c9ad82;
   --page-accent-muted: #8a7355;
+  --page-accent-glow: rgba(184, 149, 106, 0.18);
   --page-accent-subtle: rgba(184, 149, 106, 0.06);
   --nav-link: var(--color-text-muted);
   --nav-link-hover: var(--color-text);
@@ -62,6 +63,7 @@ body.Background-Solar-System {
   --page-accent: #a67c5b;
   --page-accent-soft: #b89275;
   --page-accent-muted: #7a5d47;
+  --page-accent-glow: rgba(166, 124, 91, 0.16);
   --page-accent-subtle: rgba(166, 124, 91, 0.06);
   --nav-link: var(--color-text-muted);
   --nav-link-hover: var(--color-text);
@@ -72,6 +74,7 @@ body.Messier-Objects-Background {
   --page-accent: #6b6580;
   --page-accent-soft: #858099;
   --page-accent-muted: #524e62;
+  --page-accent-glow: rgba(107, 101, 128, 0.2);
   --page-accent-subtle: rgba(107, 101, 128, 0.06);
   --nav-link: var(--color-text-muted);
   --nav-link-hover: var(--color-text);
@@ -81,6 +84,7 @@ body.page-tools {
   --page-accent: #5a8a8a;
   --page-accent-soft: #6f9e9e;
   --page-accent-muted: #456868;
+  --page-accent-glow: rgba(90, 138, 138, 0.18);
   --page-accent-subtle: rgba(90, 138, 138, 0.06);
   --nav-link: var(--color-text-muted);
   --nav-link-hover: var(--color-text);
@@ -270,6 +274,7 @@ nav ul a:focus-visible::after,
 .site-nav__links a[aria-current="page"]::after,
 nav ul a[aria-current="page"]::after {
   transform: scaleX(1);
+  box-shadow: 0 0 10px var(--page-accent-glow);
 }
 
 .site-nav__links a[aria-current="page"],
@@ -442,13 +447,13 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
   padding: clamp(20px, 3vw, 28px);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
 }
 
 #Featured-Sections-Preview li:hover {
-  transform: none;
-  border-color: color-mix(in srgb, var(--page-accent) 35%, var(--color-border));
-  box-shadow: none;
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--page-accent) 45%, var(--color-border));
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.28), 0 0 24px var(--page-accent-glow);
 }
 
 #Featured-Sections-Preview h1 {
@@ -517,6 +522,30 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
   text-align: center;
 }
 
+.Solar-Hero-creative {
+  position: relative;
+  background:
+    radial-gradient(ellipse 80% 120% at 50% 100%, rgba(166, 124, 91, 0.12) 0%, transparent 62%),
+    linear-gradient(180deg, rgba(166, 124, 91, 0.05) 0%, transparent 100%);
+}
+
+.Solar-Hero-creative::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--page-accent) 55%, transparent) 20%,
+    var(--page-accent) 50%,
+    color-mix(in srgb, var(--page-accent) 55%, transparent) 80%,
+    transparent 100%
+  );
+  opacity: 0.65;
+  pointer-events: none;
+}
+
 .Solar-3D-Divider {
   max-width: 960px;
   margin: 0 auto;
@@ -548,7 +577,7 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
 }
 
 .Solar-3D-Section {
-  background: var(--color-bg);
+  background: linear-gradient(180deg, var(--color-bg) 0%, #12161d 48%, var(--color-bg) 100%);
   padding: 24px 0 48px;
   margin-top: 0;
   border-top: 1px solid var(--color-border);
@@ -630,9 +659,12 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
   aspect-ratio: 16 / 10;
   max-height: 600px;
   background: #0a0e14;
-  border: 1px solid var(--color-border);
+  border: 1px solid color-mix(in srgb, var(--page-accent) 28%, var(--color-border));
   border-radius: var(--space-radius-md);
-  box-shadow: var(--space-shadow);
+  box-shadow:
+    var(--space-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 0 36px rgba(166, 124, 91, 0.08);
 }
 
 #solar-system-canvas {
@@ -1966,7 +1998,7 @@ body.solar-light-mode nav ul a[aria-current="page"] {
   max-width: 1100px;
   margin: 0 auto clamp(48px, 8vw, 80px);
   padding: 32px 16px 40px;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.012);
   border: none;
   border-top: 1px solid var(--color-border);
   border-radius: 0;
@@ -2042,6 +2074,8 @@ body.solar-light-mode nav ul a[aria-current="page"] {
   gap: 6px;
   border-top: 1px solid color-mix(in srgb, var(--page-accent) 20%, transparent);
   padding-top: 6px;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 120px;
 }
 
 .M-Gallery-Row:first-child {
@@ -2063,13 +2097,13 @@ body.solar-light-mode nav ul a[aria-current="page"] {
   border-radius: 10px;
   background: linear-gradient(180deg, var(--space-glass), transparent);
   border: 1px solid color-mix(in srgb, var(--page-accent) 18%, transparent);
-  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .M-Gallery-Cell:hover {
-  transform: none;
-  border-color: color-mix(in srgb, var(--page-accent) 30%, var(--color-border));
-  box-shadow: none;
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--page-accent) 40%, var(--color-border));
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22), 0 0 18px var(--page-accent-glow);
 }
 
 .M-Gallery-Cell-hidden {
@@ -2908,6 +2942,11 @@ body .M-divs {
   padding-top: clamp(40px, 6vw, 64px);
   border-bottom: 1px solid var(--color-border);
   margin-bottom: clamp(32px, 5vw, 48px);
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 0%, rgba(55, 50, 75, 0.22) 0%, transparent 68%),
+    radial-gradient(1px 1px at 18% 22%, rgba(255, 255, 255, 0.35), transparent),
+    radial-gradient(1px 1px at 72% 38%, rgba(255, 255, 255, 0.2), transparent),
+    radial-gradient(1px 1px at 44% 68%, rgba(255, 255, 255, 0.25), transparent);
 }
 
 .M-P1-hero {
@@ -2996,7 +3035,11 @@ body .M-divs {
 .M-SkyMap-Section {
   max-width: 1200px;
   margin: 0 auto clamp(40px, 6vw, 64px);
-  padding: 0 16px;
+  padding: clamp(20px, 3vw, 32px) 16px;
+  border-radius: var(--space-radius-lg);
+  background:
+    radial-gradient(ellipse 100% 80% at 50% 20%, rgba(35, 32, 52, 0.45) 0%, transparent 72%),
+    linear-gradient(180deg, rgba(20, 18, 32, 0.35) 0%, transparent 100%);
 }
 
 .M-SkyMap-Header {
@@ -3019,10 +3062,10 @@ body .M-divs {
 
 .M-SkyMap {
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid color-mix(in srgb, var(--page-accent) 22%, var(--color-border));
   border-radius: var(--space-radius-md);
   overflow: hidden;
-  box-shadow: var(--space-shadow);
+  box-shadow: var(--space-shadow), 0 0 40px rgba(40, 35, 60, 0.25);
 }
 
 .M-SkyMap-Viewport {
@@ -3236,11 +3279,19 @@ body .M-divs {
 }
 
 .Tel-Nav-Btn:hover,
-.Tel-Nav-Btn.is-active {
+.Tel-Nav-Btn:focus-visible,
+.Tel-Nav-Btn.is-active,
+.Tel-Nav-Btn[aria-current="page"] {
   transform: none;
   border-color: var(--page-accent);
-  box-shadow: none;
+  box-shadow: 0 0 14px var(--page-accent-glow);
   color: var(--page-heading);
+}
+
+body.page-tools .Tel-Nav-Btn.is-active,
+body.page-tools .Tel-Nav-Btn[aria-current="page"] {
+  background: rgba(90, 138, 138, 0.12);
+  border-bottom: 2px solid var(--page-accent);
 }
 
 .Tools-Featured-Title {
@@ -3358,6 +3409,37 @@ body .M-divs {
 .Home-Hero-Wrap {
   position: relative;
   margin: clamp(16px, 3vw, 32px) clamp(16px, 6vw, 120px);
+  padding: clamp(12px, 2vw, 20px);
+  border-radius: var(--space-radius-lg);
+  overflow: hidden;
+}
+
+body.page-home .Home-Hero-Wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(ellipse 85% 65% at 50% 0%, rgba(184, 149, 106, 0.1) 0%, transparent 70%),
+    radial-gradient(1px 1px at 12% 28%, rgba(255, 255, 255, 0.35), transparent),
+    radial-gradient(1px 1px at 68% 18%, rgba(255, 255, 255, 0.22), transparent),
+    radial-gradient(1px 1px at 84% 62%, rgba(255, 255, 255, 0.18), transparent),
+    radial-gradient(1px 1px at 32% 74%, rgba(255, 255, 255, 0.25), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.Home-Section-tint-a {
+  background: rgba(255, 255, 255, 0.015);
+  border-radius: var(--space-radius-md);
+}
+
+.Home-Section-tint-b {
+  background: rgba(184, 149, 106, 0.025);
+  border-radius: var(--space-radius-md);
+  padding-top: clamp(24px, 4vw, 36px);
+  padding-left: clamp(12px, 2vw, 20px);
+  padding-right: clamp(12px, 2vw, 20px);
 }
 
 .Home-Nasa-Link {
@@ -3413,7 +3495,7 @@ body .M-divs {
   font-weight: 600;
   margin: 0.25rem 0;
   color: var(--page-accent);
-  text-shadow: none;
+  text-shadow: 0 0 32px var(--page-accent-glow);
   line-height: 1.1;
 }
 
@@ -3478,11 +3560,36 @@ body .M-divs {
   letter-spacing: 0;
 }
 
-.Home-Card-solar:hover,
-.Home-Card-messier:hover,
+.Home-Card-solar:hover {
+  border-color: color-mix(in srgb, #a67c5b 45%, var(--color-border));
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.28), 0 0 22px rgba(166, 124, 91, 0.14);
+}
+
+.Home-Card-messier:hover {
+  border-color: color-mix(in srgb, #6b6580 45%, var(--color-border));
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.28), 0 0 22px rgba(107, 101, 128, 0.16);
+}
+
 .Home-Card-tools:hover {
-  border-color: color-mix(in srgb, var(--page-accent) 35%, var(--color-border));
-  box-shadow: none;
+  border-color: color-mix(in srgb, #5a8a8a 45%, var(--color-border));
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.28), 0 0 22px rgba(90, 138, 138, 0.14);
+}
+
+.Tools-Featured-creative {
+  background: linear-gradient(180deg, rgba(90, 138, 138, 0.04) 0%, transparent 100%);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding-top: clamp(32px, 5vw, 48px);
+  padding-bottom: clamp(32px, 5vw, 48px);
+}
+
+body.page-tools .Tools-Featured .Telescopes {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+body.page-tools .Tools-Featured .Telescopes:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.28), 0 0 20px var(--page-accent-glow);
 }
 
 .Home-Quote {

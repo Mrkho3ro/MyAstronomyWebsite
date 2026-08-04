@@ -127,9 +127,28 @@ def thumb_src(num: int, from_detail: bool) -> str:
     return image_src(num, 1, from_detail)
 
 
+def optimize_gallery_thumb(path: Path, max_side: int = 280, quality: int = 82) -> None:
+    if not path.exists():
+        return
+    try:
+        from PIL import Image
+    except ImportError:
+        return
+    with Image.open(path) as im:
+        w, h = im.size
+        if max(w, h) <= max_side:
+            return
+        ratio = max_side / max(w, h)
+        resized = im.resize((int(w * ratio), int(h * ratio)), Image.Resampling.LANCZOS)
+        if resized.mode != "RGB":
+            resized = resized.convert("RGB")
+        resized.save(path, "JPEG", quality=quality, optimize=True)
+
+
 def ensure_local_images(thumbs: dict[int, str]) -> None:
     for num in range(1, 111):
         if has_local_images(num):
+            optimize_gallery_thumb(ROOT / f"M{num}-thumb.jpg")
             continue
         url = thumbs.get(num)
         if not url:
@@ -138,6 +157,8 @@ def ensure_local_images(thumbs: dict[int, str]) -> None:
         primary = ROOT / f"M{num}-1.jpg"
         if download(url, primary):
             print(f"Downloaded M{num}-1.jpg")
+            shutil.copy2(primary, ROOT / f"M{num}-thumb.jpg")
+            optimize_gallery_thumb(ROOT / f"M{num}-thumb.jpg")
             for slot in (2, 3):
                 dest = ROOT / f"M{num}-{slot}.jpg"
                 if not dest.exists():
@@ -206,7 +227,7 @@ def gallery_cell(obj: dict) -> str:
     thumb = thumb_src(n, False)
     return f"""                <a href="messier/M{n}.html" class="M-Gallery-Cell" data-num="{n}">
                     <div class="M-Gallery-Thumb-Wrap">
-                        <img src="{escape(thumb)}" class="M-Gallery-Thumb" alt="M{n}" loading="lazy" />
+                        <img src="{escape(thumb)}" class="M-Gallery-Thumb" alt="M{n}" loading="lazy" decoding="async" width="280" height="280" />
                     </div>
                     <span class="M-Gallery-Label"><strong>M{n}</strong> {escape(obj["name"])}</span>
                     <span class="M-Gallery-Type">{escape(obj["type"])}</span>
@@ -261,7 +282,7 @@ def gallery_page(objects: list[dict]) -> str:
             </div>
             <div id="messier-sky-map" class="M-SkyMap">
                 <div class="M-SkyMap-Viewport">
-                    <img class="M-SkyMap-BG" src="milky-way-allsky.jpg" alt="Milky Way all-sky background" draggable="false" />
+                    <img class="M-SkyMap-BG" data-src="milky-way-allsky.jpg" alt="Milky Way all-sky background" draggable="false" decoding="async" />
                     <canvas class="M-SkyMap-Canvas" aria-label="Messier object markers"></canvas>
                     <div class="M-SkyMap-Popup" hidden></div>
                 </div>
