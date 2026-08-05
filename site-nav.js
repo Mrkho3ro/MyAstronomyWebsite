@@ -1,7 +1,7 @@
 (function () {
   function initNav(nav) {
     var toggle = nav.querySelector(".site-nav__toggle");
-    var menu = nav.querySelector(".site-nav__links, ul");
+    var menu = nav.querySelector("#site-nav-menu, .site-nav__links--dropdown");
     if (toggle && menu) {
       toggle.addEventListener("click", function () {
         var open = nav.classList.toggle("is-open");
@@ -39,7 +39,7 @@
       section = "home";
     }
 
-    nav.querySelectorAll(".site-nav__links a, ul a").forEach(function (link) {
+    nav.querySelectorAll(".site-nav__links a").forEach(function (link) {
       var href = (link.getAttribute("href") || "").replace(/\\/g, "/");
       var linkFile = href.split("/").pop() || "";
       var match = false;
