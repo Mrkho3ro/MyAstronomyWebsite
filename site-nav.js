@@ -1,7 +1,7 @@
 (function () {
   function initNav(nav) {
     var toggle = nav.querySelector(".site-nav__toggle");
-    var menu = nav.querySelector("#site-nav-menu, .site-nav__links--dropdown");
+    var menu = nav.querySelector("#site-nav-menu, .site-nav__links");
     if (toggle && menu) {
       toggle.addEventListener("click", function () {
         var open = nav.classList.toggle("is-open");
