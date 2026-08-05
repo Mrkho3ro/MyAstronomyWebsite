@@ -15,18 +15,7 @@ const RADIUS_EARTH = {
     Neptune: 3.88,
 };
 
-/** Sun is ~109 Earth radii; displayed much smaller so the strip stays readable. */
-const SUN_DISPLAY_EARTH_RADII = 18;
-
 const BODIES = [
-    {
-        name: "Sun",
-        slug: "Sun",
-        texture: "2k_sun.jpg",
-        radiusEarth: SUN_DISPLAY_EARTH_RADII,
-        isSun: true,
-        reducedScale: true,
-    },
     { name: "Mercury", slug: "Mercury", texture: "2k_mercury.jpg", radiusEarth: RADIUS_EARTH.Mercury },
     { name: "Venus", slug: "Venus", texture: "2k_venus_surface.jpg", radiusEarth: RADIUS_EARTH.Venus },
     {
@@ -52,7 +41,6 @@ const BODIES = [
 
 // Sidereal day length in Earth days (negative = retrograde). Scaled so Earth ≈ one spin every ~12 s.
 const AXIAL_ROTATION_DAYS = {
-    Sun: 25.38,
     Mercury: 58.646,
     Venus: -243.025,
     Earth: 1.0,
@@ -138,7 +126,7 @@ fillLight.position.set(-6, -2, 4);
 scene.add(fillLight);
 
 /** Uniform enlargement for all comparison bodies; relative sizes stay true. */
-const SIZE_MULTIPLIER = 2.0;
+const SIZE_MULTIPLIER = 2.4;
 const UNIT = 0.11;
 const GAP = 0.55;
 const entries = [];
@@ -167,57 +155,41 @@ BODIES.forEach((spec, index) => {
     group.userData.name = spec.name;
 
     let mesh;
-    if (spec.isSun) {
-        const sunTex = loadTexture(`${TEXTURE_BASE}${spec.texture}`);
-        mesh = new THREE.Mesh(
-            new THREE.SphereGeometry(radius, 48, 48),
+    const material = new THREE.MeshStandardMaterial({
+        map: loadTexture(`${TEXTURE_BASE}${spec.texture}`),
+        roughness: 0.78,
+        metalness: 0.05,
+        emissive: 0x111122,
+        emissiveIntensity: 0.06,
+    });
+    if (spec.normalMap) {
+        material.normalMap = loadTexture(spec.normalMap);
+        material.normalScale = new THREE.Vector2(0.55, 0.55);
+    }
+    mesh = new THREE.Mesh(new THREE.SphereGeometry(radius, 48, 48), material);
+
+    if (spec.clouds) {
+        const clouds = new THREE.Mesh(
+            new THREE.SphereGeometry(radius * 1.018, 40, 40),
             new THREE.MeshStandardMaterial({
-                map: sunTex,
-                emissive: 0xffaa44,
-                emissiveMap: sunTex,
-                emissiveIntensity: 2.8,
-                roughness: 1,
-                metalness: 0,
+                map: loadTexture(`${TEXTURE_BASE}${spec.clouds}`),
+                transparent: true,
+                opacity: 0.4,
+                depthWrite: false,
             }),
         );
-        mesh.add(new THREE.PointLight(0xffcc66, 1.8, radius * 8, 2));
-    } else {
-        const material = new THREE.MeshStandardMaterial({
-            map: loadTexture(`${TEXTURE_BASE}${spec.texture}`),
-            roughness: 0.78,
-            metalness: 0.05,
-            emissive: 0x111122,
-            emissiveIntensity: 0.06,
-        });
-        if (spec.normalMap) {
-            material.normalMap = loadTexture(spec.normalMap);
-            material.normalScale = new THREE.Vector2(0.55, 0.55);
-        }
-        mesh = new THREE.Mesh(new THREE.SphereGeometry(radius, 48, 48), material);
+        mesh.add(clouds);
+        group.userData.clouds = clouds;
+    }
 
-        if (spec.clouds) {
-            const clouds = new THREE.Mesh(
-                new THREE.SphereGeometry(radius * 1.018, 40, 40),
-                new THREE.MeshStandardMaterial({
-                    map: loadTexture(`${TEXTURE_BASE}${spec.clouds}`),
-                    transparent: true,
-                    opacity: 0.4,
-                    depthWrite: false,
-                }),
-            );
-            mesh.add(clouds);
-            group.userData.clouds = clouds;
-        }
+    if (spec.rings) {
+        const ring = createSaturnRing(radius, loadTexture(`${TEXTURE_BASE}2k_saturn_ring_alpha.png`));
+        ring.rotation.x = Math.PI / 2;
+        mesh.add(ring);
+    }
 
-        if (spec.rings) {
-            const ring = createSaturnRing(radius, loadTexture(`${TEXTURE_BASE}2k_saturn_ring_alpha.png`));
-            ring.rotation.x = Math.PI / 2;
-            mesh.add(ring);
-        }
-
-        if (spec.tilt) {
-            group.rotation.z = spec.tilt * 0.35;
-        }
+    if (spec.tilt) {
+        group.rotation.z = spec.tilt * 0.35;
     }
 
     group.add(mesh);
@@ -228,13 +200,13 @@ BODIES.forEach((spec, index) => {
     const label = document.createElement("button");
     label.type = "button";
     label.className = "Planet-Size-Compare-Label";
-    if (index >= 1 && index <= 4) {
+    if (index >= 0 && index <= 3) {
         label.classList.add("Planet-Size-Compare-Label--inner");
-        if (index % 2 === 0) {
+        if (index % 2 === 1) {
             label.classList.add("Planet-Size-Compare-Label--above");
         }
     }
-    label.textContent = spec.reducedScale ? `${spec.name}*` : spec.name;
+    label.textContent = spec.name;
     label.dataset.slug = spec.slug;
     label.setAttribute("aria-label", `Open ${spec.name} detail page`);
     labelsRow.appendChild(label);
@@ -273,8 +245,8 @@ function resize() {
 /** World-space Y for label anchor; Mercury–Mars alternate above/below. */
 function getLabelWorldY(entry, index) {
     const pad = 0.38;
-    if (index >= 1 && index <= 4) {
-        return index % 2 === 1 ? -(entry.radius + pad) : entry.radius + pad;
+    if (index >= 0 && index <= 3) {
+        return index % 2 === 0 ? -(entry.radius + pad) : entry.radius + pad;
     }
     return -(entry.radius + pad);
 }

@@ -30,7 +30,7 @@
   var catalog = [];
   var userZoom = 1;
   var minUserZoom = 1;
-  var maxUserZoom = 5;
+  var maxUserZoom = 10;
   var panX = 0;
   var panY = 0;
   var imgW = 4000;
@@ -280,15 +280,20 @@
       .replace(/"/g, "&quot;");
   }
 
-  function formatMagnitude(obj) {
-    if (obj.magnitude == null || obj.magnitude === "") return "—";
-    return String(obj.magnitude);
+
+  function getTypeLabel(obj) {
+    var cat = CATEGORIES[obj.category];
+    return (cat && cat.label) || obj.type || "Object";
+  }
+
+  function getThumbSrc(obj) {
+    return obj.thumb || "M" + obj.num + "-thumb.jpg";
   }
 
   function positionPopup(sx, sy) {
     var L = getMapLayout();
-    var popupW = 260;
-    var popupH = 220;
+    var popupW = 168;
+    var popupH = 148;
     var left = Math.min(Math.max(sx + 16, 8), L.vpW - popupW - 8);
     var top = Math.min(Math.max(sy - popupH / 2, 8), L.vpH - popupH - 8);
     popup.style.left = left + "px";
@@ -296,36 +301,20 @@
   }
 
   function showQuickReview(obj, sx, sy) {
-    var desc = obj.description || obj.type || "";
-    if (desc.length > 120) desc = desc.slice(0, 117) + "…";
+    var typeLabel = getTypeLabel(obj);
     popup.hidden = false;
     popup.className = "M-SkyMap-Popup M-SkyMap-QuickReview";
     popup.innerHTML =
-      '<h3 class="M-SkyMap-QR-Title">M' +
+      '<img class="M-SkyMap-Popup-Img" src="' +
+      escapeHtml(getThumbSrc(obj)) +
+      '" alt="M' +
       obj.num +
-      " – " +
-      escapeHtml(obj.name) +
-      "</h3>" +
-      '<p class="M-SkyMap-QR-Desc">' +
-      escapeHtml(desc) +
-      "</p>" +
-      '<dl class="Stats-Grid M-SkyMap-QR-Stats">' +
-      "<div><dt>Distance</dt><dd>" +
-      escapeHtml(obj.distance || "—") +
-      "</dd></div>" +
-      "<div><dt>App. Magnitude</dt><dd>" +
-      escapeHtml(formatMagnitude(obj)) +
-      "</dd></div>" +
-      "<div><dt>Constellation</dt><dd>" +
-      escapeHtml(obj.constellation || "—") +
-      "</dd></div>" +
-      "<div><dt>Object Type</dt><dd>" +
-      escapeHtml(obj.type || "—") +
-      "</dd></div>" +
-      "</dl>" +
-      '<a href="messier/M' +
+      '" loading="lazy" width="140" height="140" />' +
+      '<p class="M-SkyMap-QR-Caption">' +
+      escapeHtml(typeLabel) +
+      " · M" +
       obj.num +
-      '.html" class="M-SkyMap-Popup-Link">View details →</a>';
+      "</p>";
     if (sx != null && sy != null) positionPopup(sx, sy);
     else {
       var pos = raDecToXY(obj.ra, obj.dec);
