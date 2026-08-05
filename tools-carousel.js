@@ -16,12 +16,17 @@
       next.hidden = atEnd || maxScroll <= 0;
     }
 
-    function scrollByDir(dir) {
+    function scrollAmount() {
       var item = track.querySelector(".Tel-Carousel-Item");
       var gap = parseFloat(getComputedStyle(track).gap) || 24;
       var itemStep = item ? item.offsetWidth + gap : 0;
-      var amount = itemStep > 0 ? itemStep : viewport.clientWidth * 0.85;
-      viewport.scrollBy({ left: dir * amount, behavior: "smooth" });
+      var viewportStep = viewport.clientWidth * 0.92;
+      var twoItems = itemStep > 0 ? itemStep * 2 : 0;
+      return Math.max(viewportStep, twoItems || viewportStep);
+    }
+
+    function scrollByDir(dir) {
+      viewport.scrollBy({ left: dir * scrollAmount(), behavior: "smooth" });
     }
 
     if (prev) {
