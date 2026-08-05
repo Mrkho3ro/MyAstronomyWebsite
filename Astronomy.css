@@ -3838,27 +3838,31 @@ body.page-home .Home-Hero-Wrap::before {
 }
 
 .Tel-Carousel-Viewport {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
   margin-right: clamp(48px, 6vw, 64px);
+  min-width: 0;
+}
+
+.Tel-Carousel-Viewport::-webkit-scrollbar {
+  display: none;
 }
 
 .Tel-Carousel-Track {
   display: flex;
   gap: clamp(20px, 3vw, 32px);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+  width: max-content;
+  min-width: 100%;
   padding-bottom: 4px;
 }
 
-.Tel-Carousel-Track::-webkit-scrollbar {
-  display: none;
-}
-
 .Tel-Carousel-Item {
-  flex: 0 0 min(100%, 420px);
+  flex: 0 0 clamp(280px, 32vw, 380px);
+  min-width: clamp(280px, 32vw, 380px);
   display: flex;
   align-items: flex-start;
   gap: clamp(16px, 2.5vw, 24px);
@@ -4047,7 +4051,8 @@ body.page-home .Home-Hero-Wrap::before {
   }
 
   .Tel-Carousel-Item {
-    flex-basis: min(100%, 340px);
+    flex: 0 0 clamp(260px, 78vw, 340px);
+    min-width: clamp(260px, 78vw, 340px);
   }
 }
 

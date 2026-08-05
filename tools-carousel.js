@@ -1,13 +1,14 @@
 (function () {
   document.querySelectorAll("[data-carousel]").forEach(function (carousel) {
+    var viewport = carousel.querySelector(".Tel-Carousel-Viewport");
     var track = carousel.querySelector(".Tel-Carousel-Track");
     var prev = carousel.querySelector(".Tel-Carousel-Arrow--prev");
     var next = carousel.querySelector(".Tel-Carousel-Arrow--next");
-    if (!track || !next) return;
+    if (!viewport || !track || !next) return;
 
     function updateArrows() {
-      var scrollLeft = track.scrollLeft;
-      var maxScroll = track.scrollWidth - track.clientWidth;
+      var scrollLeft = viewport.scrollLeft;
+      var maxScroll = viewport.scrollWidth - viewport.clientWidth;
       var atStart = scrollLeft <= 8;
       var atEnd = scrollLeft >= maxScroll - 8;
 
@@ -18,8 +19,9 @@
     function scrollByDir(dir) {
       var item = track.querySelector(".Tel-Carousel-Item");
       var gap = parseFloat(getComputedStyle(track).gap) || 24;
-      var amount = item ? item.offsetWidth + gap : track.clientWidth * 0.75;
-      track.scrollBy({ left: dir * amount, behavior: "smooth" });
+      var itemStep = item ? item.offsetWidth + gap : 0;
+      var amount = itemStep > 0 ? itemStep : viewport.clientWidth * 0.85;
+      viewport.scrollBy({ left: dir * amount, behavior: "smooth" });
     }
 
     if (prev) {
@@ -32,7 +34,7 @@
       scrollByDir(1);
     });
 
-    track.addEventListener("scroll", updateArrows, { passive: true });
+    viewport.addEventListener("scroll", updateArrows, { passive: true });
     window.addEventListener("resize", updateArrows);
     updateArrows();
   });
