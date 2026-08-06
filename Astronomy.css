@@ -3749,7 +3749,8 @@ body.page-home .Home-Hero-Wrap::before {
 .Home-Hero-Text {
   position: relative;
   z-index: 1;
-  margin-top: clamp(20px, 3vw, 32px);
+  margin-top: 0;
+  margin-bottom: clamp(20px, 3vw, 32px);
 }
 
 .Home-Title-Line {
@@ -4111,7 +4112,13 @@ body.page-home .Home-Hero-Wrap::before {
 /* ── Tools carousel nav (NASA-style) ──────────────────────────── */
 .Tel-Carousel-Section {
   border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding: clamp(40px, 6vw, 72px) 0 clamp(48px, 6vw, 80px);
+  margin-bottom: clamp(8px, 2vw, 16px);
+}
+
+body.page-tools .Tel-Carousel-Section {
+  border-bottom-color: color-mix(in srgb, var(--page-accent) 28%, rgba(255, 255, 255, 0.08));
 }
 
 .Tel-Carousel-Label {

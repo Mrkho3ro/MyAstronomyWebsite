@@ -323,6 +323,19 @@
     }
   }
 
+  function getObjectPageUrl(obj) {
+    return "messier/M" + obj.num + ".html";
+  }
+
+  function navigateToObject(obj, e) {
+    var url = getObjectPageUrl(obj);
+    if (e && (e.ctrlKey || e.metaKey || e.button === 1)) {
+      window.open(url, "_blank", "noopener");
+    } else {
+      window.location.href = url;
+    }
+  }
+
   function findAt(sx, sy) {
     var best = null;
     var bestD = 18;
@@ -422,21 +435,27 @@
   });
 
   viewport.addEventListener("click", function (e) {
-    if (dragMoved) return;
+    if (dragMoved || e.button !== 0) return;
     var rect = viewport.getBoundingClientRect();
     var hit = findAt(e.clientX - rect.left, e.clientY - rect.top);
     if (hit) {
-      selected = hit;
-      hoverObj = hit;
-      highlightNum = hit.num;
-      showQuickReview(hit, e.clientX - rect.left, e.clientY - rect.top);
-      draw();
+      navigateToObject(hit, e);
     } else {
       selected = null;
       hoverObj = null;
       popup.hidden = true;
       highlightNum = null;
       draw();
+    }
+  });
+
+  viewport.addEventListener("auxclick", function (e) {
+    if (e.button !== 1 || dragMoved) return;
+    var rect = viewport.getBoundingClientRect();
+    var hit = findAt(e.clientX - rect.left, e.clientY - rect.top);
+    if (hit) {
+      e.preventDefault();
+      navigateToObject(hit, e);
     }
   });
 

@@ -332,7 +332,6 @@ const TOOLTIP_THEME_SLUGS = [
 const planetHoverLabel = document.getElementById("planet-hover-label");
 const zoomLabelsContainer = document.getElementById("planet-zoom-labels");
 const scaleToggleBtn = document.getElementById("scale-toggle-btn");
-const themeToggleBtn = document.getElementById("theme-toggle-btn");
 const eclipticGridToggleBtn = document.getElementById("ecliptic-grid-toggle-btn");
 const measureDistanceBtn = document.getElementById("measure-distance-btn");
 const measureReadoutEl = document.getElementById("distance-measure-readout");
@@ -2287,10 +2286,6 @@ function applyTheme(theme) {
     eclipticGrid.lineMaterial.opacity = ECLIPTIC_GRID.lineOpacity[theme];
     eclipticGrid.fillMaterial.opacity = ECLIPTIC_GRID.fillOpacity[theme];
     document.body.classList.toggle("solar-light-mode", theme === "light");
-    if (themeToggleBtn) {
-        themeToggleBtn.textContent = theme === "dark" ? "Light Mode" : "Dark Mode";
-        themeToggleBtn.setAttribute("aria-pressed", theme === "light" ? "true" : "false");
-    }
 }
 
 let constellationsVisible = false;
@@ -2334,13 +2329,6 @@ if (scaleToggleBtn) {
     scaleToggleBtn.addEventListener("click", () => {
         const next = activeScalePreset.key === "educational" ? "real" : "educational";
         applyScalePreset(next);
-        scheduleSaveSolarSystemState();
-    });
-}
-
-if (themeToggleBtn) {
-    themeToggleBtn.addEventListener("click", () => {
-        applyTheme(currentTheme === "dark" ? "light" : "dark");
         scheduleSaveSolarSystemState();
     });
 }
@@ -2421,7 +2409,6 @@ function collectSolarSystemState() {
         eclipticGridVisible,
         measureMode: measureState.active,
         scalePreset: activeScalePreset.key,
-        lightMode: currentTheme === "light",
         camera: {
             x: camera.position.x,
             y: camera.position.y,
@@ -2506,7 +2493,7 @@ function restoreSolarSystemState() {
             applyScalePreset(state.scalePreset);
         }
 
-        applyTheme(state.lightMode ? "light" : "dark");
+        applyTheme("dark");
         applyConstellationVisibility(Boolean(state.constellationsVisible));
         applyEclipticGridVisibility(Boolean(state.eclipticGridVisible));
 
