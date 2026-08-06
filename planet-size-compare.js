@@ -126,7 +126,7 @@ fillLight.position.set(-6, -2, 4);
 scene.add(fillLight);
 
 /** Uniform enlargement for all comparison bodies; relative sizes stay true. */
-const SIZE_MULTIPLIER = 1.65;
+const SIZE_MULTIPLIER = 2.5;
 const UNIT = 0.11;
 const GAP = 0.42;
 const entries = [];
@@ -226,10 +226,10 @@ function fitCameraToScene() {
     const aspect = Math.max(camera.aspect, 0.5);
     const vFov = (camera.fov * Math.PI) / 180;
     const hFov = 2 * Math.atan(Math.tan(vFov / 2) * aspect);
-    const halfSpan = totalWidth / 2 + 0.85;
+    const halfSpan = totalWidth / 2 + 0.72;
     const zForWidth = halfSpan / Math.tan(hFov / 2);
     const zForHeight = 5.5 / Math.tan(vFov / 2);
-    camera.position.z = Math.max(22, zForWidth * 1.1, zForHeight);
+    camera.position.z = Math.max(22, zForWidth * 1.05, zForHeight);
     camera.lookAt(0, 0, 0);
 }
 
@@ -289,7 +289,7 @@ function positionLabels() {
         };
     });
 
-    resolveLabelCollisions(layout, 52);
+    resolveLabelCollisions(layout, 58);
 
     layout.forEach(({ i, x, y, above }) => {
         const el = labelEls[i];

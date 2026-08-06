@@ -695,8 +695,6 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
   padding: clamp(24px, 4vw, 40px);
   background: transparent;
   border: none;
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
   border-radius: 0;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
@@ -722,11 +720,10 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
   color: var(--page-body-text);
   font-size: 100%;
   text-align: left;
-  margin: clamp(32px, 5vw, 50px) clamp(16px, 12vw, 300px);
+  margin: 0;
   font-family: var(--font-body);
-  border-bottom: 1px solid var(--color-border);
-  margin-bottom: clamp(48px, 6vw, 70px);
-  padding-bottom: clamp(24px, 4vw, 40px);
+  border: none;
+  padding: clamp(40px, 6vw, 72px) clamp(16px, 12vw, 300px);
 }
 
 #Featured-Sections-Preview ul {
@@ -771,11 +768,11 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
 #Why-This-Website {
   color: var(--page-body-text);
   font-size: clamp(1rem, 2vw, 1.0625rem);
-  margin: clamp(20px, 4vw, 40px) clamp(16px, 12vw, 300px);
+  margin: 0;
   text-align: left;
   font-family: var(--font-body);
-  border-bottom: 1px solid var(--color-border);
-  padding-bottom: clamp(24px, 4vw, 40px);
+  border: none;
+  padding: clamp(40px, 6vw, 72px) clamp(16px, 12vw, 300px);
 }
 
 #Why-This-Website ol {
@@ -815,71 +812,32 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
 
 .Solar-Hero-Banner {
   background: transparent;
-  border-bottom: 1px solid var(--color-border);
-  padding: 36px 40px 40px;
+  border: none;
+  padding: clamp(36px, 5vw, 48px) clamp(24px, 4vw, 40px) clamp(40px, 6vw, 56px);
   text-align: center;
 }
 
 .Solar-Hero-creative {
   position: relative;
-  background:
-    radial-gradient(ellipse 80% 120% at 50% 100%, rgba(166, 124, 91, 0.12) 0%, transparent 62%),
-    linear-gradient(180deg, rgba(166, 124, 91, 0.05) 0%, transparent 100%);
 }
 
-.Solar-Hero-creative::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  height: 3px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    color-mix(in srgb, var(--page-accent) 55%, transparent) 20%,
-    var(--page-accent) 50%,
-    color-mix(in srgb, var(--page-accent) 55%, transparent) 80%,
-    transparent 100%
-  );
-  opacity: 0.65;
-  pointer-events: none;
-}
-
-.Solar-3D-Divider {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 28px clamp(16px, 4vw, 40px) 0;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.Solar-3D-Divider::before,
-.Solar-3D-Divider::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--color-border);
-}
-
-.Solar-3D-Divider-Label {
+.Solar-3D-Section-Eyebrow {
+  max-width: 1100px;
+  margin: 0 auto clamp(16px, 2.5vw, 24px);
+  padding: 0 clamp(16px, 4vw, 40px);
   font-family: var(--font-ui);
   font-size: 0.75rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--color-text-muted);
-  white-space: nowrap;
-  padding: 6px 14px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--space-radius-sm);
-  background: transparent;
+  letter-spacing: 0.12em;
+  color: var(--page-accent-soft);
+  text-align: center;
 }
 
 .Solar-3D-Section {
-  background: linear-gradient(180deg, var(--color-bg) 0%, #12161d 48%, var(--color-bg) 100%);
-  padding: 24px 0 48px;
+  padding: clamp(32px, 5vw, 48px) 0 clamp(48px, 6vw, 72px);
   margin-top: 0;
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
+  border: none;
 }
 
 .Solar-System-Hero-Wrapper {
@@ -1531,7 +1489,7 @@ body.solar-light-mode .Solar-Hero-Banner {
   background:
     radial-gradient(ellipse 80% 60% at 50% 0%, color-mix(in srgb, var(--page-accent) 18%, transparent), transparent 55%),
     linear-gradient(180deg, #f0e8e0 0%, #f8f4f0 55%, #e8eef8 100%);
-  border-bottom-color: color-mix(in srgb, var(--page-accent) 25%, transparent);
+  border: none;
 }
 
 body.solar-light-mode .Solar-Hero-Title {
@@ -1548,15 +1506,14 @@ body.solar-light-mode .Solar-Hero-Lead {
 }
 
 body.solar-light-mode .Solar-3D-Section {
-  background: linear-gradient(180deg, #d0dcef 0%, #e8eef8 50%, #c8d8ef 100%);
-  border-top-color: rgba(80, 120, 180, 0.2);
-  border-bottom-color: rgba(80, 120, 180, 0.25);
+  background:
+    radial-gradient(ellipse 78% 52% at 86% 38%, rgba(166, 124, 91, 0.08) 0%, transparent 68%),
+    linear-gradient(180deg, #e8eef8 0%, #d0dcef 55%, #c8d8ef 100%);
+  border: none;
 }
 
-body.solar-light-mode .Solar-3D-Divider-Label {
+body.solar-light-mode .Solar-3D-Section-Eyebrow {
   color: #3a5080;
-  background: rgba(255, 255, 255, 0.75);
-  border-color: rgba(80, 120, 180, 0.35);
 }
 
 body.solar-light-mode .Solar-System-Main-Picture {
@@ -1589,7 +1546,9 @@ body.solar-light-mode .Planet-Hover-Tooltip {
 }
 
 body.solar-light-mode .Solar-Learn-Section {
-  background: linear-gradient(180deg, #e8eef8 0%, #d0dcf0 100%);
+  background:
+    radial-gradient(ellipse 85% 55% at 18% 42%, rgba(166, 124, 91, 0.1) 0%, transparent 62%),
+    linear-gradient(180deg, #f0e8e0 0%, #e8eef8 100%);
 }
 
 body.solar-light-mode .Solar-Learn-Title {
@@ -1760,9 +1719,8 @@ body.solar-light-mode nav ul a[aria-current="page"] {
 }
 
 .Solar-Learn-Section {
-  background: transparent;
-  padding: 56px 0 72px;
-  border-top: 1px solid var(--color-border);
+  padding: clamp(48px, 6vw, 72px) 0 clamp(56px, 8vw, 88px);
+  border: none;
 }
 
 .Solar-Learn-Inner {
@@ -1886,6 +1844,12 @@ body.solar-light-mode nav ul a[aria-current="page"] {
   text-align: center;
 }
 
+.Solar-Light-Time.Section-Shade-cool {
+  max-width: 860px;
+  padding: clamp(28px, 4vw, 40px) clamp(20px, 4vw, 32px);
+  border-radius: var(--space-radius-md);
+}
+
 .Solar-Light-Time .Solar-Learn-Lead {
   margin-bottom: 22px;
 }
@@ -2005,7 +1969,7 @@ body.solar-light-mode nav ul a[aria-current="page"] {
   height: clamp(360px, 50vw, 560px);
   margin: 0;
   position: relative;
-  border-bottom: 1px solid var(--color-border);
+  border: none;
 }
 
 .Main-Image-Tools::after {
@@ -2325,12 +2289,10 @@ body.solar-light-mode nav ul a[aria-current="page"] {
 
 /* Messier gallery — AstroPixels-style 8-column grid, site theme */
 .M-Gallery-Section {
-  max-width: 1100px;
-  margin: 0 auto clamp(48px, 8vw, 80px);
-  padding: 32px 16px 40px;
-  background: rgba(255, 255, 255, 0.012);
+  max-width: none;
+  margin: 0;
+  padding: clamp(40px, 6vw, 72px) clamp(16px, 4vw, 40px) clamp(48px, 8vw, 80px);
   border: none;
-  border-top: 1px solid var(--color-border);
   border-radius: 0;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
@@ -2341,6 +2303,13 @@ body.solar-light-mode nav ul a[aria-current="page"] {
 
 .M-Gallery-Section::before {
   display: none;
+}
+
+.M-Gallery-Header,
+.M-Gallery-Grid {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .M-Gallery-Title {
@@ -3269,14 +3238,9 @@ body .M-divs {
 
 /* ── Messier intro ───────────────────────────────────────────── */
 .M-Head-creative {
-  padding-top: clamp(40px, 6vw, 64px);
-  border-bottom: 1px solid var(--color-border);
-  margin-bottom: clamp(32px, 5vw, 48px);
-  background:
-    radial-gradient(ellipse 90% 70% at 50% 0%, rgba(55, 50, 75, 0.22) 0%, transparent 68%),
-    radial-gradient(1px 1px at 18% 22%, rgba(255, 255, 255, 0.35), transparent),
-    radial-gradient(1px 1px at 72% 38%, rgba(255, 255, 255, 0.2), transparent),
-    radial-gradient(1px 1px at 44% 68%, rgba(255, 255, 255, 0.25), transparent);
+  padding: clamp(40px, 6vw, 64px) clamp(16px, 4vw, 40px) clamp(48px, 6vw, 72px);
+  border: none;
+  margin-bottom: 0;
 }
 
 .M-P1-hero {
@@ -3363,13 +3327,17 @@ body .M-divs {
 
 /* ── Messier interactive sky map ────────────────────────────── */
 .M-SkyMap-Section {
+  max-width: none;
+  margin: 0;
+  padding: clamp(40px, 6vw, 72px) clamp(16px, 4vw, 40px);
+  border-radius: 0;
+}
+
+.M-SkyMap-Section > .M-SkyMap-Header,
+.M-SkyMap-Section > .M-SkyMap {
   max-width: 1200px;
-  margin: 0 auto clamp(40px, 6vw, 64px);
-  padding: clamp(20px, 3vw, 32px) 16px;
-  border-radius: var(--space-radius-lg);
-  background:
-    radial-gradient(ellipse 100% 80% at 50% 20%, rgba(35, 32, 52, 0.45) 0%, transparent 72%),
-    linear-gradient(180deg, rgba(20, 18, 32, 0.35) 0%, transparent 100%);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .M-SkyMap-Header {
@@ -3728,17 +3696,22 @@ body.page-home .Home-Hero-Wrap::before {
   z-index: 0;
 }
 
-.Home-Section-tint-a {
-  background: rgba(255, 255, 255, 0.015);
-  border-radius: var(--space-radius-md);
+.Home-Section-tint-a,
+.Section-Tint-a,
+.Section-Shade-warm {
+  background:
+    radial-gradient(ellipse 85% 55% at 18% 42%, color-mix(in srgb, var(--page-accent) 8%, transparent) 0%, transparent 62%),
+    linear-gradient(180deg, var(--color-surface) 0%, color-mix(in srgb, var(--color-surface) 72%, var(--color-bg)) 100%);
+  border: none;
 }
 
-.Home-Section-tint-b {
-  background: rgba(184, 149, 106, 0.025);
-  border-radius: var(--space-radius-md);
-  padding-top: clamp(24px, 4vw, 36px);
-  padding-left: clamp(12px, 2vw, 20px);
-  padding-right: clamp(12px, 2vw, 20px);
+.Home-Section-tint-b,
+.Section-Tint-b,
+.Section-Shade-cool {
+  background:
+    radial-gradient(ellipse 78% 52% at 86% 38%, var(--page-accent-subtle) 0%, transparent 68%),
+    linear-gradient(180deg, color-mix(in srgb, var(--color-bg) 90%, var(--page-accent-subtle)) 0%, var(--color-bg) 100%);
+  border: none;
 }
 
 .Home-Nasa-Link {
@@ -4137,9 +4110,8 @@ body.page-home .Home-Hero-Wrap::before {
 
 /* ── Tools carousel nav (NASA-style) ──────────────────────────── */
 .Tel-Carousel-Section {
-  background: linear-gradient(180deg, #0a0e14 0%, var(--color-bg) 100%);
-  border-bottom: 1px solid var(--color-border);
-  padding: clamp(28px, 4vw, 40px) 0 clamp(36px, 5vw, 52px);
+  border: none;
+  padding: clamp(40px, 6vw, 72px) 0 clamp(48px, 6vw, 80px);
 }
 
 .Tel-Carousel-Label {
@@ -4308,8 +4280,8 @@ body.page-home .Home-Hero-Wrap::before {
 
 .Tel-History-Head {
   margin-bottom: clamp(32px, 5vw, 48px);
-  padding-bottom: clamp(20px, 3vw, 28px);
-  border-bottom: 1px solid color-mix(in srgb, var(--page-accent) 25%, var(--color-border));
+  padding-bottom: 0;
+  border: none;
 }
 
 .Tel-History-Head h2 {
@@ -4536,8 +4508,8 @@ body.page-home .Home-Hero-Wrap::before {
   gap: 0;
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0 clamp(16px, 4vw, 40px);
-  border-bottom: 1px solid var(--color-border);
+  padding: 0 clamp(16px, 4vw, 40px) clamp(8px, 1.5vw, 12px);
+  border: none;
 }
 
 .Section-Tab-Nav a {
@@ -4592,19 +4564,7 @@ body.page-home .Home-Hero-Wrap::before {
   transform: translateY(0);
 }
 
-.Section-Tint-a {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, transparent 60%);
-  border-top: 1px solid color-mix(in srgb, var(--page-accent) 12%, transparent);
-  border-bottom: 1px solid color-mix(in srgb, var(--page-accent) 12%, transparent);
-}
 
-.Section-Tint-b {
-  background:
-    radial-gradient(ellipse 80% 60% at 100% 50%, var(--page-accent-subtle) 0%, transparent 70%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.015) 0%, transparent 100%);
-}
-
-/* Sky map quick review popup */
 .M-SkyMap-QR-Caption {
   margin: 0.55rem 0 0;
   font-family: var(--font-ui);
@@ -4640,9 +4600,8 @@ body.page-home .Home-Hero-Wrap::before {
   font-size: 0.82rem;
 }
 
-/* Home split featured highlight */
 .Home-Split-Featured {
-  border-bottom: 1px solid var(--color-border);
+  border: none;
 }
 
 .Home-Split-Cards {
@@ -4717,7 +4676,7 @@ body.page-home .Home-Hero-Wrap::before {
 /* Solar learn split */
 .Solar-Learn-Split {
   padding-top: clamp(24px, 4vw, 40px);
-  border-top: 1px solid color-mix(in srgb, var(--page-accent) 18%, var(--color-border));
+  border: none;
 }
 
 .Solar-Learn-Split .Planet-Size-Compare {
