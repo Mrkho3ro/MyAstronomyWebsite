@@ -126,9 +126,9 @@ fillLight.position.set(-6, -2, 4);
 scene.add(fillLight);
 
 /** Uniform enlargement for all comparison bodies; relative sizes stay true. */
-const SIZE_MULTIPLIER = 2.4;
+const SIZE_MULTIPLIER = 1.65;
 const UNIT = 0.11;
-const GAP = 0.55;
+const GAP = 0.42;
 const entries = [];
 const labelEls = [];
 
@@ -200,11 +200,11 @@ BODIES.forEach((spec, index) => {
     const label = document.createElement("button");
     label.type = "button";
     label.className = "Planet-Size-Compare-Label";
-    if (index >= 0 && index <= 3) {
+    if (index <= 3) {
         label.classList.add("Planet-Size-Compare-Label--inner");
-        if (index % 2 === 1) {
-            label.classList.add("Planet-Size-Compare-Label--above");
-        }
+    }
+    if (index % 2 === 1) {
+        label.classList.add("Planet-Size-Compare-Label--above");
     }
     label.textContent = spec.name;
     label.dataset.slug = spec.slug;
@@ -215,16 +215,25 @@ BODIES.forEach((spec, index) => {
     entries.push({ group, mesh, spec, radius, x: cursorX });
 });
 
-const totalWidth = cursorX + entries[entries.length - 1].radius * 1.2;
+const totalWidth = cursorX + entries[entries.length - 1].radius * (entries[entries.length - 1].spec.rings ? 2.2 : 1.2);
 const midX = totalWidth / 2;
 entries.forEach((entry) => {
     entry.group.position.x -= midX;
     entry.x = entry.group.position.x;
 });
 
-// Closer than pre-enlargement (0.72) so bodies fill the fixed viewport.
-camera.position.z = Math.max(20, totalWidth * 0.52);
-camera.lookAt(0, 0, 0);
+function fitCameraToScene() {
+    const aspect = Math.max(camera.aspect, 0.5);
+    const vFov = (camera.fov * Math.PI) / 180;
+    const hFov = 2 * Math.atan(Math.tan(vFov / 2) * aspect);
+    const halfSpan = totalWidth / 2 + 0.85;
+    const zForWidth = halfSpan / Math.tan(hFov / 2);
+    const zForHeight = 5.5 / Math.tan(vFov / 2);
+    camera.position.z = Math.max(22, zForWidth * 1.1, zForHeight);
+    camera.lookAt(0, 0, 0);
+}
+
+fitCameraToScene();
 
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
@@ -235,33 +244,33 @@ const pointerStart = { x: 0, y: 0 };
 
 function resize() {
     const width = wrapper.clientWidth;
-    const height = Math.max(220, Math.min(320, Math.round(width * 0.28)));
+    const height = Math.max(240, Math.min(340, Math.round(width * 0.3)));
     renderer.setSize(width, height, false);
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
+    fitCameraToScene();
     positionLabels();
 }
 
-/** World-space Y for label anchor; Mercury–Mars alternate above/below. */
+/** World-space Y for label anchor; alternate above/below to reduce overlap. */
 function getLabelWorldY(entry, index) {
-    const pad = 0.38;
-    if (index >= 0 && index <= 3) {
-        return index % 2 === 0 ? -(entry.radius + pad) : entry.radius + pad;
-    }
-    return -(entry.radius + pad);
+    const pad = 0.42;
+    return index % 2 === 1 ? entry.radius + pad : -(entry.radius + pad);
 }
 
 /** Nudge label Y apart when projected centers are closer than minDist px. */
 function resolveLabelCollisions(layout, minDist) {
-    const byX = [...layout].sort((a, b) => a.x - b.x);
-    for (let j = 1; j < byX.length; j += 1) {
-        const prev = byX[j - 1];
-        const curr = byX[j];
-        const dx = curr.x - prev.x;
-        if (dx >= minDist) continue;
-        const push = (minDist - dx) * 0.55;
-        prev.y -= push;
-        curr.y += push;
+    for (let pass = 0; pass < 3; pass += 1) {
+        const byX = [...layout].sort((a, b) => a.x - b.x);
+        for (let j = 1; j < byX.length; j += 1) {
+            const prev = byX[j - 1];
+            const curr = byX[j];
+            const dx = curr.x - prev.x;
+            if (dx >= minDist) continue;
+            const push = (minDist - dx) * 0.5;
+            prev.y -= push;
+            curr.y += push;
+        }
     }
 }
 
@@ -280,7 +289,7 @@ function positionLabels() {
         };
     });
 
-    resolveLabelCollisions(layout, 44);
+    resolveLabelCollisions(layout, 52);
 
     layout.forEach(({ i, x, y, above }) => {
         const el = labelEls[i];

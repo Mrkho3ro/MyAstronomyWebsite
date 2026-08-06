@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Sans+3:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@400;500;600;700&display=swap");
 
 /* ── Design system ───────────────────────────────────────────── */
 :root {
@@ -7,9 +7,10 @@
   --color-border: rgba(255, 255, 255, 0.08);
   --color-text: #e6edf3;
   --color-text-muted: #8b949e;
-  --font-display: "Cormorant Garamond", Georgia, serif;
-  --font-body: "Source Serif 4", Georgia, serif;
-  --font-ui: "Source Sans 3", system-ui, sans-serif;
+  --font-display: "Libre Baskerville", Georgia, serif;
+  --font-body: "Lora", Georgia, serif;
+  --font-ui: "Outfit", system-ui, sans-serif;
+  --font-label: "Josefin Sans", "Outfit", system-ui, sans-serif;
 
   --space-bg-deep: var(--color-bg);
   --space-bg-mid: var(--color-surface);
@@ -124,15 +125,22 @@ nav {
   margin: 0;
   isolation: isolate;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0%, transparent 42%),
-    linear-gradient(180deg, color-mix(in srgb, var(--color-surface) 92%, transparent), color-mix(in srgb, var(--color-bg) 86%, transparent));
-  border-bottom: 1px solid var(--color-border);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.015) 38%, transparent 72%),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--page-accent) 6%, var(--color-surface)) 0%,
+      color-mix(in srgb, var(--color-surface) 94%, transparent) 42%,
+      color-mix(in srgb, var(--color-bg) 88%, transparent) 100%
+    );
+  border-bottom: 1px solid color-mix(in srgb, var(--page-accent) 14%, var(--color-border));
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.04),
-    0 8px 32px rgba(0, 0, 0, 0.28),
-    inset 0 -1px 0 color-mix(in srgb, var(--page-accent) 12%, transparent);
-  backdrop-filter: blur(14px) saturate(1.15);
-  -webkit-backdrop-filter: blur(14px) saturate(1.15);
+    0 1px 0 rgba(255, 255, 255, 0.06),
+    0 12px 40px rgba(0, 0, 0, 0.34),
+    0 0 48px color-mix(in srgb, var(--page-accent) 8%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 -1px 0 color-mix(in srgb, var(--page-accent) 18%, transparent);
+  backdrop-filter: blur(18px) saturate(1.25);
+  -webkit-backdrop-filter: blur(18px) saturate(1.25);
 }
 
 .site-nav::before,
@@ -174,21 +182,25 @@ nav::after {
 }
 
 .site-nav__inner {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   gap: 0.75rem 1.25rem;
   flex-wrap: wrap;
   max-width: 1200px;
+  min-height: 78px;
   margin: 0 auto;
-  padding: 0.75rem 1.25rem;
+  padding: 1.05rem 1.75rem;
 }
 
 .site-nav__lead {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  flex-shrink: 0;
+  flex: 1 1 0;
+  min-width: 0;
+  z-index: 2;
 }
 
 .site-nav__logo {
@@ -201,10 +213,26 @@ nav::after {
   transition: filter 0.25s ease, transform 0.25s ease;
 }
 
+.site-nav__logo--center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  pointer-events: auto;
+}
+
 .site-nav__logo img {
   display: block;
-  height: clamp(28px, 3.5vw, 34px);
+  height: clamp(40px, 4.5vw, 52px);
   width: auto;
+}
+
+.site-nav__logo--center img {
+  height: clamp(40px, 4.8vw, 52px);
+  filter:
+    drop-shadow(0 0 10px var(--page-accent-glow))
+    drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35));
 }
 
 .site-nav__logo:hover,
@@ -344,14 +372,18 @@ nav ul {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-end;
+  flex: 1 1 0;
+  min-width: 0;
   gap: 0.15rem 0.35rem;
   margin: 0;
   padding: 0;
   font-size: 0.9375rem;
   font-family: var(--font-ui);
   font-weight: 500;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  z-index: 2;
 }
 
 .site-nav__links li,
@@ -493,16 +525,18 @@ nav ul a[aria-current="page"]::after {
 
 @media (max-width: 720px) {
   .site-nav__inner {
-    padding: 0.7rem 1rem 0.8rem;
+    min-height: 68px;
+    padding: 0.85rem 1rem 0.95rem;
   }
 
   .site-nav__toggle {
     display: flex;
     margin-left: auto;
+    z-index: 4;
   }
 
-  .site-nav__logo img {
-    height: clamp(26px, 7vw, 30px);
+  .site-nav__logo--center img {
+    height: clamp(36px, 10vw, 44px);
   }
 
   .site-nav__links,
@@ -827,31 +861,25 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
 .Solar-3D-Divider {
   max-width: 960px;
   margin: 0 auto;
-  padding: 28px clamp(16px, 4vw, 40px) 0;
-  display: flex;
-  align-items: center;
-  gap: 16px;
+  padding: 0;
 }
 
-.Solar-3D-Divider::before,
-.Solar-3D-Divider::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--color-border);
+.Solar-3D-Divider.Section-Divider--ornament {
+  padding-top: clamp(20px, 4vw, 32px);
 }
 
 .Solar-3D-Divider-Label {
-  font-family: var(--font-ui);
-  font-size: 0.75rem;
+  font-family: var(--font-label);
+  font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   color: var(--color-text-muted);
   white-space: nowrap;
-  padding: 6px 14px;
-  border: 1px solid var(--color-border);
+  padding: 7px 16px;
+  border: 1px solid color-mix(in srgb, var(--page-accent) 28%, var(--color-border));
   border-radius: var(--space-radius-sm);
-  background: transparent;
+  background: color-mix(in srgb, var(--page-accent-subtle) 60%, transparent);
+  box-shadow: 0 0 20px var(--page-accent-glow);
 }
 
 .Solar-3D-Section {
@@ -899,7 +927,7 @@ body.page-home a:has(#Home-IMG):hover #Home-IMG {
 
 .Solar-Hero-Eyebrow {
   margin: 0 0 10px;
-  font-family: var(--font-ui);
+  font-family: var(--font-label);
   font-size: 0.75rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1777,7 +1805,7 @@ body.solar-light-mode nav ul a[aria-current="page"] {
 .Planet-Size-Compare {
   position: relative;
   margin: 0 auto 48px;
-  padding: 16px 12px 52px;
+  padding: 18px 28px 58px;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--space-radius-md);
@@ -1790,13 +1818,14 @@ body.solar-light-mode nav ul a[aria-current="page"] {
   display: block;
   width: 100%;
   height: auto;
+  max-width: 100%;
   border-radius: 8px;
   cursor: default;
 }
 
 .Planet-Size-Compare-Labels {
   position: absolute;
-  inset: 16px 12px 52px;
+  inset: 18px 28px 58px;
   pointer-events: none;
 }
 
@@ -1810,18 +1839,19 @@ body.solar-light-mode nav ul a[aria-current="page"] {
   border-radius: 6px;
   background: rgba(6, 10, 24, 0.82);
   color: #c8d4f0;
-  font-family: var(--font-ui);
-  font-size: 0.62rem;
-  letter-spacing: 0.06em;
+  font-family: var(--font-label);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
   transition: border-color 0.2s, color 0.2s, background 0.2s;
+  white-space: nowrap;
 }
 
 .Planet-Size-Compare-Label--inner {
-  font-size: 0.54rem;
+  font-size: 0.52rem;
   padding: 2px 6px;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
 }
 
 .Planet-Size-Compare-Label--above {
@@ -3561,7 +3591,7 @@ body .M-divs {
 .Tools-Hero-Eyebrow {
   margin: 0;
   padding: clamp(28px, 4vw, 48px) clamp(16px, 4vw, 50px) 0;
-  font-family: var(--font-ui);
+  font-family: var(--font-label);
   font-size: 0.75rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -4400,7 +4430,7 @@ body.page-home .Home-Hero-Wrap::before {
 
 .Split-Section-Eyebrow {
   margin: 0 0 0.5rem;
-  font-family: var(--font-ui);
+  font-family: var(--font-label);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -4460,11 +4490,29 @@ body.page-home .Home-Hero-Wrap::before {
   background: color-mix(in srgb, var(--color-surface) 90%, transparent);
 }
 
+.Split-Section-Figure--wide {
+  aspect-ratio: 6000 / 1918;
+  min-height: clamp(150px, 30vw, 340px);
+  max-height: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #060a18;
+}
+
 .Split-Section-Figure--wide img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
+  object-position: center;
   background: #060a18;
+}
+
+.Split-Section-Figure--wide:hover img {
+  transform: scale(1.008);
 }
 
 .Stats-Grid {
@@ -4490,10 +4538,10 @@ body.page-home .Home-Hero-Wrap::before {
 
 .Stats-Grid dt {
   margin: 0 0 0.2rem;
-  font-family: var(--font-ui);
+  font-family: var(--font-label);
   font-size: 0.65rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-text-muted);
 }
@@ -4572,14 +4620,145 @@ body.page-home .Home-Hero-Wrap::before {
 
 .Section-Tint-a {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, transparent 60%);
-  border-top: 1px solid color-mix(in srgb, var(--page-accent) 12%, transparent);
-  border-bottom: 1px solid color-mix(in srgb, var(--page-accent) 12%, transparent);
+  border-top: none;
+  border-bottom: none;
 }
 
 .Section-Tint-b {
   background:
     radial-gradient(ellipse 80% 60% at 100% 50%, var(--page-accent-subtle) 0%, transparent 70%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.015) 0%, transparent 100%);
+  border-top: none;
+  border-bottom: none;
+}
+
+/* ── Section dividers ─────────────────────────────────────────── */
+.Section-Divider {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: clamp(18px, 3.5vw, 32px) clamp(16px, 4vw, 40px);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.Section-Divider::before,
+.Section-Divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--page-accent-muted) 45%, var(--color-border)) 35%,
+    color-mix(in srgb, var(--page-accent) 55%, var(--color-border)) 50%,
+    color-mix(in srgb, var(--page-accent-muted) 45%, var(--color-border)) 65%,
+    transparent 100%
+  );
+  opacity: 0.75;
+}
+
+.Section-Divider--ornament::before,
+.Section-Divider--ornament::after {
+  height: 2px;
+  opacity: 0.85;
+  box-shadow: 0 0 12px var(--page-accent-glow);
+}
+
+.Section-Divider-Mark {
+  flex-shrink: 0;
+  font-family: var(--font-label);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--page-accent-soft);
+  opacity: 0.9;
+}
+
+.Section-Divider--starfield {
+  position: relative;
+  display: block;
+  height: clamp(28px, 4vw, 44px);
+  padding: 0 clamp(16px, 4vw, 40px);
+  overflow: hidden;
+}
+
+.Section-Divider--starfield::before,
+.Section-Divider--starfield::after {
+  position: absolute;
+  left: clamp(16px, 4vw, 40px);
+  right: clamp(16px, 4vw, 40px);
+  top: 50%;
+  height: 1px;
+  transform: translateY(-50%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--page-accent) 35%, var(--color-border)) 50%,
+    transparent
+  );
+}
+
+.Section-Divider--starfield::after {
+  top: 0;
+  bottom: 0;
+  height: auto;
+  transform: none;
+  background:
+    radial-gradient(circle, var(--page-accent-soft) 1px, transparent 1px) 0 0 / 18px 18px,
+    radial-gradient(circle, rgba(255, 255, 255, 0.35) 0.5px, transparent 0.5px) 9px 9px / 18px 18px;
+  opacity: 0.35;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+}
+
+.Section-Divider--wash {
+  display: block;
+  max-width: none;
+  height: clamp(20px, 3vw, 36px);
+  padding: 0;
+  margin: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--page-accent-subtle) 48%,
+    transparent 100%
+  );
+  border: none;
+}
+
+.Section-Divider--wash::before,
+.Section-Divider--wash::after {
+  display: none;
+}
+
+.Section-Divider--angled {
+  position: relative;
+  display: block;
+  height: clamp(24px, 3.5vw, 40px);
+  padding: 0;
+  overflow: hidden;
+}
+
+.Section-Divider--angled::before {
+  content: "";
+  position: absolute;
+  left: -5%;
+  right: -5%;
+  top: 50%;
+  height: 1px;
+  transform: rotate(-1.2deg);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--page-accent) 40%, var(--color-border)) 50%,
+    transparent 100%
+  );
+  opacity: 0.65;
+}
+
+.Section-Divider--angled::after {
+  display: none;
 }
 
 /* Sky map quick review popup */
